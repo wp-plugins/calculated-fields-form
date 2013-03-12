@@ -13,7 +13,7 @@ if (isset($_GET['a']) && $_GET['a'] == '1')
     $wpdb->insert( $wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE, array( 
                                       'form_name' => stripcslashes($_GET["name"]),
 
-                                      'form_structure' => cp_calculatedfieldsf_get_option('form_structure', CP_CALCULATEDFIELDSF_DEFAULT_form_structure),
+                                      'form_structure' => CP_CALCULATEDFIELDSF_DEFAULT_form_structure,
 
                                       'fp_from_email' => cp_calculatedfieldsf_get_option('fp_from_email', CP_CALCULATEDFIELDSF_DEFAULT_fp_from_email),
                                       'fp_destination_emails' => cp_calculatedfieldsf_get_option('fp_destination_emails', CP_CALCULATEDFIELDSF_DEFAULT_fp_destination_emails),
