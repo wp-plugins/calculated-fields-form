@@ -1,0 +1,60 @@
+.clearer{clear:both;}
+
+#fbuilder{}
+#fbuilder .fields,#fbuilder .fform{padding:5px 0px;}
+#fbuilder .fform h1{margin:5px 0px;padding:0px;}
+
+.small{width:25%}
+.medium{width:50%}
+.large{width:100%}
+            
+.one_column{}
+.two_column{float:left;width:48%}
+.three_column{float:left;width:30%}
+.side_by_side{float:left;}
+.dfield{position:relative}
+.top_aligned .fields label{}
+.top_aligned .fields .dfield{}
+.left_aligned .fields label{float:left;width:31%}
+.left_aligned .fields .dfield{float:left;width:65%;}
+.right_aligned .fields label{float:left;width:31%;text-align:right;padding:3px 3px 0px 0px}
+.right_aligned .fields .dfield{float:left;width:65%}
+
+.cpefb_error{border1:1px solid red;}
+.top_aligned .fields label.cpefb_error,.left_aligned .fields label.cpefb_error,.right_aligned .fields label.cpefb_error{display: block;border:0px;color:#f00;float:none;}
+
+div.message{
+    
+}
+
+div.cpefb_error{
+    background:  #FDF9E5 ;
+    border:1px solid #f00;
+    opacity: 0.9;
+    margin-top:7px;
+    position:relative;
+    padding:0px 5px;
+    z-index:1000;
+}
+div.cpefb_error:after
+{
+content:""; 
+position:absolute;
+background:transparent url("../images/tooltop.gif") no-repeat scroll 10px center;
+color:red;
+font-weight:bold;
+height:8px;
+width:100%;
+top:-8px;
+left:0px;
+z-index:1000;
+}
+
+.ui-datepicker{ z-index: 9999 !important;}
+#fbuilder span.uh{display:block;font-size:80%;clear:both}
+#fbuilder .section_break{border-top:1px dotted #555;}
+
+#fbuilder .uh_phone{float:left;margin:0px 5px;font-size:80%;text-align:center;position: relative;}
+#fbuilder .uh_phone input{text-align:center;font-size:100%;}
+#fbuilder .uh_phone div.cpefb_error{white-space:nowrap;}
+.cpp_form { text-align:left}
