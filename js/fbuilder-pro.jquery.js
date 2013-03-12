@@ -594,7 +594,7 @@
 				},
 				showFormatIntance: function() {
 					return '<div><label>Number Format</label><br /><input type="text" name="sFormat" id="sFormat" value="'+this.dformat+'" /></div>';
-				},
+				}
 		});
 		var fDate3=function(){};
 		$.extend(fDate3.prototype,ffields.prototype,{
