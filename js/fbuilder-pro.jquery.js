@@ -961,7 +961,7 @@
 		f = $(f);
 		
 		while (flag){
-			var _match = /([^\+|\-|\*|\/|\(|\)|%|,|:|\?|=]+)([\+|\-|\*|\/|\(|\)|%|,|:|\?|=])/.exec(eq);
+			var _match = /([^\+|\-|\*|\/|\(|\)|%|,|:|\?|=<>!]+)([\+|\-|\*|\/|\(|\)|%|,|:|\?|=<>!])/.exec(eq);
             if(_match){
 				var from = eq.indexOf(_match[0]),
                     to = from+_match[0].length,
@@ -1015,7 +1015,7 @@
 			}	
 		}	
 		_eq += eq;
-		try{		
+		try{
 			var r = eval(_eq);
 			return (!isNaN(r) || /\d{2}\/\d{2}\/\d{4}/.test(r)) ? r : false;
 		}catch(e){
