@@ -959,7 +959,6 @@
     	var flag = true,
 			_eq  = '';
 		f = $(f);
-		
 		while (flag){
 			var _match = /([^\+|\-|\*|\/|\(|\)|%|,|:|\?|=<>!]+)([\+|\-|\*|\/|\(|\)|%|,|:|\?|=<>!])/.exec(eq);
             if(_match){
@@ -988,7 +987,7 @@
                         var e = $(this),
                             v = (/(checkbox|radio)/i.test(e[0].type)) ? ((e[0].checked) ? e.val() : 0) : e.val(),
                             d = /(\d{2})\/(\d{2})\/(\d{4})/.exec(v),
-                            p = /[+-]?\d+(\.\d+)?/.exec(v);
+                            p = /[+-]?((\d+(\.\d+)?)|(\.\d+))/.exec(v);
                     
                         if(/^\s*$/.test(v)) v = 'fakevalue';
                         if(d){
@@ -1015,7 +1014,7 @@
 			}	
 		}	
 		_eq += eq;
-		try{
+        try{
 			var r = eval(_eq);
 			return (!isNaN(r) || /\d{2}\/\d{2}\/\d{4}/.test(r)) ? r : false;
 		}catch(e){
