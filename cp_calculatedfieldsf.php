@@ -15,6 +15,8 @@ License: GPL
 
 // Calculated Fields Form constants
 
+define('CP_CALCULATEDFIELDSF_DEFAULT_DEFER_SCRIPTS_LOADING', false);
+
 define('CP_CALCULATEDFIELDSF_DEFAULT_CURRENCY_SYMBOL','$');
 define('CP_CALCULATEDFIELDSF_GBP_CURRENCY_SYMBOL','£'); // Different encoding: £
 define('CP_CALCULATEDFIELDSF_EUR_CURRENCY_SYMBOL_A','?');
@@ -80,10 +82,10 @@ define('CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_LANGUAGE','EN');
 define('CP_CALCULATEDFIELDSF_FORMS_TABLE', 'cp_calculated_fields_form_settings');
 
 define('CP_CALCULATEDFIELDSF_DISCOUNT_CODES_TABLE_NAME_NO_PREFIX', "cp_calculated_fields_form_discount_codes");
-define('CP_CALCULATEDFIELDSF_DISCOUNT_CODES_TABLE_NAME', $wpdb->prefix ."cp_calculated_fields_form_discount_codes");
+define('CP_CALCULATEDFIELDSF_DISCOUNT_CODES_TABLE_NAME', @$wpdb->prefix ."cp_calculated_fields_form_discount_codes");
 
 define('CP_CALCULATEDFIELDSF_POSTS_TABLE_NAME_NO_PREFIX', "cp_calculated_fields_form_posts");
-define('CP_CALCULATEDFIELDSF_POSTS_TABLE_NAME', $wpdb->prefix ."cp_calculated_fields_form_posts");
+define('CP_CALCULATEDFIELDSF_POSTS_TABLE_NAME', @$wpdb->prefix ."cp_calculated_fields_form_posts");
 
 
 // end Calculated Fields Form constants
@@ -143,12 +145,6 @@ function _cp_calculatedfieldsf_install() {
     define('CP_CALCULATEDFIELDSF_DEFAULT_fp_destination_emails', CP_CALCULATEDFIELDSF_DEFAULT_fp_from_email);
 
     $table_name = $wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE;
-    $sql = "DROP TABLE IF EXISTS".$table_name.";";
-    $wpdb->query($sql);
-    $sql = "DROP TABLE IF EXISTS".$wpdb->prefix.CP_CALCULATEDFIELDSF_DISCOUNT_CODES_TABLE_NAME_NO_PREFIX.";";
-    $wpdb->query($sql);
-    $sql = "DROP TABLE IF EXISTS".$wpdb->prefix.CP_CALCULATEDFIELDSF_POSTS_TABLE_NAME_NO_PREFIX.";";
-    $wpdb->query($sql);
 
     $sql = "CREATE TABLE ".$wpdb->prefix.CP_CALCULATEDFIELDSF_POSTS_TABLE_NAME_NO_PREFIX." (
          id mediumint(9) NOT NULL AUTO_INCREMENT,
@@ -156,8 +152,8 @@ function _cp_calculatedfieldsf_install() {
          time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
          ipaddr VARCHAR(32) DEFAULT '' NOT NULL,
          notifyto VARCHAR(250) DEFAULT '' NOT NULL,
-         data text DEFAULT '' NOT NULL,
-         paypal_post text DEFAULT '' NOT NULL,
+         data text,
+         paypal_post text,
          paid INT DEFAULT 0 NOT NULL,
          UNIQUE KEY id (id)
          );";
@@ -181,20 +177,20 @@ function _cp_calculatedfieldsf_install() {
 
          form_name VARCHAR(250) DEFAULT '' NOT NULL,
 
-         form_structure text DEFAULT '' NOT NULL,
+         form_structure text,
 
          fp_from_email VARCHAR(250) DEFAULT '' NOT NULL,
-         fp_destination_emails text DEFAULT '' NOT NULL,
+         fp_destination_emails text,
          fp_subject VARCHAR(250) DEFAULT '' NOT NULL,
          fp_inc_additional_info VARCHAR(10) DEFAULT '' NOT NULL,
          fp_return_page VARCHAR(250) DEFAULT '' NOT NULL,
-         fp_message text DEFAULT '' NOT NULL,
+         fp_message text,
          fp_emailformat VARCHAR(10) DEFAULT '' NOT NULL,
 
          cu_enable_copy_to_user VARCHAR(10) DEFAULT '' NOT NULL,
          cu_user_email_field VARCHAR(250) DEFAULT '' NOT NULL,
          cu_subject VARCHAR(250) DEFAULT '' NOT NULL,
-         cu_message text DEFAULT '' NOT NULL,
+         cu_message text,
          cu_emailformat VARCHAR(10) DEFAULT '' NOT NULL,
 
          vs_use_validation VARCHAR(10) DEFAULT '' NOT NULL,
@@ -229,7 +225,7 @@ function _cp_calculatedfieldsf_install() {
          cv_noise_length VARCHAR(20) DEFAULT '' NOT NULL,
          cv_background VARCHAR(20) DEFAULT '' NOT NULL,
          cv_border VARCHAR(20) DEFAULT '' NOT NULL,
-         cv_text_enter_valid_captcha VARCHAR(20) DEFAULT '' NOT NULL,
+         cv_text_enter_valid_captcha VARCHAR(200) DEFAULT '' NOT NULL,
 
          UNIQUE KEY id (id)
          );";
@@ -306,8 +302,7 @@ function _cp_calculatedfieldsf_install() {
         $values['form_name'] = 'Lease Calculator';
         $values['form_structure'] = CP_CALCULATEDFIELDSF_DEFAULT_form_structure5;
         $wpdb->insert( $table_name, $values );
-    }
-    
+    }    
 }
 
 
@@ -335,30 +330,59 @@ function cp_calculatedfieldsf_get_public_form() {
     else
         $myrows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE );
     
-    wp_deregister_script('query-stringify');
-    wp_register_script('query-stringify', plugins_url('/js/jQuery.stringify.js', __FILE__));
-    
-    wp_deregister_script('cp_calculatedfieldsf_validate_script');
-    wp_register_script('cp_calculatedfieldsf_validate_script', plugins_url('/js/jquery.validate.js', __FILE__));
-    
-    wp_enqueue_script( 'cp_calculatedfieldsf_buikder_script', 
-    plugins_url('/js/fbuilder-pro.jquery.js', __FILE__),array("jquery","jquery-ui-core","jquery-ui-tabs","jquery-ui-button","jquery-ui-datepicker","query-stringify","cp_calculatedfieldsf_validate_script"), false, true );    
-    
-    define ('CP_CALCULATEDFIELDSF_ID',$myrows[0]->id);
-    wp_localize_script('cp_calculatedfieldsf_buikder_script', 'cp_calculatedfieldsf_fbuilder_config', array('obj'  	=>
-    '{"pub":true,"messages": {
-    	                	"required": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_is_required', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_required)).'",
-    	                	"email": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_is_email', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_email)).'",
-    	                	"datemmddyyyy": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_datemmddyyyy', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_datemmddyyyy)).'",
-    	                	"dateddmmyyyy": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_dateddmmyyyy', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_dateddmmyyyy)).'",
-    	                	"number": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_number', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_number)).'",
-    	                	"digits": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_digits', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_digits)).'",
-    	                	"max": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_max', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_max)).'",
-    	                	"min": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_min', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_min)).'"
-    	                }}'
-    ));    
+    if (CP_CALCULATEDFIELDSF_DEFAULT_DEFER_SCRIPTS_LOADING)
+    {        
+        wp_deregister_script('query-stringify');
+        wp_register_script('query-stringify', plugins_url('/js/jQuery.stringify.js', __FILE__));
+        
+        wp_deregister_script('cp_calculatedfieldsf_validate_script');
+        wp_register_script('cp_calculatedfieldsf_validate_script', plugins_url('/js/jquery.validate.js', __FILE__));
+        
+        wp_enqueue_script( 'cp_calculatedfieldsf_buikder_script', 
+        plugins_url('/js/fbuilder-pro.jquery.js', __FILE__),array("jquery","jquery-ui-core","jquery-ui-tabs","jquery-ui-button","jquery-ui-datepicker","query-stringify","cp_calculatedfieldsf_validate_script"), false, true );    
+        
+        define ('CP_CALCULATEDFIELDSF_ID',$myrows[0]->id);
+        wp_localize_script('cp_calculatedfieldsf_buikder_script', 'cp_calculatedfieldsf_fbuilder_config', array('obj'  	=>
+        '{"pub":true,"messages": {
+        	                	"required": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_is_required', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_required)).'",
+        	                	"email": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_is_email', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_email)).'",
+        	                	"datemmddyyyy": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_datemmddyyyy', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_datemmddyyyy)).'",
+        	                	"dateddmmyyyy": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_dateddmmyyyy', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_dateddmmyyyy)).'",
+        	                	"number": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_number', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_number)).'",
+        	                	"digits": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_digits', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_digits)).'",
+        	                	"max": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_max', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_max)).'",
+        	                	"min": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_min', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_min)).'"
+        	                }}'
+        ));    
+    }  
+    else
+    {
+        wp_enqueue_script( "jquery" );
+        wp_enqueue_script( "jquery-ui-core" );
+        wp_enqueue_script( "jquery-ui-datepicker" );        
+    }   
     $codes = $wpdb->get_results( 'SELECT * FROM '.CP_CALCULATEDFIELDSF_DISCOUNT_CODES_TABLE_NAME.' WHERE `form_id`='.CP_CALCULATEDFIELDSF_ID);
     @include dirname( __FILE__ ) . '/cp_calculatedfieldsf_public_int.inc.php';
+    if (!CP_CALCULATEDFIELDSF_DEFAULT_DEFER_SCRIPTS_LOADING)
+    {              
+        // This code won't be used in most cases. This code is for preventing problems in wrong WP themes and conflicts with third party plugins.
+?>
+     <script type="text/javascript">  
+       if (typeof jQuery === "undefined") {           
+           document.write ("<"+"script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></"+"script>");
+           document.write ("<"+"script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.20/jquery-ui.min.js'></"+"script>");
+       }
+     </script>    
+     <script type='text/javascript' src='<?php echo plugins_url('js/jQuery.stringify.js', __FILE__); ?>'></script>
+     <script type='text/javascript' src='<?php echo plugins_url('js/jquery.validate.js', __FILE__); ?>'></script>
+     <script type='text/javascript'>
+     /* <![CDATA[ */
+     var cp_calculatedfieldsf_fbuilder_config = {"obj":"{\"pub\":true,\"messages\": {\n    \t                \t\"required\": \"<?php echo str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_is_required', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_required));?>\",\n    \t                \t\"email\": \"<?php echo str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_is_email', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_email));?>\",\n    \t                \t\"datemmddyyyy\": \"<?php echo str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_datemmddyyyy', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_datemmddyyyy));?>\",\n    \t                \t\"dateddmmyyyy\": \"<?php echo str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_dateddmmyyyy', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_dateddmmyyyy));?>\",\n    \t                \t\"number\": \"<?php echo str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_number', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_number));?>\",\n    \t                \t\"digits\": \"<?php echo str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_digits', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_digits));?>\",\n    \t                \t\"max\": \"<?php echo str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_max', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_max));?>\",\n    \t                \t\"min\": \"<?php echo str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_min', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_min));?>\"\n    \t                }}"};
+     /* ]]> */
+     </script>     
+     <script type='text/javascript' src='<?php echo plugins_url('js/fbuilder-pro.jquery.js', __FILE__); ?>'></script>
+<?php
+    }    
 }
 
 
@@ -474,7 +498,7 @@ function cp_calculatedfieldsf_save_options()
                   'fp_emailformat' => $_POST['fp_emailformat'],
 
                   'cu_enable_copy_to_user' => $_POST['cu_enable_copy_to_user'],
-                  'cu_user_email_field' => $_POST['cu_user_email_field'],
+                  'cu_user_email_field' => (isset($_POST['cu_user_email_field'])?$_POST['cu_user_email_field']:''),
                   'cu_subject' => $_POST['cu_subject'],
                   'cu_message' => $_POST['cu_message'],
                   'cu_emailformat' => $_POST['cu_emailformat'],
@@ -487,7 +511,7 @@ function cp_calculatedfieldsf_save_options()
                   'paypal_language' => $_POST["paypal_language"],
                   'paypal_mode' => $_POST["paypal_mode"],
                   'paypal_recurrent' => $_POST["paypal_recurrent"],
-                  'paypal_identify_prices' => $_POST["paypal_identify_prices"],
+                  'paypal_identify_prices' => (isset($_POST['paypal_identify_prices'])?$_POST['paypal_identify_prices']:'0'),
                   'paypal_zero_payment' => $_POST["paypal_zero_payment"],
 
                   'vs_use_validation' => $_POST['vs_use_validation'],
@@ -524,7 +548,7 @@ function cp_calculatedfieldsf_get_option ($field, $default_value)
 {
     if (!defined("CP_CALCULATEDFIELDSF_ID"))
         define ("CP_CALCULATEDFIELDSF_ID", 1);
-    global $wpdb, $cp_calculatedfieldsf_option_buffered_item;
+    global $wpdb, $cp_calculatedfieldsf_option_buffered_item, $cp_calculatedfieldsf_option_buffered_id;
     if ($cp_calculatedfieldsf_option_buffered_id == CP_CALCULATEDFIELDSF_ID)
         $value = $cp_calculatedfieldsf_option_buffered_item->$field;
     else
