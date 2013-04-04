@@ -15,7 +15,7 @@ License: GPL
 
 // Calculated Fields Form constants
 
-define('CP_CALCULATEDFIELDSF_DEFAULT_DEFER_SCRIPTS_LOADING', false);
+define('CP_CALCULATEDFIELDSF_DEFAULT_DEFER_SCRIPTS_LOADING', true);
 
 define('CP_CALCULATEDFIELDSF_DEFAULT_CURRENCY_SYMBOL','$');
 define('CP_CALCULATEDFIELDSF_GBP_CURRENCY_SYMBOL','£'); // Different encoding: £
@@ -372,7 +372,7 @@ function cp_calculatedfieldsf_get_public_form() {
            document.write ("<"+"script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></"+"script>");
            document.write ("<"+"script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.20/jquery-ui.min.js'></"+"script>");
        }
-     </script>    
+     </script>
      <script type='text/javascript' src='<?php echo plugins_url('js/jQuery.stringify.js', __FILE__); ?>'></script>
      <script type='text/javascript' src='<?php echo plugins_url('js/jquery.validate.js', __FILE__); ?>'></script>
      <script type='text/javascript'>
