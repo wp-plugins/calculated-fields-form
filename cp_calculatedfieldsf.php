@@ -15,7 +15,7 @@ License: GPL
 
 // Calculated Fields Form constants
 
-define('CP_CALCULATEDFIELDSF_DEFAULT_DEFER_SCRIPTS_LOADING', true);
+define('CP_CALCULATEDFIELDSF_DEFAULT_DEFER_SCRIPTS_LOADING', false);
 
 define('CP_CALCULATEDFIELDSF_DEFAULT_CURRENCY_SYMBOL','$');
 define('CP_CALCULATEDFIELDSF_GBP_CURRENCY_SYMBOL','£'); // Different encoding: £
@@ -369,8 +369,14 @@ function cp_calculatedfieldsf_get_public_form() {
 ?>
      <script type="text/javascript">  
        if (typeof jQuery === "undefined") {           
-           document.write ("<"+"script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></"+"script>");
-           document.write ("<"+"script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.20/jquery-ui.min.js'></"+"script>");
+           //document.write ("<"+"script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></"+"script>");
+           //document.write ("<"+"script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.20/jquery-ui.min.js'></"+"script>");
+           <?php $plugin_url = plugins_url('', __FILE__); ?>
+           document.write ("<"+"script type='text/javascript' src='<?php echo $plugin_url.'/../../../wp-includes/js/jquery/jquery.js'; ?>'></"+"script>");
+           document.write ("<"+"script type='text/javascript' src='<?php echo $plugin_url.'/../../../wp-includes/js/jquery/ui/jquery.ui.core.min.js'; ?>'></"+"script>");
+       }
+       if (typeof jQuery.datepicker === "undefined") {           
+           document.write ("<"+"script type='text/javascript' src='<?php echo $plugin_url.'/../../../wp-includes/js/jquery/ui/jquery.ui.datepicker.min.js'; ?>'></"+"script>");
        }
      </script>
      <script type='text/javascript' src='<?php echo plugins_url('js/jQuery.stringify.js', __FILE__); ?>'></script>
