@@ -333,10 +333,10 @@
 				description:"This is my form. Please fill it out. It's awesome!",
 				formlayout:"top_aligned",
 				display:function(){
-					return '<div class="fform" id="field"><div class="arrow ui-icon ui-icon-play "></div><h1>'+this.title+'</h1><span>'+this.description+'<span></div>';
+					return '<div class="fform" id="field"><div class="arrow ui-icon ui-icon-play "></div><h1>'+this.title+'</h1><span>'+this.description+'</span></div>';
 				},
 				show:function(){
-					return '<div class="fform" id="field"><h1>'+this.title+'</h1><span>'+this.description+'<span></div>';
+					return '<div class="fform" id="field"><h1>'+this.title+'</h1><span>'+this.description+'</span></div>';
 				},
 				showAllSettings:function(){
 					var str = "";
@@ -742,7 +742,7 @@
 				show:function(){
 					var str = "";
 					for (var i=0;i<this.choices.length;i++)
-						str += '<div class="'+this.layout+'"><input name="'+this.name+'[]" id="list'+i+'" class="field group '+((this.required)?" required":"")+'" value="'+htmlEncode(this.choices[i])+'" type="checkbox" '+((this.choiceSelected[i])?"checked":"")+'/> <span>'+this.choices[i]+'<span></div>';
+						str += '<div class="'+this.layout+'"><input name="'+this.name+'[]" id="list'+i+'" class="field group '+((this.required)?" required":"")+'" value="'+htmlEncode(this.choices[i])+'" type="checkbox" '+((this.choiceSelected[i])?"checked":"")+'/> <span>'+this.choices[i]+'</span></div>';
 					return '<div class="fields '+this.csslayout+'" id="field-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield">'+str+'<span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 				showChoiceIntance: function() {
