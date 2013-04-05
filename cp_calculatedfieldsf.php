@@ -15,7 +15,7 @@ License: GPL
 
 // Calculated Fields Form constants
 
-define('CP_CALCULATEDFIELDSF_DEFAULT_DEFER_SCRIPTS_LOADING', false);
+define('CP_CALCULATEDFIELDSF_DEFAULT_DEFER_SCRIPTS_LOADING', true);
 
 define('CP_CALCULATEDFIELDSF_DEFAULT_CURRENCY_SYMBOL','$');
 define('CP_CALCULATEDFIELDSF_GBP_CURRENCY_SYMBOL','£'); // Different encoding: £
@@ -341,7 +341,7 @@ function cp_calculatedfieldsf_get_public_form() {
         wp_enqueue_script( 'cp_calculatedfieldsf_buikder_script', 
         plugins_url('/js/fbuilder-pro.jquery.js', __FILE__),array("jquery","jquery-ui-core","jquery-ui-tabs","jquery-ui-button","jquery-ui-datepicker","query-stringify","cp_calculatedfieldsf_validate_script"), false, true );    
         
-        define ('CP_CALCULATEDFIELDSF_ID',$myrows[0]->id);
+        if (!defined('CP_CALCULATEDFIELDSF_ID')) define ('CP_CALCULATEDFIELDSF_ID',$myrows[0]->id);
         wp_localize_script('cp_calculatedfieldsf_buikder_script', 'cp_calculatedfieldsf_fbuilder_config', array('obj'  	=>
         '{"pub":true,"messages": {
         	                	"required": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_calculatedfieldsf_get_option('vs_text_is_required', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_required)).'",
@@ -430,7 +430,7 @@ function cp_calculatedfieldsf_html_post_page() {
 
 function set_cp_calculatedfieldsf_insert_adminScripts($hook) {
     if (isset($_GET["page"]) && $_GET["page"] == "cp_calculated_fields_form")
-    {
+    {        
         wp_deregister_script('query-stringify');
         wp_register_script('query-stringify', plugins_url('/js/jQuery.stringify.js', __FILE__));
         wp_enqueue_script( 'cp_calculatedfieldsf_buikder_script', plugins_url('/js/fbuilder-pro.jquery.js', __FILE__),array("jquery","jquery-ui-core","jquery-ui-sortable","jquery-ui-tabs","jquery-ui-droppable","jquery-ui-button","jquery-ui-datepicker","query-stringify") );
