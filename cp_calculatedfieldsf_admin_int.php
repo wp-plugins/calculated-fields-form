@@ -51,7 +51,7 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf
          document.write ("<"+"script type='text/javascript' src='<?php echo plugins_url('js/jQuery.stringify.js', __FILE__); ?>'></"+"script>");
          document.write ("<"+"script type='text/javascript' src='<?php echo plugins_url('js/jquery.validate.js', __FILE__); ?>'></"+"script>");         
          document.write ("<"+"script type='text/javascript' src='<?php echo plugins_url('/js/jquery.caret.js', __FILE__); ?>'></"+"script>");
-         document.write ("<"+"script type='text/javascript' src='<?php echo plugins_url('js/fbuilder.jquery.js', __FILE__); ?>'></"+"script>");
+         document.write ("<"+"script type='text/javascript' src='<?php echo plugins_url('js/fbuilder-pro.jquery.js', __FILE__); ?>'></"+"script>");
        } 
      </script>         
         
