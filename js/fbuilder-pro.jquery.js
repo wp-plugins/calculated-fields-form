@@ -43,6 +43,21 @@ jQuery(function(){
                 if (!opt.pub) $('#tabs').tabs('select', 1);
                 try { $('#tabs-2').html(items[id].showAllSettings()); } catch (e) {}
                 itemSelected = id;
+                $(".helpfbuilder").click(function(){
+                    alert($(this).attr("text"));
+                });
+                $("#sMinDate").change(function(){
+                    items[id].minDate = $(this).val();
+                    reloadItems();
+                });
+                $("#sMaxDate").change(function(){
+                    items[id].maxDate = $(this).val();
+                    reloadItems();
+                });
+                $("#sDefaultDate").change(function(){
+                    items[id].defaultDate = $(this).val();
+                    reloadItems();
+                });
                 $("#sTitle").keyup(function(){
                     var str = $(this).val();
                     items[id].title = str.replace(/\n/g,"<br />");
@@ -271,8 +286,10 @@ jQuery(function(){
                             $( "#"+items[i].name ).datepicker({changeMonth: true,changeYear: true,yearRange: items[i].dropdownRange,dateFormat: items[i].dformat.replace(/yyyy/g,"yy")});
                         else
                             $( "#"+items[i].name ).datepicker({ dateFormat: items[i].dformat.replace(/yyyy/g,"yy")});
-                    }	
-                        
+                        $( "#"+items[i].name ).datepicker( "option", "minDate", items[i].minDate );
+                        $( "#"+items[i].name ).datepicker( "option", "maxDate", items[i].maxDate );
+                        $( "#"+items[i].name ).datepicker( "option", "defaultDate", items[i].defaultDate );
+                    }
                 }
                 if (i>0)
                 {
@@ -506,6 +523,9 @@ jQuery(function(){
                     dformat:"mm/dd/yyyy",
                     showDropdown:false,
                     dropdownRange:"-10,+10",
+                    minDate:"",
+                    maxDate:"",
+                    defaultDate:"",
                     formats:new Array("mm/dd/yyyy","dd/mm/yyyy"),
                     display:function(){
                         return '<div class="fields" id="field-'+this.index+'"><div class="arrow ui-icon ui-icon-play "></div><div class="remove ui-icon ui-icon-trash "></div><label>'+this.title+''+((this.required)?"*":"")+' ('+this.dformat+')</label><div class="dfield"><input class="field disabled '+this.size+'" type="text" value="'+htmlEncode(this.predefined)+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
@@ -520,7 +540,12 @@ jQuery(function(){
                         return '<div><label>Date Format</label><br /><select name="sFormat" id="sFormat">'+str+'</select></div>';
                     },
                     showSpecialDataInstance: function() {
-                        return '<div><input type="checkbox" name="sShowDropdown" id="sShowDropdown" '+((this.showDropdown)?"checked":"")+'/><label>Show Dropdown Year and Month</label><div id="divdropdownRange" style="display:'+((this.showDropdown)?"":"none")+'">Year Range: <input type="text" name="sDropdownRange" id="sDropdownRange" value="'+htmlEncode(this.dropdownRange)+'"/></div></div>';
+                        var str = "";
+                        str += '<div><label>Default date [<a class="helpfbuilder" text="You can put one of the following type of values into this field:\n\nEmpty: Leave empty for current date.\n\nDate: A Fixed date with the same date format indicated in the &quot;Date Format&quot; drop-down field.\n\nNumber: A number of days from today. For example 2 represents two days from today and -1 represents yesterday.\n\nString: A smart text indicating a relative date. Relative dates must contain value (number) and period pairs; valid periods are &quot;y&quot; for years, &quot;m&quot; for months, &quot;w&quot; for weeks, and &quot;d&quot; for days. For example, &quot;+1m +7d&quot; represents one month and seven days from today.">help?</a>]</label><br /><input class="medium" name="sDefaultDate" id="sDefaultDate" value="'+this.defaultDate+'" /></div>';
+                        str += '<div><label>Min date [<a class="helpfbuilder" text="You can put one of the following type of values into this field:\n\nEmpty: No min Date.\n\nDate: A Fixed date with the same date format indicated in the &quot;Date Format&quot; drop-down field.\n\nNumber: A number of days from today. For example 2 represents two days from today and -1 represents yesterday.\n\nString: A smart text indicating a relative date. Relative dates must contain value (number) and period pairs; valid periods are &quot;y&quot; for years, &quot;m&quot; for months, &quot;w&quot; for weeks, and &quot;d&quot; for days. For example, &quot;+1m +7d&quot; represents one month and seven days from today.">help?</a>]</label><br /><input class="medium" name="sMinDate" id="sMinDate" value="'+this.minDate+'" /></div>';
+                        str += '<div><label>Max date [<a class="helpfbuilder" text="You can put one of the following type of values into this field:\n\nEmpty: No max Date.\n\nDate: A Fixed date with the same date format indicated in the &quot;Date Format&quot; drop-down field.\n\nNumber: A number of days from today. For example 2 represents two days from today and -1 represents yesterday.\n\nString: A smart text indicating a relative date. Relative dates must contain value (number) and period pairs; valid periods are &quot;y&quot; for years, &quot;m&quot; for months, &quot;w&quot; for weeks, and &quot;d&quot; for days. For example, &quot;+1m +7d&quot; represents one month and seven days from today.">help?</a>]</label><br /><input class="medium" name="sMaxDate" id="sMaxDate" value="'+this.maxDate+'" /></div>';
+                        str += '<div><input type="checkbox" name="sShowDropdown" id="sShowDropdown" '+((this.showDropdown)?"checked":"")+'/><label>Show Dropdown Year and Month</label><div id="divdropdownRange" style="display:'+((this.showDropdown)?"":"none")+'">Year Range [<a class="helpfbuilder" text="The range of years displayed in the year drop-down: either relative to today\'s year (&quot;-nn:+nn&quot;), absolute (&quot;nnnn:nnnn&quot;), or combinations of these formats (&quot;nnnn:-nn&quot;)">help?</a>]: <input type="text" name="sDropdownRange" id="sDropdownRange" value="'+htmlEncode(this.dropdownRange)+'"/></div></div>';
+                        return str;
                     }
             });
             var ftextarea=function(){};
@@ -1112,7 +1137,7 @@ jQuery(function(){
                     e.addClass('message');  // add a class to the wrapper
                     e.css('position', 'absolute');
                     e.css('left',0 );
-                    e.css('top',element.outerHeight());
+                    e.css('top',element.outerHeight(true));
                 }
             });
         }

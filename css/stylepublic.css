@@ -58,7 +58,7 @@ z-index:1000;
 
 .ui-datepicker{ z-index: 9999 !important;}
 #fbuilder span.uh{display:block;font-size:80%;clear:both}
-#fbuilder .section_break{border-top:1px dotted #555;}
+#fbuilder .section_break{border-top:1px dotted #555;clear:both}
 
 #fbuilder .uh_phone{float:left;margin:0px 5px;font-size:80%;text-align:center;position: relative;}
 #fbuilder .uh_phone input{text-align:center;font-size:100%;}

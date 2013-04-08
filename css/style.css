@@ -47,7 +47,7 @@ textarea {resize: none}
 .right_aligned .fields label{float:left;width:31%;text-align:right;padding:3px 3px 0px 0px}
 .right_aligned .fields .dfield{float:left;width:65%} 
 #fbuilder span.uh{display:block;font-size:80%;clear:both}
-#fbuilder .section_break{border-top:1px dotted #555;}
+#fbuilder .section_break{border-top:1px dotted #555;clear:both}
 
 #fbuilder .uh_phone{float:left;margin:0px 5px;font-size:80%;text-align:center;position: relative;}
 #fbuilder .uh_phone input{text-align:center;font-size:100%;}
@@ -60,3 +60,4 @@ textarea {resize: none}
     color: #643F0D;
     font-weight: bold;
 }
+a.helpfbuilder{font-size:80%;text-decoration:underline;color:#00f;cursor:pointer;}
