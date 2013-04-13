@@ -6,6 +6,8 @@ http://www.codepeople.net
 
 error_reporting(7);
 
+ob_end_clean();
+
 if ($_GET["hdwtest"] == "sessiontest")
 {
     session_start();
