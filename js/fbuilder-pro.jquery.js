@@ -648,7 +648,7 @@ jQuery(function(){
                         return '<div class="fields" id="field-'+this.index+'"><div class="arrow ui-icon ui-icon-play "></div><div class="remove ui-icon ui-icon-trash "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input class="field disabled '+this.size+'" type="text" value="'+this.predefined+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
                     },
                     show:function(){
-                        return '<div class="fields '+this.csslayout+'" id="field-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" '+((this.readonly) ? ' readonly ' : '')+' class="field '+this.size+((this.required)?" required":"")+'" type="text" value="'+this.predefined+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div>'+((!/^\s*$/.test(this.eq))? '<script>jQuery(function(){CalcField.addEquation("'+this.name.replace(/"/g, '\"')+'", "'+this.eq.replace(/"/g, '\"')+'")});</script>' : '')+'</div>';	
+                        return '<div class="fields '+this.csslayout+'" id="field-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" '+((this.readonly) ? ' readonly ' : '')+' class="field '+this.size+((this.required)?" required":"")+'" type="text" value="'+this.predefined+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div>'+((!/^\s*$/.test(this.eq))? '<script>jQuery(function(){CalcField.addEquation("'+this.name.replace(/"/g, '\"')+'", "'+this.eq.replace(/"/g, '\"').replace(/\n/g, ' ')+'")});</script>' : '')+'</div>';	
                     },
                     showAllSettings:function(){
                         return this.showTitle()+this.showName()+this.showSize()+this.showLayout()+this.showFormat()+this.showRange()+this.showRequired()+this.showReadOnly()+this.showSpecialData()+this.showPredefined()+this.showEqEditor()+this.showChoice()+this.showUserhelp()+this.showCsslayout();
@@ -990,23 +990,22 @@ jQuery(function(){
                 
                 e.each(function(){
                     var e = $(this),
-                        v = (/(checkbox|radio)/i.test(e[0].type)) ? ((e[0].checked) ? e.val() : 0) : e.val(),
+                        v = e.val(),
                         d = /(\d{1,2})\/(\d{1,2})\/(\d{4})/.exec(v),
                         p = /[+-]?((\d+(\.\d+)?)|(\.\d+))/.exec(v);
-                    
+                    if(/(checkbox|radio)/i.test(e[0].type) && !e[0].checked) return;
                     if(/^\s*$/.test(v)) v = 'codepeople_calculate_field';
                     if(d){
                         Math.date_format = (e.hasClass('dateddmmyyyy')) ? 'ddmyyyy' : 'mmddyyyy';
-                        var date = (Math.date_format == 'ddmyyyy') ? new Date(d[3], (d[2]*1+1), d[1]) : new Date(d[3], d[1], (d[2]*1+1));
+                        var date = (Math.date_format == 'ddmyyyy') ? new Date(d[3], (d[2]*1-1), d[1]) : new Date(d[3], (d[1]*1-1), d[2]);
                         s.push( (d) ? Math.ceil(date.valueOf()/86400000) : ((p) ? p[0]*1 : ((v != undefined) ? "'"+v+"'" : _match[1])) );
                     }else{
                         s.push( (p) ? p[0]*1 : "'"+v+"'" );
                     }    
                 });     
                 
-                eq = eq.replace(new RegExp(_match[0], 'g'), ((s.length > 1) ? eval(s.join('+')) : s.join('+')));
+                eq = eq.replace(new RegExp(_match[0], 'g'), ((s.length > 1) ? eval(s.join('+')) : ((s.length == 0) ? "''" : s.join('+'))));
             }	
-            
             try{
                 var r = eval(eq);
                 return (!isNaN(r) || /\d{1,2}\/\d{1,2}\/\d{4}/.test(r)) ? r : false;
