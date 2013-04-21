@@ -43,6 +43,7 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf
      <link href="<?php echo plugins_url('css/cupertino/jquery-ui-1.8.20.custom.css', __FILE__); ?>" type="text/css" rel="stylesheet" />   
 
      <script type="text/javascript">          
+       try{$calculatedfieldsfQuery = jQuery.noConflict();} catch (e) {}
        if (typeof $calculatedfieldsfQuery == 'undefined')
        {
          // This code won't be used in most cases. This code is for preventing problems in wrong WP themes and conflicts with third party plugins.

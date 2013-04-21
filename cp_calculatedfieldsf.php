@@ -177,7 +177,7 @@ function _cp_calculatedfieldsf_install() {
 
          form_name VARCHAR(250) DEFAULT '' NOT NULL,
 
-         form_structure text,
+         form_structure mediumtext,
 
          fp_from_email VARCHAR(250) DEFAULT '' NOT NULL,
          fp_destination_emails text,
@@ -489,6 +489,11 @@ function cp_calculatedfieldsf_save_options()
     if (!defined('CP_CALCULATEDFIELDSF_ID'))
         define ('CP_CALCULATEDFIELDSF_ID',$_POST["cp_calculatedfieldsf_id"]);    
     
+   /**
+    $sql = "ALTER TABLE  `".$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE."` CHANGE `form_structure` `form_structure` mediumtext"; 
+    $wpdb->query($sql);
+   */
+    
     foreach ($_POST as $item => $value)    
         $_POST[$item] = stripcslashes($value);
 
@@ -509,7 +514,7 @@ function cp_calculatedfieldsf_save_options()
                   'cu_message' => $_POST['cu_message'],
                   'cu_emailformat' => $_POST['cu_emailformat'],
                   
-                  'enable_paypal' => $_POST["enable_paypal"],
+                  'enable_paypal' => @$_POST["enable_paypal"],
                   'paypal_email' => $_POST["paypal_email"],
                   'request_cost' => $_POST["request_cost"],
                   'paypal_product_name' => $_POST["paypal_product_name"],
