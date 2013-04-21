@@ -1143,4 +1143,4 @@ jQuery(function(){
         }
     })(jQuery);
 });
-$calculatedfieldsfQuery = jQuery.noConflict();
+//$calculatedfieldsfQuery = jQuery.noConflict();
