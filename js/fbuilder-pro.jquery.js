@@ -1004,7 +1004,7 @@ jQuery(function(){
                     }    
                 });     
                 
-                eq = eq.replace(new RegExp(_match[0], 'g'), ((s.length > 1) ? eval(s.join('+')) : ((s.length == 0) ? "''" : s.join('+'))));
+                eq = eq.replace(new RegExp(_match[0]), ((s.length > 1) ? eval(s.join('+')) : ((s.length == 0) ? "''" : s.join('+'))));
             }	
             try{
                 var r = eval(eq);
