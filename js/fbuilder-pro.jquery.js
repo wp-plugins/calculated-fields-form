@@ -40,7 +40,7 @@ jQuery(function(){
             var items = new Array();
             var itemSelected = -2;
             editItem = function(id) {
-                if (!opt.pub) $('#tabs').tabs('select', 1);
+                if (!opt.pub) $('#tabs').tabs("option", "active", 1);
                 try { $('#tabs-2').html(items[id].showAllSettings()); } catch (e) {}
                 itemSelected = id;
                 $(".helpfbuilder").click(function(){
@@ -188,7 +188,7 @@ jQuery(function(){
                 items.splice(index,1);
                 for (var i=0;i<items.length;i++)
                     items[i].index = i;
-                $('#tabs').tabs('select', 0);
+                $('#tabs').tabs("option", "active", 0);
                 reloadItems();
             }
             reloadItems = function() {
@@ -234,7 +234,7 @@ jQuery(function(){
                 }).mouseout(function(){
                     $(this).removeClass("ui-over")
                 }).click(function(){
-                    $('#tabs').tabs('select', 2);
+                    $('#tabs').tabs("option", "active", 2);
                     editForm();
                     $(this).siblings().removeClass("ui-selected");
                     $(this).addClass("ui-selected");
@@ -879,12 +879,12 @@ jQuery(function(){
             }
             if (!opt.pub)
             {
-                $('#tabs').tabs({select: function(event, ui) {
-                       if (ui.index!=1)
+                $('#tabs').tabs({activate: function(event, ui) {
+                       if ($(this).tabs( "option", "active" )!=1)
                        {
                            $(".fields").removeClass("ui-selected");
                            itemSelected = -2;
-                           if (ui.index==2)
+                           if ($(this).tabs( "option", "active" )==2)
                            {
                                $(".fform").addClass("ui-selected");
                                editForm();

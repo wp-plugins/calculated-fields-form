@@ -1226,13 +1226,13 @@ $.format = $.validator.format;
 					var args = arguments;
 					args[0] = $.event.fix(e);
 					args[0].type = fix;
-					return $.event.handle.apply(this, args);
+					return $.event.dispatch.apply(this, args);
 				}
 			};
 			function handler(e) {
 				e = $.event.fix(e);
 				e.type = fix;
-				return $.event.handle.call(this, e);
+				return $.event.dispatch.call(this, e);
 			}
 		});
 	}
