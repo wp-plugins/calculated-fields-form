@@ -14,10 +14,11 @@ body{font:11px "Lucida Grande","Lucida Sans Unicode",Tahoma,sans-serif;}
 #fbuilder .fields .arrow{position:absolute;left:-15px;top:20px;display:none}
 #fbuilder .fields .remove{position:absolute;bottom:0;right:0;display:none;background-color:#fff;cursor:pointer}
 .choicesSet{border:1px dashed #888;margin:10px 0px;padding:5px}
-.choicesEdit input[type=text]{width:250px;}
+.choicesEdit input[type=text]{width:130px;}
 .choicesEdit{position:relative;}
-.choicesEdit .choice_add{position:absolute;top:5px;left:280px;cursor:pointer;}
-.choicesEdit .choice_remove{position:absolute;top:5px;left:300px;cursor:pointer;}
+.choicesSet .t{margin-left:18px;width:115px;float:left}
+.choicesEdit .choice_add{position:absolute;top:5px;left:278px;cursor:pointer;}
+.choicesEdit .choice_remove{position:absolute;top:5px;left:293px;cursor:pointer;}
 input [disabled] {background-color: #f00;}
 input [readonly] {background-color: #f00;}
 #fbuilder .fields.ui-selected{background-color:#DFEFFF;border:1px solid #C2D7EF}
