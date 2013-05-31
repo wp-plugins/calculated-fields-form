@@ -1113,6 +1113,8 @@ jQuery(function(){
                 e.each(function(){
                     var e = $(this), v;
                     
+                    if(/(checkbox|radio)/i.test(e[0].type) && !e[0].checked) return;
+                    
                     if(e.hasClass('codepeoplecalculatedfield')){
                        v = CalcField._unformat(e);
                     }else{
@@ -1122,22 +1124,43 @@ jQuery(function(){
                     var d = /(\d{1,2})\/(\d{1,2})\/(\d{4})/.exec(v),
                         p = /[+-]?((\d+(\.\d+)?)|(\.\d+))/.exec(v);
                         
-                    if(/(checkbox|radio)/i.test(e[0].type) && !e[0].checked) return;
-                    if(/^\s*$/.test(v)) v = 'codepeople_calculate_field';
-                    if(d){
-                        Math.date_format = (e.hasClass('dateddmmyyyy')) ? 'ddmyyyy' : 'mmddyyyy';
-                        var date = (Math.date_format == 'ddmyyyy') ? new Date(d[3], (d[2]*1-1), d[1]) : new Date(d[3], (d[1]*1-1), d[2]);
-                        s.push( (d) ? Math.ceil(date.valueOf()/86400000) : ((p) ? p[0]*1 : ((v != undefined) ? "'"+v+"'" : _match[1])) );
+                    if(e.hasClass('dateddmmyyyy') || e.hasClass('datemmddyyyy')){
+                        Math.date_format = (e.hasClass('dateddmmyyyy')) ? 'ddmmyyyy' : 'mmddyyyy';
+                        
+                        if(d){
+                            var date = (Math.date_format == 'ddmmyyyy') ? new Date(d[3], (d[2]*1-1), d[1]) : new Date(d[3], (d[1]*1-1), d[2]);
+                            s.push( Math.ceil(date.valueOf()/86400000) );
+                        }else{
+                            s.push('codepeople_calculate_field');
+                        }
                     }else{
-                        s.push( (p) ? p[0]*1 : "'"+v+"'" );
-                    }    
-                });     
+                        s.push( (p) ? p[0]*1 : v );
+                    }
+                });
                 
-                eq = eq.replace(new RegExp(_match[0]), ((s.length > 1) ? eval(s.join('+')) : ((s.length == 0) ? "''" : s.join('+'))));
+                function field_value(v){
+                    if (/^\s*$/.test(v)) return 0;
+                    if(typeof v == 'string') return "'" + v.replace(/'/g, "\\'") + "'";
+                    return v;
+                }
+                
+                var x;
+                if(s.length == 0){
+                    x = 0;
+                }else if(s.length == 1){
+                    x = field_value(s[0]);
+                }else{
+                    for(var i=0; i<s.length; i++){
+                        s[i] = field_value(s[i]);
+                    }
+                    x = eval(s.join('+'));
+                }
+                
+                eq = eq.replace(new RegExp(_match[0]), x);
             }	
             try{
                 var r = eval(eq);
-                return (!isNaN(r) || /\d{1,2}\/\d{1,2}\/\d{4}/.test(r)) ? r : false;
+                return (isFinite(r) || /\d{1,2}\/\d{1,2}\/\d{4}/.test(r)) ? r : false;
             }catch(e){
                 return false; 
             }
@@ -1171,7 +1194,7 @@ jQuery(function(){
                 
                 if(Math.cdate == undefined){
                     Math.cdate  = function (num){
-                        if(!isNaN(num*1)){
+                        if(isFinite(num*1)){
                             num = Math.round(Math.abs(num)*86400000);
                             var date = new Date(num),
                                 d = date.getDate(),
@@ -1204,8 +1227,7 @@ jQuery(function(){
                             var eq = f[0].equations;
                             for(var i=0, h = eq.length; i < h; i++){
                                 var r = _calculate(f[0], eq[i].equation);
-                                
-                                if(r !== false) $(eq[i].result).val(this._format(r, eq[i].conf)).change();
+                                $(eq[i].result).val(( (r !== false) ? this._format(r, eq[i].conf) : '' )).change();
                             }
                         }
                             
@@ -1224,7 +1246,7 @@ jQuery(function(){
                             for (var i=0, l = eq.length; i < l; i++){
                                 if(eq[i].equation.indexOf(name) != -1){ // If the field is in the equation.
                                     var r = _calculate(f, eq[i].equation);
-                                    if(r !== false) $(eq[i].result).val(this._format(r, eq[i].conf)).change();
+                                    $(eq[i].result).val(( (r !== false) ? this._format(r, eq[i].conf) : '' )).change();
                                 }
                             }
                         }
