@@ -144,16 +144,35 @@ jQuery(function(){
 				items[id].equalTo = $(this).val();
 				reloadItems();
 			});
+			$(".showHideDependencies").click(function(){
+			    if (items[id].showDep) 
+			    {
+			        $(this).parent().removeClass("show");    
+			        $(this).parent().addClass("hide");
+			        $(this).html("Show Dependencies");
+			        items[id].showDep = false;
+			    }
+			    else
+			    {
+			        $(this).parent().addClass("show");    
+			        $(this).parent().removeClass("hide");
+			        $(this).html("Hide Dependencies");
+			        items[id].showDep = true;
+			    }
+			    return false;
+			});
 			$(".choice_remove").click(function(){
 				if (items[id].choices.length==1)
 				{
 					items[id].choices[0]="";
 					items[id].choicesVal[0]="";
+					items[id].choicesDep[0]=new Array();
 				}	
 				else
 				{
 					items[id].choices.splice($(this).attr("i"),1);
 					items[id].choicesVal.splice($(this).attr("i"),1);
+					items[id].choicesDep.splice($(this).attr("i"),1);
 				}	
 				if (items[id].ftype=="fcheck")
 				{
@@ -168,6 +187,7 @@ jQuery(function(){
 			$(".choice_add").click(function(){
 				items[id].choices.splice($(this).attr("i")+1,0,"");
 				items[id].choicesVal.splice($(this).attr("i")+1,0,"");
+				items[id].choicesDep.splice($(this).attr("i")+1,0,new Array());
 				if (items[id].ftype=="fcheck")
 					items[id].choiceSelected.splice($(this).attr("i")+1,0,false);
 				editItem(id);
@@ -184,6 +204,7 @@ jQuery(function(){
 			});
 			$(".choice_value").keyup(function(){
 			    items[id].choicesVal[$(this).attr("i")]= $(this).val();
+			    reloadItems();
 			});
 			$(".choice_radio").click(function(){
 				if ($(this).is(':checked'))
@@ -216,6 +237,30 @@ jQuery(function(){
 			    	if ((items[i].ftype=="ftext" || items[i].ftype=="femail" || items[i].ftype=="fpassword") && (items[i].name != $(this).attr("dname")))
 			    		str += '<option value="'+items[i].name+'" '+((items[i].name == $(this).attr("dvalue"))?"selected":"")+'>'+(items[i].title)+'</option>';
 			    $(this).html(str);	
+			});
+			$('.dependencies').each(function(){
+			    var str = '<option value="" '+(("" == $(this).attr("dvalue"))?"selected":"")+'></option>';
+			    for (var i=0;i<items.length;i++)
+			    	if (items[i].name != $(this).attr("dname"))
+			    		str += '<option value="'+items[i].name+'" '+((items[i].name == $(this).attr("dvalue"))?"selected":"")+'>'+(items[i].title)+'</option>';
+			    $(this).html(str);	
+			});
+			$('.dependencies').change(function(){
+			    items[id].choicesDep[$(this).attr("i")][$(this).attr("j")] = $(this).val();
+				reloadItems();	
+			});
+			$(".choice_removeDep").click(function(){
+				if (items[id].choices.length==1)
+					items[id].choicesDep[$(this).attr("i")][0]="";
+				else
+					items[id].choicesDep[$(this).attr("i")].splice($(this).attr("j"),1);
+				editItem(id);
+				reloadItems();
+			});
+			$(".choice_addDep").click(function(){
+				items[id].choicesDep[$(this).attr("i")].splice($(this).attr("j")+1,0,"");
+				editItem(id);
+				reloadItems();
 			});
 		};
 		editForm = function() {
@@ -311,6 +356,30 @@ jQuery(function(){
           value = value.replace(/"/g, "&quot;");;
           return value;
         }
+        function showHideDep(){
+            $(".depItem").each(function() {
+                var item = $(this);
+                var d = item.attr("dep").split(",");
+                for (i=0;i<d.length;i++)
+		        {
+		            if (d[i]!="")
+		            {
+		                try {
+		                    if (item.is(':checked') || item.is(':selected'))
+		                    {
+		                        $("#"+d[i]).parents(".fields").css("display","");
+		                        $("#"+d[i]).attr("name",$("#"+d[i]).attr("name").replace("__dep",""));
+		                    }    
+		                    else
+		                    {
+		                        $("#"+d[i]).parents(".fields").css("display","none");
+		                        $("#"+d[i]).attr("name",$("#"+d[i]).attr("name")+"__dep");
+		                    }    
+		                }catch(e){}       
+		            }
+		        }
+		    });
+        }
 		reloadItemsPublic = function() {
 			for (var i=0;i<showSettings.formlayoutList.length;i++)
 				$("#fieldlist").removeClass(showSettings.formlayoutList[i].id);
@@ -340,13 +409,18 @@ jQuery(function(){
                     $( "#"+items[i].name ).datepicker( "option", "maxDate", items[i].maxDate );
                     $( "#"+items[i].name ).datepicker( "option", "defaultDate", items[i].defaultDate );
 				}	
-					
+				$(".depItem").bind("click", function() {
+			        showHideDep();
+			    });
+			    $(".depItemSel").bind("change", function() {
+			        showHideDep();
+			    });
 			}
 			if (i>0)
 			{
-
-				//$("#form1").append('<div class="fields"><label>&nbsp;</label><div class="dfield"><input type="submit" class="button submit" id="btnSave" value="Save"/></div><div class="clearer"></div></div>');
-				//$( ".button").button();
+                //$(".depItem").each(function() {
+			        showHideDep();
+			    //});
                 $.validator.addMethod("dateddmmyyyy", function(value, element) {				    
 				  return this.optional(element) || /^(?:[1-9]|0[1-9]|1[0-9]|2[0-9]|3[0-1])[\/\-](?:[1-9]|0[1-9]|1[0-2])[\/\-]\d{4}$/.test(value);
 				});
@@ -862,10 +936,12 @@ jQuery(function(){
 				ftype:"fcheck",
 				layout:"one_column",
 				required:false,
+				showDep:false,
 				init:function(){
 					this.choices = new Array("First Choice","Second Choice","Third Choice");
 					this.choicesVal = new Array("First Choice","Second Choice","Third Choice");
 					this.choiceSelected = new Array(false,false,false);
+					this.choicesDep = new Array(new Array(),new Array(),new Array());
 				},
 				display:function(){
 				    this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null)?this.choicesVal:this.choices);				    
@@ -877,8 +953,26 @@ jQuery(function(){
 				show:function(){
 				    this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null)?this.choicesVal:this.choices);
 					var str = "";
+					if (!(typeof(this.choicesDep) != "undefined" && this.choicesDep !== null))
+					{
+					    this.choicesDep = new Array();
+					    for (var i=0;i<this.choices.length;i++)
+					        this.choicesDep[i] = new Array();
+					}
 					for (var i=0;i<this.choices.length;i++)
-						str += '<div class="'+this.layout+'"><input name="'+this.name+'[]" id="list'+i+'" class="field group '+((this.required)?" required":"")+'" value="'+htmlEncode(this.choicesVal[i])+'" type="checkbox" '+((this.choiceSelected[i])?"checked":"")+'/> <span>'+this.choices[i]+'</span></div>';
+					{
+					    var classDep = "",attrDep = "";
+					    var d = this.choicesDep;
+					    if (d[i].length>0)
+					    {
+					        classDep = " depItem";
+					        for (var j=0;j<d[i].length;j++)
+					        {
+					            attrDep += ","+d[i][j];    
+					        }
+					    }
+						str += '<div class="'+this.layout+'"><input name="'+this.name+'[]" '+((classDep!="")?"dep=\""+attrDep+"\"":"")+' id="'+this.name+'" class="field'+classDep+' group '+((this.required)?" required":"")+'" value="'+htmlEncode(this.choicesVal[i])+'" type="checkbox" '+((this.choiceSelected[i])?"checked":"")+'/> <span>'+this.choices[i]+'</span></div>';
+					}
 					return '<div class="fields '+this.csslayout+'" id="field-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield">'+str+'<span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 				showChoiceIntance: function() {
@@ -886,12 +980,23 @@ jQuery(function(){
 					var l = this.choices;
 					var lv = this.choicesVal;
 					var v = this.choiceSelected;
+					if (!(typeof(this.choicesDep) != "undefined" && this.choicesDep !== null))
+					{
+					    this.choicesDep = new Array();
+					    for (var i=0;i<l.length;i++)
+					        this.choicesDep[i] = new Array();
+					}
+					var d = this.choicesDep;
 					var str = "";
 					for (var i=0;i<l.length;i++)
 					{
 						str += '<div class="choicesEdit"><input class="choice_check" i="'+i+'" type="checkbox" '+((this.choiceSelected[i])?"checked":"")+'/><input class="choice_text" i="'+i+'" type="text" name="sChoice'+this.name+'" id="sChoice'+this.name+'" value="'+htmlEncode(l[i])+'"/><input class="choice_value" i="'+i+'" type="text" name="sChoice'+this.name+'V'+i+'" id="sChoice'+this.name+'V'+i+'" value="'+htmlEncode(lv[i])+'"/><a class="choice_add ui-icon ui-icon-circle-plus" i="'+i+'" title="Add another choice."></a><a class="choice_remove ui-icon ui-icon-circle-minus" i="'+i+'" title="Delete this choice."></a></div>';
+						for (var j=0;j<d[i].length;j++)
+						    str += '<div class="choicesEditDep">If selected show: <select class="dependencies" i="'+i+'" j="'+j+'" dname="'+this.name+'" dvalue="'+d[i][j]+'" ></select><a class="choice_addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+j+'" title="Add another dependency."></a><a class="choice_removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+j+'" title="Delete this dependency."></a></div>';
+						if (d[i].length==0)    
+						    str += '<div class="choicesEditDep">If selected show: <select class="dependencies" i="'+i+'" j="'+d[i].length+'" dname="'+this.name+'" dvalue="" ></select><a class="choice_addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+d[i].length+'" title="Add another dependency."></a><a class="choice_removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+d[i].length+'" title="Delete this dependency."></a></div>';    
 					}
-					return '<div class="choicesSet"><label>Choices</label><div><div class="t">Text</div><div class="t">Value</div><div class="clearer"></div></div>'+str+'</div>';
+					return '<div class="choicesSet '+((this.showDep)?"show":"hide")+'"><label>Choices</label> <a class="helpfbuilder dep" text="Dependencies are used to show/hide other fields depending of the option selected in this field.">help?</a> <a href="" class="showHideDependencies">'+((this.showDep)?"Hide":"Show")+' Dependencies</a><div><div class="t">Text</div><div class="t">Value</div><div class="clearer"></div></div>'+str+'</div>';
 				}
 		});
 		var fradio=function(){};
@@ -901,9 +1006,11 @@ jQuery(function(){
 				layout:"one_column",
 				required:false,
 				choiceSelected:null,
+				showDep:false,
 				init:function(){
 					this.choices = new Array("First Choice","Second Choice","Third Choice");
 					this.choicesVal = new Array("First Choice","Second Choice","Third Choice");
+					this.choicesDep = new Array(new Array(),new Array(),new Array());
 				},
 				display:function(){
 				    this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null)?this.choicesVal:this.choices);
@@ -915,8 +1022,26 @@ jQuery(function(){
 				show:function(){
 				    this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null)?this.choicesVal:this.choices);
 					var str = "";
+					if (!(typeof(this.choicesDep) != "undefined" && this.choicesDep !== null))
+					{
+					    this.choicesDep = new Array();
+					    for (var i=0;i<this.choices.length;i++)
+					        this.choicesDep[i] = new Array();
+					}
 					for (var i=0;i<this.choices.length;i++)
-						str += '<div class="'+this.layout+'"><input name="'+this.name+'" class="field group '+((this.required)?" required":"")+'" value="'+htmlEncode(this.choicesVal[i])+'" type="radio" i="'+i+'"  '+((this.choicesVal[i]==this.choiceSelected)?"checked":"")+'/> <span>'+this.choices[i]+'</span></div>';
+					{
+					    var classDep = "",attrDep = "";
+					    var d = this.choicesDep;
+					    if (d[i].length>0)
+					    {
+					        classDep = " depItem";
+					        for (var j=0;j<d[i].length;j++)
+					        {
+					            attrDep += ","+d[i][j];    
+					        }
+					    }
+					    str += '<div class="'+this.layout+'"><input name="'+this.name+'" id="'+this.name+'" '+((classDep!="")?"dep=\""+attrDep+"\"":"")+' class="field'+classDep+' group '+((this.required)?" required":"")+'" value="'+htmlEncode(this.choicesVal[i])+'" type="radio" i="'+i+'"  '+((this.choicesVal[i]==this.choiceSelected)?"checked":"")+'/> <span>'+this.choices[i]+'</span></div>';
+					}
 					return '<div class="fields '+this.csslayout+'" id="field-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield">'+str+'<span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';  
 				},
 				showChoiceIntance: function() {
@@ -924,12 +1049,23 @@ jQuery(function(){
 					var l = this.choices;
 					var lv = this.choicesVal;
 					var v = this.choiceSelected;
+					if (!(typeof(this.choicesDep) != "undefined" && this.choicesDep !== null))
+					{
+					    this.choicesDep = new Array();
+					    for (var i=0;i<l.length;i++)
+					        this.choicesDep[i] = new Array();
+					}
+					var d = this.choicesDep;
 					var str = "";
 					for (var i=0;i<l.length;i++)
 					{
 						str += '<div class="choicesEdit"><input class="choice_radio" i="'+i+'" type="radio" '+((this.choiceSelected==lv[i])?"checked":"")+' name="choice_radio" /><input class="choice_text" i="'+i+'" type="text" name="sChoice'+this.name+'" id="sChoice'+this.name+'" value="'+htmlEncode(l[i])+'"/><input class="choice_value" i="'+i+'" type="text" name="sChoice'+this.name+'V'+i+'" id="sChoice'+this.name+'V'+i+'" value="'+htmlEncode(lv[i])+'"/><a class="choice_add ui-icon ui-icon-circle-plus" i="'+i+'" title="Add another choice."></a><a class="choice_remove ui-icon ui-icon-circle-minus" i="'+i+'" title="Delete this choice."></a></div>';
+						for (var j=0;j<d[i].length;j++)
+						    str += '<div class="choicesEditDep">If selected show: <select class="dependencies" i="'+i+'" j="'+j+'" dname="'+this.name+'" dvalue="'+d[i][j]+'" ></select><a class="choice_addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+j+'" title="Add another dependency."></a><a class="choice_removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+j+'" title="Delete this dependency."></a></div>';
+						if (d[i].length==0)    
+						    str += '<div class="choicesEditDep">If selected show: <select class="dependencies" i="'+i+'" j="'+d[i].length+'" dname="'+this.name+'" dvalue="" ></select><a class="choice_addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+d[i].length+'" title="Add another dependency."></a><a class="choice_removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+d[i].length+'" title="Delete this dependency."></a></div>';
 					}
-					return '<div class="choicesSet"><label>Choices</label><div><div class="t">Text</div><div class="t">Value</div><div class="clearer"></div></div>'+str+'</div>';
+					return '<div class="choicesSet '+((this.showDep)?"show":"hide")+'"><label>Choices</label> <a class="helpfbuilder dep" text="Dependencies are used to show/hide other fields depending of the option selected in this field.">help?</a> <a href="" class="showHideDependencies">'+((this.showDep)?"Hide":"Show")+' Dependencies</a><div><div class="t">Text</div><div class="t">Value</div><div class="clearer"></div></div>'+str+'</div>';
 				}
 		});
 		var fdropdown=function(){};
@@ -939,9 +1075,11 @@ jQuery(function(){
 				size:"medium",
 				required:false,
 				choiceSelected:"",
+				showDep:false,
 				init:function(){
 					this.choices = new Array("First Choice","Second Choice","Third Choice");
 					this.choicesVal = new Array("First Choice","Second Choice","Third Choice");
+					this.choicesDep = new Array(new Array(),new Array(),new Array());
 				},
 				display:function(){
 				    this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null)?this.choicesVal:this.choices);
@@ -952,23 +1090,50 @@ jQuery(function(){
 					var l = this.choices;
 					var v = this.choiceSelected;
 					var str = "";
-					for (var i=0;i<l.length;i++)
+					if (!(typeof(this.choicesDep) != "undefined" && this.choicesDep !== null))
 					{
-						str += '<option '+((this.choiceSelected==this.choicesVal[i])?"selected":"")+' value="'+htmlEncode(this.choicesVal[i])+'">'+l[i]+'</option>';
+					    this.choicesDep = new Array();
+					    for (var i=0;i<this.choices.length;i++)
+					        this.choicesDep[i] = new Array();
 					}
-					return '<div class="fields '+this.csslayout+'" id="field-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><select id="'+this.name+'" name="'+this.name+'" class="field '+this.size+((this.required)?" required":"")+'" >'+str+'</select><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div><div class="clearer"></div></div>';
+					for (var i=0;i<this.choices.length;i++)
+					{
+					    var classDep = "",attrDep = "";
+					    var d = this.choicesDep;
+					    if (d[i].length>0)
+					    {
+					        classDep = " depItem";
+					        for (var j=0;j<d[i].length;j++)
+					        {
+					            attrDep += ","+d[i][j];    
+					        }
+					    }
+					    str += '<option '+((classDep!="")?"dep=\""+attrDep+"\"":"")+' '+((this.choiceSelected==this.choicesVal[i])?"selected":"")+' class="'+classDep+'" value="'+htmlEncode(this.choicesVal[i])+'">'+l[i]+'</option>';
+					}
+					return '<div class="fields '+this.csslayout+'" id="field-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><select id="'+this.name+'" name="'+this.name+'" class="field '+classDep+'Sel '+this.size+((this.required)?" required":"")+'" >'+str+'</select><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div><div class="clearer"></div></div>';
 				},
 				showChoiceIntance: function() {
 				    this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null)?this.choicesVal:this.choices);
 					var l = this.choices;
 					var lv = this.choicesVal;
 					var v = this.choiceSelected;
+					if (!(typeof(this.choicesDep) != "undefined" && this.choicesDep !== null))
+					{
+					    this.choicesDep = new Array();
+					    for (var i=0;i<l.length;i++)
+					        this.choicesDep[i] = new Array();
+					}
+					var d = this.choicesDep;
 					var str = "";
 					for (var i=0;i<l.length;i++)
 					{
 						str += '<div class="choicesEdit"><input class="choice_select" i="'+i+'" type="radio" '+((this.choiceSelected==lv[i])?"checked":"")+' name="choice_select" /><input class="choice_text" i="'+i+'" type="text" name="sChoice'+this.name+'" id="sChoice'+this.name+'" value="'+htmlEncode(l[i])+'"/><input class="choice_value" i="'+i+'" type="text" name="sChoice'+this.name+'V'+i+'" id="sChoice'+this.name+'V'+i+'" value="'+htmlEncode(lv[i])+'"/><a class="choice_add ui-icon ui-icon-circle-plus" i="'+i+'" title="Add another choice."></a><a class="choice_remove ui-icon ui-icon-circle-minus" i="'+i+'" title="Delete this choice."></a></div>';
+					    for (var j=0;j<d[i].length;j++)
+						    str += '<div class="choicesEditDep">If selected show: <select class="dependencies" i="'+i+'" j="'+j+'" dname="'+this.name+'" dvalue="'+d[i][j]+'" ></select><a class="choice_addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+j+'" title="Add another dependency."></a><a class="choice_removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+j+'" title="Delete this dependency."></a></div>';
+						if (d[i].length==0)    
+						    str += '<div class="choicesEditDep">If selected show: <select class="dependencies" i="'+i+'" j="'+d[i].length+'" dname="'+this.name+'" dvalue="" ></select><a class="choice_addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+d[i].length+'" title="Add another dependency."></a><a class="choice_removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+d[i].length+'" title="Delete this dependency."></a></div>';
 					}
-					return '<div class="choicesSet"><label>Choices</label><div><div class="t">Text</div><div class="t">Value</div><div class="clearer"></div></div>'+str+'</div>';
+					return '<div class="choicesSet '+((this.showDep)?"show":"hide")+'"><label>Choices</label> <a class="helpfbuilder dep" text="Dependencies are used to show/hide other fields depending of the option selected in this field.">help?</a> <a href="" class="showHideDependencies">'+((this.showDep)?"Hide":"Show")+' Dependencies</a><div><div class="t">Text</div><div class="t">Value</div><div class="clearer"></div></div>'+str+'</div>';
 				}
 		});
 		if (!opt.pub)
