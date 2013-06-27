@@ -15,10 +15,19 @@ body{font:11px "Lucida Grande","Lucida Sans Unicode",Tahoma,sans-serif;}
 #fbuilder .fields .remove{position:absolute;bottom:0;right:0;display:none;background-color:#fff;cursor:pointer}
 .choicesSet{border:1px dashed #888;margin:10px 0px;padding:5px}
 .choicesEdit input[type=text]{width:130px;}
-.choicesEdit{position:relative;}
+.choicesEdit,.choicesEditDep{position:relative;}
 .choicesSet .t{margin-left:18px;width:115px;float:left}
 .choicesEdit .choice_add{position:absolute;top:5px;left:278px;cursor:pointer;}
 .choicesEdit .choice_remove{position:absolute;top:5px;left:293px;cursor:pointer;}
+.choicesEditDep .choice_addDep{position:absolute;top:5px;left:278px;cursor:pointer;}
+.choicesEditDep .choice_removeDep{position:absolute;top:5px;left:293px;cursor:pointer;}
+.choicesEditDep select{width:170px;}
+.ui-widget-content .choice_addDep.ui-icon {background-image: url(cupertino/images/ui-icons_2e83ff_256x240.png); }
+.ui-widget-content .choice_removeDep.ui-icon {background-image: url(cupertino/images/ui-icons_2e83ff_256x240.png); }
+.showHideDependencies,.dep{float:right}
+.choicesSet.hide .choicesEditDep{display:none}
+.choicesSet.show .choicesEditDep{display:block}
+a.helpfbuilder.dep{font-size:100%;padding-left:10px}
 input [disabled] {background-color: #f00;}
 input [readonly] {background-color: #f00;}
 #fbuilder .fields.ui-selected{background-color:#DFEFFF;border:1px solid #C2D7EF}
