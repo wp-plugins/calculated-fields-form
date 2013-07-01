@@ -749,7 +749,7 @@ jQuery(function(){
 					return '<div class="fields" id="field-'+this.index+'"><div class="arrow ui-icon ui-icon-play "></div><div class="remove ui-icon ui-icon-trash "></div><div class="section_break"></div><label>'+this.title+'</label><span class="uh">'+this.userhelp+'</span><div class="clearer"></div></div>';
 				},
 				show:function(){
-                        return '<div class="fields '+this.csslayout+'" id="field-'+this.index+'"><div class="section_break"></div><label>'+this.title+'</label><span class="uh">'+this.userhelp+'</span><div class="clearer"></div></div>';
+                        return '<div class="fields '+this.csslayout+' section_breaks" id="field-'+this.index+'"><div class="section_break" id="'+this.name+'" ></div><label>'+this.title+'</label><span class="uh">'+this.userhelp+'</span><div class="clearer"></div></div>';
 				}
 		});
 		var fPhone=function(){};
@@ -796,7 +796,7 @@ jQuery(function(){
 					return '<div class="fields" id="field-'+this.index+'"><div class="arrow ui-icon ui-icon-play "></div><div class="remove ui-icon ui-icon-trash "></div><label>'+this.title+'</label><span class="uh">'+this.userhelp+'</span><div class="clearer"></div></div>';
 				},
 				show:function(){
-                        return '<div class="fields '+this.csslayout+'" id="field-'+this.index+'"><label>'+this.title+'</label><span class="uh">'+this.userhelp+'</span><div class="clearer"></div></div>';
+                        return '<div class="fields '+this.csslayout+' comment_area" id="field-'+this.index+'"><label id="'+this.name+'">'+this.title+'</label><span class="uh">'+this.userhelp+'</span><div class="clearer"></div></div>';
 				}
 		});
             
