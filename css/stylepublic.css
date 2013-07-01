@@ -4,9 +4,9 @@
 #fbuilder .fields,#fbuilder .fform{padding:5px 0px;}
 #fbuilder .fform h1{margin:5px 0px;padding:0px;}
 
-.small{width:25%;padding-left:0;padding-right:0;}
-.medium{width:50%;padding-left:0;padding-right:0;}
-.large{width:100%;padding-left:0;padding-right:0;}
+.small{width:25% !important;padding-left:0;padding-right:0;}
+.medium{width:50% !important;padding-left:0;padding-right:0;}
+.large{width:100% !important;padding-left:0;padding-right:0;}
 .fields.column2{float:left;width:49.9%;}
 .fields.column3{float:left;width:33.3%;}
 .fields.column4{float:left;width:24.9%;}
