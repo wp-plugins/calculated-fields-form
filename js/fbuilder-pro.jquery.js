@@ -1377,12 +1377,13 @@ jQuery(function(){
                 
                 CalcFieldClss.prototype = {
                     addEquation : function(cf, eq, conf){
-                        var r = $('[name="'+cf+'"]');
+                        var r = $('[id="'+cf+'"]');
                         if(r.length){
                             var f = r[0].form;
                             if(f.equations == null || f.equations == undefined) f['equations'] = [];
                             f.equations.push({'result':r, 'equation':eq, 'conf':conf});
                         }	
+                        
                     },
                     
                     defaultCalc : function(fId){
