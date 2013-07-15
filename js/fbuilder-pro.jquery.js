@@ -3,7 +3,7 @@ jQuery(function(){
 	$.fn.fbuilder = function(options){
 		var opt = $.extend({},
 				{
-	   				typeList:new Array({id:"ftext",name:"Single Line Text"},{id:"fnumber",name:"Number"},{id:"femail",name:"Email"},{id:"fdate",name:"Date"},{id:"ftextarea",name:"Paragraph Text"},{id:"fcheck",name:"Checkboxes"},{id:"fradio",name:"Multiple Choice"},{id:"fdropdown",name:"Dropdown"},{id:"ffile",name:"Upload File"},{id:"fpassword",name:"Password"},{id:"fPhone",name:"Phone field"},{id:"fCommentArea",name:"Comment Area"},{id:"fSectionBreak",name:"Section break"},{id:"fCalculated", name:"Calculated Field"}),
+	   				typeList:new Array({id:"ftext",name:"Single Line Text"},{id:"fnumber",name:"Number"},{id:"femail",name:"Email"},{id:"fdate",name:"Date"},{id:"ftextarea",name:"Paragraph Text"},{id:"fcheck",name:"Checkboxes"},{id:"fradio",name:"Multiple Choice"},{id:"fdropdown",name:"Dropdown"},{id:"ffile",name:"Upload File"},{id:"fpassword",name:"Password"},{id:"fPhone",name:"Phone field"},{id:"fCommentArea",name:"Comment Area"},{id:"fSectionBreak",name:"Section break"},{id:"fPageBreak",name:"Page break"},{id:"fCalculated", name:"Calculated Field"}),
 					pub:false,
 					title:""
 				},options, true);
@@ -385,11 +385,18 @@ jQuery(function(){
 				$("#fieldlist").removeClass(showSettings.formlayoutList[i].id);
 			$("#fieldlist").addClass(theForm.formlayout);
 			$("#formheader").html(theForm.show());
-			//$("#fieldlist").append('<form action="" method="post" name="form1" id="form1"></form>');
+			var page = 0;			
+			$("#fieldlist").append('<div class="pb'+page+' pbreak" page="'+page+'"></div>');
 			for (var i=0;i<items.length;i++)
 			{
 				items[i].index = i;
-				$("#fieldlist").append(items[i].show());
+				if (items[i].ftype=="fPageBreak")
+				{
+				    page++;
+				    $("#fieldlist").append('<div class="pb'+page+' pbreak" page="'+page+'"></div>');
+				}
+				else
+				    $("#fieldlist .pb"+page).append(items[i].show());
 				$(".fields").mouseover(function() {
 					$(this).addClass("ui-over");
 				}).mouseout(function(){
@@ -416,6 +423,53 @@ jQuery(function(){
 			        showHideDep();
 			    });
 			}
+			if (page>0)
+			{
+			    $("#fieldlist .pb"+page).addClass("pbEnd");
+			    $("#fieldlist .pbreak").find(".field").addClass("ignore");
+			    $("#fieldlist .pb0").find(".field").removeClass("ignore");
+			    $("#fieldlist .pbreak").each(function(index) {
+			        var code = $(this).html();
+			        var bSubmit = '';
+			        if (index == page)
+			        {
+			            if ($("#cpcaptchalayer").html())
+			            {
+			                code += '<div>'+$("#cpcaptchalayer").html()+'</div>';
+			                $("#cpcaptchalayer").html(""); 
+			            }
+			            if ($("#cp_subbtn").html())
+			                bSubmit = '<div class="pbSubmit">'+$("#cp_subbtn").html()+'</div>';
+			        }    
+			        $(this).html('<fieldset><legend>Page '+(index+1)+' of '+(page+1)+'</legend>'+code+'<div class="pbPrevious">Previous</div><div class="pbNext">Next</div>'+bSubmit+'<div class="clearer"></div></fieldset>');
+			    });
+			    $(".pbPrevious,.pbNext").bind("click", function() {
+			        if ($(this).parents("form").valid())
+			        {
+			            var page = parseInt($(this).parents(".pbreak").attr("page"));
+			            (($(this).hasClass("pbPrevious"))?page--:page++);			        
+			            $("#fieldlist .pbreak").css("display","none");
+			            $("#fieldlist .pbreak").find(".field").addClass("ignore");
+			            
+			            $("#fieldlist .pb"+page).css("display","block");
+			            $("#fieldlist .pb"+page).find(".field").removeClass("ignore");
+			        }
+			        return false;
+			    });
+			}
+			else
+			{
+			    if ($("#cpcaptchalayer").html())
+			    {
+			        $("#fieldlist .pb"+page).append('<div>'+$("#cpcaptchalayer").html()+'</div>');
+			        $("#cpcaptchalayer").html("");
+			    }
+			    if ($("#cp_subbtn").html())
+			        $("#fieldlist .pb"+page).append('<div class="pbSubmit">'+$("#cp_subbtn").html()+'</div>');
+			}
+			$(".pbSubmit").bind("click", function() {
+			    $(this).parents("form").submit();
+			});
 			if (i>0)
 			{
                 //$(".depItem").each(function() {
@@ -439,7 +493,9 @@ jQuery(function(){
 			layoutList:new Array({id:"one_column",name:"One Column"},{id:"two_column",name:"Two Column"},{id:"three_column",name:"Three Column"},{id:"side_by_side",name:"Side by Side"}),
 			formlayoutList:new Array({id:"top_aligned",name:"Top Aligned"},{id:"left_aligned",name:"Left Aligned"},{id:"right_aligned",name:"Right Aligned"}),
 			showTitle: function(f,v) {
-				return '<label>Field Type: '+getNameByIdFromType(f)+'</label><br /><br /><label>Field Label</label><textarea class="large" name="sTitle" id="sTitle">'+v+'</textarea>';
+				var str = '<label>Field Label</label><textarea class="large" name="sTitle" id="sTitle">'+v+'</textarea>';
+			    if (v=="Page Break") str = "";
+				return '<label>Field Type: '+getNameByIdFromType(f)+'</label><br /><br />'+str;
 			},
 			showName: function(v) {
 				return '<div><label>Field tag for the message (optional):</label><input readonly="readonly" class="large" name="sNametag" id="sNametag" value="&lt;%'+v+'%&gt;" />'+
@@ -559,19 +615,19 @@ jQuery(function(){
 						return "";
 				},
 				showUserhelp:function(){
-						return showSettings.showUserhelp(this.userhelp);
+				    return ((this.ftype!="fPageBreak")?showSettings.showUserhelp(this.userhelp):"");
 				},
 				showCsslayout:function(){
-						return showSettings.showCsslayout(this.csslayout);
+				    return ((this.ftype!="fPageBreak")?showSettings.showCsslayout(this.csslayout):"");
 				},
 				showAllSettings:function(){
 						return this.showTitle()+this.showName()+this.showSize()+this.showLayout()+this.showFormat()+this.showRange()+this.showRequired()+this.showSpecialData()+this.showEqualTo()+this.showPredefined()+this.showChoice()+this.showUserhelp()+this.showCsslayout();
 				},
 				showTitle:function(){
-						return showSettings.showTitle(this.ftype,this.title);
+				    return showSettings.showTitle(this.ftype,this.title);
 				},
 				showName:function(){
-						return showSettings.showName(this.name);
+				    return ((this.ftype!="fPageBreak")?showSettings.showName(this.name):"");
 				},
 				display:function(){
 					return 'Not available yet';
@@ -745,6 +801,17 @@ jQuery(function(){
 				title:"Section Break",
 				ftype:"fSectionBreak",
 				userhelp:"A description of the section goes here.",
+				display:function(){
+					return '<div class="fields" id="field-'+this.index+'"><div class="arrow ui-icon ui-icon-play "></div><div class="remove ui-icon ui-icon-trash "></div><div class="section_break"></div><label>'+this.title+'</label><span class="uh">'+this.userhelp+'</span><div class="clearer"></div></div>';
+				},
+				show:function(){
+                        return '<div class="fields '+this.csslayout+' section_breaks" id="field-'+this.index+'"><div class="section_break" id="'+this.name+'" ></div><label>'+this.title+'</label><span class="uh">'+this.userhelp+'</span><div class="clearer"></div></div>';
+				}
+		});
+		var fPageBreak=function(){};
+		$.extend(fPageBreak.prototype,ffields.prototype,{				
+				title:"Page Break",
+				ftype:"fPageBreak",
 				display:function(){
 					return '<div class="fields" id="field-'+this.index+'"><div class="arrow ui-icon ui-icon-play "></div><div class="remove ui-icon ui-icon-trash "></div><div class="section_break"></div><label>'+this.title+'</label><span class="uh">'+this.userhelp+'</span><div class="clearer"></div></div>';
 				},
@@ -1272,8 +1339,7 @@ jQuery(function(){
             
             var _match;
             while (_match = /(fieldname\d+)/.exec(eq)){
-                var e = f.find('[name="'+_match[0]+'"]'), s=[];
-                if(e.length == 0) e = f.find('[name="'+_match[1]+'[]"]');
+                var e = f.find('[id="'+_match[0]+'"]'), s=[];
                 
                 e.each(function(){
                     var e = $(this), v;
@@ -1400,17 +1466,17 @@ jQuery(function(){
                     },
                     
                     Calculate : function (t){
-                        if(t.name == undefined)return;
+                        if(t.id == undefined)return;
                         var f = t.form;
                         
                         if(/(button|img)/i.test(t.tagName) || (t.type && /(button|submit)/i.test(t.type))){return;}	
                         
                         if(f && f.equations){
                             var eq = f.equations,
-                                name = t.name;
-                            name = name.replace(/[\[\]]/g, '');
+                                id = t.id;
+                            var reg = new RegExp( id+'[\\D\\b]' );
                             for (var i=0, l = eq.length; i < l; i++){
-                                if(eq[i].equation.indexOf(name) != -1){ // If the field is in the equation.
+                                if( reg.test(eq[i].equation+' ') ){ // If the field is in the equation.
                                     var r = _calculate(f, eq[i].equation);
                                     $(eq[i].result).val(( (r !== false) ? this._format(r, eq[i].conf) : '' )).change();
                                 }
@@ -1486,6 +1552,7 @@ jQuery(function(){
             var f = $("#fbuilder").fbuilder($.parseJSON(cp_calculatedfieldsf_fbuilder_config.obj));
             f.fBuild.loadData("form_structure");
             $("#cp_calculatedfieldsf_pform").validate({
+                ignore:".ignore",
 			errorElement: "div",
 			errorPlacement: function(e, element) {
 			    if (element.hasClass('group'))

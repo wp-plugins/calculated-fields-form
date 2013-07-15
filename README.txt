@@ -60,6 +60,14 @@ The dates are also automatically identified and you can apply operations between
 
 The form and payment processing isn't included in this version. There are other versions with form processing included and additional features. See the FAQ for more information.
 
+== Latest Features Added ==
+
+* Dependant fields: Fields can be shown/hidden based on other checkboxes, radiobuttons or drop-down selections
+* Throubleshoot area to automatically fix conflicts with other scripts on themes or third party plugins and also for special characters support
+* Multi page calculated forms
+* New validations, fields types and features in the form builder
+
+
 == Installation ==
 
 To install Calculated Fields Form, follow these steps:
@@ -139,7 +147,15 @@ You can place the CSS class either into the CSS file of your template or into th
 
 = Q: Non-latin characters aren't being displayed in the calculator form. There is a workaround? =
 
-A: Please change the encoding of the database table "wp_cp_calculated_fields_form_settings" to utf-8. You can do that from the PHPMyAdmin or the tool that you are using to access the database. After changing the encoding, edit again the calculator form to re-enter the characters that aren't being correctly displayed.
+A: New: Use the "throubleshoot area" to change the character encoding. If you want to do that manually then please change the encoding of the database table "wp_cp_calculated_fields_form_settings" to utf-8. You can do that from the PHPMyAdmin or the tool that you are using to access the database. After changing the encoding, edit again the calculator form to re-enter the characters that aren't being correctly displayed.
+
+= Q: The calculated form doesn't appear in the public website. Solution? =
+
+A: In the the "throubleshoot area" (located below the list of forms in the settings area) change the "Script load method" from "Classic" to "Direct".
+
+= Q: How to create multi-page forms? =
+
+A: Use the "Page Break" field on the form builder to indicate the new pages on the form.
 
 
 == Screenshots ==
