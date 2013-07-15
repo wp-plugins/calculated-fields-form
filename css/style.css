@@ -8,6 +8,7 @@ body{font:11px "Lucida Grande","Lucida Sans Unicode",Tahoma,sans-serif;}
 .width30{width:30%}
 .padding10{padding:10px;}
 .button, .form-builder .button{float:left;margin:5px 15px;}
+.button.n span{color:#AED0EA}
 #tabs{height:650px;overflow:auto}
 #fbuilder{height:640px;overflow:auto;position:relative;}
 #fbuilder .fields{border:1px solid transparent;padding:3px 10px 14px 10px;margin:5px 0px;display:block;position:relative}
@@ -25,6 +26,7 @@ body{font:11px "Lucida Grande","Lucida Sans Unicode",Tahoma,sans-serif;}
 .ui-widget-content .choice_addDep.ui-icon {background-image: url(cupertino/images/ui-icons_2e83ff_256x240.png); }
 .ui-widget-content .choice_removeDep.ui-icon {background-image: url(cupertino/images/ui-icons_2e83ff_256x240.png); }
 .showHideDependencies,.dep{float:right}
+.choicesSet.hide {display:block}
 .choicesSet.hide .choicesEditDep{display:none}
 .choicesSet.show .choicesEditDep{display:block}
 a.helpfbuilder.dep{font-size:100%;padding-left:10px}

@@ -64,3 +64,12 @@ z-index:1000;
 #fbuilder .uh_phone input{text-align:center;font-size:100%;}
 #fbuilder .uh_phone div.cpefb_error{white-space:nowrap;}
 .cpp_form { text-align:left}
+.pbreak{display:none}
+.pbreak.pb0{display:block}
+.pbreak .pbPrevious,.pbreak .pbNext,.pbSubmit{background:#ccc;display:block;float:left;cursor:pointer;margin:30px 10px 0px 0px;padding:5px 20px}
+.pbreak.pb0 .pbPrevious{display:none}
+.pbreak.pbEnd .pbNext{display:none}
+.ignore{border:5px solid black}
+.pbreak fieldset{border:1px solid #ccc;padding:10px}
+.pbreak legend{border:1px solid #ccc;padding:5px 10px}
+#cpcaptchalayer,#cp_subbtn{display:none}
