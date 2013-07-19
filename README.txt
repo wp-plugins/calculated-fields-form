@@ -60,7 +60,7 @@ The dates are also automatically identified and you can apply operations between
 
 The form and payment processing isn't included in this version. There are other versions with form processing included and additional features. See the FAQ for more information.
 
-== Latest Features Added ==
+= Latest Features Added =
 
 * Dependant fields: Fields can be shown/hidden based on other checkboxes, radiobuttons or drop-down selections
 * Throubleshoot area to automatically fix conflicts with other scripts on themes or third party plugins and also for special characters support
@@ -151,7 +151,7 @@ A: New: Use the "throubleshoot area" to change the character encoding. If you wa
 
 = Q: The calculated form doesn't appear in the public website. Solution? =
 
-A: In the the "throubleshoot area" (located below the list of forms in the settings area) change the "Script load method" from "Classic" to "Direct".
+A: In the "throubleshoot area" (located below the list of forms in the settings area) change the "Script load method" from "Classic" to "Direct".
 
 = Q: How to create multi-page forms? =
 
