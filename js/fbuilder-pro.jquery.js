@@ -415,13 +415,7 @@ jQuery(function(){
                     $( "#"+items[i].name ).datepicker( "option", "minDate", items[i].minDate );
                     $( "#"+items[i].name ).datepicker( "option", "maxDate", items[i].maxDate );
                     $( "#"+items[i].name ).datepicker( "option", "defaultDate", items[i].defaultDate );
-				}	
-				$(".depItem").bind("click", function() {
-			        showHideDep();
-			    });
-			    $(".depItemSel").bind("change", function() {
-			        showHideDep();
-			    });
+				}
 			}
 			if (page>0)
 			{
@@ -484,8 +478,13 @@ jQuery(function(){
 				});//{required: true, range: [11, 22]}
 
 
-                $("#fieldlist").append('<script>jQuery(function(){CalcField.defaultCalc("#cp_calculatedfieldsf_pform");});</script>');
-
+                $("#fieldlist").append('<script>jQuery(function(){CalcField.defaultCalc("#cp_calculatedfieldsf_pform");});</script>');	
+				$(".depItem").bind("click", function() {
+			        showHideDep();
+			    });
+			    $(".depItemSel").bind("change", function() {
+			        showHideDep();
+			    });
 			}
 		}
 		var showSettings= {
