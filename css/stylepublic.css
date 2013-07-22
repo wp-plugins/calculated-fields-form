@@ -66,7 +66,7 @@ z-index:1000;
 .cpp_form { text-align:left}
 .pbreak{display:none}
 .pbreak.pb0{display:block}
-.pbreak .pbPrevious,.pbreak .pbNext,.pbSubmit{background:#ccc;display:block;float:left;cursor:pointer;margin:30px 10px 0px 0px;padding:5px 20px}
+.pbreak .pbPrevious,.pbreak .pbNext,.pbSubmit{background:#ccc;color:#000;display:block;float:left;cursor:pointer;margin:30px 10px 0px 0px;padding:5px 20px}
 .pbreak.pb0 .pbPrevious{display:none}
 .pbreak.pbEnd .pbNext{display:none}
 .ignore{border:5px solid black}
