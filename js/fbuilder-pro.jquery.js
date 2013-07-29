@@ -364,23 +364,30 @@ jQuery(function(){
                 return false;
             }
             var used = new Array();
+            var hideArray = new Array();
             $(".depItem").each(function() {
                 var item = $(this);
                 try {
-                    var d = item.attr("dep").split(",");
-                    for (i=0;i<d.length;i++)
-		            {
-		                if (d[i]!="" && !inArray(d[i],used))
+                    if (item.attr("dep") && item.attr("dep")!="" && !inArray(item.parents(".field").attr("id"),hideArray))
+                    {
+                        var d = item.attr("dep").split(",");
+                        for (i=0;i<d.length;i++)
 		                {
-		                    try {
-		                        if ((item.is(':checked') || item.is(':selected') ))
-		                        {
-		                            $("#"+d[i]).parents(".fields").css("display","");
-		                            used[used.length] = d[i];
-		                        }    
-		                        else
-		                            $("#"+d[i]).parents(".fields").css("display","none");
-		                    }catch(e){}       
+		                    if (d[i]!="" && !inArray(d[i],used))
+		                    {
+		                        try {
+		                            if ((item.is(':checked') || item.is(':selected') ))
+		                            {
+		                                $("#"+d[i]).parents(".fields").css("display","");
+		                                used[used.length] = d[i];
+		                            }    
+		                            else
+		                            {
+		                                $("#"+d[i]).parents(".fields").css("display","none");		                                
+		                                hideArray[hideArray.length] = d[i];
+		                            }    
+		                        }catch(e){}       
+		                    }
 		                }
 		            }
 		        }catch(e){}    
@@ -486,6 +493,7 @@ jQuery(function(){
 
                 $("#fieldlist").append('<script>CalcField.defaultCalc("#cp_calculatedfieldsf_pform");</script>');	
 				$(".depItem").bind("click", function() {
+				    if ($(this).attr("dep") && $(this).attr("dep")!="")
 			        showHideDep();
 			    });
 			    $(".depItemSel").bind("change", function() {
@@ -780,13 +788,18 @@ jQuery(function(){
 				ftype:"ftextarea",
 				predefined:"",
 				required:false,
-				size:"medium",
+				size:"medium",				
+				minlength:"",
+				maxlength:"",
 				display:function(){
 					return '<div class="fields" id="field-'+this.index+'"><div class="arrow ui-icon ui-icon-play "></div><div class="remove ui-icon ui-icon-trash "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><textarea class="field disabled '+this.size+'">'+this.predefined+'</textarea><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 				show:function(){
-					return '<div class="fields '+this.csslayout+'" id="field-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><textarea id="'+this.name+'" name="'+this.name+'" class="field '+this.size+((this.required)?" required":"")+'">'+this.predefined+'</textarea><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
-				}
+					return '<div class="fields '+this.csslayout+'" id="field-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><textarea id="'+this.name+'" name="'+this.name+'" minlength="'+(this.minlength)+'" maxlength="'+htmlEncode(this.maxlength)+'" class="field '+this.size+((this.required)?" required":"")+'">'+this.predefined+'</textarea><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
+				},
+                showSpecialDataInstance: function() {
+                    return '<div class="column"><label>Min length/characters</label><br /><input name="sMinlength" id="sMinlength" value="'+this.minlength+'"></div><div class="column"><label>Max length/characters</label><br /><input name="sMaxlength" id="sMaxlength" value="'+this.maxlength+'"></div><div class="clearer"></div>';
+                }
 		});
 		var ffile=function(){};
 		$.extend(ffile.prototype,ffields.prototype,{
@@ -1182,7 +1195,7 @@ jQuery(function(){
 					    }
 					    str += '<option '+((classDep!="")?"dep=\""+attrDep+"\"":"")+' '+((this.choiceSelected==this.choicesVal[i])?"selected":"")+' class="depItem" value="'+htmlEncode(this.choicesVal[i])+'">'+l[i]+'</option>';
 					}
-					return '<div class="fields '+this.csslayout+'" id="field-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><select id="'+this.name+'" name="'+this.name+'" class="field '+classDep+'Sel '+this.size+((this.required)?" required":"")+'" >'+str+'</select><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div><div class="clearer"></div></div>';
+					return '<div class="fields '+this.csslayout+'" id="field-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><select id="'+this.name+'" name="'+this.name+'" class="field depItemSel '+this.size+((this.required)?" required":"")+'" >'+str+'</select><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div><div class="clearer"></div></div>';
 				},
 				showChoiceIntance: function() {
 				    this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null)?this.choicesVal:this.choices);
@@ -1452,7 +1465,7 @@ jQuery(function(){
                         if(r.length){
                             var f = r[0].form;
                             if(f.equations == null || f.equations == undefined) f['equations'] = [];
-                            f.equations.push({'result':r, 'equation':eq, 'conf':conf});
+                            f.equations.push({'result':cf, 'equation':eq, 'conf':conf});
                         }	
                         
                     },
@@ -1464,7 +1477,7 @@ jQuery(function(){
                             var eq = f[0].equations;
                             for(var i=0, h = eq.length; i < h; i++){
                                 var r = _calculate(f[0], eq[i].equation);
-                                $(eq[i].result).val(( (r !== false) ? this._format(r, eq[i].conf) : '' )).change();
+                                $('[id="'+eq[i].result+'"]').val(( (r !== false) ? this._format(r, eq[i].conf) : '' )).change();
                             }
                         }
                             
@@ -1483,7 +1496,7 @@ jQuery(function(){
                             for (var i=0, l = eq.length; i < l; i++){
                                 if( reg.test(eq[i].equation+' ') ){ // If the field is in the equation.
                                     var r = _calculate(f, eq[i].equation);
-                                    $(eq[i].result).val(( (r !== false) ? this._format(r, eq[i].conf) : '' )).change();
+                                    $('[id="'+eq[i].result+'"]').val(( (r !== false) ? this._format(r, eq[i].conf) : '' )).change();
                                 }
                             }
                         }
