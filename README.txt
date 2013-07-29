@@ -58,7 +58,7 @@ You can **mix text and numbers** into a field. If a field contains a number it w
 
 The dates are also automatically identified and you can apply operations between them, for example, you can calculate the **number of days between two dates** with a simple operation like "date2-date1" or add some number of days or weeks to a date. To display the result as a date again you can use the CDate operator included in the calculator. The samples #2 and #4 are practical samples.
 
-The form and payment processing isn't included in this version. There are other versions with form processing included and additional features. See the FAQ for more information.
+The form processing and payment processing aren't included in this version. There are other versions with form processing included and additional features. See the FAQ for more information.
 
 = Latest Features Added =
 
