@@ -176,6 +176,7 @@ A: Use the "Page Break" field on the form builder to indicate the new pages on t
 = 1.0.1 =
 * Compatibility issues fixed, faster loading
 * New configuration settings
+* Compatible with all the latest WP versions
 
 == Upgrade Notice ==
 
