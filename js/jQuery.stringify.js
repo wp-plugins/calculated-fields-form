@@ -1,22 +1,6 @@
-
-/**
- * converted stringify() to jQuery plugin.
- * serializes a simple object to a JSON formatted string.
- * Note: stringify() is different from jQuery.serialize() which URLEncodes form elements
-
- * UPDATES:
- *      Added a fix to skip over Object.prototype members added by the prototype.js library
- * USAGE:
- *  jQuery.ajax({
- *	    data : {serialized_object : jQuery.stringify (JSON_Object)},
- *		success : function (data) {
- *
- *		}
- *   });
- *
- * CREDITS: http://blogs.sitepointstatic.com/examples/tech/json-serialization/json-serialization.js
- */
-jQuery.extend({
+jQuery(function(){
+(function($) {
+$.extend({
     
     stringifyXX  : function stringifyXX(obj) {
         encodeParam  = function(param,urlp) {
@@ -50,11 +34,13 @@ jQuery.extend({
                 if (t!="function")
                 //if (obj.hasOwnProperty(n)) 
                 {
-                    if (t == "string") v = '"' + enc(v) + '"'; else if (t == "object" && v !== null) v = jQuery.stringifyXX(v);
+                    if (t == "string") v = '"' + enc(v) + '"'; else if (t == "object" && v !== null) v = $.stringifyXX(v);
                     json.push((arr ? "" : '"' + n + '":') + String(v));
                 }
             }
             return encodeParam(arr ? "[" : "{") + String(json) + (arr ? "]" : "}");
         }
     }
+});
+})(jQuery);
 });
