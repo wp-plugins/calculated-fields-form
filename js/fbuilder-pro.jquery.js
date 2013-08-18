@@ -3,7 +3,7 @@ jQuery(function(){
 	$.fn.fbuilder = function(options){
 		var opt = $.extend({},
 				{
-	   				typeList:new Array({id:"ftext",name:"Single Line Text"},{id:"fnumber",name:"Number"},{id:"femail",name:"Email"},{id:"fdate",name:"Date"},{id:"ftextarea",name:"Paragraph Text"},{id:"fcheck",name:"Checkboxes"},{id:"fradio",name:"Multiple Choice"},{id:"fdropdown",name:"Dropdown"},{id:"ffile",name:"Upload File"},{id:"fpassword",name:"Password"},{id:"fPhone",name:"Phone field"},{id:"fCommentArea",name:"Comment Area"},{id:"fSectionBreak",name:"Section break"},{id:"fPageBreak",name:"Page break"},{id:"fCalculated", name:"Calculated Field"}),
+	   				typeList:new Array({id:"ftext",name:"Single Line Text"},{id:"fnumber",name:"Number"},{id:"femail",name:"Email"},{id:"fdate",name:"Date"},{id:"ftextarea",name:"Text Area"},{id:"fcheck",name:"Checkboxes"},{id:"fradio",name:"Radio Buttons"},{id:"fdropdown",name:"Dropdown"},{id:"ffile",name:"Upload File"},{id:"fpassword",name:"Password"},{id:"fPhone",name:"Phone field"},{id:"fCommentArea",name:"Instruct. Text"},{id:"fSectionBreak",name:"Section break"},{id:"fPageBreak",name:"Page break"},{id:"fCalculated", name:"Calculated Field"}),
 					pub:false,
 					title:""
 				},options, true);
@@ -368,15 +368,15 @@ jQuery(function(){
             $(".depItem").each(function() {
                 var item = $(this);
                 try {
-                    if (item.attr("dep") && item.attr("dep")!="" && !inArray(item.parents(".field").attr("id"),hideArray))
+                    if (item.attr("dep") && item.attr("dep")!="" )
                     {
                         var d = item.attr("dep").split(",");
                         for (i=0;i<d.length;i++)
 		                {
-		                    if (d[i]!="" && !inArray(d[i],used))
+		                    if (d[i]!="" && !inArray(d[i],used) && !inArray(d[i],hideArray))
 		                    {
 		                        try {
-		                            if ((item.is(':checked') || item.is(':selected') ))
+		                            if ((item.is(':checked') || item.is(':selected') ) && (!inArray(item.parents(".field").attr("id"),hideArray))   )
 		                            {
 		                                $("#"+d[i]).parents(".fields").css("display","");
 		                                used[used.length] = d[i];
