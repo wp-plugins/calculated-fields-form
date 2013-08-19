@@ -363,6 +363,13 @@ jQuery(function(){
                 }
                 return false;
             }
+            function removeFromArray(needle, haystack) {
+                for(var i = 0; i < haystack.length; i++) {
+                    if(haystack[i] == needle)
+                        haystack.splice(i,1);
+                }
+                return haystack;
+            }
             var used = new Array();
             var hideArray = new Array();
             $(".depItem").each(function() {
@@ -373,13 +380,14 @@ jQuery(function(){
                         var d = item.attr("dep").split(",");
                         for (i=0;i<d.length;i++)
 		                {
-		                    if (d[i]!="" && !inArray(d[i],used) && !inArray(d[i],hideArray))
+		                    if (d[i]!="" && !inArray(d[i],used) )//&& !inArray(d[i],hideArray)
 		                    {
 		                        try {
 		                            if ((item.is(':checked') || item.is(':selected') ) && (!inArray(item.parents(".field").attr("id"),hideArray))   )
 		                            {
 		                                $("#"+d[i]).parents(".fields").css("display","");
 		                                used[used.length] = d[i];
+		                                removeFromArray(d[i],hideArray);
 		                            }    
 		                            else
 		                            {
