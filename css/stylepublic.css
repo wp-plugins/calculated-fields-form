@@ -72,4 +72,4 @@ z-index:1000;
 .ignore{border:5px solid black}
 .pbreak fieldset{border:1px solid #ccc;padding:10px}
 .pbreak legend{border:1px solid #ccc;padding:5px 10px}
-#cpcaptchalayer,#cp_subbtn{display:none}
+.cpcaptchalayer,.cp_subbtn{display:none}
