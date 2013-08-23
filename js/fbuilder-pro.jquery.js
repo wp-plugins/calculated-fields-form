@@ -72,6 +72,10 @@ jQuery(function(){
 			$("#sPredefined").keyup(function(){
 				items[id].predefined = $(this).val();
 				reloadItems();
+			});			
+			$("#sPredefinedClick").click(function(){
+				items[id].predefinedClick = $(this).is(':checked');
+				reloadItems();
 			});
             $("#sEq").keyup(function(){
                 items[id].eq = $(this).val();
@@ -342,15 +346,23 @@ jQuery(function(){
 			for (var i=0;i<items.length;i++)
 				if (items[i].ftype=="femail")
 					str += '<option value="'+items[i].name+'" '+((items[i].name == $('#cu_user_email_field').attr("def"))?"selected":"")+'>'+(items[i].title)+'</option>';
-					//getNameByIdFromType
-			$('#cu_user_email_field').html(str);
-			
+			$('#cu_user_email_field').html(str);			
             //field list for paypal request
-            var str = "";
-            for (var i=0;i<items.length;i++)
-                str += '<option value="'+items[i].name+'" '+((items[i].name == $('#request_cost').attr("def"))?"selected":"")+'>'+items[i].name+'('+(items[i].title)+')</option>';
-            
-            $('#request_cost').html(str);
+            if (($('#request_cost').length > 0) && ($('#request_cost').is('select')))
+            {    
+                var str = "";
+                for (var i=0;i<items.length;i++)
+                    str += '<option value="'+items[i].name+'" '+((items[i].name == $('#request_cost').attr("def"))?"selected":"")+'>'+items[i].name+'('+(items[i].title)+')</option>';
+                $('#request_cost').html(str);
+            }                
+            //request amount list
+            if ($('#paypal_price_field').length > 0)
+            {
+			    var str = '<option value="" '+(('' == $('#paypal_price_field').attr("def"))?"selected":"")+'> ---- No ---- </option>';
+			    for (var i=0;i<items.length;i++)
+			    		str += '<option value="'+items[i].name+'" '+((items[i].name == $('#paypal_price_field').attr("def"))?"selected":"")+'>'+(items[i].title)+'</option>';										
+			    $('#paypal_price_field').html(str);
+		    }
 		}
 		function htmlEncode(value){
 		  value = $('<div/>').text(value).html()  
@@ -420,7 +432,15 @@ jQuery(function(){
 				    $("#fieldlist"+opt.identifier).append('<div class="pb'+page+' pbreak" page="'+page+'"></div>');
 				}
 				else
+				{
 				    $("#fieldlist"+opt.identifier+" .pb"+page).append(items[i].show());
+				    if (items[i].predefinedClick)
+				    {
+				        var cl = $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).attr("class")+" predefinedClick";
+				        $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).attr("class",cl);
+				        $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).attr("predefined",items[i].predefined);
+				    }
+				}    
 				$(".fields").mouseover(function() {
 					$(this).addClass("ui-over");
 				}).mouseout(function(){
@@ -480,6 +500,14 @@ jQuery(function(){
 			}
 			$(".pbSubmit").bind("click", function() {
 			    $(this).parents("#fieldlist"+opt.identifier).parents("form").submit();
+			});			
+			$("#fieldlist"+opt.identifier+" .predefinedClick").bind("click", function() {
+			    if ($(this).attr("predefined") == $(this).val())
+			        $(this).val("");
+			});
+			$("#fieldlist"+opt.identifier+" .predefinedClick").blur("click", function() {
+			    if ($(this).val()=="")
+			        $(this).val($(this).attr("predefined"));
 			});
 			if (i>0)
 			{
@@ -527,9 +555,9 @@ jQuery(function(){
 			showName: function(v) {
 				return '<div><label>Field tag for the message (optional):</label><input readonly="readonly" class="large" name="sNametag" id="sNametag" value="&lt;%'+v+'%&gt;" />'+
 				       '<input style="display:none" readonly="readonly" class="large" name="sName" id="sName" value="'+v+'" /></div>';
-			},
-			showPredefined: function(v) {
-				return '<label>Predefined Value</label><textarea class="large" name="sPredefined" id="sPredefined">'+v+'</textarea>';
+			},			
+			showPredefined: function(v,c) {
+				return '<div><label>Predefined Value</label><textarea class="large" name="sPredefined" id="sPredefined">'+v+'</textarea><br /><input type="checkbox" name="sPredefinedClick" id="sPredefinedClick" '+((c)?"checked":"")+' value="1" > Hide predefined value on click.</div>';
 			},
 			showEqualTo: function(v,name) {
 			    return '<div><label>Equal to [<a class="helpfbuilder" text="Use this field to create password confirmation field or email confirmation fields.\n\nSpecify this setting ONLY into the confirmation field, not in the original field.">help?</a>]</label><br /><select class="equalTo" name="sEqualTo" id="sEqualTo" dvalue="'+v+'" dname="'+name+'"></select></div>';
@@ -599,7 +627,7 @@ jQuery(function(){
 				},
 				showPredefined:function(){
 					if(typeof this.predefined != 'undefined')
-						return showSettings.showPredefined(this.predefined);
+						return showSettings.showPredefined(this.predefined,this.predefinedClick);
 					else
 						return "";
 				},
@@ -680,6 +708,7 @@ jQuery(function(){
 				title:"Untitled",
 				ftype:"ftext",
 				predefined:"",
+				predefinedClick:false,
 				required:false,
 				size:"medium",
 				minlength:"",
@@ -700,6 +729,7 @@ jQuery(function(){
 				title:"Untitled",
 				ftype:"fpassword",
 				predefined:"",
+				predefinedClick:false,
 				required:false,
 				size:"medium",
 				minlength:"",
@@ -720,6 +750,7 @@ jQuery(function(){
 				title:"Email",
 				ftype:"femail",
 				predefined:"",
+				predefinedClick:false,
 				required:false,
 				size:"medium",
 				equalTo:"",
@@ -739,6 +770,7 @@ jQuery(function(){
 				title:"Number",
 				ftype:"fnumber",
 				predefined:"",
+				predefinedClick:false,
 				required:false,
 				size:"small",
 				min:"",
@@ -766,6 +798,7 @@ jQuery(function(){
 				title:"Date",
 				ftype:"fdate",
 				predefined:"",
+				predefinedClick:false,
 				size:"medium",
 				required:false,
 				dformat:"mm/dd/yyyy",
@@ -801,6 +834,7 @@ jQuery(function(){
 				title:"Untitled",
 				ftype:"ftextarea",
 				predefined:"",
+				predefinedClick:false,
 				required:false,
 				size:"medium",				
 				minlength:"",
@@ -1386,7 +1420,7 @@ jQuery(function(){
                     }    
                     
                     var d = /(\d{1,2})\/(\d{1,2})\/(\d{4})/.exec(v),
-                        p = /[+-]?((\d+(\.\d+)?)|(\.\d+))/.exec(v);
+                        p = /[+-]?(([0-9]{1,3}(,[0-9]{3})+(\.[0-9]+)?)|(\d+(\.\d+)?)|(\.\d+))/.exec(v);
                         
                     if(e.hasClass('dateddmmyyyy') || e.hasClass('datemmddyyyy')){
                         Math.date_format = (e.hasClass('dateddmmyyyy')) ? 'ddmmyyyy' : 'mmddyyyy';
@@ -1398,7 +1432,7 @@ jQuery(function(){
                             s.push('codepeople_calculate_field');
                         }
                     }else{
-                        s.push( (p) ? p[0]*1 : v );
+                        s.push( (p) ? p[0].replace(/\,/g,'')*1 : v );
                     }
                 });
                 

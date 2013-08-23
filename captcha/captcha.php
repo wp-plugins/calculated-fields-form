@@ -6,7 +6,7 @@ http://www.codepeople.net
 
 error_reporting(7);
 
-ob_end_clean();
+ob_clean();
 
 if (!isset($_GET["ps"])) $_GET["ps"] = '';
 
