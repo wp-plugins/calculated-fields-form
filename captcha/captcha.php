@@ -163,5 +163,5 @@ else
 header("Content-type: image/png");
 imagepng($image);
 imagedestroy ($image);
-
+exit;
 ?>
