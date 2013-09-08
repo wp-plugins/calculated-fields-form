@@ -400,7 +400,7 @@ jQuery(function(){
 		                    if (d[i]!="" && !inArray(d[i],used) )//&& !inArray(d[i],hideArray)
 		                    {
 		                        try {
-		                            if ((item.is(':checked') || item.is(':selected') ) && (!inArray(item.parents(".field").attr("id"),hideArray))   )
+		                            if ((item.is(':checked') || item.is(':selected') ) && (!inArray(  ((item.hasClass("field"))?item.attr("id"):item.parents(".field").attr("id"))   ,hideArray))   )
 		                            {
 		                                $("#"+d[i]).parents(".fields").css("display","");
 		                                used[used.length] = d[i];
