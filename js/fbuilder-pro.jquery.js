@@ -581,7 +581,7 @@ jQuery(function(){
 				return '<label>Field Layout</label><br /><select name="sLayout" id="sLayout">'+str+'</select>';
 			},
 			showUserhelp: function(v) {
-				return '<label>Instruccions for User</label><textarea class="large" name="sUserhelp" id="sUserhelp">'+v+'</textarea>';
+				return '<label>Instructions for User</label><textarea class="large" name="sUserhelp" id="sUserhelp">'+v+'</textarea>';
 			},
 			showCsslayout: function(v) {
 				return '<label>Add Css Layout Keywords</label><input class="large" name="sCsslayout" id="sCsslayout" value="'+v+'" />';

@@ -38,10 +38,12 @@ Calculated Fields Form can be used for creating both single and complex calculat
 * Supports **multiple field types**, like drop-down, checkboxes, radiobuttons, dates, numbers 
 * Accept operations with dates (ex: days between two dates)
 * Smart automatic number and prices identification into the field values
-* Supports form separators and comments sections to layout the form in a more friendly way
+* Supports form separators and comments sections to layout the form in a friendlier way
 * Manage multiple calculated forms
 * Practical "clone" button to duplicate a form
 * Five pre-built practical samples included
+* Multi pages forms supported. 
+* Conditional rules uupported. Useful for creating wizzards.
 * Intuitive and interactive form builder interface
 
 There are five samples already included with the installation:
@@ -156,6 +158,81 @@ A: In the "throubleshoot area" (located below the list of forms in the settings 
 = Q: How to create multi-page forms? =
 
 A: Use the "Page Break" field on the form builder to indicate the new pages on the form.
+
+
+== Other Notes ==
+
+This section contains mainly notes about the form builder features that are too long to explain in the main description page.
+
+= Conditional Rules = 
+
+The form fields can be shown or hidden depending of the selection made on checkboxes, radio-buttons and select/drop-down fields. 
+
+When editing checkboxes, radio-buttons or select/drop-down fields in the form builder (click a field to select it and edit it details) you will see a link labeled "Show Dependencies".  When clicked, a new option will appear below each field's option, labeled "If selected show: ...". The field selected into that settings option will be displayed only of that option is selected into the parent checkbox, radio-button or select/drop-down field.
+
+Conditional rules are useful for showing information to the used based on the previous selection or just to make the form friendlier: easier to read and understand.
+
+= The "Equal to" validation rules = 
+
+This rule can be used to make the user enter the same value in two or more fields, usually as a confirmation field.
+
+The "Single Line Text", "Email" and "Password" fields have a validation option labeled "Equal to: ...". The field selected in "Equal to: ..." will be validated against the field that contains the rule.
+
+This feature is frequently used to ask the user enter the email address twice to be sure that it is correct or to enter a password twice to avoid mistakes.
+
+= Predefined value =
+
+The fields can have "predefined" or "prefilled" values. There are two possible uses for this:
+
+#1- Can be used for pre-filling the form with common values and save time to the end user.
+
+#2- Can be used for showing a sample of the data that should be entered in the field. In this case you may want to mark also the checkbox "Hide predefined value on click", this way the value will disappear once the user starts using the field without having to manually delete the placeholder value.
+
+= The "Instructions for User" option =
+
+Each field has a settings value labeled "Instructions for User". Use that settings value to put instructions to the end user about filling that field. The instructions will appear in a smaller text immediately below the field in the public website.
+
+= Add Css Layout Keywords = 
+
+This is also explained in the FAQ. The "Add Css Layout Keywords" is a way to apply CSS styles separately for each field. This settings field is available for each form builder field in the admin area. Into that field you can put the name of a CSS class that will be applied to the field.
+
+Important: Put only the name of the CSS class into the "Add Css Layout Keywords"; don't put the css styles rules directly there.
+
+There are some pre-defined CSS classes to use align two, three or four fields into the same line. The CSS classes are named:
+
+    column2
+    column3
+    column4
+
+For example if you want to put two fields into the same line then specify for both fields the class name "column2". The above is valid for both the classic fields and the calculated fields.
+
+The CSS classes/rules can be placed into the file "wp-content\plugins\calculated-fields-form\css\stylepublic.css" or into your theme CSS files.
+
+= Multi Page Forms = 
+
+For adding a new page to create multi-page forms just insert the field named "Page Break". Each form's page will be validated separately before going to the next form, however note that the calculations are applied to the whole form every time a field is modified, so a calculated field in other page may be modified even if that page isn't visible.
+
+= Fields available in the Calculated Fields Form's form builder = 
+
+The following fields are available:
+
+* Single Line Text: A classic input field for a one-line text.
+* Number: A classic input field with validation rules for numeric values.
+* Email: A classic input field with validation rules for email addresses.
+* Date: A date field. It can be used directly in calculations without a previous conversion or processing.
+* Text Area: A multi-line text field.
+* Checkboxes: Checkboxes for selecting one or more options into the same field.
+* Radio Buttons: Radiobuttons for selecting one option between the options available for the field.
+* Drop-down: A select / drop down list for selecting one of the values listed.
+* Upload File: An upload field. Not frequently used in calculations.
+* Password: A classic password / input field that shows **** when something is typed.
+* Phone field: A very configurable sequence of input fields for entering phone numbers, serial numbers or a sequence of values with limited size.
+* Instruct. Text: Use this area for adding instructions to the end user.
+* Section Break: A line / separator for sections into the same page.
+* Page Break: A separator for pages on multi page forms.
+* Calculated field: .. and of course, the calculated field that accepts formulas, functions and many related settings.
+
+New fields may be added at any time, so check the latest version of the plugin since it may have new options.
 
 
 == Screenshots ==
