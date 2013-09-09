@@ -254,6 +254,7 @@ New fields may be added at any time, so check the latest version of the plugin s
 * Compatibility issues fixed, faster loading
 * New configuration settings
 * Compatible with all the latest WP versions
+* Fixed tags in WP directory
 
 == Upgrade Notice ==
 
