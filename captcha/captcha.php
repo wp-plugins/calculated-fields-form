@@ -46,19 +46,19 @@ $min_size = $_GET["min_size"];
 $max_size = $_GET["max_size"]; 
 $noise = $_GET["noise"]; 
 $noiselength = $_GET["noiselength"]; 
-$bcolor = decodeColor($_GET["bcolor"]);  
-$border = decodeColor($_GET["border"]);  
+$bcolor = cpcff_decodeColor($_GET["bcolor"]);  
+$border = cpcff_decodeColor($_GET["border"]);  
 
 $noisecolor = 0xcdcdcd;         
 $random_noise_color= true;      
-$tcolor = decodeColor("666666"); 
+$tcolor = cpcff_decodeColor("666666"); 
 $random_text_color= true;                                
                        
                          
 header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Pragma: no-cache");  
   
-function decodeColor($hexcolor)
+function cpcff_decodeColor($hexcolor)
 {
    $color = hexdec($hexcolor);
    $c["b"] = $color % 256;
@@ -69,7 +69,7 @@ function decodeColor($hexcolor)
    return $c;
 }
 
-function similarColors($c1, $c2)
+function cpcff_similarColors($c1, $c2)
 {
    return sqrt( pow($c1["r"]-$c2["r"],2) + pow($c1["g"]-$c2["g"],2) + pow($c1["b"]-$c2["b"],2)) < 125;
 }
@@ -80,11 +80,11 @@ function similarColors($c1, $c2)
 
 session_start();
 
-function make_seed() {
+function cpcff_make_seed() {
     list($usec, $sec) = explode(' ', microtime());
     return (float) $sec + ((float) $usec * 100000);
 }
-mt_srand(make_seed());
+mt_srand(cpcff_make_seed());
 $randval = mt_rand();
 
 $str = "";
@@ -104,8 +104,8 @@ if ($random_text_color)
   do 
   {
      $selcolor = mt_rand(0,256*256*256);
-  } while ( similarColors(decodeColor($selcolor), $bcolor) );
-  $tcolor = decodeColor($selcolor);
+  } while ( cpcff_similarColors(cpcff_decodeColor($selcolor), $bcolor) );
+  $tcolor = cpcff_decodeColor($selcolor);
 }    
 
 $text_col = imagecolorallocate($image, $tcolor["r"],$tcolor["g"],$tcolor["b"]);
