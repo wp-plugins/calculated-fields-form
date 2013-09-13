@@ -66,13 +66,13 @@ jQuery(function(){
 				reloadItems();
 			});
 			$("#sName").keyup(function(){
-				items[id].name = $(this).val(); 
+				items[id].name = $(this).val();
 				reloadItems();
 			});
 			$("#sPredefined").keyup(function(){
 				items[id].predefined = $(this).val();
 				reloadItems();
-			});			
+			});
 			$("#sPredefinedClick").click(function(){
 				items[id].predefinedClick = $(this).is(':checked');
 				reloadItems();
@@ -100,7 +100,7 @@ jQuery(function(){
 			$("#sDropdownRange").keyup(function(){
 				items[id].dropdownRange = $(this).val();
 				reloadItems();
-			});			
+			});
 			$("#sRequired").click(function(){
 				items[id].required = $(this).is(':checked');
 				reloadItems();
@@ -108,13 +108,13 @@ jQuery(function(){
             $("#sReadOnly").click(function(){
                 items[id].readonly = $(this).is(':checked');
                 reloadItems();
-            });			
+            });
 			$("#sShowDropdown").click(function(){
 				items[id].showDropdown = $(this).is(':checked');
 				if ($(this).is(':checked'))
 				    $("#divdropdownRange").css("display","");
 				else
-				    $("#divdropdownRange").css("display","none");    
+				    $("#divdropdownRange").css("display","none");
 				reloadItems();
 			});
 			$("#sSize").change(function(){
@@ -150,16 +150,16 @@ jQuery(function(){
 				reloadItems();
 			});
 			$(".showHideDependencies").click(function(){
-			    if (items[id].showDep) 
+			    if (items[id].showDep)
 			    {
-			        $(this).parent().removeClass("show");    
+			        $(this).parent().removeClass("show");
 			        $(this).parent().addClass("hide");
 			        $(this).html("Show Dependencies");
 			        items[id].showDep = false;
 			    }
 			    else
 			    {
-			        $(this).parent().addClass("show");    
+			        $(this).parent().addClass("show");
 			        $(this).parent().removeClass("hide");
 			        $(this).html("Hide Dependencies");
 			        items[id].showDep = true;
@@ -172,13 +172,13 @@ jQuery(function(){
 					items[id].choices[0]="";
 					items[id].choicesVal[0]="";
 					items[id].choicesDep[0]=new Array();
-				}	
+				}
 				else
 				{
 					items[id].choices.splice($(this).attr("i"),1);
 					items[id].choicesVal.splice($(this).attr("i"),1);
 					items[id].choicesDep.splice($(this).attr("i"),1);
-				}	
+				}
 				if (items[id].ftype=="fcheck")
 				{
 					if (items[id].choiceSelected.length==1)
@@ -203,7 +203,7 @@ jQuery(function(){
 			    {
 				    $("#"+$(this).attr("id")+"V"+$(this).attr("i")).val($(this).val());
 				    items[id].choicesVal[$(this).attr("i")]= $(this).val();
-				}    
+				}
 				items[id].choices[$(this).attr("i")]= $(this).val();
 				reloadItems();
 			});
@@ -241,18 +241,18 @@ jQuery(function(){
 			    for (var i=0;i<items.length;i++)
 			    	if ((items[i].ftype=="ftext" || items[i].ftype=="femail" || items[i].ftype=="fpassword") && (items[i].name != $(this).attr("dname")))
 			    		str += '<option value="'+items[i].name+'" '+((items[i].name == $(this).attr("dvalue"))?"selected":"")+'>'+(items[i].title)+'</option>';
-			    $(this).html(str);	
+			    $(this).html(str);
 			});
 			$('.dependencies').each(function(){
 			    var str = '<option value="" '+(("" == $(this).attr("dvalue"))?"selected":"")+'></option>';
 			    for (var i=0;i<items.length;i++)
 			    	if (items[i].name != $(this).attr("dname"))
 			    		str += '<option value="'+items[i].name+'" '+((items[i].name == $(this).attr("dvalue"))?"selected":"")+'>'+(items[i].title)+'</option>';
-			    $(this).html(str);	
+			    $(this).html(str);
 			});
 			$('.dependencies').change(function(){
 			    items[id].choicesDep[$(this).attr("i")][$(this).attr("j")] = $(this).val();
-				reloadItems();	
+				reloadItems();
 			});
 			$(".choice_removeDep").click(function(){
 				if (items[id].choices.length==1)
@@ -346,26 +346,26 @@ jQuery(function(){
 			for (var i=0;i<items.length;i++)
 				if (items[i].ftype=="femail")
 					str += '<option value="'+items[i].name+'" '+((items[i].name == $('#cu_user_email_field').attr("def"))?"selected":"")+'>'+(items[i].title)+'</option>';
-			$('#cu_user_email_field').html(str);			
+			$('#cu_user_email_field').html(str);
             //field list for paypal request
             if (($('#request_cost').length > 0) && ($('#request_cost').is('select')))
-            {    
+            {
                 var str = "";
                 for (var i=0;i<items.length;i++)
                     str += '<option value="'+items[i].name+'" '+((items[i].name == $('#request_cost').attr("def"))?"selected":"")+'>'+items[i].name+'('+(items[i].title)+')</option>';
                 $('#request_cost').html(str);
-            }                
+            }
             //request amount list
             if ($('#paypal_price_field').length > 0)
             {
 			    var str = '<option value="" '+(('' == $('#paypal_price_field').attr("def"))?"selected":"")+'> ---- No ---- </option>';
 			    for (var i=0;i<items.length;i++)
-			    		str += '<option value="'+items[i].name+'" '+((items[i].name == $('#paypal_price_field').attr("def"))?"selected":"")+'>'+(items[i].title)+'</option>';										
+			    		str += '<option value="'+items[i].name+'" '+((items[i].name == $('#paypal_price_field').attr("def"))?"selected":"")+'>'+(items[i].title)+'</option>';
 			    $('#paypal_price_field').html(str);
 		    }
 		}
 		function htmlEncode(value){
-		  value = $('<div/>').text(value).html()  
+		  value = $('<div/>').text(value).html()
           value = value.replace(/"/g, "&quot;");;
           return value;
         }
@@ -378,7 +378,7 @@ jQuery(function(){
             }
             function removeFromArray(needle, haystack) {
                 for(var i = 0; i < haystack.length; i++) {
-                    if(haystack[i] == needle) 
+                    if(haystack[i] == needle)
                     {
                         haystack.splice(i,1);
                         i--;
@@ -403,19 +403,21 @@ jQuery(function(){
 		                            if ((item.is(':checked') || item.is(':selected') ) && (!inArray(  ((item.hasClass("field"))?item.attr("id"):item.parents(".field").attr("id"))   ,hideArray))   )
 		                            {
 		                                $("#"+d[i]).parents(".fields").css("display","");
+		                                $("#"+d[i]+".field").each(function(){$(this).removeClass("ignore");});
 		                                used[used.length] = d[i];
 		                                removeFromArray(d[i],hideArray);
-		                            }    
+		                            }
 		                            else
 		                            {
-		                                $("#"+d[i]).parents(".fields").css("display","none");		                                
+		                                $("#"+d[i]).parents(".fields").css("display","none");
+		                                $("#"+d[i]+".field").each(function(){$(this).addClass("ignore");});
 		                                hideArray[hideArray.length] = d[i];
-		                            }    
-		                        }catch(e){}       
+		                            }
+		                        }catch(e){}
 		                    }
 		                }
 		            }
-		        }catch(e){}    
+		        }catch(e){}
 		    });
         }
 		reloadItemsPublic = function() {
@@ -423,7 +425,7 @@ jQuery(function(){
 				$("#fieldlist"+opt.identifier).removeClass(showSettings.formlayoutList[i].id);
 			$("#fieldlist"+opt.identifier).addClass(theForm.formlayout);
 			$("#formheader"+opt.identifier).html(theForm.show());
-			var page = 0;			
+			var page = 0;
 			$("#fieldlist"+opt.identifier).append('<div class="pb'+page+' pbreak" page="'+page+'"></div>');
 			var itemsDates = new Array();
 			for (var i=0;i<items.length;i++)
@@ -443,7 +445,7 @@ jQuery(function(){
 				        $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).attr("class",cl);
 				        $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).attr("predefined",items[i].predefined);
 				    }
-				}    
+				}
 				$(".fields").mouseover(function() {
 					$(this).addClass("ui-over");
 				}).mouseout(function(){
@@ -453,7 +455,7 @@ jQuery(function(){
 					$(this).siblings().removeClass("ui-selected");
 					$(this).addClass("ui-selected");
 				});
-				
+
 				if (items[i].ftype=="fdate")
 				    itemsDates[itemsDates.length] = items[i];
 			}
@@ -470,21 +472,21 @@ jQuery(function(){
 			            if ($("#cpcaptchalayer"+opt.identifier).html())
 			            {
 			                code += '<div>'+$("#cpcaptchalayer"+opt.identifier).html()+'</div>';
-			                $("#cpcaptchalayer"+opt.identifier).html(""); 
+			                $("#cpcaptchalayer"+opt.identifier).html("");
 			            }
 			            if ($("#cp_subbtn"+opt.identifier).html())
 			                bSubmit = '<div class="pbSubmit">'+$("#cp_subbtn"+opt.identifier).html()+'</div>';
-			        }    
+			        }
 			        $(this).html('<fieldset><legend>Page '+(index+1)+' of '+(page+1)+'</legend>'+code+'<div class="pbPrevious">Previous</div><div class="pbNext">Next</div>'+bSubmit+'<div class="clearer"></div></fieldset>');
 			    });
 			    $(".pbPrevious,.pbNext").bind("click", function() {
 			        if ($(this).parents("form").valid())
 			        {
 			            var page = parseInt($(this).parents(".pbreak").attr("page"));
-			            (($(this).hasClass("pbPrevious"))?page--:page++);			        
+			            (($(this).hasClass("pbPrevious"))?page--:page++);
 			            $("#fieldlist"+opt.identifier+" .pbreak").css("display","none");
 			            $("#fieldlist"+opt.identifier+" .pbreak").find(".field").addClass("ignore");
-			            
+
 			            $("#fieldlist"+opt.identifier+" .pb"+page).css("display","block");
 			            $("#fieldlist"+opt.identifier+" .pb"+page).find(".field").removeClass("ignore");
 			        }
@@ -503,7 +505,7 @@ jQuery(function(){
 			}
 			$(".pbSubmit").bind("click", function() {
 			    $(this).parents("#fieldlist"+opt.identifier).parents("form").submit();
-			});			
+			});
 			$("#fieldlist"+opt.identifier+" .predefinedClick").bind("click", function() {
 			    if ($(this).attr("predefined") == $(this).val())
 			        $(this).val("");
@@ -516,7 +518,7 @@ jQuery(function(){
 			{
 			    for (var k=0;k<itemsDates.length;k++)
 				{
-				    if (itemsDates[k].showDropdown) 				
+				    if (itemsDates[k].showDropdown)
 					    $( "#"+itemsDates[k].name ).datepicker({changeMonth: true,changeYear: true,yearRange: itemsDates[k].dropdownRange,dateFormat: itemsDates[k].dformat.replace(/yyyy/g,"yy")});
 					else
 					    $( "#"+itemsDates[k].name ).datepicker({ dateFormat: itemsDates[k].dformat.replace(/yyyy/g,"yy")});
@@ -527,7 +529,7 @@ jQuery(function(){
                 //$(".depItem").each(function() {
 			        showHideDep();
 			    //});
-                $.validator.addMethod("dateddmmyyyy", function(value, element) {				    
+                $.validator.addMethod("dateddmmyyyy", function(value, element) {
 				  return this.optional(element) || /^(?:[1-9]|0[1-9]|1[0-9]|2[0-9]|3[0-1])[\/\-](?:[1-9]|0[1-9]|1[0-2])[\/\-]\d{4}$/.test(value);
 				});
 
@@ -536,12 +538,8 @@ jQuery(function(){
 				});//{required: true, range: [11, 22]}
 
 
-                $("#fieldlist"+opt.identifier).append('<script>CalcField.defaultCalc("#cp_calculatedfieldsf_pform'+opt.identifier+'");</script>');	
-				$(".depItem").bind("click", function() {
-				    if ($(this).attr("dep") && $(this).attr("dep")!="")
-			        showHideDep();
-			    });
-			    $(".depItemSel").bind("change", function() {
+                $("#fieldlist"+opt.identifier).append('<script>CalcField.defaultCalc("#cp_calculatedfieldsf_pform'+opt.identifier+'");</script>');
+				$(".depItemSel,.depItem").bind("change", function() {
 			        showHideDep();
 			    });
 			}
@@ -558,13 +556,13 @@ jQuery(function(){
 			showName: function(v) {
 				return '<div><label>Field tag for the message (optional):</label><input readonly="readonly" class="large" name="sNametag" id="sNametag" value="&lt;%'+v+'%&gt;" />'+
 				       '<input style="display:none" readonly="readonly" class="large" name="sName" id="sName" value="'+v+'" /></div>';
-			},			
+			},
 			showPredefined: function(v,c) {
 				return '<div><label>Predefined Value</label><textarea class="large" name="sPredefined" id="sPredefined">'+v+'</textarea><br /><input type="checkbox" name="sPredefinedClick" id="sPredefinedClick" '+((c)?"checked":"")+' value="1" > Hide predefined value on click.</div>';
 			},
 			showEqualTo: function(v,name) {
 			    return '<div><label>Equal to [<a class="helpfbuilder" text="Use this field to create password confirmation field or email confirmation fields.\n\nSpecify this setting ONLY into the confirmation field, not in the original field.">help?</a>]</label><br /><select class="equalTo" name="sEqualTo" id="sEqualTo" dvalue="'+v+'" dname="'+name+'"></select></div>';
-			},			
+			},
 			showRequired: function(v) {
 				return '<div><input type="checkbox" name="sRequired" id="sRequired" '+((v)?"checked":"")+'><label>Required</label></div>';
 			},
@@ -621,7 +619,7 @@ jQuery(function(){
 						return this.showSpecialDataInstance();
 					else
 						return "";
-				},				
+				},
 				showEqualTo:function(){
 					if(typeof this.equalTo != 'undefined')
 						return showSettings.showEqualTo(this.equalTo,this.name);
@@ -721,7 +719,7 @@ jQuery(function(){
 					return '<div class="fields" id="field'+opt.identifier+'-'+this.index+'"><div class="arrow ui-icon ui-icon-play "></div><div class="remove ui-icon ui-icon-trash "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input class="field disabled '+this.size+'" type="text" value="'+htmlEncode(this.predefined)+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 				show:function(){
-					return '<div class="fields '+this.csslayout+'" id="field'+opt.identifier+'-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" minlength="'+(this.minlength)+'" maxlength="'+htmlEncode(this.maxlength)+'" '+((this.equalTo!="")?"equalTo=\"#"+htmlEncode(this.equalTo+opt.identifier)+"\"":"" )+' class="field '+this.size+((this.required)?" required":"")+'" type="text" value="'+htmlEncode(this.predefined)+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';	
+					return '<div class="fields '+this.csslayout+'" id="field'+opt.identifier+'-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" minlength="'+(this.minlength)+'" maxlength="'+htmlEncode(this.maxlength)+'" '+((this.equalTo!="")?"equalTo=\"#"+htmlEncode(this.equalTo+opt.identifier)+"\"":"" )+' class="field '+this.size+((this.required)?" required":"")+'" type="text" value="'+htmlEncode(this.predefined)+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
                 showSpecialDataInstance: function() {
                     return '<div class="column"><label>Min length/characters</label><br /><input name="sMinlength" id="sMinlength" value="'+this.minlength+'"></div><div class="column"><label>Max length/characters</label><br /><input name="sMaxlength" id="sMaxlength" value="'+this.maxlength+'"></div><div class="clearer"></div>';
@@ -742,7 +740,7 @@ jQuery(function(){
 					return '<div class="fields" id="field'+opt.identifier+'-'+this.index+'"><div class="arrow ui-icon ui-icon-play "></div><div class="remove ui-icon ui-icon-trash "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input class="field disabled '+this.size+'" type="password" value="'+htmlEncode(this.predefined)+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 				show:function(){
-					return '<div class="fields '+this.csslayout+'" id="field'+opt.identifier+'-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" minlength="'+(this.minlength)+'" maxlength="'+htmlEncode(this.maxlength)+'" '+((this.equalTo!="")?"equalTo=\"#"+htmlEncode(this.equalTo+opt.identifier)+"\"":"" )+' class="field '+this.size+((this.required)?" required":"")+'" type="password" value="'+htmlEncode(this.predefined)+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';	
+					return '<div class="fields '+this.csslayout+'" id="field'+opt.identifier+'-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" minlength="'+(this.minlength)+'" maxlength="'+htmlEncode(this.maxlength)+'" '+((this.equalTo!="")?"equalTo=\"#"+htmlEncode(this.equalTo+opt.identifier)+"\"":"" )+' class="field '+this.size+((this.required)?" required":"")+'" type="password" value="'+htmlEncode(this.predefined)+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
                 showSpecialDataInstance: function() {
                     return '<div class="column"><label>Min length/characters</label><br /><input name="sMinlength" id="sMinlength" value="'+this.minlength+'"></div><div class="column"><label>Max length/characters</label><br /><input name="sMaxlength" id="sMaxlength" value="'+this.maxlength+'"></div><div class="clearer"></div>';
@@ -761,7 +759,7 @@ jQuery(function(){
 					return '<div class="fields" id="field'+opt.identifier+'-'+this.index+'"><div class="arrow ui-icon ui-icon-play "></div><div class="remove ui-icon ui-icon-trash "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input class="field disabled '+this.size+'" type="text" value="'+htmlEncode(this.predefined)+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 				show:function(){
-					return '<div class="fields '+this.csslayout+'" id="field'+opt.identifier+'-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" '+((this.equalTo!="")?"equalTo=\"#"+htmlEncode(this.equalTo+opt.identifier)+"\"":"" )+' class="field email '+this.size+((this.required)?" required":"")+'" type="text" value="'+htmlEncode(this.predefined)+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';	
+					return '<div class="fields '+this.csslayout+'" id="field'+opt.identifier+'-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" '+((this.equalTo!="")?"equalTo=\"#"+htmlEncode(this.equalTo+opt.identifier)+"\"":"" )+' class="field email '+this.size+((this.required)?" required":"")+'" type="text" value="'+htmlEncode(this.predefined)+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
                 showSpecialDataInstance: function() {
                     var str = "";
@@ -784,7 +782,7 @@ jQuery(function(){
 					return '<div class="fields" id="field'+opt.identifier+'-'+this.index+'"><div class="arrow ui-icon ui-icon-play "></div><div class="remove ui-icon ui-icon-trash "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input class="field disabled '+this.size+'" type="text" value="'+htmlEncode(this.predefined)+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 				show:function(){
-					return '<div class="fields '+this.csslayout+'" id="field'+opt.identifier+'-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" min="'+this.min+'" max="'+this.max+'" class="field '+this.dformat+' '+this.size+((this.required)?" required":"")+'" type="text" value="'+htmlEncode(this.predefined)+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';	
+					return '<div class="fields '+this.csslayout+'" id="field'+opt.identifier+'-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" min="'+this.min+'" max="'+this.max+'" class="field '+this.dformat+' '+this.size+((this.required)?" required":"")+'" type="text" value="'+htmlEncode(this.predefined)+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 				showFormatIntance: function() {
 					var str = "";
@@ -815,7 +813,7 @@ jQuery(function(){
 					return '<div class="fields" id="field'+opt.identifier+'-'+this.index+'"><div class="arrow ui-icon ui-icon-play "></div><div class="remove ui-icon ui-icon-trash "></div><label>'+this.title+''+((this.required)?"*":"")+' ('+this.dformat+')</label><div class="dfield"><input class="field disabled '+this.size+'" type="text" value="'+htmlEncode(this.predefined)+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 				show:function(){
-					return '<div class="fields '+this.csslayout+'" id="field'+opt.identifier+'-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+' ('+this.dformat+')</label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" class="field date'+this.dformat.replace(/\//g,"")+' '+this.size+((this.required)?" required":"")+'" type="text" value="'+htmlEncode(this.predefined)+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';	
+					return '<div class="fields '+this.csslayout+'" id="field'+opt.identifier+'-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+' ('+this.dformat+')</label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" class="field date'+this.dformat.replace(/\//g,"")+' '+this.size+((this.required)?" required":"")+'" type="text" value="'+htmlEncode(this.predefined)+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 				showFormatIntance: function() {
 					var str = "";
@@ -839,7 +837,7 @@ jQuery(function(){
 				predefined:"",
 				predefinedClick:false,
 				required:false,
-				size:"medium",				
+				size:"medium",
 				minlength:"",
 				maxlength:"",
 				display:function(){
@@ -878,7 +876,7 @@ jQuery(function(){
 				}
 		});
 		var fPageBreak=function(){};
-		$.extend(fPageBreak.prototype,ffields.prototype,{				
+		$.extend(fPageBreak.prototype,ffields.prototype,{
 				title:"Page Break",
 				ftype:"fPageBreak",
 				display:function(){
@@ -901,7 +899,7 @@ jQuery(function(){
 				    var tmpv = this.predefined.split(' ');
 				    for (var i=0;i<tmpv.length;i++)
 				        if ($.trim(tmpv[i])=="")
-				            tmpv.splice(i,1);    
+				            tmpv.splice(i,1);
 				    for (var i=0;i<tmp.length;i++)
 				        if ($.trim(tmp[i])!="")
 				            str += '<div class="uh_phone" ><input type="text" class="field disabled" style="width:'+(15*$.trim(tmp[i]).length)+'px" value="'+((tmpv[i])?tmpv[i]:"")+'" maxlength="'+$.trim(tmp[i]).length+'" /><div class="l">'+$.trim(tmp[i])+'</div></div>';
@@ -913,7 +911,7 @@ jQuery(function(){
 				    var tmpv = this.predefined.split(' ');
 				    for (var i=0;i<tmpv.length;i++)
 				        if ($.trim(tmpv[i])=="")
-				            tmpv.splice(i,1);    
+				            tmpv.splice(i,1);
 				    for (var i=0;i<tmp.length;i++)
 				        if ($.trim(tmp[i])!="")
 				            str += '<div class="uh_phone" ><input type="text" id="'+this.name+'_'+i+'" name="'+this.name+'_'+i+'" class="field digits '+((this.required)?" required":"")+'" style="width:'+(15*$.trim(tmp[i]).length)+'px" value="'+((tmpv[i])?tmpv[i]:"")+'" maxlength="'+$.trim(tmp[i]).length+'" minlength="'+$.trim(tmp[i]).length+'"/><div class="l">'+$.trim(tmp[i])+'</div></div>';
@@ -935,7 +933,7 @@ jQuery(function(){
                         return '<div class="fields '+this.csslayout+' comment_area" id="field'+opt.identifier+'-'+this.index+'"><label id="'+this.name+'">'+this.title+'</label><span class="uh">'+this.userhelp+'</span><div class="clearer"></div></div>';
 				}
 		});
-            
+
         var fCalculated=function(){};
         $.extend(fCalculated.prototype,ffields.prototype,{
                 title:"Untitled",
@@ -954,13 +952,13 @@ jQuery(function(){
                 },
                 show:function(){
                     var obj = '{';
-                    
+
                     if(!/^\s*$/.test(this.suffix)) obj += '\"suffix\":\"'+this.suffix.replace(/"/g, '\"').replace(/\n/g, ' ')+'\",';
                     if(!/^\s*$/.test(this.prefix)) obj += '\"prefix\":\"'+this.prefix.replace(/"/g, '\"').replace(/\n/g, ' ')+'\",';
                     if(!/^\s*$/.test(this.groupingsymbol)) obj += '\"groupingsymbol\":\"'+this.groupingsymbol.replace(/"/g, '\"').replace(/\n/g, ' ')+'\",';
                     obj += '\"decimalsymbol\":\"'+((!/^\s*$/.test(this.decimalsymbol)) ? this.decimalsymbol.replace(/"/g, '\"').replace(/\n/g, ' ') : '.')+'\"}';
-                    
-                    return '<div class="fields '+this.csslayout+'" id="field'+opt.identifier+'-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" '+((this.readonly) ? ' readonly ' : '')+' class="codepeoplecalculatedfield field '+this.size+((this.required)?" required":"")+'" type="text" value="'+this.predefined+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div>'+((!/^\s*$/.test(this.eq))? '<script>CalcField.addEquation("'+this.name.replace(/"/g, '\"')+'", "'+this.eq.replace(/"/g, '\"').replace(/\n/g, ' ').replace(/fieldname(\d+)/g, "fieldname$1"+opt.identifier)+'", '+obj+');</script>' : '')+'</div>';	
+
+                    return '<div class="fields '+this.csslayout+'" id="field'+opt.identifier+'-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" '+((this.readonly) ? ' readonly ' : '')+' class="codepeoplecalculatedfield field '+this.size+((this.required)?" required":"")+'" type="text" value="'+this.predefined+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div>'+((!/^\s*$/.test(this.eq))? '<script>CalcField.addEquation("'+this.name.replace(/"/g, '\"')+'", "'+this.eq.replace(/"/g, '\"').replace(/\n/g, ' ').replace(/fieldname(\d+)/g, "fieldname$1"+opt.identifier)+'", '+obj+');</script>' : '')+'</div>';
                 },
                 showAllSettings:function(){
                     return this.showTitle()+this.showName()+this.showSize()+this.showLayout()+this.showFormat()+this.showRange()+this.showRequired()+this.showReadOnly()+this.showSpecialData()+this.showPredefined()+this.showEqEditor()+this.showChoice()+this.showUserhelp()+this.showCsslayout();
@@ -971,11 +969,11 @@ jQuery(function(){
                 showEqEditor:function(eq){
                     var me = this;
                     jQuery.fbuilder = jQuery.fbuilder || {};
-                    
+
                     jQuery.fbuilder['setField'] = function(){
                         jQuery.fbuilder.setSymbol($('#sFieldList').val());
                     }
-                    
+
                     jQuery.fbuilder['setSymbol'] = function(s){
                         var sEQ = $('#sEq');
                         if(sEQ.length){
@@ -988,11 +986,11 @@ jQuery(function(){
                             reloadItems();
                         }
                     };
-                    
+
                     jQuery.fbuilder['setTip'] = function(e){
                         $('#sEqTipsContainer').html(tips[e]);
                     };
-                    
+
                     var tips = {
                         "+":"",
                         "-":"",
@@ -1013,9 +1011,9 @@ jQuery(function(){
                         "max":"Returns the greater value of the two parameters. <strong>max(number1, number2)</strong>",
                         "min":"Returns the lesser value of the two parameters. <strong>min(number1, number2)</strong>"
                     };
-                    
+
                     var out = '<label>Set Equation</label><textarea class="large" name="sEq" id="sEq">'+this.eq+'</textarea>';
-                    
+
                     out += '<label>Operands</label><div style="border:1px dotted #888;">';
                     out += '<select id="sFieldList" style="width:260px;">'
                     for(var i in items){
@@ -1023,45 +1021,45 @@ jQuery(function(){
                         if(item['name'] != this.name){
                             var fName = item['name'],
                                 fTitle = item['title'];
-                            
+
                             fName = fName.replace(/'/g, "\'").replace(/"/g, '\"');
                             out += '<option value="'+fName+'">'+item['name']+((item['title'] && !/^\s*$/.test(item['title'])) ? '('+item['title']+')' : '')+'</option>';
-                        }	
+                        }
                     }
                     out += '</select>';
                     out += '<input type="button" value="+" class="eq_btn" onclick="jQuery.fbuilder.setField();" />';
                     out += '</div>';
-                    
+
                     out += '<label>Operators</label><div style="border:1px dotted #888;text-align:center;">';
-                    
+
                     out += '<input type="button" value="+"     onclick="jQuery.fbuilder.setSymbol(\'+\');jQuery.fbuilder.setTip(\'+\');" class="eq_btn" />';
                     out += '<input type="button" value="-"     onclick="jQuery.fbuilder.setSymbol(\'-\');jQuery.fbuilder.setTip(\'-\');" class="eq_btn" />';
                     out += '<input type="button" value="*"     onclick="jQuery.fbuilder.setSymbol(\'*\');jQuery.fbuilder.setTip(\'*\');" class="eq_btn" />';
                     out += '<input type="button" value="/"     onclick="jQuery.fbuilder.setSymbol(\'/\');jQuery.fbuilder.setTip(\'/\');" class="eq_btn" />';
                     out += '<input type="button" value="("     onclick="jQuery.fbuilder.setSymbol(\'(\');jQuery.fbuilder.setTip(\'(\');" class="eq_btn" />';
                     out += '<input type="button" value=")" 	   onclick="jQuery.fbuilder.setSymbol(\')\');jQuery.fbuilder.setTip(\')\');" class="eq_btn" /><br />';
-                    
+
                     out += '<input type="button" value=","     onclick="jQuery.fbuilder.setSymbol(\',\');jQuery.fbuilder.setTip(\',\');" class="eq_btn" />';
                     out += '<input type="button" value="abs"   onclick="jQuery.fbuilder.setSymbol(\'abs(\');jQuery.fbuilder.setTip(\'abs\');" class="eq_btn" />';
                     out += '<input type="button" value="ceil"  onclick="jQuery.fbuilder.setSymbol(\'ceil(\');jQuery.fbuilder.setTip(\'ceil\');" class="eq_btn" />';
                     out += '<input type="button" value="floor" onclick="jQuery.fbuilder.setSymbol(\'floor(\');jQuery.fbuilder.setTip(\'floor\');" class="eq_btn" />';
                     out += '<input type="button" value="round" onclick="jQuery.fbuilder.setSymbol(\'round(\');jQuery.fbuilder.setTip(\'round\');" class="eq_btn" />';
                     out += '<input type="button" value="prec"  onclick="jQuery.fbuilder.setSymbol(\'prec(\');jQuery.fbuilder.setTip(\'prec\');" class="eq_btn" /><br />';
-                    
+
                     out += '<input type="button" value="log"  onclick="jQuery.fbuilder.setSymbol(\'log(\');jQuery.fbuilder.setTip(\'log\');" class="eq_btn" />';
                     out += '<input type="button" value="pow"  onclick="jQuery.fbuilder.setSymbol(\'pow(\');jQuery.fbuilder.setTip(\'pow\');" class="eq_btn" />';
                     out += '<input type="button" value="sqrt" onclick="jQuery.fbuilder.setSymbol(\'sqrt(\');jQuery.fbuilder.setTip(\'sqrt\');" class="eq_btn" />';
                     out += '<input type="button" value="max"  onclick="jQuery.fbuilder.setSymbol(\'max(\');jQuery.fbuilder.setTip(\'max\');" class="eq_btn" />';
                     out += '<input type="button" value="min"  onclick="jQuery.fbuilder.setSymbol(\'min(\');jQuery.fbuilder.setTip(\'min\');" class="eq_btn" />';
                     out += '<input type="button" value="cdate"  onclick="jQuery.fbuilder.setSymbol(\'cdate(\');jQuery.fbuilder.setTip(\'cdate\');" class="eq_btn" /><br />';
-                    
+
                     out += '</div>';
                     out +='<div id="sEqTipsContainer" style="padding:5px;"></div>';
                     out += '<label>Set prefix</label><input type="text" name="sPrefix" id="sPrefix" class="large" value="'+this.prefix+'" />';
                     out += '<label>Set suffix</label><input type="text" name="sSuffix" id="sSuffix" class="large" value="'+this.suffix+'" />';
                     out += '<label>Decimal symbol</label><input type="text" name="sDecimalSymbol" id="sDecimalSymbol" class="large" value="'+this.decimalsymbol+'" />';
                     out += '<label>Digit grouping symbol</label><input type="text" name="sGroupingSymbol" id="sGroupingSymbol" class="large" value="'+this.groupingsymbol+'" />';
-                    
+
                     return out;
                 }
         });
@@ -1080,7 +1078,7 @@ jQuery(function(){
 					this.choicesDep = new Array(new Array(),new Array(),new Array());
 				},
 				display:function(){
-				    this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null)?this.choicesVal:this.choices.slice(0));				    
+				    this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null)?this.choicesVal:this.choices.slice(0));
 					var str = "";
 					for (var i=0;i<this.choices.length;i++)
 						str += '<div class="'+this.layout+'"><input class="field" disabled="true" type="checkbox" '+((this.choiceSelected[i])?"checked":"")+'/> '+this.choices[i]+'</div>';
@@ -1104,7 +1102,7 @@ jQuery(function(){
 					        classDep = " depItem";
 					        for (var j=0;j<d[i].length;j++)
 					        {
-					            attrDep += ","+d[i][j];    
+					            attrDep += ","+d[i][j];
 					        }
 					    }
 						str += '<div class="'+this.layout+'"><input name="'+this.name+'[]" '+((classDep!="")?"dep=\""+attrDep+"\"":"")+' id="'+this.name+'" class="field depItem group '+((this.required)?" required":"")+'" value="'+htmlEncode(this.choicesVal[i])+'" type="checkbox" '+((this.choiceSelected[i])?"checked":"")+'/> <span>'+this.choices[i]+'</span></div>';
@@ -1129,8 +1127,8 @@ jQuery(function(){
 						str += '<div class="choicesEdit"><input class="choice_check" i="'+i+'" type="checkbox" '+((this.choiceSelected[i])?"checked":"")+'/><input class="choice_text" i="'+i+'" type="text" name="sChoice'+this.name+'" id="sChoice'+this.name+'" value="'+htmlEncode(l[i])+'"/><input class="choice_value" i="'+i+'" type="text" name="sChoice'+this.name+'V'+i+'" id="sChoice'+this.name+'V'+i+'" value="'+htmlEncode(lv[i])+'"/><a class="choice_add ui-icon ui-icon-circle-plus" i="'+i+'" title="Add another choice."></a><a class="choice_remove ui-icon ui-icon-circle-minus" i="'+i+'" title="Delete this choice."></a></div>';
 						for (var j=0;j<d[i].length;j++)
 						    str += '<div class="choicesEditDep">If selected show: <select class="dependencies" i="'+i+'" j="'+j+'" dname="'+this.name+'" dvalue="'+d[i][j]+'" ></select><a class="choice_addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+j+'" title="Add another dependency."></a><a class="choice_removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+j+'" title="Delete this dependency."></a></div>';
-						if (d[i].length==0)    
-						    str += '<div class="choicesEditDep">If selected show: <select class="dependencies" i="'+i+'" j="'+d[i].length+'" dname="'+this.name+'" dvalue="" ></select><a class="choice_addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+d[i].length+'" title="Add another dependency."></a><a class="choice_removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+d[i].length+'" title="Delete this dependency."></a></div>';    
+						if (d[i].length==0)
+						    str += '<div class="choicesEditDep">If selected show: <select class="dependencies" i="'+i+'" j="'+d[i].length+'" dname="'+this.name+'" dvalue="" ></select><a class="choice_addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+d[i].length+'" title="Add another dependency."></a><a class="choice_removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+d[i].length+'" title="Delete this dependency."></a></div>';
 					}
 					return '<div class="choicesSet '+((this.showDep)?"show":"hide")+'"><label>Choices</label> <a class="helpfbuilder dep" text="Dependencies are used to show/hide other fields depending of the option selected in this field.">help?</a> <a href="" class="showHideDependencies">'+((this.showDep)?"Hide":"Show")+' Dependencies</a><div><div class="t">Text</div><div class="t">Value</div><div class="clearer"></div></div>'+str+'</div>';
 				}
@@ -1173,12 +1171,12 @@ jQuery(function(){
 					        classDep = " depItem";
 					        for (var j=0;j<d[i].length;j++)
 					        {
-					            attrDep += ","+d[i][j];    
+					            attrDep += ","+d[i][j];
 					        }
 					    }
 					    str += '<div class="'+this.layout+'"><input name="'+this.name+'" id="'+this.name+'" '+((classDep!="")?"dep=\""+attrDep+"\"":"")+' class="field depItem group '+((this.required)?" required":"")+'" value="'+htmlEncode(this.choicesVal[i])+'" type="radio" i="'+i+'"  '+((this.choicesVal[i]==this.choiceSelected)?"checked":"")+'/> <span>'+this.choices[i]+'</span></div>';
 					}
-					return '<div class="fields '+this.csslayout+'" id="field'+opt.identifier+'-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield">'+str+'<span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';  
+					return '<div class="fields '+this.csslayout+'" id="field'+opt.identifier+'-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield">'+str+'<span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 				showChoiceIntance: function() {
 				    this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null)?this.choicesVal:this.choices.slice(0));
@@ -1198,7 +1196,7 @@ jQuery(function(){
 						str += '<div class="choicesEdit"><input class="choice_radio" i="'+i+'" type="radio" '+((this.choiceSelected==lv[i])?"checked":"")+' name="choice_radio" /><input class="choice_text" i="'+i+'" type="text" name="sChoice'+this.name+'" id="sChoice'+this.name+'" value="'+htmlEncode(l[i])+'"/><input class="choice_value" i="'+i+'" type="text" name="sChoice'+this.name+'V'+i+'" id="sChoice'+this.name+'V'+i+'" value="'+htmlEncode(lv[i])+'"/><a class="choice_add ui-icon ui-icon-circle-plus" i="'+i+'" title="Add another choice."></a><a class="choice_remove ui-icon ui-icon-circle-minus" i="'+i+'" title="Delete this choice."></a></div>';
 						for (var j=0;j<d[i].length;j++)
 						    str += '<div class="choicesEditDep">If selected show: <select class="dependencies" i="'+i+'" j="'+j+'" dname="'+this.name+'" dvalue="'+d[i][j]+'" ></select><a class="choice_addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+j+'" title="Add another dependency."></a><a class="choice_removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+j+'" title="Delete this dependency."></a></div>';
-						if (d[i].length==0)    
+						if (d[i].length==0)
 						    str += '<div class="choicesEditDep">If selected show: <select class="dependencies" i="'+i+'" j="'+d[i].length+'" dname="'+this.name+'" dvalue="" ></select><a class="choice_addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+d[i].length+'" title="Add another dependency."></a><a class="choice_removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+d[i].length+'" title="Delete this dependency."></a></div>';
 					}
 					return '<div class="choicesSet '+((this.showDep)?"show":"hide")+'"><label>Choices</label> <a class="helpfbuilder dep" text="Dependencies are used to show/hide other fields depending of the option selected in this field.">help?</a> <a href="" class="showHideDependencies">'+((this.showDep)?"Hide":"Show")+' Dependencies</a><div><div class="t">Text</div><div class="t">Value</div><div class="clearer"></div></div>'+str+'</div>';
@@ -1241,7 +1239,7 @@ jQuery(function(){
 					        classDep = " depItem";
 					        for (var j=0;j<d[i].length;j++)
 					        {
-					            attrDep += ","+d[i][j];    
+					            attrDep += ","+d[i][j];
 					        }
 					    }
 					    str += '<option '+((classDep!="")?"dep=\""+attrDep+"\"":"")+' '+((this.choiceSelected==this.choicesVal[i])?"selected":"")+' class="depItem" value="'+htmlEncode(this.choicesVal[i])+'">'+l[i]+'</option>';
@@ -1266,7 +1264,7 @@ jQuery(function(){
 						str += '<div class="choicesEdit"><input class="choice_select" i="'+i+'" type="radio" '+((this.choiceSelected==lv[i])?"checked":"")+' name="choice_select" /><input class="choice_text" i="'+i+'" type="text" name="sChoice'+this.name+'" id="sChoice'+this.name+'" value="'+htmlEncode(l[i])+'"/><input class="choice_value" i="'+i+'" type="text" name="sChoice'+this.name+'V'+i+'" id="sChoice'+this.name+'V'+i+'" value="'+htmlEncode(lv[i])+'"/><a class="choice_add ui-icon ui-icon-circle-plus" i="'+i+'" title="Add another choice."></a><a class="choice_remove ui-icon ui-icon-circle-minus" i="'+i+'" title="Delete this choice."></a></div>';
 					    for (var j=0;j<d[i].length;j++)
 						    str += '<div class="choicesEditDep">If selected show: <select class="dependencies" i="'+i+'" j="'+j+'" dname="'+this.name+'" dvalue="'+d[i][j]+'" ></select><a class="choice_addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+j+'" title="Add another dependency."></a><a class="choice_removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+j+'" title="Delete this dependency."></a></div>';
-						if (d[i].length==0)    
+						if (d[i].length==0)
 						    str += '<div class="choicesEditDep">If selected show: <select class="dependencies" i="'+i+'" j="'+d[i].length+'" dname="'+this.name+'" dvalue="" ></select><a class="choice_addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+d[i].length+'" title="Add another dependency."></a><a class="choice_removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+d[i].length+'" title="Delete this dependency."></a></div>';
 					}
 					return '<div class="choicesSet '+((this.showDep)?"show":"hide")+'"><label>Choices</label> <a class="helpfbuilder dep" text="Dependencies are used to show/hide other fields depending of the option selected in this field.">help?</a> <a href="" class="showHideDependencies">'+((this.showDep)?"Hide":"Show")+' Dependencies</a><div><div class="t">Text</div><div class="t">Value</div><div class="clearer"></div></div>'+str+'</div>';
@@ -1383,7 +1381,7 @@ jQuery(function(){
 			   }
 		   },
 		   loadData:function(f){
-		    
+
 			   if (f!="")
 				   loadtmp($("#"+f).val());
 			   else
@@ -1404,30 +1402,30 @@ jQuery(function(){
 	}
 
         // Calculate Field code
-        
+
         _calculate = function(f, eq){
             f = $(f);
             var _match;
             while (_match = /(fieldname\d+_\d+)/.exec(eq)){
                 var e = f.find('[id="'+_match[0]+'"]'), s=[];
-                
+
                 e.each(function(){
                     var e = $(this), v;
-                    
+
                     if(/(checkbox|radio)/i.test(e[0].type) && !e[0].checked) return;
-                    
+
                     if(e.hasClass('codepeoplecalculatedfield')){
                        v = CalcField._unformat(e);
                     }else{
-                       v = e.val(); 
-                    }    
-                    
+                       v = e.val();
+                    }
+
                     var d = /(\d{1,2})\/(\d{1,2})\/(\d{4})/.exec(v),
                         p = /[+-]?(([0-9]{1,3}(,[0-9]{3})+(\.[0-9]+)?)|(\d+(\.\d+)?)|(\.\d+))/.exec(v);
-                        
+
                     if(e.hasClass('dateddmmyyyy') || e.hasClass('datemmddyyyy')){
                         Math.date_format = (e.hasClass('dateddmmyyyy')) ? 'ddmmyyyy' : 'mmddyyyy';
-                        
+
                         if(d){
                             var date = (Math.date_format == 'ddmmyyyy') ? new Date(d[3], (d[2]*1-1), d[1]) : new Date(d[3], (d[1]*1-1), d[2]);
                             s.push( Math.ceil(date.valueOf()/86400000) );
@@ -1438,13 +1436,13 @@ jQuery(function(){
                         s.push( (p) ? p[0].replace(/\,/g,'')*1 : v );
                     }
                 });
-                
+
                 function field_value(v){
                     if (/^\s*$/.test(v)) return 0;
                     if(typeof v == 'string') return "'" + v.replace(/'/g, "\\'") + "'";
                     return v;
                 }
-                
+
                 var x;
                 if(s.length == 0){
                     x = 0;
@@ -1456,18 +1454,18 @@ jQuery(function(){
                     }
                     x = eval(s.join('+'));
                 }
-                
+
                 eq = eq.replace(new RegExp(_match[0]), x);
-            }	
+            }
             try{
                 var r = eval(eq);
                 return (isFinite(r) || /\d{1,2}\/\d{1,2}\/\d{4}/.test(r)) ? r : false;
             }catch(e){
-                return false; 
+                return false;
             }
         };
-        
-        CalcField = ( 
+
+        CalcField = (
             function(){
                 // Check if the Math class contain the prec and cdate routines
                 // Associate a new property to Math object
@@ -1483,7 +1481,7 @@ jQuery(function(){
                               result = result+'.';
                             }else{
                               tmp = pr-((result.toString().length) - (tmp+1));
-                            }  
+                            }
                             for(var i = 0; i < tmp; i++){
                               result += '0';
                             }
@@ -1492,7 +1490,7 @@ jQuery(function(){
                         return num;
                     };
                 } // End if Math.prec
-                
+
                 if(Math.cdate == undefined){
                     Math.cdate  = function (num){
                         if(isFinite(num*1)){
@@ -1500,7 +1498,7 @@ jQuery(function(){
                             var date = new Date(num),
                                 d = date.getDate(),
                                 m = date.getMonth()+1,
-                                y = date.getFullYear(); 
+                                y = date.getFullYear();
                             m = (m < 10) ? '0'+m : m;
                             d = (d < 10) ? '0'+d : d;
                             return (Math.date_format == 'mmddyyyy') ? m+'/'+d+'/'+y : d+'/'+m+'/'+y;
@@ -1508,9 +1506,9 @@ jQuery(function(){
                         return num;
                     };
                 } // End if Math.cdate
-                    
+
                 var CalcFieldClss = function(){};
-                
+
                 CalcFieldClss.prototype = {
                     addEquation : function(cf, eq, conf){
                         var r = $('[id="'+cf+'"]');
@@ -1518,13 +1516,13 @@ jQuery(function(){
                             var f = r[0].form;
                             if(f.equations == null || f.equations == undefined) f['equations'] = [];
                             f.equations.push({'result':cf, 'equation':eq, 'conf':conf});
-                        }	
-                        
+                        }
+
                     },
-                    
+
                     defaultCalc : function(fId){
                         var f = $(fId);
-                        
+
                         if(f.length && f[0].equations && f[0].equations){
                             var eq = f[0].equations;
                             for(var i=0, h = eq.length; i < h; i++){
@@ -1532,15 +1530,15 @@ jQuery(function(){
                                 $('[id="'+eq[i].result+'"]').val(( (r !== false) ? this._format(r, eq[i].conf) : '' )).change();
                             }
                         }
-                            
+
                     },
-                    
+
                     Calculate : function (t){
                         if(t.id == undefined)return;
                         var f = t.form;
-                        
-                        if(/(button|img)/i.test(t.tagName) || (t.type && /(button|submit)/i.test(t.type))){return;}	
-                        
+
+                        if(/(button|img)/i.test(t.tagName) || (t.type && /(button|submit)/i.test(t.type))){return;}
+
                         if(f && f.equations){
                             var eq = f.equations,
                                 id = t.id;
@@ -1552,8 +1550,8 @@ jQuery(function(){
                                 }
                             }
                         }
-                    }, 
-                    
+                    },
+
                     _format : function(r, c){
                         if($.isNumeric(r)){
                             var parts = r.toString().split("."),
@@ -1564,65 +1562,65 @@ jQuery(function(){
                                     counter++;
                                     f = parts[0][i] + f;
                                     if(counter%3 == 0 && i != 0) f = c.groupingsymbol + f;
-                                    
+
                                 }
                                 parts[0] = f;
                             }
                             r = parts.join(c.decimalsymbol);
-                        }    
+                        }
                         if(c.prefix) r = c.prefix + r;
                         if(c.suffix) r += c.suffix;
-                        return r;            
+                        return r;
                     },
 
                     _unformat : function(e){
-                        
+
                         function escape_symbol(v){
                             return v.replace(/([\^\$\-\.\,\[\]\(\)\/\\\*\?\+\!\{\}])/g, "\\$1");
                         };
-                        
+
                         var eq = e[0].form.equations,
                             v = e.val();
-                        
+
                         for(var i = 0, h = eq.length; i < h; i++){
                             if(eq[i].result[0] == e[0]){
                                 var c = eq[i].conf;
-                                
+
                                 if(c.prefix && !/^\s*$/.test(c.prefix)) v = v.replace(new RegExp("^"+escape_symbol(c.prefix)), '');
                                 if(c.suffix && !/^\s*$/.test(c.suffix)) v = v.replace(new RegExp(escape_symbol(c.suffix)+"$"), '');
                                 if(c.groupingsymbol && !/^\s*$/.test(c.groupingsymbol)) v = v.replace(new RegExp(escape_symbol(c.groupingsymbol), 'g'), '');
                                 if(c.decimalsymbol && !/^\s*$/.test(c.decimalsymbol)) v = v.replace(new RegExp(escape_symbol(c.decimalsymbol), 'g'), '.');
                             }
-                        }    
+                        }
                         return v;
                     }
                 };
-                
-                
+
+
                 var math_prop = ["LN10", "PI", "E", "LOG10E", "SQRT2", "LOG2E", "SQRT1_2", "LN2", "cos", "pow", "log", "tan", "sqrt", "ceil", "asin", "abs", "max", "exp", "atan2", "random", "round", "floor", "acos", "atan", "min", "sin", "prec", "cdate"];
-                
+
                 for(var i = 0, h = math_prop.length; i < h; i++){
                     if(!window[math_prop[i]]){
                         window[math_prop[i]] = Math[math_prop[i]];
                     }
                 }
-                
+
                 var obj = new CalcFieldClss();
                 $(document).bind('click keyup change', function(evt){
-                    if(evt.keyCode && (evt.keyCode >= 33 && evt.keyCode <= 40)) return; 
+                    if(evt.keyCode && (evt.keyCode >= 33 && evt.keyCode <= 40)) return;
                     if(evt.type == 'click' && (evt.target.tagName != 'INPUT' || evt.target.type != 'RADIO' || evt.target.type != 'CHECKBOX') ) return;
                     obj.Calculate(evt.target);
                 });
                 return obj;
             }
         )();
-        
+
         var fcount = 1;
         var fnum = "_"+fcount;
         while (eval("typeof cp_calculatedfieldsf_fbuilder_config"+fnum+" != 'undefined'"))
-        {    
-            
-            var cp_calculatedfieldsf_fbuilder_config = eval("cp_calculatedfieldsf_fbuilder_config"+fnum);  
+        {
+            try {
+            var cp_calculatedfieldsf_fbuilder_config = eval("cp_calculatedfieldsf_fbuilder_config"+fnum);
             var f = $("#fbuilder"+fnum).fbuilder($.parseJSON(cp_calculatedfieldsf_fbuilder_config.obj));
             f.fBuild.loadData("form_structure"+fnum);
             $("#cp_calculatedfieldsf_pform"+fnum).validate({
@@ -1638,6 +1636,7 @@ jQuery(function(){
                     e.css('top',element.parent().outerHeight(true));
 			    }
      		});
+     		} catch (e) {}
 	    	fcount++;
 	    	fnum = "_"+fcount;
 	    }
