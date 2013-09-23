@@ -143,6 +143,28 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf
   </div>    
  </div> 
  
+ 
+  <div id="metabox_basic_settings" class="postbox" >
+  <h3 class='hndle' style="padding:5px;"><span>Previous & Next Buttons</span></h3>
+  <div class="inside">   
+     <table class="form-table">  
+        <tr valign="top">
+        <th scope="row">Previous button label (text):</th>
+        <td><input type="text" name="vs_text_previousbtn" size="40" value="<?php $label = esc_attr(cp_calculatedfieldsf_get_option('vs_text_previousbtn', 'Previous')); echo ($label==''?'Previous':$label); ?>" /></td>
+        </tr>    
+        <tr valign="top">
+        <th scope="row">Next button label (text):</th>
+        <td><input type="text" name="vs_text_nextbtn" size="40" value="<?php $label = esc_attr(cp_calculatedfieldsf_get_option('vs_text_nextbtn', 'Next')); echo ($label==''?'Next':$label); ?>" /></td>
+        </tr>    
+        <tr valign="top">
+        <td colspan="2">
+        - The styles can be applied into any of the CSS files of your theme or into the CSS file <em>"calculated-fields-form\css\stylepublic.css"</em>. <br />        
+        - For general CSS styles modifications to the form and samples <a href="http://wordpress.dwbooster.com/faq/calculated-fields-form#q82" target="_blank">check this FAQ</a>.
+        </tr>
+     </table>
+  </div>    
+ </div> 
+  
 
  <div id="metabox_basic_settings" class="postbox" >
   <h3 class='hndle' style="padding:5px;"><span>Validation Settings</span></h3>
