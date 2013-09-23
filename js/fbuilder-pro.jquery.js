@@ -10,8 +10,11 @@ jQuery(function(){
 				},options, true);
 		if (opt.pub)
 		{
-			opt = $.extend({
-					messages: {
+			opt.messages = $.extend({
+						previous: "Previous",
+						next: "Next",
+						page: "Page",
+						of: "of",
 						required: "This field is required.",
 						email: "Please enter a valid email address.",
 						datemmddyyyy: "Please enter a valid date with this format(mm/dd/yyyy)",
@@ -23,8 +26,7 @@ jQuery(function(){
                         equalTo: "Please enter the same value again.",
 						max: $.validator.format("Please enter a value less than or equal to {0}."),
 						min: $.validator.format("Please enter a value greater than or equal to {0}.")
-					}
-				},opt);
+				},opt.messages);
 			opt.messages.max = $.validator.format(opt.messages.max);
 			opt.messages.min = $.validator.format(opt.messages.min);
 			$.extend($.validator.messages, opt.messages);
@@ -67,6 +69,10 @@ jQuery(function(){
 			});
 			$("#sName").keyup(function(){
 				items[id].name = $(this).val();
+				reloadItems();
+			});
+			$("#sShortlabel").keyup(function(){
+				items[id].shortlabel = $(this).val();
 				reloadItems();
 			});
 			$("#sPredefined").keyup(function(){
@@ -230,6 +236,10 @@ jQuery(function(){
 			});
 			$("#sUserhelp").keyup(function(){
 				items[id].userhelp = $(this).val();
+				reloadItems();
+			});
+			$("#sUserhelpTooltip").click(function(){
+				items[id].userhelpTooltip = $(this).is(':checked');
 				reloadItems();
 			});
 			$("#sCsslayout").keyup(function(){
@@ -403,14 +413,14 @@ jQuery(function(){
 		                            if ((item.is(':checked') || item.is(':selected') ) && (!inArray(  ((item.hasClass("field"))?item.attr("id"):item.parents(".field").attr("id"))   ,hideArray))   )
 		                            {
 		                                $("#"+d[i]).parents(".fields").css("display","");
-		                                $("#"+d[i]+".field").each(function(){$(this).removeClass("ignore");});
+		                                $("#"+d[i]).parents(".fields").find(".field").each(function(){if (!$(this).hasClass("ignorepb"))$(this).removeClass("ignore");});
 		                                used[used.length] = d[i];
 		                                removeFromArray(d[i],hideArray);
 		                            }
 		                            else
 		                            {
 		                                $("#"+d[i]).parents(".fields").css("display","none");
-		                                $("#"+d[i]+".field").each(function(){$(this).addClass("ignore");});
+		                                $("#"+d[i]).parents(".fields").find(".field").each(function(){$(this).addClass("ignore");});
 		                                hideArray[hideArray.length] = d[i];
 		                            }
 		                        }catch(e){}
@@ -445,6 +455,13 @@ jQuery(function(){
 				        $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).attr("class",cl);
 				        $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).attr("predefined",items[i].predefined);
 				    }
+				    if (items[i].userhelpTooltip)
+				    {
+				        var uh = $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).parents(".fields");
+				        uh.find(".uh").css("display","none");
+				        if (uh.find(".uh").text()!="")
+				            uh.attr("uh",uh.find(".uh").text());
+				    }
 				}
 				$(".fields").mouseover(function() {
 					$(this).addClass("ui-over");
@@ -462,8 +479,8 @@ jQuery(function(){
 			if (page>0)
 			{
 			    $("#fieldlist"+opt.identifier+" .pb"+page).addClass("pbEnd");
-			    $("#fieldlist"+opt.identifier+" .pbreak").find(".field").addClass("ignore");
-			    $("#fieldlist"+opt.identifier+" .pb0").find(".field").removeClass("ignore");
+			    $("#fieldlist"+opt.identifier+" .pbreak").find(".field").addClass("ignore").addClass("ignorepb");
+			    $("#fieldlist"+opt.identifier+" .pb0").find(".field").removeClass("ignore").removeClass("ignorepb");
 			    $("#fieldlist"+opt.identifier+" .pbreak").each(function(index) {
 			        var code = $(this).html();
 			        var bSubmit = '';
@@ -477,7 +494,7 @@ jQuery(function(){
 			            if ($("#cp_subbtn"+opt.identifier).html())
 			                bSubmit = '<div class="pbSubmit">'+$("#cp_subbtn"+opt.identifier).html()+'</div>';
 			        }
-			        $(this).html('<fieldset><legend>Page '+(index+1)+' of '+(page+1)+'</legend>'+code+'<div class="pbPrevious">Previous</div><div class="pbNext">Next</div>'+bSubmit+'<div class="clearer"></div></fieldset>');
+			        $(this).html('<fieldset><legend>'+opt.messages.page+' '+(index+1)+' '+opt.messages.of+' '+(page+1)+'</legend>'+code+'<div class="pbPrevious">'+opt.messages.previous+'</div><div class="pbNext">'+opt.messages.next+'</div>'+bSubmit+'<div class="clearer"></div></fieldset>');
 			    });
 			    $(".pbPrevious,.pbNext").bind("click", function() {
 			        if ($(this).parents("form").valid())
@@ -485,10 +502,11 @@ jQuery(function(){
 			            var page = parseInt($(this).parents(".pbreak").attr("page"));
 			            (($(this).hasClass("pbPrevious"))?page--:page++);
 			            $("#fieldlist"+opt.identifier+" .pbreak").css("display","none");
-			            $("#fieldlist"+opt.identifier+" .pbreak").find(".field").addClass("ignore");
+			            $("#fieldlist"+opt.identifier+" .pbreak").find(".field").addClass("ignore").addClass("ignorepb");
 
 			            $("#fieldlist"+opt.identifier+" .pb"+page).css("display","block");
-			            $("#fieldlist"+opt.identifier+" .pb"+page).find(".field").removeClass("ignore");
+			            $("#fieldlist"+opt.identifier+" .pb"+page).find(".field").removeClass("ignore").removeClass("ignorepb");
+			            showHideDep();
 			        }
 			        return false;
 			    });
@@ -542,6 +560,8 @@ jQuery(function(){
 				$(".depItemSel,.depItem").bind("change", function() {
 			        showHideDep();
 			    });
+			    $( "#fbuilder"+opt.identifier ).tooltip({show: false,hide:false,tooltipClass:"uh-tooltip",position: { my: "left top", at: "left bottom", collision: "none"  },items: "[uh]",content: function (){return $(this).attr("uh");} });
+
 			}
 		}
 		var showSettings= {
@@ -553,9 +573,10 @@ jQuery(function(){
 			    if (v=="Page Break") str = "";
 				return '<label>Field Type: '+getNameByIdFromType(f)+'</label><br /><br />'+str;
 			},
-			showName: function(v) {
-				return '<div><label>Field tag for the message (optional):</label><input readonly="readonly" class="large" name="sNametag" id="sNametag" value="&lt;%'+v+'%&gt;" />'+
-				       '<input style="display:none" readonly="readonly" class="large" name="sName" id="sName" value="'+v+'" /></div>';
+			showName: function(v1,v2) {
+				return '<div><label>Short label (optional) [<a class="helpfbuilder" text="The short label is used at title for the column when exporting the form data to CSV files.\n\nIf the short label is empty then, the field label will be used for the CSV file.">help?</a>] :</label><input class="large" name="sShortlabel" id="sShortlabel" value="'+v2+'" /></div>'+
+				       '<div><label>Field tag for the message (optional):</label><input readonly="readonly" class="large" name="sNametag" id="sNametag" value="&lt;%'+v1+'%&gt;" />'+
+				       '<input style="display:none" readonly="readonly" class="large" name="sName" id="sName" value="'+v1+'" /></div>';
 			},
 			showPredefined: function(v,c) {
 				return '<div><label>Predefined Value</label><textarea class="large" name="sPredefined" id="sPredefined">'+v+'</textarea><br /><input type="checkbox" name="sPredefinedClick" id="sPredefinedClick" '+((c)?"checked":"")+' value="1" > Hide predefined value on click.</div>';
@@ -578,8 +599,8 @@ jQuery(function(){
 					str += '<option value="'+this.layoutList[i].id+'" '+((this.layoutList[i].id==v)?"selected":"")+'>'+this.layoutList[i].name+'</option>';
 				return '<label>Field Layout</label><br /><select name="sLayout" id="sLayout">'+str+'</select>';
 			},
-			showUserhelp: function(v) {
-				return '<label>Instructions for User</label><textarea class="large" name="sUserhelp" id="sUserhelp">'+v+'</textarea>';
+			showUserhelp: function(v,c) {
+				return '<div><label>Instructions for User</label><textarea class="large" name="sUserhelp" id="sUserhelp">'+v+'</textarea><br /><input type="checkbox" name="sUserhelpTooltip" id="sUserhelpTooltip" '+((c)?"checked":"")+' value="1" > Show as floating tooltip.</div>';
 			},
 			showCsslayout: function(v) {
 				return '<label>Add Css Layout Keywords</label><input class="large" name="sCsslayout" id="sCsslayout" value="'+v+'" />';
@@ -608,9 +629,11 @@ jQuery(function(){
 		var ffields=function(){};
 		$.extend(ffields.prototype, {
 				name:"",
+				shortlabel:"",
 				index:-1,
 				ftype:"",
 				userhelp:"",
+				userhelpTooltip:false,
 				csslayout:"",
 				init:function(){
 				},
@@ -671,7 +694,7 @@ jQuery(function(){
 						return "";
 				},
 				showUserhelp:function(){
-				    return ((this.ftype!="fPageBreak")?showSettings.showUserhelp(this.userhelp):"");
+				    return ((this.ftype!="fPageBreak")?showSettings.showUserhelp(this.userhelp,this.userhelpTooltip):"");
 				},
 				showCsslayout:function(){
 				    return ((this.ftype!="fPageBreak")?showSettings.showCsslayout(this.csslayout):"");
@@ -683,7 +706,7 @@ jQuery(function(){
 				    return showSettings.showTitle(this.ftype,this.title);
 				},
 				showName:function(){
-				    return ((this.ftype!="fPageBreak")?showSettings.showName(this.name):"");
+				    return ((this.ftype!="fPageBreak")?showSettings.showName(this.name,this.shortlabel):"");
 				},
 				display:function(){
 					return 'Not available yet';

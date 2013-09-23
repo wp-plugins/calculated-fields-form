@@ -4,9 +4,9 @@
 #fbuilder .fields,#fbuilder .fform{padding:5px 0px;}
 #fbuilder .fform h1{margin:5px 0px;padding:0px;}
 
-.small{width:25% !important;padding-left:0;padding-right:0;}
-.medium{width:50% !important;padding-left:0;padding-right:0;}
-.large{width:100% !important;padding-left:0;padding-right:0;}
+#fbuilder .small{width:25% !important;padding-left:0;padding-right:0;}
+#fbuilder .medium{width:50% !important;padding-left:0;padding-right:0;}
+#fbuilder .large{width:100% !important;padding-left:0;padding-right:0;}
 .fields.column2{float:left;width:49.9%;}
 .fields.column3{float:left;width:33.3%;}
 .fields.column4{float:left;width:24.9%;}
@@ -73,3 +73,5 @@ z-index:1000;
 .pbreak fieldset{border:1px solid #ccc;padding:10px}
 .pbreak legend{border:1px solid #ccc;padding:5px 10px}
 .cpcaptchalayer,.cp_subbtn{display:none}
+#fbuilder input[type='radio'],#fbuilder input[type='checkbox']{width:auto}
+.ui-tooltip.uh-tooltip{width:250px;font-size:10px;font-weight:normal;padding:5px;}
