@@ -433,7 +433,7 @@ jQuery(function(){
 		reloadItemsPublic = function() {
 			for (var i=0;i<showSettings.formlayoutList.length;i++)
 				$("#fieldlist"+opt.identifier).removeClass(showSettings.formlayoutList[i].id);
-			$("#fieldlist"+opt.identifier).addClass(theForm.formlayout);
+			$("#fieldlist"+opt.identifier).html("").addClass(theForm.formlayout);
 			$("#formheader"+opt.identifier).html(theForm.show());
 			var page = 0;
 			$("#fieldlist"+opt.identifier).append('<div class="pb'+page+' pbreak" page="'+page+'"></div>');
@@ -560,7 +560,9 @@ jQuery(function(){
 				$(".depItemSel,.depItem").bind("change", function() {
 			        showHideDep();
 			    });
+			    try {
 			    $( "#fbuilder"+opt.identifier ).tooltip({show: false,hide:false,tooltipClass:"uh-tooltip",position: { my: "left top", at: "left bottom", collision: "none"  },items: "[uh]",content: function (){return $(this).attr("uh");} });
+			    } catch(e){}
 
 			}
 		}
