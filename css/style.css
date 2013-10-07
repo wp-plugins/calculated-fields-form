@@ -14,17 +14,27 @@ body{font:11px "Lucida Grande","Lucida Sans Unicode",Tahoma,sans-serif;}
 #fbuilder .fields{border:1px solid transparent;padding:3px 10px 14px 10px;margin:5px 0px;display:block;position:relative}
 #fbuilder .fields .arrow{position:absolute;left:-15px;top:20px;display:none}
 #fbuilder .fields .remove{position:absolute;bottom:0;right:0;display:none;background-color:#fff;cursor:pointer}
+.dependenciesBox,
 .choicesSet{border:1px dashed #888;margin:10px 0px;padding:5px}
 .choicesEdit input[type=text]{width:130px;}
 .choicesEdit,.choicesEditDep{position:relative;}
 .choicesSet .t{margin-left:18px;width:115px;float:left}
+.addComplexRule{cursor:pointer;}
+.cf_dependence_rule{width:230px;}
+.addDep,
 .choicesEdit .choice_add{position:absolute;top:5px;left:278px;cursor:pointer;}
+.removeDep,
 .choicesEdit .choice_remove{position:absolute;top:5px;left:293px;cursor:pointer;}
 .choicesEditDep .choice_addDep{position:absolute;top:5px;left:278px;cursor:pointer;}
 .choicesEditDep .choice_removeDep{position:absolute;top:5px;left:293px;cursor:pointer;}
+.calc_dependent{width:150px;}
 .choicesEditDep select{width:170px;}
+.addDep,
 .ui-widget-content .choice_addDep.ui-icon {background-image: url(cupertino/images/ui-icons_2e83ff_256x240.png); }
+.removeDep,
 .ui-widget-content .choice_removeDep.ui-icon {background-image: url(cupertino/images/ui-icons_2e83ff_256x240.png); }
+.addDep, .removeDep{float:right;}
+.cf_dependence_field{width:150px;}
 .showHideDependencies,.dep{float:right}
 .choicesSet.hide {display:block}
 .choicesSet.hide .choicesEditDep{display:none}

@@ -1,4 +1,6 @@
-jQuery(function(){
+myjQuery = (typeof myjQuery != 'undefined' ) ? myjQuery : jQuery;
+
+myjQuery(function(){
 (function($) {
 	$.fn.fbuilder = function(options){
 		var opt = $.extend({},
@@ -37,9 +39,12 @@ jQuery(function(){
 					return opt.typeList[i].name;
 			return "";
 		}
-		for (var i=0;i<opt.typeList.length;i++)
-			$("#tabs-1").append('<div class="button itemForm width40" id="'+opt.typeList[i].id+'">'+opt.typeList[i].name+'</div>');
-		$("#tabs-1").append('<div class="clearer"></div>');
+		if (!opt.pub)
+		{
+		    for (var i=0;i<opt.typeList.length;i++)
+		    	$("#tabs-1").append('<div class="button itemForm width40" id="'+opt.typeList[i].id+'">'+opt.typeList[i].name+'</div>');
+		    $("#tabs-1").append('<div class="clearer"></div>');
+	    }
 		if (!opt.pub) $( ".button").button();
 		var items = new Array();
 		var itemSelected = -2;
@@ -115,6 +120,10 @@ jQuery(function(){
                 items[id].readonly = $(this).is(':checked');
                 reloadItems();
             });
+			$("#sHideField").click(function(){
+                items[id].hidefield = $(this).is(':checked');
+                reloadItems();
+            });
 			$("#sShowDropdown").click(function(){
 				items[id].showDropdown = $(this).is(':checked');
 				if ($(this).is(':checked'))
@@ -155,7 +164,84 @@ jQuery(function(){
 				items[id].equalTo = $(this).val();
 				reloadItems();
 			});
-			$(".showHideDependencies").click(function(){
+            $( ".addDep" ).click( function(){
+                var j = $(this).attr("j");
+                if( typeof j == 'undefined' ){
+                    items[id].dependencies.splice($(this).attr("i")*1+1, 0, { 'rule' : '', 'complex' : false, 'fields' : [''] } );
+                }else{
+                    items[id].dependencies[$(this).attr("i")].fields.splice( j+1, 0, "")
+                }
+                
+                editItem(id);
+				reloadItems();
+            } );
+            $( ".removeDep" ).click( function( ){ 
+                var i = $(this).attr("i"),
+                    j = $(this).attr("j");
+                
+                if( typeof j != 'undefined' ){
+                    if( items[id].dependencies[ i ].fields.length != 1 ){
+                        items[id].dependencies[ i ].fields.splice( j, 1 ); 
+                    }else{
+                        items[id].dependencies[ i ].fields = [''];
+                    }
+                }else{
+                    if( items[id].dependencies.length != 1 ){
+                        items[id].dependencies.splice( i, 1 ); 
+                    }else{
+                        items[id].dependencies[ 0 ] = { 'rule' : '', 'complex' : false, 'fields' : [''] }; 
+                    }
+                }    
+                    
+                editItem(id);
+				reloadItems();
+            } );
+            $('.displayWizard').click( function(evt){
+                evt.preventDefault();
+                var me = $( this ),
+                    i  = me.attr("i");
+                items[id].dependencies[ i ].rule = '';
+                items[id].dependencies[ i ].complex = false;
+                editItem(id);
+				reloadItems();
+            } );
+            $('.displayComplexRule').click( function(evt){
+                evt.preventDefault();
+                items[id].dependencies[ $(this).attr( "i" ) ].complex = true;
+                editItem(id);
+				reloadItems();
+            } );
+			$( ".cf_dependence_operator" ).change( function(){
+                var me = $(this),
+                    i  = me.attr("i"),
+                    o  = items[id].dependencies[ i ];
+                o.rule = 'value'+me.val()+$(".cf_dependence_value[i='"+i+"']").val().replace(/'/g, "\'");
+                o.complex = false;
+                items[id].dependencies[ me.attr("i") ].rule = o.rule;
+                reloadItems();
+            } );
+            $( ".cf_dependence_value" ).keyup( function(){
+                var me = $(this),
+                    i  = me.attr("i"),
+                    o  = items[id].dependencies[ i ];
+                o.rule = 'value'+$(".cf_dependence_operator[i='"+i+"']").val()+me.val();
+                o.complex = false;
+                items[id].dependencies[ me.attr("i") ].rule = o.rule;
+                reloadItems();
+            } );
+            $( ".cf_dependence_rule" ).keyup( function(){
+                var me = $(this);
+                items[id].dependencies[ me.attr("i") ].rule = me.val();
+                items[id].dependencies[ me.attr("i") ].complex = true;
+                reloadItems();
+            } );
+            $( ".cf_dependence_field" ).change( function(){
+                var me = $(this);
+                items[id].dependencies[ me.attr("i") ].fields[ me.attr("j") ]  = me.val();
+                reloadItems();
+            } );
+            
+            $(".showHideDependencies").click(function(){
 			    if (items[id].showDep)
 			    {
 			        $(this).parent().removeClass("show");
@@ -379,57 +465,6 @@ jQuery(function(){
           value = value.replace(/"/g, "&quot;");;
           return value;
         }
-        function showHideDep(){
-            function inArray(needle, haystack) {
-                for(var i = 0; i < haystack.length; i++) {
-                    if(haystack[i] == needle) return true;
-                }
-                return false;
-            }
-            function removeFromArray(needle, haystack) {
-                for(var i = 0; i < haystack.length; i++) {
-                    if(haystack[i] == needle)
-                    {
-                        haystack.splice(i,1);
-                        i--;
-                    }
-                }
-                return haystack;
-            }
-            var used = new Array();
-            var hideArray = new Array();
-            $(".depItem").each(function() {
-                var item = $(this);
-                try {
-                    if ((item.parents("#fieldlist"+opt.identifier).length==1) && item.attr("dep") && item.attr("dep")!="" )
-                    {
-                        var d = item.attr("dep").split(",");
-                        for (i=0;i<d.length;i++)
-		                {
-		                    if (d[i]!="") d[i] = d[i]+opt.identifier;
-		                    if (d[i]!="" && !inArray(d[i],used) )//&& !inArray(d[i],hideArray)
-		                    {
-		                        try {
-		                            if ((item.is(':checked') || item.is(':selected') ) && (!inArray(  ((item.hasClass("field"))?item.attr("id"):item.parents(".field").attr("id"))   ,hideArray))   )
-		                            {
-		                                $("#"+d[i]).parents(".fields").css("display","");
-		                                $("#"+d[i]).parents(".fields").find(".field").each(function(){if (!$(this).hasClass("ignorepb"))$(this).removeClass("ignore");});
-		                                used[used.length] = d[i];
-		                                removeFromArray(d[i],hideArray);
-		                            }
-		                            else
-		                            {
-		                                $("#"+d[i]).parents(".fields").css("display","none");
-		                                $("#"+d[i]).parents(".fields").find(".field").each(function(){$(this).addClass("ignore");});
-		                                hideArray[hideArray.length] = d[i];
-		                            }
-		                        }catch(e){}
-		                    }
-		                }
-		            }
-		        }catch(e){}
-		    });
-        }
 		reloadItemsPublic = function() {
 			for (var i=0;i<showSettings.formlayoutList.length;i++)
 				$("#fieldlist"+opt.identifier).removeClass(showSettings.formlayoutList[i].id);
@@ -506,7 +541,7 @@ jQuery(function(){
 
 			            $("#fieldlist"+opt.identifier+" .pb"+page).css("display","block");
 			            $("#fieldlist"+opt.identifier+" .pb"+page).find(".field").removeClass("ignore").removeClass("ignorepb");
-			            showHideDep();
+			            showHideDep(opt.identifier);
 			        }
 			        return false;
 			    });
@@ -545,7 +580,7 @@ jQuery(function(){
                     $( "#"+itemsDates[k].name ).datepicker( "option", "defaultDate", itemsDates[k].defaultDate );
 				}
                 //$(".depItem").each(function() {
-			        showHideDep();
+			        showHideDep(opt.identifier);
 			    //});
                 $.validator.addMethod("dateddmmyyyy", function(value, element) {
 				  return this.optional(element) || /^(?:[1-9]|0[1-9]|1[0-9]|2[0-9]|3[0-1])[\/\-](?:[1-9]|0[1-9]|1[0-2])[\/\-]\d{4}$/.test(value);
@@ -558,12 +593,12 @@ jQuery(function(){
 
                 $("#fieldlist"+opt.identifier).append('<script>CalcField.defaultCalc("#cp_calculatedfieldsf_pform'+opt.identifier+'");</script>');
 				$(".depItemSel,.depItem").bind("change", function() {
-			        showHideDep();
+			        showHideDep(opt.identifier);
 			    });
 			    try {
 			    $( "#fbuilder"+opt.identifier ).tooltip({show: false,hide:false,tooltipClass:"uh-tooltip",position: { my: "left top", at: "left bottom", collision: "none"  },items: "[uh]",content: function (){return $(this).attr("uh");} });
 			    } catch(e){}
-
+			    
 			}
 		}
 		var showSettings= {
@@ -971,35 +1006,110 @@ jQuery(function(){
                 prefix:"",
                 decimalsymbol:".",
                 groupingsymbol:"",
+                dependencies:[ {'rule' : '', 'complex' : false, 'fields' : [ '' ] } ],
                 readonly:false,
+                hidefield:false,
                 display:function(){
                     return '<div class="fields" id="field'+opt.identifier+'-'+this.index+'"><div class="arrow ui-icon ui-icon-play "></div><div class="remove ui-icon ui-icon-trash "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input class="field disabled '+this.size+'" type="text" value="'+this.predefined+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
                 },
                 show:function(){
-                    var obj = '{';
-
-                    if(!/^\s*$/.test(this.suffix)) obj += '\"suffix\":\"'+this.suffix.replace(/"/g, '\"').replace(/\n/g, ' ')+'\",';
-                    if(!/^\s*$/.test(this.prefix)) obj += '\"prefix\":\"'+this.prefix.replace(/"/g, '\"').replace(/\n/g, ' ')+'\",';
-                    if(!/^\s*$/.test(this.groupingsymbol)) obj += '\"groupingsymbol\":\"'+this.groupingsymbol.replace(/"/g, '\"').replace(/\n/g, ' ')+'\",';
-                    obj += '\"decimalsymbol\":\"'+((!/^\s*$/.test(this.decimalsymbol)) ? this.decimalsymbol.replace(/"/g, '\"').replace(/\n/g, ' ') : '.')+'\"}';
-
-                    return '<div class="fields '+this.csslayout+'" id="field'+opt.identifier+'-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" '+((this.readonly) ? ' readonly ' : '')+' class="codepeoplecalculatedfield field '+this.size+((this.required)?" required":"")+'" type="text" value="'+this.predefined+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div>'+((!/^\s*$/.test(this.eq))? '<script>CalcField.addEquation("'+this.name.replace(/"/g, '\"')+'", "'+this.eq.replace(/"/g, '\"').replace(/\n/g, ' ').replace(/fieldname(\d+)/g, "fieldname$1"+opt.identifier)+'", '+obj+');</script>' : '')+'</div>';
+                    var me = this,
+                        configuration = { "suffix" : me.suffix, "prefix" : me.prefix, "groupingsymbol" : me.groupingsymbol, "decimalsymbol" : me.decimalsymbol },
+                        dependencies = [];
+                    
+                    $.each( this.dependencies, function( i, d ){
+                        d.rule = d.rule.replace( /^\s+/, '').replace( /\s+$/, '');
+                        if( d.rule != '' && d.fields.length ){
+                            var fields = [];
+                            $.each( d.fields, function( j, f ){
+                                if( f != '' ) fields.push( f );
+                            });
+                            
+                            if( fields.length ){
+                                dependencies.push( { 'rule' : d.rule, 'fields' : fields } );
+                            }
+                        }
+                    });
+                    
+                    return '<div class="fields '+this.csslayout+'" id="field'+opt.identifier+'-'+this.index+'" '+( ( this.hidefield ) ? 'style="display:none;"' : '' )+'><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" '+((this.readonly) ? ' readonly ' : '')+' class="codepeoplecalculatedfield field '+this.size+((this.required)?" required":"")+'" type="'+( ( this.hidefield ) ? 'hidden' : 'text' )+'" value="'+this.predefined+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div>'+((!/^\s*$/.test(this.eq))? '<script>CalcField.addEquation("'+this.name.replace(/"/g, '\"')+'", "'+this.eq.replace(/"/g, '\"').replace(/\n/g, ' ').replace(/fieldname(\d+)/g, "fieldname$1"+opt.identifier)+'", '+$.stringifyXX( configuration, false )+', '+$.stringifyXX( dependencies, false )+', "'+opt.identifier+'");</script>' : '')+'</div>';
                 },
                 showAllSettings:function(){
-                    return this.showTitle()+this.showName()+this.showSize()+this.showLayout()+this.showFormat()+this.showRange()+this.showRequired()+this.showReadOnly()+this.showSpecialData()+this.showPredefined()+this.showEqEditor()+this.showChoice()+this.showUserhelp()+this.showCsslayout();
+                    return this.showTitle()+this.showName()+this.showSize()+this.showLayout()+this.showFormat()+this.showRange()+this.showRequired()+this.showReadOnly()+this.showHideField()+this.showSpecialData()+this.showPredefined()+this.showEqEditor()+this.showDependencies()+this.showUserhelp()+this.showCsslayout();
+                },
+                showDependencies : function(){
+                    // Instance
+                    var me = this;
+                    
+                    function setOperator( indx, op ){
+                        var ops = [ {'text' : 'Equal to', 'value' : '=='},
+                                    {'text' : 'Different to', 'value' : '!='},
+                                    {'text' : 'Greater than', 'value' : '>'},
+                                    {'text' : 'Greater than or equal', 'value' : '>='},
+                                    {'text' : 'Less than', 'value' : '<'},
+                                    {'text' : 'Less than or equal', 'value' : '<='}
+                                   ],
+                            r = '';
+                        
+                        for( var i = 0, h = ops.length; i < h; i++){
+                            r += '<option value="'+ops[i]['value']+'" '+( ( op == ops[i]['value'] ) ? 'SELECTED' : '' )+'>'+ops[i]['text']+'</option>';
+                        }
+                        
+                        return '<select i="'+indx+'" class="cf_dependence_operator">'+r+'</select>';
+                    }
+                    
+                    var r = '';
+                    $.each( this.dependencies, function ( i, o ){ 
+                        if( o.complex ){
+                            r += '<div><div style="position:relative;"><span style="font-weight:bold;">If value</span><span class="cf_dependence_edition" i="'+i+'" ><input class="cf_dependence_rule" type="text" i="'+i+'" value="'+o.rule.replace(/"/g, '&quot;')+'" /><br></span><a class="addDep ui-icon ui-icon-circle-plus" i="'+i+'" title="Add another dependency."></a><a class="removeDep ui-icon ui-icon-circle-minus" i="'+i+'" title="Delete this dependency."></a><div style="text-align:right;position:relative;"><span style="float:left;">Ex: value==10</span><a href="#" class="displayWizard" i="'+i+'">Edit through wizard</a><br />(The rule entered will lost)</div></div>';
+                        }else{
+                            var operator = '',
+                                value = '';
+                            
+                            if( !/^\s*$/.test( o.rule ) ){
+                                var re    = new RegExp( '^value([!=<>]+)(.*)$'),
+                                    parts = re.exec( o.rule );
+                                operator = parts[1];
+                                value = parts[2];
+                            }
+                            
+                            r += '<div><div style="position:relative;"><span style="font-weight:bold;">If value</span><span class="cf_dependence_edition" i="'+i+'" >'+setOperator( i, operator )+' <input type="text" i="'+i+'" class="small cf_dependence_value" value="'+value.replace(/"/g, '&quot;')+'" /></span><a class="addDep ui-icon ui-icon-circle-plus" i="'+i+'" title="Add another dependency."></a><a class="removeDep ui-icon ui-icon-circle-minus" i="'+i+'" title="Delete this dependency."></a></div><div style="text-align:right;"><a i="'+i+'" class="displayComplexRule" href="#">Edit rule manually</a></div>';
+                        }
+                        
+                        
+                        r += '<div>';
+                        $.each( o.fields, function( j, v ){
+                            var opt = '<option value=""></option>';
+                            for (var k=0;k<items.length;k++){
+                                if (items[i].name != me.name){
+                                    opt += '<option value="'+items[k].name+'" '+( ( items[k].name == v ) ? 'selected="SELECTED"' : '' )+'>'+items[k].title+'</option>';
+                                }    
+                            }        
+ 
+                            r += '<div style="position:relative;">If rule is valid show: <select class="cf_dependence_field" i="'+i+'" j="'+j+'" >'+opt+'</select><a class="addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+j+'" title="Add another dependency."></a><a class="removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+j+'" title="Delete this dependency."></a></div>';
+
+                        } );
+                        r += '</div>';
+                        r += '</div>';
+                    } );
+                    
+                    return '<label>Define dependencies</label><div class="dependenciesBox">'+r+'</div>';
+                    
+                },
+                showHideField:function(){
+                    return '<div><input type="checkbox" name="sHideField" id="sHideField" '+((this.hidefield)?"checked":"")+'><label>Hide Field From Public Page</label></div>';
                 },
                 showReadOnly:function(){
                     return '<div><input type="checkbox" name="sReadOnly" id="sReadOnly" '+((this.readonly)?"checked":"")+'><label>Read Only</label></div>';
                 },
                 showEqEditor:function(eq){
                     var me = this;
-                    jQuery.fbuilder = jQuery.fbuilder || {};
+                    myjQuery.fbuilder = myjQuery.fbuilder || {};
 
-                    jQuery.fbuilder['setField'] = function(){
-                        jQuery.fbuilder.setSymbol($('#sFieldList').val());
+                    myjQuery.fbuilder['setField'] = function(){
+                        myjQuery.fbuilder.setSymbol($('#sFieldList').val());
                     }
 
-                    jQuery.fbuilder['setSymbol'] = function(s){
+                    myjQuery.fbuilder['setSymbol'] = function(s){
                         var sEQ = $('#sEq');
                         if(sEQ.length){
                             var p = sEQ.caret(),
@@ -1012,7 +1122,7 @@ jQuery(function(){
                         }
                     };
 
-                    jQuery.fbuilder['setTip'] = function(e){
+                    myjQuery.fbuilder['setTip'] = function(e){
                         $('#sEqTipsContainer').html(tips[e]);
                     };
 
@@ -1039,7 +1149,7 @@ jQuery(function(){
 
                     var out = '<label>Set Equation</label><textarea class="large" name="sEq" id="sEq">'+this.eq+'</textarea>';
 
-                    out += '<label>Operands</label><div style="border:1px dotted #888;">';
+                    out += '<label>Operands</label><div style="float:right;"><a href="http://wordpress.dwbooster.com/includes/calculated-field/equations.html" target="_blak">Read an equation tutorial</a></div><div style="border:1px dashed #888;">';
                     out += '<select id="sFieldList" style="width:260px;">'
                     for(var i in items){
                         var item = items[i];
@@ -1052,31 +1162,31 @@ jQuery(function(){
                         }
                     }
                     out += '</select>';
-                    out += '<input type="button" value="+" class="eq_btn" onclick="jQuery.fbuilder.setField();" />';
+                    out += '<input type="button" value="+" class="eq_btn" onclick="myjQuery.fbuilder.setField();" />';
                     out += '</div>';
 
-                    out += '<label>Operators</label><div style="border:1px dotted #888;text-align:center;">';
+                    out += '<label>Operators</label><div style="border:1px dashed #888;text-align:center;">';
 
-                    out += '<input type="button" value="+"     onclick="jQuery.fbuilder.setSymbol(\'+\');jQuery.fbuilder.setTip(\'+\');" class="eq_btn" />';
-                    out += '<input type="button" value="-"     onclick="jQuery.fbuilder.setSymbol(\'-\');jQuery.fbuilder.setTip(\'-\');" class="eq_btn" />';
-                    out += '<input type="button" value="*"     onclick="jQuery.fbuilder.setSymbol(\'*\');jQuery.fbuilder.setTip(\'*\');" class="eq_btn" />';
-                    out += '<input type="button" value="/"     onclick="jQuery.fbuilder.setSymbol(\'/\');jQuery.fbuilder.setTip(\'/\');" class="eq_btn" />';
-                    out += '<input type="button" value="("     onclick="jQuery.fbuilder.setSymbol(\'(\');jQuery.fbuilder.setTip(\'(\');" class="eq_btn" />';
-                    out += '<input type="button" value=")" 	   onclick="jQuery.fbuilder.setSymbol(\')\');jQuery.fbuilder.setTip(\')\');" class="eq_btn" /><br />';
+                    out += '<input type="button" value="+"     onclick="myjQuery.fbuilder.setSymbol(\'+\');myjQuery.fbuilder.setTip(\'+\');" class="eq_btn" />';
+                    out += '<input type="button" value="-"     onclick="myjQuery.fbuilder.setSymbol(\'-\');myjQuery.fbuilder.setTip(\'-\');" class="eq_btn" />';
+                    out += '<input type="button" value="*"     onclick="myjQuery.fbuilder.setSymbol(\'*\');myjQuery.fbuilder.setTip(\'*\');" class="eq_btn" />';
+                    out += '<input type="button" value="/"     onclick="myjQuery.fbuilder.setSymbol(\'/\');myjQuery.fbuilder.setTip(\'/\');" class="eq_btn" />';
+                    out += '<input type="button" value="("     onclick="myjQuery.fbuilder.setSymbol(\'(\');myjQuery.fbuilder.setTip(\'(\');" class="eq_btn" />';
+                    out += '<input type="button" value=")" 	   onclick="myjQuery.fbuilder.setSymbol(\')\');myjQuery.fbuilder.setTip(\')\');" class="eq_btn" /><br />';
 
-                    out += '<input type="button" value=","     onclick="jQuery.fbuilder.setSymbol(\',\');jQuery.fbuilder.setTip(\',\');" class="eq_btn" />';
-                    out += '<input type="button" value="abs"   onclick="jQuery.fbuilder.setSymbol(\'abs(\');jQuery.fbuilder.setTip(\'abs\');" class="eq_btn" />';
-                    out += '<input type="button" value="ceil"  onclick="jQuery.fbuilder.setSymbol(\'ceil(\');jQuery.fbuilder.setTip(\'ceil\');" class="eq_btn" />';
-                    out += '<input type="button" value="floor" onclick="jQuery.fbuilder.setSymbol(\'floor(\');jQuery.fbuilder.setTip(\'floor\');" class="eq_btn" />';
-                    out += '<input type="button" value="round" onclick="jQuery.fbuilder.setSymbol(\'round(\');jQuery.fbuilder.setTip(\'round\');" class="eq_btn" />';
-                    out += '<input type="button" value="prec"  onclick="jQuery.fbuilder.setSymbol(\'prec(\');jQuery.fbuilder.setTip(\'prec\');" class="eq_btn" /><br />';
+                    out += '<input type="button" value=","     onclick="myjQuery.fbuilder.setSymbol(\',\');myjQuery.fbuilder.setTip(\',\');" class="eq_btn" />';
+                    out += '<input type="button" value="abs"   onclick="myjQuery.fbuilder.setSymbol(\'abs(\');myjQuery.fbuilder.setTip(\'abs\');" class="eq_btn" />';
+                    out += '<input type="button" value="ceil"  onclick="myjQuery.fbuilder.setSymbol(\'ceil(\');myjQuery.fbuilder.setTip(\'ceil\');" class="eq_btn" />';
+                    out += '<input type="button" value="floor" onclick="myjQuery.fbuilder.setSymbol(\'floor(\');myjQuery.fbuilder.setTip(\'floor\');" class="eq_btn" />';
+                    out += '<input type="button" value="round" onclick="myjQuery.fbuilder.setSymbol(\'round(\');myjQuery.fbuilder.setTip(\'round\');" class="eq_btn" />';
+                    out += '<input type="button" value="prec"  onclick="myjQuery.fbuilder.setSymbol(\'prec(\');myjQuery.fbuilder.setTip(\'prec\');" class="eq_btn" /><br />';
 
-                    out += '<input type="button" value="log"  onclick="jQuery.fbuilder.setSymbol(\'log(\');jQuery.fbuilder.setTip(\'log\');" class="eq_btn" />';
-                    out += '<input type="button" value="pow"  onclick="jQuery.fbuilder.setSymbol(\'pow(\');jQuery.fbuilder.setTip(\'pow\');" class="eq_btn" />';
-                    out += '<input type="button" value="sqrt" onclick="jQuery.fbuilder.setSymbol(\'sqrt(\');jQuery.fbuilder.setTip(\'sqrt\');" class="eq_btn" />';
-                    out += '<input type="button" value="max"  onclick="jQuery.fbuilder.setSymbol(\'max(\');jQuery.fbuilder.setTip(\'max\');" class="eq_btn" />';
-                    out += '<input type="button" value="min"  onclick="jQuery.fbuilder.setSymbol(\'min(\');jQuery.fbuilder.setTip(\'min\');" class="eq_btn" />';
-                    out += '<input type="button" value="cdate"  onclick="jQuery.fbuilder.setSymbol(\'cdate(\');jQuery.fbuilder.setTip(\'cdate\');" class="eq_btn" /><br />';
+                    out += '<input type="button" value="log"  onclick="myjQuery.fbuilder.setSymbol(\'log(\');myjQuery.fbuilder.setTip(\'log\');" class="eq_btn" />';
+                    out += '<input type="button" value="pow"  onclick="myjQuery.fbuilder.setSymbol(\'pow(\');myjQuery.fbuilder.setTip(\'pow\');" class="eq_btn" />';
+                    out += '<input type="button" value="sqrt" onclick="myjQuery.fbuilder.setSymbol(\'sqrt(\');myjQuery.fbuilder.setTip(\'sqrt\');" class="eq_btn" />';
+                    out += '<input type="button" value="max"  onclick="myjQuery.fbuilder.setSymbol(\'max(\');myjQuery.fbuilder.setTip(\'max\');" class="eq_btn" />';
+                    out += '<input type="button" value="min"  onclick="myjQuery.fbuilder.setSymbol(\'min(\');myjQuery.fbuilder.setTip(\'min\');" class="eq_btn" />';
+                    out += '<input type="button" value="cdate"  onclick="myjQuery.fbuilder.setSymbol(\'cdate(\');myjQuery.fbuilder.setTip(\'cdate\');" class="eq_btn" /><br />';
 
                     out += '</div>';
                     out +='<div id="sEqTipsContainer" style="padding:5px;"></div>';
@@ -1130,7 +1240,7 @@ jQuery(function(){
 					            attrDep += ","+d[i][j];
 					        }
 					    }
-						str += '<div class="'+this.layout+'"><input name="'+this.name+'[]" '+((classDep!="")?"dep=\""+attrDep+"\"":"")+' id="'+this.name+'" class="field depItem group '+((this.required)?" required":"")+'" value="'+htmlEncode(this.choicesVal[i])+'" type="checkbox" '+((this.choiceSelected[i])?"checked":"")+'/> <span>'+this.choices[i]+'</span></div>';
+						str += '<div class="'+this.layout+'"><input name="'+this.name+'[]" '+((classDep!="")?"dep=\""+attrDep+"\"":"")+' id="'+this.name+'" class="field depItem group '+((this.required)?" required":"")+'" value="'+htmlEncode(this.choicesVal[i])+'" vt="'+htmlEncode(this.choices[i])+'" type="checkbox" '+((this.choiceSelected[i])?"checked":"")+'/> <span>'+this.choices[i]+'</span></div>';
 					}
 					return '<div class="fields '+this.csslayout+'" id="field'+opt.identifier+'-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield">'+str+'<span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
@@ -1145,8 +1255,8 @@ jQuery(function(){
 					    for (var i=0;i<l.length;i++)
 					        this.choicesDep[i] = new Array();
 					}
-					var d = this.choicesDep;
-					var str = "";
+					var d = this.choicesDep,
+                        str = "";
 					for (var i=0;i<l.length;i++)
 					{
 						str += '<div class="choicesEdit"><input class="choice_check" i="'+i+'" type="checkbox" '+((this.choiceSelected[i])?"checked":"")+'/><input class="choice_text" i="'+i+'" type="text" name="sChoice'+this.name+'" id="sChoice'+this.name+'" value="'+htmlEncode(l[i])+'"/><input class="choice_value" i="'+i+'" type="text" name="sChoice'+this.name+'V'+i+'" id="sChoice'+this.name+'V'+i+'" value="'+htmlEncode(lv[i])+'"/><a class="choice_add ui-icon ui-icon-circle-plus" i="'+i+'" title="Add another choice."></a><a class="choice_remove ui-icon ui-icon-circle-minus" i="'+i+'" title="Delete this choice."></a></div>';
@@ -1199,7 +1309,7 @@ jQuery(function(){
 					            attrDep += ","+d[i][j];
 					        }
 					    }
-					    str += '<div class="'+this.layout+'"><input name="'+this.name+'" id="'+this.name+'" '+((classDep!="")?"dep=\""+attrDep+"\"":"")+' class="field depItem group '+((this.required)?" required":"")+'" value="'+htmlEncode(this.choicesVal[i])+'" type="radio" i="'+i+'"  '+((this.choicesVal[i]==this.choiceSelected)?"checked":"")+'/> <span>'+this.choices[i]+'</span></div>';
+					    str += '<div class="'+this.layout+'"><input name="'+this.name+'" id="'+this.name+'" '+((classDep!="")?"dep=\""+attrDep+"\"":"")+' class="field depItem group '+((this.required)?" required":"")+'" value="'+htmlEncode(this.choicesVal[i])+'" vt="'+htmlEncode(this.choices[i])+'" type="radio" i="'+i+'"  '+((this.choicesVal[i]==this.choiceSelected)?"checked":"")+'/> <span>'+this.choices[i]+'</span></div>';
 					}
 					return '<div class="fields '+this.csslayout+'" id="field'+opt.identifier+'-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield">'+str+'<span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
@@ -1267,7 +1377,7 @@ jQuery(function(){
 					            attrDep += ","+d[i][j];
 					        }
 					    }
-					    str += '<option '+((classDep!="")?"dep=\""+attrDep+"\"":"")+' '+((this.choiceSelected==this.choicesVal[i])?"selected":"")+' class="depItem" value="'+htmlEncode(this.choicesVal[i])+'">'+l[i]+'</option>';
+					    str += '<option '+((classDep!="")?"dep=\""+attrDep+"\"":"")+' '+((this.choiceSelected==this.choicesVal[i])?"selected":"")+' class="depItem" value="'+htmlEncode(this.choicesVal[i])+'" vt="'+htmlEncode(l[i])+'" >'+l[i]+'</option>';
 					}
 					return '<div class="fields '+this.csslayout+'" id="field'+opt.identifier+'-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><select id="'+this.name+'" name="'+this.name+'" class="field depItemSel '+this.size+((this.required)?" required":"")+'" >'+str+'</select><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div><div class="clearer"></div></div>';
 				},
@@ -1535,23 +1645,53 @@ jQuery(function(){
                 var CalcFieldClss = function(){};
 
                 CalcFieldClss.prototype = {
-                    addEquation : function(cf, eq, conf){
+                    addEquation : function(cf, eq, conf, dep, identifier){
                         var r = $('[id="'+cf+'"]');
                         if(r.length){
                             var f = r[0].form;
                             if(f.equations == null || f.equations == undefined) f['equations'] = [];
-                            f.equations.push({'result':cf, 'equation':eq, 'conf':conf});
+                            f.equations.push({'result':cf, 'equation':eq, 'conf':conf, 'dep':dep, 'identifier' : identifier});
                         }
 
                     },
-
+                    getDepList : function(f, v, dep){
+                        var list    = [],
+                            list_h  = [];
+                        if(v !== false && dep.length ){
+                            for( var i = 0, h = dep.length; i < h; i++ ){
+                                try{
+                                    var rule = dep[i].rule.replace(/value/gi, v);
+                                    if( eval( rule ) ){
+                                        $.each( dep[i].fields, function( j, e){
+                                            if( $.inArray(e, list_h) == -1 && $.inArray(e, list) == -1 ) list.push( e ); 
+                                        } );
+                                    }else{
+                                        list_h = list_h.concat( dep[i].fields );
+                                        $.each( dep[i].fields, function( j, e){
+                                            var j = $.inArray(e, list);
+                                            if( j != -1) list.splice( j, 1 );
+                                        } );
+                                    }
+                                }catch(e){
+                                    continue;
+                                }
+                            }
+                        }
+                        $('[id="'+f+'"]').attr( 'dep', list.join(',') ).attr('notdep', list_h.join( ',' ) );
+                        return list;
+                    },
+                    
                     defaultCalc : function(fId){
                         var f = $(fId);
 
                         if(f.length && f[0].equations && f[0].equations){
                             var eq = f[0].equations;
+                            
                             for(var i=0, h = eq.length; i < h; i++){
+                                
                                 var r = _calculate(f[0], eq[i].equation);
+                                this.getDepList( eq[i].result, r, eq[i].dep );
+                                showHideDep( eq[i].identifier );
                                 $('[id="'+eq[i].result+'"]').val(( (r !== false) ? this._format(r, eq[i].conf) : '' )).change();
                             }
                         }
@@ -1571,6 +1711,8 @@ jQuery(function(){
                             for (var i=0, l = eq.length; i < l; i++){
                                 if( reg.test(eq[i].equation+' ') ){ // If the field is in the equation.
                                     var r = _calculate(f, eq[i].equation);
+                                    this.getDepList( eq[i].result, r, eq[i].dep );
+                                    showHideDep( eq[i].identifier );
                                     $('[id="'+eq[i].result+'"]').val(( (r !== false) ? this._format(r, eq[i].conf) : '' )).change();
                                 }
                             }
@@ -1665,5 +1807,100 @@ jQuery(function(){
 	    	fcount++;
 	    	fnum = "_"+fcount;
 	    }
-})(jQuery);
+	    function showHideDep(identifier){
+            function inArray(needle, haystack) {
+                for(var i = 0; i < haystack.length; i++) {
+                    if(haystack[i] == needle) return true;
+                }
+                return false;
+            }
+            function removeFromArray(needle, haystack) {
+                for(var i = 0; i < haystack.length; i++) {
+                    if(haystack[i] == needle)
+                    {
+                        haystack.splice(i,1);
+                        i--;
+                    }
+                }
+                return haystack;
+            }
+            var used = new Array();
+            var hideArray = new Array();
+            $(".depItem").each(function() {
+                var item = $(this);
+                try {
+                    if ((item.parents("#fieldlist"+identifier).length==1) && item.attr("dep") && item.attr("dep")!="" )
+                    {
+                        var d = item.attr("dep").split(",");
+                        for (i=0;i<d.length;i++)
+		                {
+		                    if (d[i]!="") d[i] = d[i]+identifier;
+		                    if (d[i]!="" && !inArray(d[i],used) )
+		                    {
+		                        try {
+		                            if ((item.is(':checked') || item.is(':selected') ) && (!inArray(  ((item.hasClass("field"))?item.attr("id"):item.parents(".field").attr("id"))   ,hideArray))   )
+		                            {
+		                                $("#"+d[i]).parents(".fields").css("display","");
+		                                $("#"+d[i]).parents(".fields").find(".field").each(function(){if (!$(this).hasClass("ignorepb"))$(this).removeClass("ignore");});
+		                                used[used.length] = d[i];
+		                                removeFromArray(d[i],hideArray);
+		                            }
+		                            else
+		                            {
+		                                $("#"+d[i]).parents(".fields").css("display","none");
+		                                $("#"+d[i]).parents(".fields").find(".field").each(function(){$(this).addClass("ignore");});
+		                                hideArray[hideArray.length] = d[i];
+		                            }
+		                        }catch(e){}
+		                    }
+		                }
+		            }
+		        }catch(e){}
+		    });
+		    $(".codepeoplecalculatedfield").each(function() {
+                var item = $(this);
+                try {
+                    if ((item.parents("#fieldlist"+identifier).length==1) && ((item.attr("dep") && item.attr("dep")!="") || (item.attr("notdep") && item.attr("notdep")!="")) )
+                    {
+                        var d = item.attr("dep").split(",");
+                        for (i=0;i<d.length;i++)
+		                {
+		                    if (d[i]!="") d[i] = d[i]+identifier;
+		                    if (d[i]!="" && !inArray(d[i],used) )
+		                    {
+		                        try {
+		                            if  (!inArray(  item.attr("id")   ,hideArray))
+		                            {
+		                                $("#"+d[i]).parents(".fields").css("display","");
+		                                $("#"+d[i]).parents(".fields").find(".field").each(function(){if (!$(this).hasClass("ignorepb"))$(this).removeClass("ignore");});
+		                                used[used.length] = d[i];
+		                                removeFromArray(d[i],hideArray);
+		                            }
+		                            else
+		                            {
+		                                $("#"+d[i]).parents(".fields").css("display","none");
+		                                $("#"+d[i]).parents(".fields").find(".field").each(function(){$(this).addClass("ignore");});
+		                                hideArray[hideArray.length] = d[i];
+		                            }
+		                        }catch(e){}
+		                    }
+		                }
+		                var d = item.attr("notdep").split(",");
+                        for (i=0;i<d.length;i++)
+		                {
+		                    if (d[i]!="") d[i] = d[i]+identifier;
+		                    if (d[i]!="" && !inArray(d[i],used) )
+		                    {
+		                        try {
+		                                $("#"+d[i]).parents(".fields").css("display","none");
+		                                $("#"+d[i]).parents(".fields").find(".field").each(function(){$(this).addClass("ignore");});
+		                                hideArray[hideArray.length] = d[i];
+		                        }catch(e){}
+		                    }
+		                }
+		            }
+		        }catch(e){}
+		    });
+        }
+})(myjQuery);
 });
