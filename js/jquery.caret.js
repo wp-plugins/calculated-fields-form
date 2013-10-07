@@ -1,3 +1,5 @@
+myjQuery = (typeof myjQuery != 'undefined' ) ? myjQuery : jQuery;
+
 (function($) {
   $.fn.caret = function(pos) {
     var target = this[0];
@@ -50,4 +52,4 @@
       range.select();
     }
   }
-})(jQuery)
+})(myjQuery)

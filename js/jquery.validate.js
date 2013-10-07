@@ -10,7 +10,9 @@
  *   http://www.opensource.org/licenses/mit-license.php
  *   http://www.gnu.org/licenses/gpl.html
  */
-jQuery(function(){
+myjQuery = (typeof myjQuery != 'undefined' ) ? myjQuery : jQuery;
+ 
+myjQuery(function(){
 (function($) {
 
 $.extend($.fn, {
@@ -1167,7 +1169,7 @@ $.extend($.validator, {
 // deprecated, use $.validator.format instead
 $.format = $.validator.format;
 
-}(jQuery));
+}(myjQuery));
 
 // ajax mode: abort
 // usage: $.ajax({ mode: "abort"[, port: "uniqueport"]});
@@ -1200,7 +1202,7 @@ $.format = $.validator.format;
 			return ajax.apply(this, arguments);
 		};
 	}
-}(jQuery));
+}(myjQuery));
 
 // provides cross-browser focusin and focusout events
 // IE has native support, in other browsers, use event caputuring (neither bubbles)
@@ -1210,7 +1212,7 @@ $.format = $.validator.format;
 (function($) {
 	// only implement if not provided by jQuery core (since 1.4)
 	// TODO verify if jQuery 1.4's implementation is compatible with older jQuery special-event APIs
-	if (!jQuery.event.special.focusin && !jQuery.event.special.focusout && document.addEventListener) {
+	if (!myjQuery.event.special.focusin && !myjQuery.event.special.focusout && document.addEventListener) {
 		$.each({
 			focus: 'focusin',
 			blur: 'focusout'
@@ -1246,5 +1248,5 @@ $.format = $.validator.format;
 			});
 		}
 	});
-}(jQuery));
+}(myjQuery));
 });
