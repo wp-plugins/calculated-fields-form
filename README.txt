@@ -65,9 +65,12 @@ The form processing and payment processing aren't included in this version. Ther
 = Latest Features Added =
 
 * Dependant fields: Fields can be shown/hidden based on other checkboxes, radiobuttons or drop-down selections
+* Dependant fields from calculated values: Fields can be shown/hidden based on the value of a calculated field
 * Throubleshoot area to automatically fix conflicts with other scripts on themes or third party plugins and also for special characters support
 * Multi page calculated forms
 * New validations, fields types and features in the form builder
+* Calculated fields can be hidden fields.
+
 
 
 == Installation ==
@@ -188,6 +191,7 @@ The fields can have "predefined" or "prefilled" values. There are two possible u
 
 #2- Can be used for showing a sample of the data that should be entered in the field. In this case you may want to mark also the checkbox "Hide predefined value on click", this way the value will disappear once the user starts using the field without having to manually delete the placeholder value.
 
+
 = The "Instructions for User" option =
 
 Each field has a settings value labeled "Instructions for User". Use that settings value to put instructions to the end user about filling that field. The instructions will appear in a smaller text immediately below the field in the public website.
@@ -208,9 +212,82 @@ For example if you want to put two fields into the same line then specify for bo
 
 The CSS classes/rules can be placed into the file "wp-content\plugins\calculated-fields-form\css\stylepublic.css" or into your theme CSS files.
 
+
 = Multi Page Forms = 
 
 For adding a new page to create multi-page forms just insert the field named "Page Break". Each form's page will be validated separately before going to the next form, however note that the calculations are applied to the whole form every time a field is modified, so a calculated field in other page may be modified even if that page isn't visible.
+
+
+= Calculated "hidden" Fields = 
+
+The calculated fields can be "hidden" fields. This way the calculated values of those "hidden" fields won't be displayed in the form. This is useful for using intermediate calculated values or for showing the calculated values only into the email (pro version).
+
+
+= Equations / formulas Format for Calculated Fields =
+
+Here are some sample formulas that can be used as base:
+
+* With simple mathematical operations:
+
+    fieldname1 + fieldname2
+    
+    fieldname1 * fieldname2
+    
+    fieldname1 / fieldname2
+    
+    fieldname1 - fieldname2
+
+
+* With multiple fields and fields grouping included:
+
+    fieldname1 * ( fieldname2 + fieldname3 )
+
+
+* Rounded to two decimal digits:
+
+    prec( fieldname2 / fieldname3 , 2)
+
+
+* There is a huge number of equations that can't be recreated with simple mathematical operators, or the operations listed above, requiring "IF" conditions, here is a sample of the formula that can be used in that case:
+
+    (function(){
+        
+        if(fieldname3 > 100) return fieldname1+fieldname2;
+        
+        if(fieldname3 <= 100) return fieldname1*fieldname2;
+        
+    })();
+
+
+* For complex equations where is required to define blocks of JavaScript code, you should use the following format:
+
+    (function(){
+    
+        var calculatedValue = 0;
+    
+        //Your code here
+        
+        return calculatedValue;
+        
+    })();
+
+.... and note that the **return** value of that function will be the value assigned to the calculated field.
+
+
+= Functions that can be used for the formulas = 
+
+In addition to the JavaScript functions, the following functions can be used directly into the formulas:
+
+* **prec(A,B):** Return the A number with B decimal digits
+* **round(A):** Rounds A to the nearest integer. In most cases "prec(A, B)" is more useful for indicating the digits precision.
+* **cdate(A):** Returns the number A formatted like a Date. The number represents the number of days from Jan 1, 1970. For example, if fieldname1 is a date field, and its value is 3/11/2013: cdate(fieldname1+10) would be 13/11/2013.
+* **min(x,y,z,...,n):** Returns the number with the lowest value (minimum from the list).
+* **max(x,y,z,...,n):** Returns the number with the highest value (maximum from the list).
+* **random():** Returns a random number between 0 and 1.
+* **Other mathematical operations:**  abs(x) , acos(x) , asin(x) , atan(x) , atan2(x,y) , ceil(x) , cos(x) , exp(x) , floor(x) , log(x) , pow(x,y) , sin(x) , sqrt(x) , tan(x)
+
+Into the plugin interface you will find additional help for these functions.
+
 
 = Fields available in the Calculated Fields Form's form builder = 
 

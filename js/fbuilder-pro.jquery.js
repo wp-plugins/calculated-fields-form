@@ -1149,7 +1149,7 @@ myjQuery(function(){
 
                     var out = '<label>Set Equation</label><textarea class="large" name="sEq" id="sEq">'+this.eq+'</textarea>';
 
-                    out += '<label>Operands</label><div style="float:right;"><a href="http://wordpress.dwbooster.com/includes/calculated-field/equations.html" target="_blak">Read an equation tutorial</a></div><div style="border:1px dashed #888;">';
+                    out += '<label>Operands</label><div style="float:right;"><a href="javascript:window.open(\'http://wordpress.dwbooster.com/includes/calculated-field/equations.html\', \'_blak\');">Read an equation tutorial</a></div><div style="border:1px dashed #888;">';
                     out += '<select id="sFieldList" style="width:260px;">'
                     for(var i in items){
                         var item = items[i];
@@ -1190,10 +1190,10 @@ myjQuery(function(){
 
                     out += '</div>';
                     out +='<div id="sEqTipsContainer" style="padding:5px;"></div>';
-                    out += '<label>Set prefix</label><input type="text" name="sPrefix" id="sPrefix" class="large" value="'+this.prefix+'" />';
-                    out += '<label>Set suffix</label><input type="text" name="sSuffix" id="sSuffix" class="large" value="'+this.suffix+'" />';
-                    out += '<label>Decimal symbol</label><input type="text" name="sDecimalSymbol" id="sDecimalSymbol" class="large" value="'+this.decimalsymbol+'" />';
-                    out += '<label>Digit grouping symbol</label><input type="text" name="sGroupingSymbol" id="sGroupingSymbol" class="large" value="'+this.groupingsymbol+'" />';
+                    out += '<label>Symbol to display at beginning of calculated field</label><input type="text" name="sPrefix" id="sPrefix" class="large" value="'+this.prefix+'" />';
+                    out += '<label>Symbol to display at the end of calculated field</label><input type="text" name="sSuffix" id="sSuffix" class="large" value="'+this.suffix+'" />';
+                    out += '<label>Decimals separator symbol (Ex: 25.20)</label><input type="text" name="sDecimalSymbol" id="sDecimalSymbol" class="large" value="'+this.decimalsymbol+'" />';
+                    out += '<label>Symbol for grouping thousands (Ex: 3,000,000)</label><input type="text" name="sGroupingSymbol" id="sGroupingSymbol" class="large" value="'+this.groupingsymbol+'" />';
 
                     return out;
                 }
