@@ -229,6 +229,7 @@ Here are some sample formulas that can be used as base:
 
 * With simple mathematical operations:
 
+    
     fieldname1 + fieldname2
     
     fieldname1 * fieldname2
@@ -236,20 +237,26 @@ Here are some sample formulas that can be used as base:
     fieldname1 / fieldname2
     
     fieldname1 - fieldname2
-
+    
+    
 
 * With multiple fields and fields grouping included:
 
+    
     fieldname1 * ( fieldname2 + fieldname3 )
+    
 
 
 * Rounded to two decimal digits:
 
+    
     prec( fieldname2 / fieldname3 , 2)
+    
 
 
 * There is a huge number of equations that can't be recreated with simple mathematical operators, or the operations listed above, requiring "IF" conditions, here is a sample of the formula that can be used in that case:
 
+    
     (function(){
         
         if(fieldname3 > 100) return fieldname1+fieldname2;
@@ -257,10 +264,11 @@ Here are some sample formulas that can be used as base:
         if(fieldname3 <= 100) return fieldname1*fieldname2;
         
     })();
-
+    
 
 * For complex equations where is required to define blocks of JavaScript code, you should use the following format:
 
+    
     (function(){
     
         var calculatedValue = 0;
@@ -270,6 +278,7 @@ Here are some sample formulas that can be used as base:
         return calculatedValue;
         
     })();
+    
 
 .... and note that the **return** value of that function will be the value assigned to the calculated field.
 
