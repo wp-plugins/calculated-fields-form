@@ -258,17 +258,17 @@ Here are some sample formulas that can be used as base:
 
     
     `(function(){`        
-    `    if(fieldname3 > 100) return fieldname1+fieldname2;`       
-    `    if(fieldname3 <= 100) return fieldname1*fieldname2;`        
+        `    if(fieldname3 > 100) return fieldname1+fieldname2;`       
+        `    if(fieldname3 <= 100) return fieldname1*fieldname2;`        
     `})();`
     
 
 * For complex equations where is required to define blocks of JavaScript code, you should use the following format:
     
     `(function(){`  
-    `    var calculatedValue = 0;`    
-    `    //Your code here`        
-    `    return calculatedValue;`
+        `    var calculatedValue = 0;`    
+        `    //Your code here`        
+        `    return calculatedValue;`        
     `})();`
     
 
