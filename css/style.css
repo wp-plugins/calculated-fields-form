@@ -14,13 +14,16 @@ body{font:11px "Lucida Grande","Lucida Sans Unicode",Tahoma,sans-serif;}
 #fbuilder .fields{border:1px solid transparent;padding:3px 10px 14px 10px;margin:5px 0px;display:block;position:relative}
 #fbuilder .fields .arrow{position:absolute;left:-15px;top:20px;display:none}
 #fbuilder .fields .remove{position:absolute;bottom:0;right:0;display:none;background-color:#fff;cursor:pointer}
+#fbuilder .fields .copy{position:absolute;bottom:0;right:20px;display:none;background-color:#fff;cursor:pointer}
 .dependenciesBox,
 .choicesSet{border:1px dashed #888;margin:10px 0px;padding:5px}
-.choicesEdit input[type=text]{width:130px;}
+.choicesEdit input[type=text]{width:120px;}
 .choicesEdit,.choicesEditDep{position:relative;}
 .choicesSet .t{margin-left:18px;width:115px;float:left}
 .addComplexRule{cursor:pointer;}
 .cf_dependence_rule{width:230px;}
+.choicesEdit .choice_down{position:absolute;top:5px;left:255px;cursor:pointer;}
+.choicesEdit .choice_up{position:absolute;top:5px;left:266px;cursor:pointer;}
 .addDep,
 .choicesEdit .choice_add{position:absolute;top:5px;left:278px;cursor:pointer;}
 .removeDep,
@@ -43,7 +46,7 @@ a.helpfbuilder.dep{font-size:100%;padding-left:10px}
 input [disabled] {background-color: #f00;}
 input [readonly] {background-color: #f00;}
 #fbuilder .fields.ui-selected{background-color:#DFEFFF;border:1px solid #C2D7EF}
-#fbuilder .fields.ui-selected .arrow,#fbuilder .fields.ui-selected .remove{display:inline}
+#fbuilder .fields.ui-selected .arrow,#fbuilder .fields.ui-selected .remove,#fbuilder .fields.ui-selected .copy{display:inline}
 #fbuilder .fields.ui-over{border:1px dashed #888;}
 
 #fbuilder .fform{border:1px solid transparent;padding:10px 10px 20px 10px;margin:5px 0px;display:block;position:relative}
