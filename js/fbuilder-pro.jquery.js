@@ -412,7 +412,14 @@ myjQuery(function(){
 			reloadItems();
 		}
 		duplicateItem = function(index) {
-		    items.splice(index,0,$.extend(true,{}, items[index]));
+		    var n = 0;
+			for (var i=0;i<items.length;i++)
+			{
+			   n1 = parseInt(items[i].name.replace(/fieldname/g,""));
+			   if (n1>n)
+				   n = n1;
+			}
+			items.splice(index+1,0,$.extend(true,{},items[index], {name:"fieldname"+(n+1)} ));
 			for (var i=0;i<items.length;i++)
 				items[i].index = i;
 			$('#tabs').tabs("option", "active", 0);
