@@ -1098,6 +1098,7 @@ myjQuery(function(){
                     }
                     
                     var r = '';
+
                     $.each( this.dependencies, function ( i, o ){ 
                         if( o.complex ){
                             r += '<div><div style="position:relative;"><span style="font-weight:bold;">If value</span><span class="cf_dependence_edition" i="'+i+'" ><input class="cf_dependence_rule" type="text" i="'+i+'" value="'+o.rule.replace(/"/g, '&quot;')+'" /><br></span><a class="addDep ui-icon ui-icon-circle-plus" i="'+i+'" title="Add another dependency."></a><a class="removeDep ui-icon ui-icon-circle-minus" i="'+i+'" title="Delete this dependency."></a><div style="text-align:right;position:relative;"><span style="float:left;">Ex: value==10</span><a href="#" class="displayWizard" i="'+i+'">Edit through wizard</a><br />(The rule entered will lost)</div></div>';
@@ -1120,11 +1121,10 @@ myjQuery(function(){
                         $.each( o.fields, function( j, v ){
                             var opt = '<option value=""></option>';
                             for (var k=0;k<items.length;k++){
-                                if (items[i].name != me.name){
+                                if (items[k].name != me.name){
                                     opt += '<option value="'+items[k].name+'" '+( ( items[k].name == v ) ? 'selected="SELECTED"' : '' )+'>'+items[k].title+'</option>';
                                 }    
                             }        
- 
                             r += '<div style="position:relative;">If rule is valid show: <select class="cf_dependence_field" i="'+i+'" j="'+j+'" >'+opt+'</select><a class="addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+j+'" title="Add another dependency."></a><a class="removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+j+'" title="Delete this dependency."></a></div>';
 
                         } );
