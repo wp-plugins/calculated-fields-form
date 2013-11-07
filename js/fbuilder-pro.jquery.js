@@ -572,7 +572,7 @@ myjQuery(function(){
 			        $(this).html('<fieldset><legend>'+opt.messages.page+' '+(index+1)+' '+opt.messages.of+' '+(page+1)+'</legend>'+code+'<div class="pbPrevious">'+opt.messages.previous+'</div><div class="pbNext">'+opt.messages.next+'</div>'+bSubmit+'<div class="clearer"></div></fieldset>');
 			    });
 			    $(".pbPrevious,.pbNext").bind("click", function() {
-			        if ($(this).parents("form").valid())
+			        if (  ($(this).hasClass("pbPrevious")) || (($(this).hasClass("pbNext")) && $(this).parents("form").valid())  )
 			        {
 			            var page = parseInt($(this).parents(".pbreak").attr("page"));
 			            (($(this).hasClass("pbPrevious"))?page--:page++);
@@ -581,6 +581,8 @@ myjQuery(function(){
 
 			            $("#fieldlist"+opt.identifier+" .pb"+page).css("display","block");
 			            $("#fieldlist"+opt.identifier+" .pb"+page).find(".field").removeClass("ignore").removeClass("ignorepb");
+			            if ($("#fieldlist"+opt.identifier+" .pb"+page).find(".field").length>0)
+			                try {$("#fieldlist"+opt.identifier+" .pb"+page).find(".field")[0].focus();} catch(e){}
 			            showHideDep(opt.identifier);
 			        }
 			        return false;
