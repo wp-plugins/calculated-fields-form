@@ -1362,7 +1362,7 @@ myjQuery(function(){
 					    }
 					    str += '<div class="'+this.layout+'"><label><input name="'+this.name+'" id="'+this.name+'" '+((classDep!="")?"dep=\""+attrDep+"\"":"")+' class="field depItem group '+((this.required)?" required":"")+'" value="'+htmlEncode(this.choicesVal[i])+'" vt="'+htmlEncode(this.choices[i])+'" type="radio" i="'+i+'"  '+((this.choicesVal[i]==this.choiceSelected)?"checked":"")+'/> '+this.choices[i]+'</label></div>';
 					}
-					return '<div class="fields '+this.csslayout+'" id="field'+opt.identifier+'-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield">'+str+'<span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
+					return '<div class="fields '+this.csslayout+'" id="field'+opt.identifier+'-'+this.index+'"><label>'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield">'+str+'<span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 				showChoiceIntance: function() {
 				    this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null)?this.choicesVal:this.choices.slice(0));
@@ -1601,7 +1601,7 @@ myjQuery(function(){
                     if(/(checkbox|radio)/i.test(e[0].type) && !e[0].checked) return;
 
                     if(e.hasClass('codepeoplecalculatedfield')){
-                       v = CalcField._unformat(e);
+					   v = CalcField._unformat(e);
                     }else{
                        v = e.val();
                     }
@@ -1801,14 +1801,14 @@ myjQuery(function(){
                             v = e.val();
 
                         for(var i = 0, h = eq.length; i < h; i++){
-                            if(eq[i].result[0] == e[0]){
+							if(eq[i].result == e[0].id){
                                 var c = eq[i].conf;
 
                                 if(c.prefix && !/^\s*$/.test(c.prefix)) v = v.replace(new RegExp("^"+escape_symbol(c.prefix)), '');
                                 if(c.suffix && !/^\s*$/.test(c.suffix)) v = v.replace(new RegExp(escape_symbol(c.suffix)+"$"), '');
                                 if(c.groupingsymbol && !/^\s*$/.test(c.groupingsymbol)) v = v.replace(new RegExp(escape_symbol(c.groupingsymbol), 'g'), '');
                                 if(c.decimalsymbol && !/^\s*$/.test(c.decimalsymbol)) v = v.replace(new RegExp(escape_symbol(c.decimalsymbol), 'g'), '.');
-                            }
+							}
                         }
                         return v;
                     }
