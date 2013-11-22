@@ -1696,6 +1696,7 @@ myjQuery(function(){
                 var CalcFieldClss = function(){};
 
                 CalcFieldClss.prototype = {
+					cFields : [],
                     addEquation : function(cf, eq, conf, dep, identifier){
                         var r = $('[id="'+cf+'"]');
                         if(r.length){
@@ -1733,25 +1734,35 @@ myjQuery(function(){
                     },
                     
                     defaultCalc : function(fId){
-                        var f = $(fId);
+						var f = $(fId), me = this;
 
                         if(f.length && f[0].equations && f[0].equations){
                             var eq = f[0].equations;
                             
                             for(var i=0, h = eq.length; i < h; i++){
                                 
-                                var r = _calculate(f[0], eq[i].equation);
+                                var r = _calculate(f[0], eq[i].equation), result;
                                 this.getDepList( eq[i].result, r, eq[i].dep );
                                 showHideDep( eq[i].identifier );
-                                $('[id="'+eq[i].result+'"]').val(( (r !== false) ? this._format(r, eq[i].conf) : '' )).change();
+								
+								result = $('[id="'+eq[i].result+'"]');
+								if( result.length ){
+									result.val(( (r !== false) ? this._format(r, eq[i].conf) : '' ));
+									if( !$.inArray( eq[i].result, me.cFields ) ){ 
+										me.cFields.push( eq[i].result );
+										result.change();
+									} 
+								}	
+								
                             }
-                        }
+							
+						}
 
                     },
 
                     Calculate : function (t){
-                        if(t.id == undefined)return;
-                        var f = t.form;
+						if(t.id == undefined)return;
+                        var f = t.form, me = this;
 
                         if(/(button|img)/i.test(t.tagName) || (t.type && /(button|submit)/i.test(t.type))){return;}
 
@@ -1764,8 +1775,16 @@ myjQuery(function(){
                                     var r = _calculate(f, eq[i].equation);
                                     this.getDepList( eq[i].result, r, eq[i].dep );
                                     showHideDep( eq[i].identifier );
-                                    $('[id="'+eq[i].result+'"]').val(( (r !== false) ? this._format(r, eq[i].conf) : '' )).change();
-                                }
+									
+									result = $('[id="'+eq[i].result+'"]');
+									if( result.length ){
+										result.val(( (r !== false) ? this._format(r, eq[i].conf) : '' ));
+										if( !$.inArray( eq[i].result, me.cFields ) ){ 
+											me.cFields.push( eq[i].result );
+											result.change();
+										} 
+									}
+								}
                             }
                         }
                     },
@@ -1825,6 +1844,7 @@ myjQuery(function(){
 
                 var obj = new CalcFieldClss();
                 $(document).bind('click keyup change', function(evt){
+					if( !$( evt.target ).hasClass( 'codepeoplecalculatedfield' ) ) obj.cFields = [];
                     if(evt.keyCode && (evt.keyCode >= 33 && evt.keyCode <= 40)) return;
                     if(evt.type == 'click' && (evt.target.tagName != 'INPUT' || evt.target.type != 'RADIO' || evt.target.type != 'CHECKBOX') ) return;
                     obj.Calculate(evt.target);
