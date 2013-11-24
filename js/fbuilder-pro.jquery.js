@@ -1597,10 +1597,13 @@ myjQuery(function(){
 
                 e.each(function(){
                     var e = $(this), v;
-
+					if( e.hasClass( 'ignore' ) || e.hasClass( 'ignorepb' )){
+						s.push( 0 );
+						return;
+					}
+						
                     if(/(checkbox|radio)/i.test(e[0].type) && !e[0].checked) return;
-
-                    if(e.hasClass('codepeoplecalculatedfield')){
+					if(e.hasClass('codepeoplecalculatedfield')){
 					   v = CalcField._unformat(e);
                     }else{
                        v = e.val();
@@ -1644,7 +1647,7 @@ myjQuery(function(){
                 eq = eq.replace(new RegExp(_match[0]), x);
             }
             try{
-                var r = eval(eq);
+				var r = eval(eq);
                 return (isFinite(r) || /\d{1,2}\/\d{1,2}\/\d{4}/.test(r)) ? r : false;
             }catch(e){
                 return false;
@@ -1735,7 +1738,7 @@ myjQuery(function(){
                     
                     defaultCalc : function(fId){
 						var f = $(fId), me = this;
-
+						me.cFields = [];
                         if(f.length && f[0].equations && f[0].equations){
                             var eq = f[0].equations;
                             
@@ -1743,8 +1746,7 @@ myjQuery(function(){
                                 
                                 var r = _calculate(f[0], eq[i].equation), result;
                                 this.getDepList( eq[i].result, r, eq[i].dep );
-                                showHideDep( eq[i].identifier );
-								
+								showHideDep( eq[i].identifier, true );
 								result = $('[id="'+eq[i].result+'"]');
 								if( result.length ){
 									result.val(( (r !== false) ? this._format(r, eq[i].conf) : '' ));
@@ -1753,9 +1755,7 @@ myjQuery(function(){
 										result.change();
 									} 
 								}	
-								
-                            }
-							
+							}
 						}
 
                     },
@@ -1878,7 +1878,7 @@ myjQuery(function(){
 	    	fcount++;
 	    	fnum = "_"+fcount;
 	    }
-	    function showHideDep(identifier){
+	    function showHideDep(identifier, fromCalcDefault){
             function inArray(needle, haystack) {
                 for(var i = 0; i < haystack.length; i++) {
                     if(haystack[i] == needle) return true;
@@ -1981,6 +1981,8 @@ myjQuery(function(){
                 });
 		        $("#form_structure_hidden"+identifier).val(hideFields.join());
 		    }
+			if( typeof fromCalcDefault == 'undefined' || !fromCalcDefault )
+				CalcField.defaultCalc('#cp_calculatedfieldsf_pform'+identifier, true);
         }
 })(myjQuery);
 });
