@@ -528,7 +528,7 @@ myjQuery(function(){
 				else
 				{
 				    $("#fieldlist"+opt.identifier+" .pb"+page).append(items[i].show());
-				    if (items[i].predefinedClick)
+					if (items[i].predefinedClick)
 				    {
 				        var cl = $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).attr("class")+" predefinedClick";
 				        $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).attr("class",cl);
@@ -1081,7 +1081,6 @@ myjQuery(function(){
                             }
                         }
                     });
-                    
                     return '<div class="fields '+this.csslayout+'" id="field'+opt.identifier+'-'+this.index+'" '+( ( this.hidefield ) ? 'style="display:none;"' : '' )+'><label>'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" '+((this.readonly) ? ' readonly ' : '')+' class="codepeoplecalculatedfield field '+this.size+((this.required)?" required":"")+'" type="'+( ( this.hidefield ) ? 'hidden' : 'text' )+'" value="'+this.predefined+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div>'+((!/^\s*$/.test(this.eq))? '<script>CalcField.addEquation("'+this.name.replace(/"/g, '\\"')+'", "'+this.eq.replace(/"/g, '\\"').replace(/\n/g, ' ').replace(/fieldname(\d+)/g, "fieldname$1"+opt.identifier)+'", '+$.stringifyXX( configuration, false )+', '+$.stringifyXX( dependencies, false )+', "'+opt.identifier+'");</script>' : '')+'</div>';
                 },
                 showAllSettings:function(){
@@ -1591,18 +1590,14 @@ myjQuery(function(){
 
         _calculate = function(f, eq){
             f = $(f);
+
             var _match;
             while (_match = /(fieldname\d+_\d+)/.exec(eq)){
                 var e = f.find('[id="'+_match[0]+'"]'), s=[];
 
                 e.each(function(){
                     var e = $(this), v;
-					if( e.hasClass( 'ignore' ) || e.hasClass( 'ignorepb' )){
-						s.push( 0 );
-						return;
-					}
-						
-                    if(/(checkbox|radio)/i.test(e[0].type) && !e[0].checked) return;
+					if(/(checkbox|radio)/i.test(e[0].type) && !e[0].checked) return;
 					if(e.hasClass('codepeoplecalculatedfield')){
 					   v = CalcField._unformat(e);
                     }else{
@@ -1624,7 +1619,8 @@ myjQuery(function(){
                     }else{
                         s.push( (p) ? p[0].replace(/\,/g,'')*1 : v );
                     }
-                });
+					
+				});
 
                 function field_value(v){
                     if (/^\s*$/.test(v)) return 0;
@@ -1643,9 +1639,10 @@ myjQuery(function(){
                     }
                     x = eval(s.join('+'));
                 }
-
                 eq = eq.replace(new RegExp(_match[0]), x);
+							
             }
+			
             try{
 				var r = eval(eq);
                 return (isFinite(r) || /\d{1,2}\/\d{1,2}\/\d{4}/.test(r)) ? r : false;
@@ -1699,13 +1696,21 @@ myjQuery(function(){
                 var CalcFieldClss = function(){};
 
                 CalcFieldClss.prototype = {
-					cFields : [],
-                    addEquation : function(cf, eq, conf, dep, identifier){
+					addEquation : function(cf, eq, conf, dep, identifier){
                         var r = $('[id="'+cf+'"]');
                         if(r.length){
                             var f = r[0].form;
-                            if(f.equations == null || f.equations == undefined) f['equations'] = [];
-                            f.equations.push({'result':cf, 'equation':eq, 'conf':conf, 'dep':dep, 'identifier' : identifier});
+                            if( typeof f.equations == 'undefined' ) f['equations'] = [];
+							
+							var  i, h = f.equations.length;
+							
+							for( i = 0 ; i < h; i++ ){ 
+								if( f.equations[ i ].result == cf ) break;
+							}	
+							
+							if( i == h ){
+								f.equations.push( {'result':cf, 'equation':eq, 'conf':conf, 'dep':dep, 'identifier' : identifier} );
+							}	
                         }
 
                     },
@@ -1738,23 +1743,18 @@ myjQuery(function(){
                     
                     defaultCalc : function(fId){
 						var f = $(fId), me = this;
-						me.cFields = [];
-                        if(f.length && f[0].equations && f[0].equations){
+						if(f.length && ( typeof f[0].equations != 'undefined' ) ){
                             var eq = f[0].equations;
                             
-                            for(var i=0, h = eq.length; i < h; i++){
-                                
-                                var r = _calculate(f[0], eq[i].equation), result;
-                                this.getDepList( eq[i].result, r, eq[i].dep );
-								showHideDep( eq[i].identifier, true );
+                            for( var i in eq ){
+								var r = _calculate(f[0], eq[i].equation), result;
+								me.getDepList( eq[i].result, r, eq[i].dep );
+								showHideDep( eq[i].identifier );
 								result = $('[id="'+eq[i].result+'"]');
 								if( result.length ){
-									result.val(( (r !== false) ? this._format(r, eq[i].conf) : '' ));
-									if( !$.inArray( eq[i].result, me.cFields ) ){ 
-										me.cFields.push( eq[i].result );
-										result.change();
-									} 
-								}	
+									result.val(( (r !== false) ? me._format(r, eq[i].conf) : '' ));
+									result.change();
+								}
 							}
 						}
 
@@ -1766,26 +1766,23 @@ myjQuery(function(){
 
                         if(/(button|img)/i.test(t.tagName) || (t.type && /(button|submit)/i.test(t.type))){return;}
 
-                        if(f && f.equations){
+                        if( f && typeof f.equations != 'undefined' ){
                             var eq = f.equations,
-                                id = t.id;
-                            var reg = new RegExp( id+'[\\D\\b]' );
-                            for (var i=0, l = eq.length; i < l; i++){
-                                if( reg.test(eq[i].equation+' ') ){ // If the field is in the equation.
-                                    var r = _calculate(f, eq[i].equation);
-                                    this.getDepList( eq[i].result, r, eq[i].dep );
-                                    showHideDep( eq[i].identifier );
-									
+                                id = t.id,
+								reg = new RegExp( id+'[\\D\\b]' );
+			
+                            for (var i in eq ){
+								if( reg.test(eq[i].equation+' ') ){ // If the field is in the equation.
+									var r = _calculate(f, eq[i].equation);
+									this.getDepList( eq[i].result, r, eq[i].dep );
+									showHideDep( eq[i].identifier );
 									result = $('[id="'+eq[i].result+'"]');
 									if( result.length ){
 										result.val(( (r !== false) ? this._format(r, eq[i].conf) : '' ));
-										if( !$.inArray( eq[i].result, me.cFields ) ){ 
-											me.cFields.push( eq[i].result );
-											result.change();
-										} 
+										result.change();
 									}
 								}
-                            }
+							}
                         }
                     },
 
@@ -1843,11 +1840,24 @@ myjQuery(function(){
                 }
 
                 var obj = new CalcFieldClss();
-                $(document).bind('click keyup change', function(evt){
-					if( !$( evt.target ).hasClass( 'codepeoplecalculatedfield' ) ) obj.cFields = [];
-                    if(evt.keyCode && (evt.keyCode >= 33 && evt.keyCode <= 40)) return;
-                    if(evt.type == 'click' && (evt.target.tagName != 'INPUT' || evt.target.type != 'RADIO' || evt.target.type != 'CHECKBOX') ) return;
-                    obj.Calculate(evt.target);
+                $(document).bind('keyup change blur', function(evt){
+					if( typeof global_waiting_objs == 'undefined' ) global_waiting_objs = [];
+					
+					if( evt.type == 'keyup' ){
+						if(evt.keyCode && (evt.keyCode >= 33 && evt.keyCode <= 40)) return;
+						if( $.inArray( evt.target, global_waiting_objs ) == -1 ){
+							setTimeout( (function( t ){ 
+											return function(){ 
+														global_waiting_objs.splice( $.inArray( t, global_waiting_objs ), 1 );
+														obj.Calculate( t );
+													}; 
+										})( evt.target ), 500 );
+						}	
+					}else{
+						var t = $( evt.target );
+						if( t.prop( 'tagName' ) == 'INPUT' && t.attr( 'type' ).toLowerCase() == 'text' && !t.hasClass( 'codepeoplecalculatedfield' ) ) return;
+						obj.Calculate(evt.target);
+					}	
                 });
                 return obj;
             }
@@ -1878,7 +1888,7 @@ myjQuery(function(){
 	    	fcount++;
 	    	fnum = "_"+fcount;
 	    }
-	    function showHideDep(identifier, fromCalcDefault){
+	    function showHideDep(identifier){
             function inArray(needle, haystack) {
                 for(var i = 0; i < haystack.length; i++) {
                     if(haystack[i] == needle) return true;
@@ -1981,8 +1991,6 @@ myjQuery(function(){
                 });
 		        $("#form_structure_hidden"+identifier).val(hideFields.join());
 		    }
-			if( typeof fromCalcDefault == 'undefined' || !fromCalcDefault )
-				CalcField.defaultCalc('#cp_calculatedfieldsf_pform'+identifier, true);
-        }
+		}
 })(myjQuery);
 });
