@@ -92,7 +92,12 @@ myjQuery(function(){
                 items[id].eq = $(this).val();
                 reloadItems();
             });
-                            $("#sSuffix").keyup(function(){
+			$("#sEq").bind('blur', function(){
+				items[id].eq_factorize();
+				reloadItems();
+            });
+
+            $("#sSuffix").keyup(function(){
                 items[id].suffix = $(this).val();
                 reloadItems();
             });
@@ -122,6 +127,7 @@ myjQuery(function(){
 			});
             $("#sReadOnly").click(function(){
                 items[id].readonly = $(this).is(':checked');
+				if( items[id].ftype == "fCalculated" ) items[id].eq_factorize();
                 reloadItems();
             });
 			$("#sHideField").click(function(){
@@ -175,28 +181,28 @@ myjQuery(function(){
                 }else{
                     items[id].dependencies[$(this).attr("i")].fields.splice( j+1, 0, "")
                 }
-                
+
                 editItem(id);
 				reloadItems();
             } );
-            $( ".removeDep" ).click( function( ){ 
+            $( ".removeDep" ).click( function( ){
                 var i = $(this).attr("i"),
                     j = $(this).attr("j");
-                
+
                 if( typeof j != 'undefined' ){
                     if( items[id].dependencies[ i ].fields.length != 1 ){
-                        items[id].dependencies[ i ].fields.splice( j, 1 ); 
+                        items[id].dependencies[ i ].fields.splice( j, 1 );
                     }else{
                         items[id].dependencies[ i ].fields = [''];
                     }
                 }else{
                     if( items[id].dependencies.length != 1 ){
-                        items[id].dependencies.splice( i, 1 ); 
+                        items[id].dependencies.splice( i, 1 );
                     }else{
-                        items[id].dependencies[ 0 ] = { 'rule' : '', 'complex' : false, 'fields' : [''] }; 
+                        items[id].dependencies[ 0 ] = { 'rule' : '', 'complex' : false, 'fields' : [''] };
                     }
-                }    
-                    
+                }
+
                 editItem(id);
 				reloadItems();
             } );
@@ -244,7 +250,7 @@ myjQuery(function(){
                 items[id].dependencies[ me.attr("i") ].fields[ me.attr("j") ]  = me.val();
                 reloadItems();
             } );
-            
+
             $(".showHideDependencies").click(function(){
 			    if (items[id].showDep)
 			    {
@@ -623,7 +629,7 @@ myjQuery(function(){
 				    p = $.extend(p,{beforeShowDay: function (d) {if (!eval($(this).attr("working_dates"))[d.getDay()]) return [false,""]; else return [true,""];}});
 				    dp.datepicker(p);
 				    dp.attr("working_dates", $.stringifyXX(itemsDates[k].working_dates));
-				    dp.datepicker("option", $.datepicker.regional['it']);	    
+				    dp.datepicker("option", $.datepicker.regional['it']);
                     dp.datepicker( "option", "minDate", itemsDates[k].minDate );
                     dp.datepicker( "option", "maxDate", itemsDates[k].maxDate );
                     dp.datepicker( "option", "defaultDate", itemsDates[k].defaultDate );
@@ -647,7 +653,7 @@ myjQuery(function(){
 			    try {
 			    $( "#fbuilder"+opt.identifier ).tooltip({show: false,hide:false,tooltipClass:"uh-tooltip",position: { my: "left top", at: "left bottom", collision: "none"  },items: "[uh]",content: function (){return $(this).attr("uh");} });
 			    } catch(e){}
-			    
+
 			}
 		}
 		var showSettings= {
@@ -1053,12 +1059,35 @@ myjQuery(function(){
                 required:false,
                 size:"medium",
                 eq:"",
+				eq_factored:"",
+				eq_factorize: function(){
+					var eq = this.eq,
+						_match;
+					this.eq_factored =  this.eq;
+					this.eq_factored += ' ';
+					
+					while ( _match = /(fieldname\d+)/.exec(eq)){
+						for( var i in items )
+							if( items[ i ].name == _match[0] ){
+								if( items[ i ].ftype == 'fCalculated' ){
+									var factored = items[ i ].eq_factorize(),
+										reg = new RegExp( _match[0]+'[\\D\\b]' );
+									this.eq_factored = this.eq_factored.replace( _match[0], factored );
+									
+								}
+								eq = eq.replace( _match[0], '' );
+								break;
+							}
+					}
+					this.eq_factored = $.trim( this.eq_factored );
+					return ( this.readonly ) ? this.eq_factored : this.name;
+				},
                 suffix:"",
                 prefix:"",
                 decimalsymbol:".",
                 groupingsymbol:"",
                 dependencies:[ {'rule' : '', 'complex' : false, 'fields' : [ '' ] } ],
-                readonly:false,
+                readonly:true,
                 hidefield:false,
                 display:function(){
                     return '<div class="fields" id="field'+opt.identifier+'-'+this.index+'"><div class="arrow ui-icon ui-icon-play "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input class="field disabled '+this.size+'" type="text" value="'+this.predefined+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
@@ -1067,7 +1096,7 @@ myjQuery(function(){
                     var me = this,
                         configuration = { "suffix" : me.suffix, "prefix" : me.prefix, "groupingsymbol" : me.groupingsymbol, "decimalsymbol" : me.decimalsymbol },
                         dependencies = [];
-                    
+
                     $.each( this.dependencies, function( i, d ){
                         d.rule = d.rule.replace( /^\s+/, '').replace( /\s+$/, '');
                         if( d.rule != '' && d.fields.length ){
@@ -1075,13 +1104,15 @@ myjQuery(function(){
                             $.each( d.fields, function( j, f ){
                                 if( f != '' ) fields.push( f );
                             });
-                            
+
                             if( fields.length ){
                                 dependencies.push( { 'rule' : d.rule, 'fields' : fields } );
                             }
                         }
                     });
-                    return '<div class="fields '+this.csslayout+'" id="field'+opt.identifier+'-'+this.index+'" '+( ( this.hidefield ) ? 'style="display:none;"' : '' )+'><label>'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" '+((this.readonly) ? ' readonly ' : '')+' class="codepeoplecalculatedfield field '+this.size+((this.required)?" required":"")+'" type="'+( ( this.hidefield ) ? 'hidden' : 'text' )+'" value="'+this.predefined+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div>'+((!/^\s*$/.test(this.eq))? '<script>CalcField.addEquation("'+this.name.replace(/"/g, '\\"')+'", "'+this.eq.replace(/"/g, '\\"').replace(/\n/g, ' ').replace(/fieldname(\d+)/g, "fieldname$1"+opt.identifier)+'", '+$.stringifyXX( configuration, false )+', '+$.stringifyXX( dependencies, false )+', "'+opt.identifier+'");</script>' : '')+'</div>';
+
+					if( /^\s*$/.test( this.eq_factored ) ) this.eq_factored = this.eq;
+                    return '<div class="fields '+this.csslayout+'" id="field'+opt.identifier+'-'+this.index+'" '+( ( this.hidefield ) ? 'style="display:none;"' : '' )+'><label>'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" '+((this.readonly) ? ' readonly ' : '')+' class="codepeoplecalculatedfield field '+this.size+((this.required)?" required":"")+'" type="'+( ( this.hidefield ) ? 'hidden' : 'text' )+'" value="'+this.predefined+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div>'+((!/^\s*$/.test(this.eq))? '<script>CalcField.addEquation("'+this.name.replace(/"/g, '\\"')+'", "'+this.eq_factored.replace(/"/g, '\\"').replace(/\n/g, ' ').replace(/fieldname(\d+)/g, "fieldname$1"+opt.identifier)+'", '+$.stringifyXX( configuration, false )+', '+$.stringifyXX( dependencies, false )+', "'+opt.identifier+'");</script>' : '')+'</div>';
                 },
                 showAllSettings:function(){
                     return this.showTitle()+this.showName()+this.showSize()+this.showLayout()+this.showFormat()+this.showRange()+this.showRequired()+this.showReadOnly()+this.showHideField()+this.showSpecialData()+this.showPredefined()+this.showEqEditor()+this.showDependencies()+this.showUserhelp()+this.showCsslayout();
@@ -1089,7 +1120,7 @@ myjQuery(function(){
                 showDependencies : function(){
                     // Instance
                     var me = this;
-                    
+
                     function setOperator( indx, op ){
                         var ops = [ {'text' : 'Equal to', 'value' : '=='},
                                     {'text' : 'Different to', 'value' : '!='},
@@ -1099,51 +1130,51 @@ myjQuery(function(){
                                     {'text' : 'Less than or equal', 'value' : '<='}
                                    ],
                             r = '';
-                        
+
                         for( var i = 0, h = ops.length; i < h; i++){
                             r += '<option value="'+ops[i]['value']+'" '+( ( op == ops[i]['value'] ) ? 'SELECTED' : '' )+'>'+ops[i]['text']+'</option>';
                         }
-                        
+
                         return '<select i="'+indx+'" class="cf_dependence_operator">'+r+'</select>';
                     }
-                    
+
                     var r = '';
 
-                    $.each( this.dependencies, function ( i, o ){ 
+                    $.each( this.dependencies, function ( i, o ){
                         if( o.complex ){
                             r += '<div><div style="position:relative;"><span style="font-weight:bold;">If value</span><span class="cf_dependence_edition" i="'+i+'" ><input class="cf_dependence_rule" type="text" i="'+i+'" value="'+o.rule.replace(/"/g, '&quot;')+'" /><br></span><a class="addDep ui-icon ui-icon-circle-plus" i="'+i+'" title="Add another dependency."></a><a class="removeDep ui-icon ui-icon-circle-minus" i="'+i+'" title="Delete this dependency."></a><div style="text-align:right;position:relative;"><span style="float:left;">Ex: value==10</span><a href="#" class="displayWizard" i="'+i+'">Edit through wizard</a><br />(The rule entered will lost)</div></div>';
                         }else{
                             var operator = '',
                                 value = '';
-                            
+
                             if( !/^\s*$/.test( o.rule ) ){
                                 var re    = new RegExp( '^value([!=<>]+)(.*)$'),
                                     parts = re.exec( o.rule );
                                 operator = parts[1];
                                 value = parts[2];
                             }
-                            
+
                             r += '<div><div style="position:relative;"><span style="font-weight:bold;">If value</span><span class="cf_dependence_edition" i="'+i+'" >'+setOperator( i, operator )+' <input type="text" i="'+i+'" class="small cf_dependence_value" value="'+value.replace(/"/g, '&quot;')+'" /></span><a class="addDep ui-icon ui-icon-circle-plus" i="'+i+'" title="Add another dependency."></a><a class="removeDep ui-icon ui-icon-circle-minus" i="'+i+'" title="Delete this dependency."></a></div><div style="text-align:right;"><a i="'+i+'" class="displayComplexRule" href="#">Edit rule manually</a></div>';
                         }
-                        
-                        
+
+
                         r += '<div>';
                         $.each( o.fields, function( j, v ){
                             var opt = '<option value=""></option>';
                             for (var k=0;k<items.length;k++){
                                 if (items[k].name != me.name){
                                     opt += '<option value="'+items[k].name+'" '+( ( items[k].name == v ) ? 'selected="SELECTED"' : '' )+'>'+items[k].title+'</option>';
-                                }    
-                            }        
+                                }
+                            }
                             r += '<div style="position:relative;">If rule is valid show: <select class="cf_dependence_field" i="'+i+'" j="'+j+'" >'+opt+'</select><a class="addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+j+'" title="Add another dependency."></a><a class="removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+j+'" title="Delete this dependency."></a></div>';
 
                         } );
                         r += '</div>';
                         r += '</div>';
                     } );
-                    
+
                     return '<label>Define dependencies</label><div class="dependenciesBox">'+r+'</div>';
-                    
+
                 },
                 showHideField:function(){
                     return '<div><input type="checkbox" name="sHideField" id="sHideField" '+((this.hidefield)?"checked":"")+'><label>Hide Field From Public Page</label></div>';
@@ -1597,6 +1628,11 @@ myjQuery(function(){
 
                 e.each(function(){
                     var e = $(this), v;
+					if( e.hasClass( 'ignoreCf' ) ){
+						s.push( 0 );
+						return;
+					}
+					
 					if(/(checkbox|radio)/i.test(e[0].type) && !e[0].checked) return;
 					if(e.hasClass('codepeoplecalculatedfield')){
 					   v = CalcField._unformat(e);
@@ -1619,7 +1655,7 @@ myjQuery(function(){
                     }else{
                         s.push( (p) ? p[0].replace(/\,/g,'')*1 : v );
                     }
-					
+
 				});
 
                 function field_value(v){
@@ -1640,9 +1676,9 @@ myjQuery(function(){
                     x = eval(s.join('+'));
                 }
                 eq = eq.replace(new RegExp(_match[0]), x);
-							
+
             }
-			
+
             try{
 				var r = eval(eq);
                 return (isFinite(r) || /\d{1,2}\/\d{1,2}\/\d{4}/.test(r)) ? r : false;
@@ -1701,16 +1737,16 @@ myjQuery(function(){
                         if(r.length){
                             var f = r[0].form;
                             if( typeof f.equations == 'undefined' ) f['equations'] = [];
-							
+
 							var  i, h = f.equations.length;
-							
-							for( i = 0 ; i < h; i++ ){ 
+
+							for( i = 0 ; i < h; i++ ){
 								if( f.equations[ i ].result == cf ) break;
-							}	
-							
+							}
+
 							if( i == h ){
 								f.equations.push( {'result':cf, 'equation':eq, 'conf':conf, 'dep':dep, 'identifier' : identifier} );
-							}	
+							}
                         }
 
                     },
@@ -1723,7 +1759,7 @@ myjQuery(function(){
                                     var rule = dep[i].rule.replace(/value/gi, v);
                                     if( eval( rule ) ){
                                         $.each( dep[i].fields, function( j, e){
-                                            if( $.inArray(e, list_h) == -1 && $.inArray(e, list) == -1 ) list.push( e ); 
+                                            if( $.inArray(e, list_h) == -1 && $.inArray(e, list) == -1 ) list.push( e );
                                         } );
                                     }else{
                                         list_h = list_h.concat( dep[i].fields );
@@ -1740,16 +1776,16 @@ myjQuery(function(){
                         $('[id="'+f+'"]').attr( 'dep', list.join(',') ).attr('notdep', list_h.join( ',' ) );
                         return list;
                     },
-                    
+
                     defaultCalc : function(fId){
 						var f = $(fId), me = this;
 						if(f.length && ( typeof f[0].equations != 'undefined' ) ){
                             var eq = f[0].equations;
-                            
+
                             for( var i in eq ){
 								var r = _calculate(f[0], eq[i].equation), result;
 								me.getDepList( eq[i].result, r, eq[i].dep );
-								showHideDep( eq[i].identifier );
+								showHideDep( eq[i].identifier, true );
 								result = $('[id="'+eq[i].result+'"]');
 								if( result.length ){
 									result.val(( (r !== false) ? me._format(r, eq[i].conf) : '' ));
@@ -1770,12 +1806,12 @@ myjQuery(function(){
                             var eq = f.equations,
                                 id = t.id,
 								reg = new RegExp( id+'[\\D\\b]' );
-			
+
                             for (var i in eq ){
 								if( reg.test(eq[i].equation+' ') ){ // If the field is in the equation.
 									var r = _calculate(f, eq[i].equation);
 									this.getDepList( eq[i].result, r, eq[i].dep );
-									showHideDep( eq[i].identifier );
+									showHideDep( eq[i].identifier, true );
 									result = $('[id="'+eq[i].result+'"]');
 									if( result.length ){
 										result.val(( (r !== false) ? this._format(r, eq[i].conf) : '' ));
@@ -1842,22 +1878,22 @@ myjQuery(function(){
                 var obj = new CalcFieldClss();
                 $(document).bind('keyup change blur', function(evt){
 					if( typeof global_waiting_objs == 'undefined' ) global_waiting_objs = [];
-					
+
 					if( evt.type == 'keyup' ){
 						if(evt.keyCode && (evt.keyCode >= 33 && evt.keyCode <= 40)) return;
 						if( $.inArray( evt.target, global_waiting_objs ) == -1 ){
-							setTimeout( (function( t ){ 
-											return function(){ 
+							setTimeout( (function( t ){
+											return function(){
 														global_waiting_objs.splice( $.inArray( t, global_waiting_objs ), 1 );
 														obj.Calculate( t );
-													}; 
+													};
 										})( evt.target ), 500 );
-						}	
+						}
 					}else{
 						var t = $( evt.target );
 						if( t.prop( 'tagName' ) == 'INPUT' && t.attr( 'type' ).toLowerCase() == 'text' && !t.hasClass( 'codepeoplecalculatedfield' ) ) return;
 						obj.Calculate(evt.target);
-					}	
+					}
                 });
                 return obj;
             }
@@ -1888,7 +1924,7 @@ myjQuery(function(){
 	    	fcount++;
 	    	fnum = "_"+fcount;
 	    }
-	    function showHideDep(identifier){
+	    function showHideDep(identifier, fromCalc){
             function inArray(needle, haystack) {
                 for(var i = 0; i < haystack.length; i++) {
                     if(haystack[i] == needle) return true;
@@ -1922,14 +1958,14 @@ myjQuery(function(){
 		                            if ((item.is(':checked') || item.is(':selected') ) && (!inArray(  ((item.hasClass("field"))?item.attr("id"):item.parents(".field").attr("id"))   ,hideArray))   )
 		                            {
 		                                $("#"+d[i]).parents(".fields").css("display","");
-		                                $("#"+d[i]).parents(".fields").find(".field").each(function(){if (!$(this).hasClass("ignorepb"))$(this).removeClass("ignore");});
+		                                $("#"+d[i]).parents(".fields").find(".field").each(function(){$(this).removeClass("ignoreCf");if (!$(this).hasClass("ignorepb"))$(this).removeClass("ignore");});
 		                                used[used.length] = d[i];
 		                                removeFromArray(d[i],hideArray);
 		                            }
 		                            else
 		                            {
 		                                $("#"+d[i]).parents(".fields").css("display","none");
-		                                $("#"+d[i]).parents(".fields").find(".field").each(function(){$(this).addClass("ignore");});
+		                                $("#"+d[i]).parents(".fields").find(".field").each(function(){$(this).addClass("ignoreCf");$(this).addClass("ignore");});
 		                                hideArray[hideArray.length] = d[i];
 		                            }
 		                        }catch(e){}
@@ -1953,14 +1989,14 @@ myjQuery(function(){
 		                            if  (!inArray(  item.attr("id")   ,hideArray))
 		                            {
 		                                $("#"+d[i]).parents(".fields").css("display","");
-		                                $("#"+d[i]).parents(".fields").find(".field").each(function(){if (!$(this).hasClass("ignorepb"))$(this).removeClass("ignore");});
+		                                $("#"+d[i]).parents(".fields").find(".field").each(function(){$(this).removeClass("ignoreCf");if (!$(this).hasClass("ignorepb"))$(this).removeClass("ignore");});
 		                                used[used.length] = d[i];
 		                                removeFromArray(d[i],hideArray);
 		                            }
 		                            else
 		                            {
 		                                $("#"+d[i]).parents(".fields").css("display","none");
-		                                $("#"+d[i]).parents(".fields").find(".field").each(function(){$(this).addClass("ignore");});
+		                                $("#"+d[i]).parents(".fields").find(".field").each(function(){$(this).addClass("ignoreCf");$(this).addClass("ignore");});
 		                                hideArray[hideArray.length] = d[i];
 		                            }
 		                        }catch(e){}
@@ -1974,7 +2010,7 @@ myjQuery(function(){
 		                    {
 		                        try {
 		                                $("#"+d[i]).parents(".fields").css("display","none");
-		                                $("#"+d[i]).parents(".fields").find(".field").each(function(){$(this).addClass("ignore");});
+		                                $("#"+d[i]).parents(".fields").find(".field").each(function(){$(this).addClass("ignoreCf");$(this).addClass("ignore");});
 		                                hideArray[hideArray.length] = d[i];
 		                        }catch(e){}
 		                    }
@@ -1991,6 +2027,10 @@ myjQuery(function(){
                 });
 		        $("#form_structure_hidden"+identifier).val(hideFields.join());
 		    }
+			
+			// Calculate all equations after modify the dependencies
+			if( typeof fromCalc == 'undefined' || !fromCalc )
+				CalcField.defaultCalc('#cp_calculatedfieldsf_pform'+identifier, true);
 		}
 })(myjQuery);
 });
