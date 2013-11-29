@@ -1079,7 +1079,7 @@ myjQuery(function(){
 								break;
 							}
 					}
-					this.eq_factored = $.trim( this.eq_factored );
+					this.eq_factored = '('+$.trim( this.eq_factored )+')';
 					return ( this.readonly ) ? this.eq_factored : this.name;
 				},
                 suffix:"",
