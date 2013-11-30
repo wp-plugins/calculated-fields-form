@@ -1675,9 +1675,10 @@ myjQuery(function(){
                     }
                     x = eval(s.join('+'));
                 }
-                eq = eq.replace(new RegExp(_match[0]), x);
-
-            }
+				
+				if( typeof x == 'string' ) x = x.replace( '$', '' );
+				eq = eq.replace( _match[0], x  );
+			}
 
             try{
 				var r = eval(eq);
