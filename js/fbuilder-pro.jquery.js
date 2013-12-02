@@ -1079,7 +1079,11 @@ myjQuery(function(){
 								break;
 							}
 					}
-					this.eq_factored = '('+$.trim( this.eq_factored )+')';
+					
+					this.eq_factored = $.trim( this.eq_factored );
+					this.eq_factored = this.eq_factored.replace( /([\D\b])(prec)([\D\b])/g, "$11*$2$3" );
+					this.eq_factored = '('+this.eq_factored+')';
+					
 					return ( this.readonly ) ? this.eq_factored : this.name;
 				},
                 suffix:"",
