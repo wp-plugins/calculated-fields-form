@@ -1896,7 +1896,11 @@ myjQuery(function(){
 						}
 					}else{
 						var t = $( evt.target );
-						if( t.prop( 'tagName' ) == 'INPUT' && t.attr( 'type' ).toLowerCase() == 'text' && !t.hasClass( 'codepeoplecalculatedfield' ) ) return;
+						if( 
+							t.prop( 'tagName' ) == 'INPUT' && 
+							t.attr( 'type' ).toLowerCase() == 'text' && evt.type != 'change'
+						) return;
+						
 						obj.Calculate(evt.target);
 					}
                 });
