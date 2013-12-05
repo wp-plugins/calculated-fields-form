@@ -1,6 +1,6 @@
-myjQuery = (typeof myjQuery != 'undefined' ) ? myjQuery : jQuery;
+fbuilderjQuery = (typeof fbuilderjQuery != 'undefined' ) ? fbuilderjQuery : jQuery;
 
-myjQuery(function(){
+fbuilderjQuery(function(){
 (function($) {
 $.extend({
     
@@ -44,5 +44,5 @@ $.extend({
         }
     }
 });
-})(myjQuery);
+})(fbuilderjQuery);
 });

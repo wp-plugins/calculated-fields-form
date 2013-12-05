@@ -1,4 +1,4 @@
-myjQuery = (typeof myjQuery != 'undefined' ) ? myjQuery : jQuery;
+fbuilderjQuery = (typeof fbuilderjQuery != 'undefined' ) ? fbuilderjQuery : jQuery;
 
 (function($) {
   $.fn.caret = function(pos) {
@@ -52,4 +52,4 @@ myjQuery = (typeof myjQuery != 'undefined' ) ? myjQuery : jQuery;
       range.select();
     }
   }
-})(myjQuery)
+})(fbuilderjQuery)
