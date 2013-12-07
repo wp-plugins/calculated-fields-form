@@ -23,6 +23,22 @@
 				},
 			editItemEvents:function()
 				{
+					$(".choice_text").bind("keyup", {obj: this}, function(e) 
+						{
+							if (e.data.obj.choices[$(this).attr("i")] == e.data.obj.choicesVal[$(this).attr("i")])
+							{
+								$("#"+$(this).attr("id")+"V"+$(this).attr("i")).val($(this).val());
+								e.data.obj.choicesVal[$(this).attr("i")]= $(this).val();
+							}
+							e.data.obj.choices[$(this).attr("i")]= $(this).val();
+							$.fbuilder.reloadItems();
+						});
+					$(".choice_value").bind("keyup", {obj: this}, function(e) 
+						{
+							e.data.obj.choicesVal[$(this).attr("i")]= $(this).val();
+							$.fbuilder.reloadItems();
+						});
+					
 					$(".choice_select").bind("click", {obj: this}, function(e) 
 						{
 							if ($(this).is(':checked'))
