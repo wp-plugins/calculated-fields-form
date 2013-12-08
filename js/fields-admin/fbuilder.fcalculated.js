@@ -13,12 +13,6 @@
 			eq_factored:"",
 			eq_factorize: function()
 				{
-					if ( !this.readonly )
-					{
-						this.eq_factored = this.name;
-						return this.eq_factored;
-					}
-					
 					var items = this.fBuild.getItems(),
 						eq = this.eq,
 						_match;
@@ -44,10 +38,23 @@
 						}	
 					}
 					
-					this.eq_factored = $.trim( this.eq_factored );
-					this.eq_factored = '('+this.eq_factored.replace( /([\D\b])(prec)([\D\b])/g, "$11*$2$3" ).replace( /;$/g)+')';
 					
-					return this.eq_factored;
+					this.eq_factored = $.trim( this.eq_factored );
+					if( /^\s*$/.test( this.eq_factored ) )
+					{
+						return this.name;
+					}
+					
+					this.eq_factored = '('+this.eq_factored.replace( /([\D\b])(prec)([\D\b])/g, "$11*$2$3" ).replace( /;$/g, '')+')';
+
+					if ( !this.readonly )
+					{
+						return this.name;
+					}
+					else
+					{
+						return this.eq_factored;
+					}	
 				},
 			suffix:"",
 			prefix:"",
@@ -65,10 +72,6 @@
 					$("#sEq").bind("keyup", {obj: this}, function(e) 
 						{
 							e.data.obj.eq = $(this).val();
-							$.fbuilder.reloadItems();
-						});
-					$("#sEq").bind('blur', {obj: this}, function(e)
-						{
 							e.data.obj.eq_factorize();
 							$.fbuilder.reloadItems();
 						});

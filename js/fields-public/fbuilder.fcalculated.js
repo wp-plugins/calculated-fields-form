@@ -214,6 +214,7 @@
 				// Private function, the variable names in the equations are replaced by its values, return the equation result or false if error
 				_calculate = function( form , eq )
 					{
+
 						var f = $(form),
 							_match;
 							
@@ -393,7 +394,6 @@
 
                     defaultCalc : function( form_identifier ) // Evaluate all equations in form
 						{ 
-							
 							var form = $( form_identifier );
 							
 							// The form exists and has equations
