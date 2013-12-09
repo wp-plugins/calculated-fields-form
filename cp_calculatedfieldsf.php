@@ -118,6 +118,19 @@ if ( is_admin() ) {
 // functions
 //------------------------------------------
 
+add_action( 'wpmu_new_blog', 'cp_calculatedfieldsf_new_blog', 10, 6);        
+ 
+function cp_calculatedfieldsf_new_blog($blog_id, $user_id, $domain, $path, $site_id, $meta ) {
+    global $wpdb;
+ 
+    if (is_plugin_active_for_network('calculated-fields-form/cp_calculatedfieldsf.php')) {
+        $old_blog = $wpdb->blogid;
+        switch_to_blog($blog_id);
+        _cp_calculatedfieldsf_install();
+        switch_to_blog($old_blog);
+    }
+}
+
 function cp_calculatedfieldsf_install($networkwide)  {
 	global $wpdb;
 
