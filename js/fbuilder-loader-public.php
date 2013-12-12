@@ -7,6 +7,36 @@ fbuilderjQuery(function(){
 	$.fbuilder[ 'objName' ] = 'fbuilderjQuery';	
 	
 <?php
+	// Load Module files
+	try 
+	{
+        $md = dir("./modules");
+
+        while( false !== ( $entry = $md->read() ) ) 
+		{    
+            if ( strlen( $entry ) > 3 && is_dir( $md->path.'/'.$entry ) )
+			{
+				if ( file_exists( $md->path.'/'.$entry.'/public' ) )
+				{
+					$m = dir( $md->path.'/'.$entry.'/public' );
+					while( false !== ( $mentry = $m->read() ) )
+					{	
+						if( strlen( $mentry ) > 3 && strtolower( substr( $mentry, strlen( $mentry ) - 3 ) ) == '.js' )
+						{
+							require $m->path.'/'.$mentry;
+						}
+					}
+				}	
+						
+			}			
+        }
+	} 
+	catch (Exception $e) 
+	{
+        // ignore the error
+    }
+
+	// Load Control files
     require 'fbuilder-pro-public.jquery.js';
     try {
         $d = dir("./fields-public");

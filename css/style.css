@@ -1,4 +1,4 @@
-body{font:11px "Lucida Grande","Lucida Sans Unicode",Tahoma,sans-serif;}
+.form-builder{font-size:11px;}
 .clearer{clear:both;}
 .column{float:left;}
 .columnr{float:right;}
@@ -71,6 +71,7 @@ textarea {resize: none}
 .left_aligned .fields .dfield{float:left;width:65%;}
 .right_aligned .fields label{float:left;width:31%;text-align:right;padding:3px 3px 0px 0px}
 .right_aligned .fields .dfield{float:left;width:65%} 
+#tabs  span.uh,
 #fbuilder span.uh{display:block;font-size:80%;clear:both}
 #fbuilder .section_break{border-top:1px dotted #555;clear:both}
 
@@ -78,7 +79,9 @@ textarea {resize: none}
 #fbuilder .uh_phone input{text-align:center;font-size:100%;}
 #fbuilder .uh_phone div.cpefb_error{display:block;white-space:nowrap;width:400px}
 
-.eq_btn{width:45px;}
+.eq_btn{min-width:45px;}
+.cf_dependence_value{ width:20%; }
+#sEq{resize:vertical; min-height:70px;}
 #fCalculated{
     background: url("cupertino/images/ui-bg_glass_80_eebd4d_1x400.png") repeat-x scroll 50% 50% #EEBD4D;
     border: 1px solid #D0771D;

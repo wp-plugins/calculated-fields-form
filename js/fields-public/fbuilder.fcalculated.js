@@ -47,7 +47,7 @@
 						this.eq_factored = this.eq;
 					}
 					
-					var eq = ( /^\s*$/.test( this.eq_factored ) ) ? this.eq : this.eq_factored;
+					var eq = this.eq_factored;
 					eq = eq.replace(/"/g, '\\"').replace(/\n/g, ' ').replace(/fieldname(\d+)/g, "fieldname$1"+this.form_identifier).replace( /;\)/g, ')')
 					
 					return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'" '+( ( this.hidefield ) ? 'style="display:none;"' : '' )+'>\
@@ -141,75 +141,68 @@
 		}
 	);
 	
+	/*
+	* Extend the window object with the methods of obj, the prefix is used to avoid redefine window methods
+	*/
+	$.fbuilder[ 'extend_window' ]  = function( prefix, obj)
+		{
+			for( method in obj )
+			{ 
+				window[ prefix+method ] = (function( m )
+					{ 
+						return function()
+							{
+								return m.obj[ m.method_name ].apply( m.obj, arguments );
+							};
+					})({ "method_name" : method, 'obj' : obj });
+			}
+		};
+
 	// Calculate Field code
 	$.fbuilder[ 'calculator' ] = (function()
 		{
-                // Check if the Math class contains the prec and cdate routines
-                // Associate a new property to Math object to get the correct date format
-                if( Math.date_format == undefined )
-				{
-					Math.date_format = 'mmddyyyy';
-				}
-                if(Math.prec == undefined)
-				{
-                    Math.prec  = function (num, pr)
-						{
-							if( /^\d+$/.test( pr ) && /^[+-]?\d+(\.\d+)?$/.test( num ) )
-							{
-								var result = Math.round( num * Math.pow( 10, pr ) ),
-									tmp;
-								
-								result = result / Math.pow(10,pr);
-								tmp    = result.toString().indexOf('.');
-								
-								if(tmp == -1 && pr > 0)
-								{
-								  tmp = pr;
-								  result = result+'.';
-								}
-								else
-								{
-								  tmp = pr-((result.toString().length) - (tmp+1));
-								}
-								for(var i = 0; i < tmp; i++)
-								{
-								  result += '0';
-								}
-								return result;
-							}
-							return num;
-						};
-                } // End if Math.prec
-
-                if(Math.cdate == undefined)
-				{
-                    Math.cdate  = function (num)
-						{
-							if(isFinite(num*1))
-							{
-								num = Math.round( Math.abs( num ) * 86400000 );
-								var date = new Date(num),
-									d = date.getDate(),
-									m = date.getMonth()+1,
-									y = date.getFullYear();
-									
-								m = ( m < 10 ) ? '0'+m : m;
-								d = ( d < 10 ) ? '0'+d : d;
-								return ( Math.date_format == 'mmddyyyy' ) ? m+'/'+d+'/'+y : d+'/'+m+'/'+y;
-							}
-							return num;
-						};
-                } // End if Math.cdate
+				// Used to validate the equations results
+				var validators = [];
 				
-				// Associate the Math operations to the Windows Object
-				var math_prop = ["LN10", "PI", "E", "LOG10E", "SQRT2", "LOG2E", "SQRT1_2", "LN2", "cos", "pow", "log", "tan", "sqrt", "ceil", "asin", "abs", "max", "exp", "atan2", "random", "round", "floor", "acos", "atan", "min", "sin", "prec", "cdate"];
-				for(var i = 0, h = math_prop.length; i < h; i++)
+                // Loading available modules
+				if( typeof $.fbuilder[ 'modules' ] != 'undefined' )
 				{
-                    if( typeof window[ math_prop[ i ] ] == 'undefined' )
+					var modules = $.fbuilder[ 'modules' ];
+					for( var module in modules )
 					{
-                        window[ math_prop[ i ] ] = Math[ math_prop[ i ] ];
-                    }
-                }
+						if( typeof modules[ module ][ 'callback' ] != 'undefined' )
+						{
+							modules[ module ][ 'callback' ]();
+						}
+						
+						if( typeof modules[ module ][ 'validator' ] != 'undefined' )
+						{
+							validators.push( modules[ module ][ 'validator' ] );
+						}
+					}
+				}
+				
+				// Private function to validate the equation results
+				_validate_result = function( v )
+					{
+						if( validators.length )
+						{
+							var h = validators.length;
+							while( h-- )
+							{
+								if( validators[ h ]( v ) )
+								{
+									return true;
+								}	
+							}
+						}
+						else
+						{
+							return true;
+						}
+						
+						return false;
+					};
 				
 				// Private function, the variable names in the equations are replaced by its values, return the equation result or false if error
 				_calculate = function( form , eq )
@@ -311,7 +304,7 @@
 						try
 						{
 							var r = eval(eq); // Evaluate the final equation
-							return (isFinite(r) || /\d{1,2}\/\d{1,2}\/\d{4}/.test(r)) ? r : false;
+							return ( _validate_result( r ) ) ? r : false;
 						}
 						catch(e)
 						{
@@ -531,7 +524,7 @@
 							}
 							return v;
 						}
-                };
+				};
 
 				var obj = new CalcFieldClss();
 				

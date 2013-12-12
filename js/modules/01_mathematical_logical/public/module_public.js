@@ -1,0 +1,102 @@
+fbuilderjQuery = ( typeof fbuilderjQuery != 'undefined' ) ? fbuilderjQuery : jQuery;
+fbuilderjQuery[ 'fbuilder' ] = fbuilderjQuery[ 'fbuilder' ] || {};
+fbuilderjQuery[ 'fbuilder' ][ 'modules' ] = fbuilderjQuery[ 'fbuilder' ][ 'modules' ] || {};
+
+fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'default' ] = {
+	'prefix' : '',
+	'callback'		: function()
+	{
+		if(window.PREC == undefined)
+		{
+			window.PREC = window.prec = function (num, pr)
+				{
+					if(/^\d+$/.test(pr) && /^[+-]?\d+(\.\d+)?$/.test(num))
+					{
+						result = Math.round(num * Math.pow(10,pr));
+						result = result/Math.pow(10,pr);
+						tmp    = result.toString().indexOf('.');
+						if(tmp == -1 && pr > 0)
+						{
+							tmp = pr;
+							result = result+'.';
+						}
+						else
+						{
+							tmp = pr-((result.toString().length) - (tmp+1));
+						}
+						for(var i = 0; i < tmp; i++)
+						{
+							result += '0';
+						}
+						return result;
+					}
+					return num;
+				};
+		} // End if window.PREC
+
+		if(window.CDATE == undefined)
+		{
+			window.CDATE = window.cdate = function (num)
+				{
+				
+					if(isFinite(num*1))
+					{
+						num = Math.round(Math.abs(num)*86400000);
+						
+						var date = new Date(num),
+							d = date.getDate(),
+							m = date.getMonth()+1,
+							y = date.getFullYear(),
+							h = date.getHours(),
+							i = date.getMinutes(),
+							s = date.getSeconds(),
+							a = '';
+							
+						m = (m < 10) ? '0'+m : m;
+						d = (d < 10) ? '0'+d : d;
+						
+						if( typeof window.DATETIMEFORMAT == 'undefined' )
+						{
+							window.DATETIMEFORMAT = ( Math.date_format == 'mmddyyyy' ) ? 'mm/dd/yyyy' : 'dd/mm/yyyy';
+						}
+						
+						if( /a/.test(window.DATETIMEFORMAT) )
+						{
+							a = ( h >= 12 ) ? 'pm' : 'am';
+							h = h % 12;
+							h = ( h == 0 ) ? 12: h;
+						}
+						h = (h < 10) ? '0'+h : h;
+						i = (i < 10) ? '0'+i : i;
+						s = (s < 10) ? '0'+s : s;
+													
+						return window.DATETIMEFORMAT.replace( /y+/, y)
+													.replace( /m+/, m)
+													.replace( /d+/, d)
+													.replace( /h+/, h)
+													.replace( /i+/, i)
+													.replace( /s+/, s)
+													.replace( /a+/, a);
+					}
+					return num;
+				};
+		} // End if window.CDATE
+		
+		var math_prop = ["LN10", "PI", "E", "LOG10E", "SQRT2", "LOG2E", "SQRT1_2", "LN2", "cos", "pow", "log", "tan", "sqrt", "ceil", "asin", "abs", "max", "exp", "atan2", "random", "round", "floor", "acos", "atan", "min", "sin"];
+
+		for(var i = 0, h = math_prop.length; i < h; i++)
+		{
+			if( !window[ math_prop[ i ] ] )
+			{
+				window[ math_prop[ i ] ] = window[ math_prop[ i ].toUpperCase() ] = Math[ math_prop[ i ] ];
+			}
+		}
+		
+		fbuilderjQuery[ 'fbuilder' ][ 'extend_window' ]( fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'default' ][ 'prefix' ], CF_LOGICAL );
+	},
+	
+	'validator'	: function( v )
+		{
+			return isFinite( v ) || /\d{2}[\/\-\.]\d{2}[\/\-\.]\d{4}/.test( v );
+		}
+};

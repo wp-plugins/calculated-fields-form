@@ -9,6 +9,7 @@
 			predefined:"",
 			required:false,
 			size:"medium",
+			toolbar:"default|mathematical",
 			eq:"",
 			eq_factored:"",
 			eq_factorize: function()
@@ -263,7 +264,7 @@
 								value = parts[2];
 							}
 
-							r += '<div><div style="position:relative;"><span style="font-weight:bold;">If value</span><span class="cf_dependence_edition" i="'+i+'" >'+setOperator( i, operator )+' <input type="text" i="'+i+'" class="small cf_dependence_value" value="'+value.replace(/"/g, '&quot;')+'" /></span><a class="addDep ui-icon ui-icon-circle-plus" i="'+i+'" title="Add another dependency."></a><a class="removeDep ui-icon ui-icon-circle-minus" i="'+i+'" title="Delete this dependency."></a></div><div style="text-align:right;"><a i="'+i+'" class="displayComplexRule" href="#">Edit rule manually</a></div>';
+							r += '<div><div style="position:relative;"><span style="font-weight:bold;">If value</span><span class="cf_dependence_edition" i="'+i+'" >'+setOperator( i, operator )+' <input type="text" i="'+i+'" class="cf_dependence_value" value="'+value.replace(/"/g, '&quot;')+'" /></span><a class="addDep ui-icon ui-icon-circle-plus" i="'+i+'" title="Add another dependency."></a><a class="removeDep ui-icon ui-icon-circle-minus" i="'+i+'" title="Delete this dependency."></a></div><div style="text-align:right;"><a i="'+i+'" class="displayComplexRule" href="#">Edit rule manually</a></div>';
 						}
 
 						r += '<div>';
@@ -298,11 +299,11 @@
 			{
 				var me    = this,
 					tools = $.fbuilder[ 'objName' ]+'.fbuilder.controls.fCalculated.tools';
-					
+				
 				$.fbuilder.controls[ 'fCalculated' ][ 'tools' ] = {
 						setField : function()
 							{
-								this.setSymbol($('#sFieldList').val());
+								this.setSymbol( $( '#sFieldList' ).val() );
 							},
 						setSymbol : function(s)
 							{
@@ -319,79 +320,108 @@
 									$.fbuilder.reloadItems();
 								}
 							},
-						setTip : function(e)
+						loadTutorial : function( toolbar )
 							{
-								var tips = {
-									"+":"",
-									"-":"",
-									"*":"",
-									"/":"",
-									"(":"",
-									")":"",
-									",":"",
-									"abs":"Returns the absolute value of the number passed as parameter. <strong>abs(number)</strong>",
-									"ceil":"Returns the next higher integer that is greater than or equal to the number passed as parameter. <strong>ceil(number)</strong>",
-									"floor":"Returns the next lower integer that is less than or equal to the number passed as parameter. <strong>floor(number)</strong>",
-									"round":"Returns an integer that follows rounding rules. If the value of the passed parameter is greater than or equal to x.5, the returned value is x+1; otherwise the returned value is x. <strong>round(number)</strong>",
-									"prec":"Returns the value of the number passed in the first parameter with so many decimal digits as the number passed in the second parameter. <strong>prec(number1, number2)</strong>",
-									"cdate":"Returns the number formated like a Date. <strong>cdate(number)</strong>",
-									"log":"Returns the natural logarithm (base e) of the number passed as parameter. <strong>log(number)</strong>",
-									"pow":"Returns the value of the first parameter raised to the power of the second parameter. <strong>pow(number1, number2)</strong>",
-									"sqrt":"Returns the square root of the number passed as parameter. <strong>sqrt(number1, number2)</strong>",
-									"max":"Returns the greater value of the two parameters. <strong>max(number1, number2)</strong>",
-									"min":"Returns the lesser value of the two parameters. <strong>min(number1, number2)</strong>"
-								};
+								var parts = toolbar.split('|'),
+									out   = ''; 
 								
-								$('#sEqTipsContainer').html(tips[e]);
+								if( $.fbuilder[ 'modules' ][ parts[ 0 ] ][ 'tutorial' ] )
+								{
+									out = '<input type="button" class="eq_btn" onclick="window.open(\'' + $.fbuilder[ 'modules' ][ parts[ 0 ] ][ 'tutorial' ] + '\');" value="?" title="Tutorial" />';
+								}
+								$('#sEqModuleTutorial').html( out );
+								return out;
+							},	
+						loadToolbarList : function()
+							{
+								var out = '<select onchange="'+tools+'.loadToolbar(this.options[this.selectedIndex].value);'+tools+'.loadTutorial(this.options[this.selectedIndex].value);" style="width:260px;">';
+								
+								if( $.fbuilder[ 'modules' ] )
+								{
+									for( var m in $.fbuilder[ 'modules' ] )
+									{
+										var module = $.fbuilder[ 'modules' ][ m ];
+										for( var toolbar in module[ 'toolbars' ] )
+										{
+											out += '<option value="'+m+'|'+toolbar+'" '+( ( me.toolbar == m+'|'+toolbar) ? 'SELECTED' : '')+'>'+module[ 'toolbars' ][ toolbar ][ 'label' ]+'</options>';
+										}
+									}
+								}	
+								out += '</select>';
+								return out;
+							},
+						loadToolbar : function( toolbar )
+							{
+								var parts = toolbar.split('|'),
+									out   = '';
+									
+								if( $.fbuilder[ 'modules' ][ parts[ 0 ] ][ 'toolbars' ][ parts[ 1 ] ] )
+								{
+									var buttons = $.fbuilder[ 'modules' ][ parts[ 0 ] ][ 'toolbars' ][ parts[ 1 ] ][ 'buttons' ];
+									for( var i = 0, h = buttons.length; i < h; i++ )
+									{
+										out += '<input type="button" value="'+buttons[ i ][ 'value' ]+'" onclick="'+tools+'.setSymbol(\''+buttons[ i ][ 'code' ]+'\');'+tools+'.setTip(\''+buttons[ i ][ 'tip' ]+'\');" class="eq_btn" />';
+									}
+									this.setTip( '' );
+								}
+								
+								$( '#sEqButtonsContainer' ).html( out );
+								return out;
+							},	
+						setTip : function( t )
+							{
+								if( !/^\s*$/.test( t ))
+								{
+									$('#sEqTipsContainer').html( t ).show();
+								}
+								else
+								{
+									$('#sEqTipsContainer').html( '' ).hide();
+								}	
 							}
 					};
 				
-				var out = 	'<label>Set Equation</label><textarea class="large" name="sEq" id="sEq">'+this.eq+'</textarea>\
-							<label>Operands</label><div style="float:right;"><a href="javascript:window.open(\'http://wordpress.dwbooster.com/includes/calculated-field/equations.html\', \'_blak\');">Read an equation tutorial</a></div><div style="border:1px dashed #888;">\
-							<select id="sFieldList" style="width:260px;">'
-				
-				var items = this.fBuild.getItems();
-				for(var i in items)
-				{
-					var item = items[i];
-					if(item['name'] != this.name)
+                    var out = '<label>Set Equation</label>\
+							  <textarea class="large" name="sEq" id="sEq">'+me.eq+'</textarea>\
+							  <label>Operands</label>\
+							  <div style="float:right;">\
+								<a href="javascript:window.open(\'http://wordpress.dwbooster.com/includes/calculated-field/equations.html\', \'_blak\');">Read an equation tutorial</a>\
+							  </div>\
+							  <div style="border:1px dashed #888;">\
+								<select id="sFieldList" style="width:260px;">';
+								
+                    var items = this.fBuild.getItems();
+					for( var i in items )
 					{
-						var fName = item['name'],
-							fTitle = item['title'];
+						var item = items[ i ];
+						if( item[ 'name' ] != this.name )
+						{
+							var fName = item[ 'name' ],
+								fTitle = item[ 'title' ];
 
-						fName = fName.replace(/'/g, "\'").replace(/"/g, '\"');
-						out += '<option value="'+fName+'">'+item['name']+((item['title'] && !/^\s*$/.test(item['title'])) ? '('+item['title']+')' : '')+'</option>';
+							fName = fName.replace( /'/g, "\'" ).replace( /"/g, '\"' );
+							out += '<option value="' + fName + '">'+item[ 'name' ] + ( ( item[ 'title' ] && !/^\s*$/.test( item[ 'title' ] ) ) ? '('+item[ 'title' ] + ')' : '' ) + '</option>';
+						}
 					}
-				}
-				out += '</select>\
-						<input type="button" value="+" class="eq_btn" onclick="'+tools+'.setField();" />\
-						</div>\
-						<label>Operators</label><div style="border:1px dashed #888;text-align:center;">\
-						<input type="button" value="+"     onclick="'+tools+'.setSymbol(\'+\');'+tools+'.setTip(\'+\');" class="eq_btn" />\
-						<input type="button" value="-"     onclick="'+tools+'.setSymbol(\'-\');'+tools+'.setTip(\'-\');" class="eq_btn" />\
-						<input type="button" value="*"     onclick="'+tools+'.setSymbol(\'*\');'+tools+'.setTip(\'*\');" class="eq_btn" />\
-						<input type="button" value="/"     onclick="'+tools+'.setSymbol(\'/\');'+tools+'.setTip(\'/\');" class="eq_btn" />\
-						<input type="button" value="("     onclick="'+tools+'.setSymbol(\'(\');'+tools+'.setTip(\'(\');" class="eq_btn" />\
-						<input type="button" value=")" 	   onclick="'+tools+'.setSymbol(\')\');'+tools+'.setTip(\')\');" class="eq_btn" /><br />\
-						<input type="button" value=","     onclick="'+tools+'.setSymbol(\',\');'+tools+'.setTip(\',\');" class="eq_btn" />\
-						<input type="button" value="abs"   onclick="'+tools+'.setSymbol(\'abs(\');'+tools+'.setTip(\'abs\');" class="eq_btn" />\
-						<input type="button" value="ceil"  onclick="'+tools+'.setSymbol(\'ceil(\');'+tools+'.setTip(\'ceil\');" class="eq_btn" />\
-						<input type="button" value="floor" onclick="'+tools+'.setSymbol(\'floor(\');'+tools+'.setTip(\'floor\');" class="eq_btn" />\
-						<input type="button" value="round" onclick="'+tools+'.setSymbol(\'round(\');'+tools+'.setTip(\'round\');" class="eq_btn" />\
-						<input type="button" value="prec"  onclick="'+tools+'.setSymbol(\'prec(\');'+tools+'.setTip(\'prec\');" class="eq_btn" /><br />\
-						<input type="button" value="log"   onclick="'+tools+'.setSymbol(\'log(\');'+tools+'.setTip(\'log\');" class="eq_btn" />\
-						<input type="button" value="pow"   onclick="'+tools+'.setSymbol(\'pow(\');'+tools+'.setTip(\'pow\');" class="eq_btn" />\
-						<input type="button" value="sqrt"  onclick="'+tools+'.setSymbol(\'sqrt(\');'+tools+'.setTip(\'sqrt\');" class="eq_btn" />\
-						<input type="button" value="max"   onclick="'+tools+'.setSymbol(\'max(\');'+tools+'.setTip(\'max\');" class="eq_btn" />\
-						<input type="button" value="min"   onclick="'+tools+'.setSymbol(\'min(\');'+tools+'.setTip(\'min\');" class="eq_btn" />\
-						<input type="button" value="cdate" onclick="'+tools+'.setSymbol(\'cdate(\');'+tools+'.setTip(\'cdate\');" class="eq_btn" /><br />\
-						</div>\
-						<div id="sEqTipsContainer" style="padding:5px;"></div>\
-						<label>Symbol to display at beginning of calculated field</label><input type="text" name="sPrefix" id="sPrefix" class="large" value="'+this.prefix+'" />\
-						<label>Symbol to display at the end of calculated field</label><input type="text" name="sSuffix" id="sSuffix" class="large" value="'+this.suffix+'" />\
-						<label>Decimals separator symbol (Ex: 25.20)</label><input type="text" name="sDecimalSymbol" id="sDecimalSymbol" class="large" value="'+this.decimalsymbol+'" />\
-						<label>Symbol for grouping thousands (Ex: 3,000,000)</label><input type="text" name="sGroupingSymbol" id="sGroupingSymbol" class="large" value="'+this.groupingsymbol+'" />';
+                    out += '	</select>\
+								<input type="button" value="+" class="eq_btn" onclick="'+tools+'.setField();" />\
+							</div>\
+							<label>Operators</label>\
+							<div style="border:1px dashed #888;text-align:center;">\
+								<div style="text-align:left;">'+$.fbuilder.controls[ 'fCalculated' ][ 'tools' ].loadToolbarList()+'\
+									<span id="sEqModuleTutorial">'+$.fbuilder.controls[ 'fCalculated' ][ 'tools' ].loadTutorial( me.toolbar )+'</span>\
+								</div>\
+								<div id="sEqButtonsContainer">'+$.fbuilder.controls[ 'fCalculated' ][ 'tools' ].loadToolbar( me.toolbar )+'</div>\
+								<div id="sEqTipsContainer" style="background-color:#DFEFFF;border:1px solid #C2D7EF;padding:5px;margin:5px;display:none;text-align:left;"></div>\
+							</div>\
+							<label>Symbol to display at beginning of calculated field</label>\
+							<input type="text" name="sPrefix" id="sPrefix" class="large" value="'+me.prefix+'" />\
+							<label>Symbol to display at the end of calculated field</label>\
+							<input type="text" name="sSuffix" id="sSuffix" class="large" value="'+me.suffix+'" />\
+							<label>Decimals separator symbol (Ex: 25.20)</label>\
+							<input type="text" name="sDecimalSymbol" id="sDecimalSymbol" class="large" value="'+me.decimalsymbol+'" />\
+							<label>Symbol for grouping thousands (Ex: 3,000,000)</label><input type="text" name="sGroupingSymbol" id="sGroupingSymbol" class="large" value="'+me.groupingsymbol+'" />';
 
-				return out;
+                    return out;
 			}
 	});
