@@ -317,6 +317,7 @@
 									sEQ.val(v.substr(0,p)+s+v.substr(p));
 									sEQ.caret(p+s.length);
 									me.eq = sEQ.val();
+									me.eq_factorize();
 									$.fbuilder.reloadItems();
 								}
 							},

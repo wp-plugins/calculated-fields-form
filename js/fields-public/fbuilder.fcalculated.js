@@ -387,7 +387,8 @@
 
                     defaultCalc : function( form_identifier ) // Evaluate all equations in form
 						{ 
-							var form = $( form_identifier );
+							var form = $( form_identifier ),
+								dep  = [];
 							
 							// The form exists and has equations
 							if( form.length && ( typeof form[0].equations != 'undefined' ) )
@@ -402,15 +403,17 @@
 										var result = _calculate( form[0], equation_object[i].equation );
 										
 										// Check the dependent fields after evaluate the equations
-										this.getDepList( equation_object[i].result, result, equation_object[i].dep );
-										$.fbuilder.showHideDep( equation_object[i].identifier, false );
-										
+										dep.concat( this.getDepList( equation_object[i].result, result, equation_object[i].dep ) );
 										calculated_field.val(( ( result !== false ) ? this.format( result, equation_object[i].conf) : '' ));
 										calculated_field.change(); // Throw the event to evaluate other calculated fields
 									}
 								}
 							}
-
+							
+							if( dep.length )
+							{
+								$.fbuilder.showHideDep( form_identifier.replace( '#cp_calculatedfieldsf_pform', '' ), false );
+							}
 						},
 
                     Calculate : function ( field )
@@ -441,8 +444,10 @@
 											var result = _calculate( form, equations[i].equation );
 											
 											// Check dependent fields
-											this.getDepList( equations[i].result, result, equations[i].dep );
-											$.fbuilder.showHideDep( equations[i].identifier, false );
+											if( this.getDepList( equations[i].result, result, equations[i].dep ).length )
+											{
+												$.fbuilder.showHideDep( equations[i].identifier, false );
+											}	
 										
 											calculated_field.val( ( ( result !== false ) ? this.format( result, equations[i].conf ) : '' ) );
 											calculated_field.change(); // Throw the change event to evaluate other equations
@@ -554,7 +559,7 @@
 						else
 						{
 							var t = $( evt.target );
-							if( t.prop( 'tagName' ) == 'INPUT' && t.attr( 'type' ).toLowerCase() == 'text' && evt.type != 'change' ) 
+							if( t.hasClass( 'depItem' ) || ( t.prop( 'tagName' ) == 'INPUT' && t.attr( 'type' ).toLowerCase() == 'text' && evt.type != 'change' ) )
 							{
 								return;
 							}	

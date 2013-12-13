@@ -1,4 +1,6 @@
 	$.fbuilder[ 'controls' ] = {};
+	$.fbuilder[ 'forms' ] = {};
+	
 	$.fbuilder[ 'htmlEncode' ] = function(value)
 	{
 		value = $('<div/>').text(value).html()
@@ -102,20 +104,21 @@
 						}
 						$(this).html('<fieldset><legend>'+opt.messages.page+' '+(index+1)+' '+opt.messages.of+' '+(page+1)+'</legend>'+code+'<div class="pbPrevious">'+opt.messages.previous+'</div><div class="pbNext">'+opt.messages.next+'</div>'+bSubmit+'<div class="clearer"></div></fieldset>');
 					});
-					$(".pbPrevious,.pbNext").bind("click", function() {
+					$( '#cp_calculatedfieldsf_pform'+opt.identifier).find(".pbPrevious,.pbNext").bind("click", { 'identifier' : opt.identifier }, function( evt ) {
+					    var identifier = evt.data.identifier;
 						if (  ($(this).hasClass("pbPrevious")) || (($(this).hasClass("pbNext")) && $(this).parents("form").valid())  )
 						{
 							var page = parseInt($(this).parents(".pbreak").attr("page"));
 							
 							(($(this).hasClass("pbPrevious"))?page--:page++);
-							$("#fieldlist"+opt.identifier+" .pbreak").css("display","none");
-							$("#fieldlist"+opt.identifier+" .pbreak").find(".field").addClass("ignore").addClass("ignorepb");
+							$("#fieldlist"+identifier+" .pbreak").css("display","none");
+							$("#fieldlist"+identifier+" .pbreak").find(".field").addClass("ignore").addClass("ignorepb");
 
-							$("#fieldlist"+opt.identifier+" .pb"+page).css("display","block");
-							$("#fieldlist"+opt.identifier+" .pb"+page).find(".field").removeClass("ignore").removeClass("ignorepb");
-							if ($("#fieldlist"+opt.identifier+" .pb"+page).find(".field").length>0)
-								try {$("#fieldlist"+opt.identifier+" .pb"+page).find(".field")[0].focus();} catch(e){}
-							$.fbuilder.showHideDep(opt.identifier, true);
+							$("#fieldlist"+identifier+" .pb"+page).css("display","block");
+							$("#fieldlist"+identifier+" .pb"+page).find(".field").removeClass("ignore").removeClass("ignorepb");
+							if ($("#fieldlist"+identifier+" .pb"+page).find(".field").length>0)
+								try {$("#fieldlist"+identifier+" .pb"+page).find(".field")[0].focus();} catch(e){}
+							$.fbuilder.showHideDep(identifier, true);
 						}
 						return false;
 					});
@@ -132,11 +135,12 @@
 						$("#fieldlist"+opt.identifier+" .pb"+page).append('<div class="pbSubmit">'+$("#cp_subbtn"+opt.identifier).html()+'</div>');
 					}	
 				}
-				$(".pbSubmit").bind("click", function() 
+				
+				$( '#cp_calculatedfieldsf_pform'+opt.identifier).find(".pbSubmit").bind("click", { 'identifier' : opt.identifier }, function( evt ) 
 					{
-						$(this).parents("#fieldlist"+opt.identifier).parents("form").submit();
+						$(this).parents("#fieldlist"+evt.data.identifier).parents("form").submit();
 					});
-				$("#fieldlist"+opt.identifier+" .predefinedClick").bind("click", function() 
+				$( '#cp_calculatedfieldsf_pform'+opt.identifier).find("#fieldlist"+opt.identifier+" .predefinedClick").bind("click", function() 
 					{
 						if ($(this).attr("predefined") == $(this).val())
 						{
@@ -158,9 +162,9 @@
 						items[i].after_show();
 					}	
 					$.fbuilder.showHideDep(opt.identifier, true);
-					$(".depItemSel,.depItem").bind("change", function() 
+					$( '#cp_calculatedfieldsf_pform'+opt.identifier).find(".depItemSel,.depItem").bind("change", { 'identifier' : opt.identifier }, function( evt ) 
 						{
-							$.fbuilder.showHideDep(opt.identifier, true);
+							$.fbuilder.showHideDep(evt.data.identifier, true);
 						});
 					try 
 					{
@@ -169,34 +173,7 @@
 
 				}
 			};
-		$.fbuilder[ 'showHideDep' ] = function( identifier, throwEvent )
-		{
-			var toShow = [],
-				toHide = [];
-			for( var i = 0, h = items.length; i < h; i++ ){
-				if( typeof items[ i ][ 'showHideDep' ] != 'undefined' ){
-					items[ i ][ 'showHideDep' ]( toShow, toHide );
-				}
-			}
-			if ($("#form_structure_hidden"+identifier).length > 0)
-			{
-				var hideFields = [];
-				$.each( toHide, function(i, el)
-				{
-					el = el.substring(0,el.length-identifier.length);
-					if($.inArray(el, hideFields) === -1) 
-					{
-						hideFields.push(el);
-					}	
-				});
-				$("#form_structure_hidden"+identifier).val(hideFields.join());
-			}
 			
-			if( typeof throwEvent == 'undefined' || throwEvent )
-				$( document ).trigger( 'showHideDepEvent', arguments );
-				
-		}; // End showHideDep	
-
 		var fform=function(){};
 		$.extend(fform.prototype,
 			{
@@ -208,7 +185,8 @@
 				}
 			});
 		
-		var theForm = new fform(),
+		//var theForm = new fform(),
+		var theForm,
 			ffunct = {
 				getItems: function() 
 					{
@@ -237,7 +215,8 @@
 						}
 					}
 			};
-		
+
+		$.fbuilder[ 'forms' ][ opt.identifier ] = ffunct;
 	    this.fBuild = ffunct;
 	    return this;
 	}; // End fbuilder plugin
@@ -264,3 +243,41 @@
 					},
 				after_show:function(){}
 		});
+	
+	$.fbuilder[ 'showHideDep' ] = function( identifier, throwEvent )
+		{
+			if( typeof  $.fbuilder[ 'forms' ][ identifier ] != 'undefined' )
+			{
+				var toShow = [],
+					toHide = [],
+					items = $.fbuilder[ 'forms' ][ identifier ].getItems();
+					
+				for( var i = 0, h = items.length; i < h; i++ )
+				{
+					if( typeof items[ i ][ 'showHideDep' ] != 'undefined' )
+					{
+						items[ i ][ 'showHideDep' ]( toShow, toHide );
+					}
+				}
+				
+				if ($("#form_structure_hidden"+identifier).length > 0)
+				{
+					var hideFields = [];
+					$.each( toHide, function(i, el)
+						{
+							el = el.substring(0,el.length-identifier.length);
+							if($.inArray(el, hideFields) === -1) 
+							{
+								hideFields.push(el);
+							}	
+						});
+					$("#form_structure_hidden"+identifier).val(hideFields.join());
+				}
+
+				if( typeof throwEvent == 'undefined' || throwEvent )
+				{
+					$( document ).trigger( 'showHideDepEvent', arguments );
+				}	
+			}
+		}; // End showHideDep	
+		
