@@ -33,7 +33,7 @@
 						var d = this.choicesDep;
 						if (d[i].length>0)
 						{
-							classDep = " depItem";
+							classDep = "depItem";
 							for (var j=0;j<d[i].length;j++)
 							{
 								attrDep += ","+d[i][j];
