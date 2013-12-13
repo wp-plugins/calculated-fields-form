@@ -32,7 +32,13 @@
 					dp.attr("working_dates", $.stringifyXX(this.working_dates));
 					dp.datepicker( "option", "minDate", this.minDate );
 					dp.datepicker( "option", "maxDate", this.maxDate );
-					dp.datepicker( "option", "defaultDate", this.defaultDate );
+					var dd = this.defaultDate;
+					if (this.defaultDate=="") 
+					{
+						dd = new Date();
+					}	
+					dp.datepicker( "option", "defaultDate", dd );
+					dp.datepicker( "setDate", dd);
 					$.validator.addMethod("dateddmmyyyy", function(value, element) 
 						{
 						  return this.optional(element) || /^(?:[1-9]|0[1-9]|1[0-9]|2[0-9]|3[0-1])[\/\-](?:[1-9]|0[1-9]|1[0-2])[\/\-]\d{4}$/.test(value);
