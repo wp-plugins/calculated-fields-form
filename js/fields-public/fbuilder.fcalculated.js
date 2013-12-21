@@ -304,7 +304,7 @@
 
 						try
 						{
-							var r = eval(eq); // Evaluate the final equation
+							var r = eval( eq.replace( /^\(/, '' ).replace( /\)$/, '' ) ); // Evaluate the final equation
 							return ( _validate_result( r ) ) ? r : false;
 						}
 						catch(e)
