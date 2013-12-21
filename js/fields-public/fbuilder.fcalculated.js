@@ -205,15 +205,17 @@
 					};
 				
 				// Private function, the variable names in the equations are replaced by its values, return the equation result or false if error
-				_calculate = function( form , eq )
+				_calculate = function( form , eq, suffix )
 					{
-
 						var f = $(form),
-							_match;
-							
-						while ( _match = /(fieldname\d+_\d+)/.exec( eq ) )
+							_match,
+							field_regexp = new RegExp( '(fieldname\\d+'+suffix+')([\\D\\b])');
+						
+						eq = '(' + eq + ')';	
+						
+						while ( _match = field_regexp.exec( eq ) )
 						{
-							var e = f.find('[id="'+_match[0]+'"]'), 
+							var e = f.find('[id="'+_match[1]+'"]'), 
 								values = []; // Will contain an array with values of fields that coincide with selector
 
 							e.each(function()
@@ -297,8 +299,7 @@
 								
 								x = ( values.length == 1 ) ? values[0] : eval(values.join('+'));
 							}
-							
-							eq = eq.replace( _match[0], x ); // Replace the variable name by value
+							eq = eq.replace( _match[0], x+''+_match[2] ); // Replace the variable name by value
 						}
 
 						try
@@ -342,7 +343,7 @@
 						{
 							var list    = [], // Fields that comply the rules
 								list_h  = []; // Fields that don't comply the rules
-							
+
 							// The value is correct and the field has dependencies
 							if( value !== false && dependencies.length )
 							{
@@ -352,6 +353,7 @@
 									{
 										// Get the rule and evaluate
 										var rule = dependencies[i].rule.replace( /value/gi, value );
+																	
 										if( eval( rule ) )
 										{
 											$.each( dependencies[i].fields, function( j, e )
@@ -380,16 +382,16 @@
 									}
 								}
 							}
-							
+
 							$('[id="'+calculated_field+'"]').attr( 'dep', list.join(',') ).attr('notdep', list_h.join( ',' ) );
-							return list;
+							return list.length || list_h.length;
 						},
 
                     defaultCalc : function( form_identifier ) // Evaluate all equations in form
 						{ 
 							var form = $( form_identifier ),
-								dep  = [];
-							
+								dep  = false;
+								
 							// The form exists and has equations
 							if( form.length && ( typeof form[0].equations != 'undefined' ) )
 							{
@@ -400,19 +402,21 @@
 									var calculated_field = $( '[id="' + equation_object[i].result+'"]' );
 									if( calculated_field.length )
 									{
-										var result = _calculate( form[0], equation_object[i].equation );
-										
+										var result = _calculate( form[0], equation_object[i].equation,  equation_object[i].identifier );
+
 										// Check the dependent fields after evaluate the equations
-										dep.concat( this.getDepList( equation_object[i].result, result, equation_object[i].dep ) );
+										if( !dep ) dep = this.getDepList( equation_object[i].result, result, equation_object[i].dep );
 										calculated_field.val(( ( result !== false ) ? this.format( result, equation_object[i].conf) : '' ));
 										calculated_field.change(); // Throw the event to evaluate other calculated fields
 									}
 								}
 							}
 							
-							if( dep.length )
+							var _match = /(_\d+)$/.exec( form_identifier );
+							
+							if( dep && _match != null )
 							{
-								$.fbuilder.showHideDep( form_identifier.replace( '#cp_calculatedfieldsf_pform', '' ), false );
+								$.fbuilder.showHideDep( _match[ 0 ], false );
 							}
 						},
 
@@ -441,10 +445,10 @@
 										var calculated_field = $( '[id="'+equations[i].result+'"]' );
 										if( calculated_field.length )
 										{
-											var result = _calculate( form, equations[i].equation );
+											var result = _calculate( form, equations[i].equation, equations[i].identifier );
 											
 											// Check dependent fields
-											if( this.getDepList( equations[i].result, result, equations[i].dep ).length )
+											if( this.getDepList( equations[i].result, result, equations[i].dep ) )
 											{
 												$.fbuilder.showHideDep( equations[i].identifier, false );
 											}	
@@ -570,7 +574,7 @@
 				//Associate an event to the document waiting for the showHideDepEvent and recalculate all equations
 				$(document).bind( 'showHideDepEvent', function( evt, form_identifier )
 					{
-						obj.defaultCalc( '#cp_calculatedfieldsf_pform'+form_identifier );
+						obj.defaultCalc( '#'+form_identifier );
 					});
                 return obj; // Return the public object
             }

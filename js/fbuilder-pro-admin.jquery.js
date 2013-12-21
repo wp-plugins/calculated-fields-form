@@ -136,8 +136,20 @@
 					{
 						$("#field"+opt.identifier+"-"+i).removeClass("ui-selected");
 					}	
-					
-					$(".fields").mouseover(function() 
+					$("#field"+opt.identifier+"-"+i+" .remove").click(function()
+						{
+							$.fbuilder[ 'removeItem' ]($(this).parent().attr("id").replace("field"+opt.identifier+"-",""));
+						});
+						
+					$("#field"+opt.identifier+"-"+i+" .copy").click(function()
+						{
+							$.fbuilder[ 'duplicateItem' ]($(this).parent().attr("id").replace("field"+opt.identifier+"-",""));
+						});
+						
+				}
+				if (items.length>0)
+				{
+				    $(".fields").mouseover(function() 
 						{
 							$(this).addClass("ui-over");
 						})
@@ -151,24 +163,11 @@
 							$(this).siblings().removeClass("ui-selected");
 							$(this).addClass("ui-selected");
 						});
-					
 					$(".field").focus(function()
 						{
 							$(this).blur();
-						});
-						
-					$("#field"+opt.identifier+"-"+i+" .remove").click(function()
-						{
-							$.fbuilder[ 'removeItem' ]($(this).parent().attr("id").replace("field"+opt.identifier+"-",""));
-						});
-						
-					$("#field"+opt.identifier+"-"+i+" .copy").click(function()
-						{
-							$.fbuilder[ 'duplicateItem' ]($(this).parent().attr("id").replace("field"+opt.identifier+"-",""));
-						});
-						
+						});	
 				}
-				
 				if ($("#fieldlist"+opt.identifier).html() == "")
 				{
 					$("#saveForm").css("display","none");
