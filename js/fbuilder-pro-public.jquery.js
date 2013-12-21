@@ -104,7 +104,7 @@
 						}
 						$(this).html('<fieldset><legend>'+opt.messages.page+' '+(index+1)+' '+opt.messages.of+' '+(page+1)+'</legend>'+code+'<div class="pbPrevious">'+opt.messages.previous+'</div><div class="pbNext">'+opt.messages.next+'</div>'+bSubmit+'<div class="clearer"></div></fieldset>');
 					});
-					$( '#cp_calculatedfieldsf_pform'+opt.identifier).find(".pbPrevious,.pbNext").bind("click", { 'identifier' : opt.identifier }, function( evt ) {
+					$( '#fieldlist'+opt.identifier).find(".pbPrevious,.pbNext").bind("click", { 'identifier' : opt.identifier }, function( evt ) {
 					    var identifier = evt.data.identifier;
 						if (  ($(this).hasClass("pbPrevious")) || (($(this).hasClass("pbNext")) && $(this).parents("form").valid())  )
 						{
@@ -136,11 +136,11 @@
 					}	
 				}
 				
-				$( '#cp_calculatedfieldsf_pform'+opt.identifier).find(".pbSubmit").bind("click", { 'identifier' : opt.identifier }, function( evt ) 
+				$( '#fieldlist'+opt.identifier).find(".pbSubmit").bind("click", { 'identifier' : opt.identifier }, function( evt ) 
 					{
 						$(this).parents("#fieldlist"+evt.data.identifier).parents("form").submit();
 					});
-				$( '#cp_calculatedfieldsf_pform'+opt.identifier).find("#fieldlist"+opt.identifier+" .predefinedClick").bind("click", function() 
+				$( '#fieldlist'+opt.identifier).find("#fieldlist"+opt.identifier+" .predefinedClick").bind("click", function() 
 					{
 						if ($(this).attr("predefined") == $(this).val())
 						{
@@ -162,7 +162,7 @@
 						items[i].after_show();
 					}	
 					$.fbuilder.showHideDep(opt.identifier, true);
-					$( '#cp_calculatedfieldsf_pform'+opt.identifier).find(".depItemSel,.depItem").bind("change", { 'identifier' : opt.identifier }, function( evt ) 
+					$( '#fieldlist'+opt.identifier).find(".depItemSel,.depItem").bind("change", { 'identifier' : opt.identifier }, function( evt ) 
 						{
 							$.fbuilder.showHideDep(evt.data.identifier, true);
 						});
@@ -194,8 +194,12 @@
 					},
 				loadData:function(f)
 					{
-						var d;
-						if ( d = $.parseJSON( $("#"+f).val() ))
+						var d,
+							e = $("#"+f);
+						
+						this.formId = e.parents( 'form' ).attr( 'id' );
+						
+						if ( d = $.parseJSON( e.val() ))
 						{
 						   if (d.length==2)
 						   {
@@ -276,7 +280,8 @@
 
 				if( typeof throwEvent == 'undefined' || throwEvent )
 				{
-					$( document ).trigger( 'showHideDepEvent', arguments );
+
+					$( document ).trigger( 'showHideDepEvent', $.fbuilder[ 'forms' ][ identifier ][ 'formId' ] );
 				}	
 			}
 		}; // End showHideDep	
