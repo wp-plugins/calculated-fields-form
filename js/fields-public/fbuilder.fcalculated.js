@@ -405,7 +405,7 @@
 										var result = _calculate( form[0], equation_object[i].equation,  equation_object[i].identifier );
 
 										// Check the dependent fields after evaluate the equations
-										if( !dep ) dep = this.getDepList( equation_object[i].result, result, equation_object[i].dep );
+										dep = this.getDepList( equation_object[i].result, result, equation_object[i].dep ) || dep;
 										calculated_field.val(( ( result !== false ) ? this.format( result, equation_object[i].conf) : '' ));
 										calculated_field.change(); // Throw the event to evaluate other calculated fields
 									}
@@ -413,7 +413,6 @@
 							}
 							
 							var _match = /(_\d+)$/.exec( form_identifier );
-							
 							if( dep && _match != null )
 							{
 								$.fbuilder.showHideDep( _match[ 0 ], false );
