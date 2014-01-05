@@ -46,7 +46,7 @@
 						return this.name;
 					}
 					
-					this.eq_factored = '('+this.eq_factored.replace( /([\D\b])(prec)([\D\b])/g, "$11*$2$3" ).replace( /;$/g, '')+')';
+					this.eq_factored = '('+this.eq_factored.replace( /([\D\b])(prec|PREC)([\D\b])/g, "$11*$2$3" ).replace( /;$/g, '')+')';
 
 					if ( !this.readonly )
 					{
