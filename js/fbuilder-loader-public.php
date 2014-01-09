@@ -59,7 +59,7 @@ fbuilderjQuery(function(){
             var f = $("#fbuilder"+fnum).fbuilder($.parseJSON(cp_calculatedfieldsf_fbuilder_config.obj));
 			f.fBuild.loadData("form_structure"+fnum);
 			$("#cp_calculatedfieldsf_pform"+fnum).validate({
-                ignore:".ignore",
+                ignore:".ignore,.ignorepb",
 			    errorElement: "div",
 			    errorPlacement: function(e, element) {
 			        if (element.hasClass('group'))

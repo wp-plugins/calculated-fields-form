@@ -28,9 +28,8 @@
 							{
 								if( items[ i ].ftype == 'fCalculated' )
 								{
-									var factored = items[ i ].eq_factorize(),
-										reg = new RegExp( _match[0]+'[\\D\\b]' );
-										
+									var factored = items[ i ].eq_factorize();
+									factored = factored.replace( /([\D\b])(prec|PREC)([\D\b])/g, "$11*$2$3" ).replace( /;\s*$/g, '');
 									this.eq_factored = this.eq_factored.replace( _match[0], factored );
 								}
 								eq = eq.replace( _match[0], '' );
@@ -39,15 +38,14 @@
 						}	
 					}
 					
-					
 					this.eq_factored = $.trim( this.eq_factored );
 					if( /^\s*$/.test( this.eq_factored ) )
 					{
 						return this.name;
 					}
 					
-					this.eq_factored = '('+this.eq_factored.replace( /([\D\b])(prec|PREC)([\D\b])/g, "$11*$2$3" ).replace( /;$/g, '')+')';
-
+					this.eq_factored = '(' + this.eq_factored + ')';
+					
 					if ( !this.readonly )
 					{
 						return this.name;
@@ -55,7 +53,7 @@
 					else
 					{
 						return this.eq_factored;
-					}	
+					}
 				},
 			suffix:"",
 			prefix:"",

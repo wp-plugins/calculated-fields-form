@@ -83,8 +83,8 @@
 				if (page>0)
 				{
 					$("#fieldlist"+opt.identifier+" .pb"+page).addClass("pbEnd");
-					$("#fieldlist"+opt.identifier+" .pbreak").find(".field").addClass("ignore").addClass("ignorepb");
-					$("#fieldlist"+opt.identifier+" .pb0").find(".field").removeClass("ignore").removeClass("ignorepb");
+					$("#fieldlist"+opt.identifier+" .pbreak").find(".field").addClass("ignorepb");
+					$("#fieldlist"+opt.identifier+" .pb0").find(".field").removeClass("ignorepb");
 					$("#fieldlist"+opt.identifier+" .pbreak").each(function(index) {
 					
 						var code = $(this).html();
@@ -112,13 +112,18 @@
 							
 							(($(this).hasClass("pbPrevious"))?page--:page++);
 							$("#fieldlist"+identifier+" .pbreak").css("display","none");
-							$("#fieldlist"+identifier+" .pbreak").find(".field").addClass("ignore").addClass("ignorepb");
+							$("#fieldlist"+identifier+" .pbreak").find(".field").addClass("ignorepb");
 
 							$("#fieldlist"+identifier+" .pb"+page).css("display","block");
-							$("#fieldlist"+identifier+" .pb"+page).find(".field").removeClass("ignore").removeClass("ignorepb");
+							$("#fieldlist"+identifier+" .pb"+page).find(".field").removeClass("ignorepb");
 							if ($("#fieldlist"+identifier+" .pb"+page).find(".field").length>0)
-								try {$("#fieldlist"+identifier+" .pb"+page).find(".field")[0].focus();} catch(e){}
-							$.fbuilder.showHideDep(identifier, true);
+							{
+								try 
+								{
+									$("#fieldlist"+identifier+" .pb"+page).find(".field")[0].focus();
+								} 
+								catch(e){}
+							}	
 						}
 						return false;
 					});
@@ -161,10 +166,22 @@
 					{
 						items[i].after_show();
 					}	
-					$.fbuilder.showHideDep(opt.identifier, true);
+					
+					$.fbuilder.showHideDep(
+						{
+							'formIdentifier' : opt.identifier, 
+							'throwEvent'	 : true
+						}	
+					);
+					
 					$( '#fieldlist'+opt.identifier).find(".depItemSel,.depItem").bind("change", { 'identifier' : opt.identifier }, function( evt ) 
 						{
-							$.fbuilder.showHideDep(evt.data.identifier, true);
+							$.fbuilder.showHideDep(
+								{
+									'formIdentifier' : evt.data.identifier, 
+									'throwEvent'	 : true
+								}	
+							);
 						});
 					try 
 					{
@@ -248,41 +265,45 @@
 				after_show:function(){}
 		});
 	
-	$.fbuilder[ 'showHideDep' ] = function( identifier, throwEvent )
+	$.fbuilder[ 'showHideDep' ] = function( configObj )
 		{
-			if( typeof  $.fbuilder[ 'forms' ][ identifier ] != 'undefined' )
+			if( typeof configObj[ 'formIdentifier' ] !== 'undefined' )
 			{
-				var toShow = [],
-					toHide = [],
-					items = $.fbuilder[ 'forms' ][ identifier ].getItems();
-					
-				for( var i = 0, h = items.length; i < h; i++ )
-				{
-					if( typeof items[ i ][ 'showHideDep' ] != 'undefined' )
-					{
-						items[ i ][ 'showHideDep' ]( toShow, toHide );
-					}
-				}
+				var identifier = configObj[ 'formIdentifier' ];
 				
-				if ($("#form_structure_hidden"+identifier).length > 0)
+				if( typeof  $.fbuilder[ 'forms' ][ identifier ] != 'undefined' )
 				{
-					var hideFields = [];
-					$.each( toHide, function(i, el)
+					var toShow = [],
+						toHide = [],
+						items = $.fbuilder[ 'forms' ][ identifier ].getItems();
+						
+					for( var i = 0, h = items.length; i < h; i++ )
+					{
+						if( typeof items[ i ][ 'showHideDep' ] != 'undefined' )
 						{
-							el = el.substring(0,el.length-identifier.length);
-							if($.inArray(el, hideFields) === -1) 
+							items[ i ][ 'showHideDep' ]( toShow, toHide );
+						}
+					}
+					
+					if ($("#form_structure_hidden"+identifier).length > 0)
+					{
+						var hideFields = [];
+						$.each( toHide, function(i, el)
 							{
-								hideFields.push(el);
-							}	
-						});
-					$("#form_structure_hidden"+identifier).val(hideFields.join());
+								el = el.substring(0,el.length-identifier.length);
+								if($.inArray(el, hideFields) === -1) 
+								{
+									hideFields.push(el);
+								}	
+							});
+						$("#form_structure_hidden"+identifier).val(hideFields.join());
+					}
+
+					if( typeof configObj[ 'throwEvent' ] == 'undefined' || configObj[ 'throwEvent' ] )
+					{
+						$( document ).trigger( 'showHideDepEvent', $.fbuilder[ 'forms' ][ identifier ][ 'formId' ] );
+					}	
 				}
-
-				if( typeof throwEvent == 'undefined' || throwEvent )
-				{
-
-					$( document ).trigger( 'showHideDepEvent', $.fbuilder[ 'forms' ][ identifier ][ 'formId' ] );
-				}	
-			}
+			}	
 		}; // End showHideDep	
 		

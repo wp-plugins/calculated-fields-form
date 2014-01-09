@@ -31,17 +31,22 @@
 					}
 					for (var i=0;i<this.choices.length;i++)
 					{
-						var classDep = "",attrDep = "";
-						var d = this.choicesDep;
-						if (d[i].length>0)
+						var classDep = "",
+							attrDep = "",
+							separator = "",
+							d = this.choicesDep[ i ];
+							
+						for (var j=0;j<d.length;j++)
 						{
-							classDep = "depItem";
-							for (var j=0;j<d[i].length;j++)
+							if( !/^\s*$/.test( d[j] ) )
 							{
-								attrDep += ","+d[i][j];
-							}
+								classDep = "depItem";
+								attrDep += separator+d[j];
+								separator = ",";
+							}	
 						}
-						str += '<option '+((classDep!="")?"dep=\""+attrDep+"\"":"")+' '+((this.choiceSelected==this.choicesVal[i])?"selected":"")+' class="depItem" value="'+$.fbuilder.htmlEncode(this.choicesVal[i])+'" vt="'+$.fbuilder.htmlEncode(l[i])+'" >'+l[i]+'</option>';
+						
+						str += '<option '+((classDep!="")?"dep=\""+attrDep+"\"":"")+' '+((this.choiceSelected==this.choicesVal[i])?"selected":"")+' '+( ( classDep != '' ) ? 'class="'+classDep+'"' : '' )+' value="'+$.fbuilder.htmlEncode(this.choicesVal[i])+'" vt="'+$.fbuilder.htmlEncode(l[i])+'" >'+l[i]+'</option>';
 					}
 					return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'"><label for="'+this.name+'">'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><select id="'+this.name+'" name="'+this.name+'" class="field depItemSel '+this.size+((this.required)?" required":"")+'" >'+str+'</select><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div><div class="clearer"></div></div>';
 				},
@@ -54,57 +59,51 @@
 					{
 						if( item.hasClass( 'depItemSel' ) )
 						{
-							if( ( item.parents( '#fieldlist' + form_identifier ).length == 1 ) ){
-								var id = item.attr( 'id' );
-								item.find( '.depItem' ).each( function()
+							var id = item.attr( 'id' );
+							item.find( '.depItem' ).each( function()
+								{
+									var item = $( this );
+									if( item.attr( 'dep' ) && item.attr( 'dep' ) != '' )
 									{
-										var item = $( this );
-										if( item.attr( 'dep' ) && item.attr( 'dep' ) != '' )
+										var d = item.attr( 'dep' ).split( ',' );
+										for ( i=0; i<d.length; i++ )
 										{
-											var d = item.attr( 'dep' ).split( ',' );
-											for ( i=0; i<d.length; i++ )
+											if ( d[i] != "" )
 											{
-												if ( d[i] != "" )
+												d[i] = d[i] + form_identifier;
+												if ( $.inArray( d[i], toShow ) == -1 )
 												{
-													d[i] = d[i] + form_identifier;
-													if ( $.inArray( d[i], toShow ) == -1 )
+													try 
 													{
-														try 
+														if ( item.is( ':selected' ) && $.inArray( id, toHide ) == -1  )
 														{
-															if ( item.is( ':selected' ) && $.inArray( id, toHide ) == -1  )
+															$( '#'+d[i] ).parents( '.fields' ).css( 'display', '' );
+															$( '#'+d[i] ).parents( '.fields' ).find( '.field' ).each( function(){
+																	$(this).removeClass( 'ignore' );
+																});
+															toShow[toShow.length] = d[i];
+															var index = $.inArray( d[ i ], toHide );
+															if( index != -1 )
 															{
-																$( '#'+d[i] ).parents( '.fields' ).css( 'display', '' );
-																$( '#'+d[i] ).parents( '.fields' ).find( '.field' ).each( function(){
-																		$(this).removeClass( 'ignoreCf' );
-																		if ( !$(this).hasClass( 'ignorepb' ) )
-																		{
-																			$(this).removeClass( 'ignore' );
-																		}	
-																	});
-																toShow[toShow.length] = d[i];
-																var index = $.inArray( d[ i ], toHide );
-																if( index != -1 )
+																toHide.splice( index, 1);
+															}	
+														}
+														else
+														{
+															$( '#' + d[i] ).parents( '.fields' ).css( 'display', 'none' );
+															$( '#' + d[i] ).parents( '.fields' ).find( '.field' ).each(function()
 																{
-																	toHide.splice( index, 1);
-																}	
-															}
-															else
-															{
-																$( '#' + d[i] ).parents( '.fields' ).css( 'display', 'none' );
-																$( '#' + d[i] ).parents( '.fields' ).find( '.field' ).each(function()
-																	{
-																		$(this).addClass("ignoreCf");$(this).addClass("ignore");
-																	});
-																	
-																toHide[ toHide.length ] = d[ i ];
-															}
-														} catch(e){}
-													}
-												}	
-											}
+																	$(this).addClass("ignore");
+																});
+																
+															toHide[ toHide.length ] = d[ i ];
+														}
+													} catch(e){}
+												}
+											}	
 										}
-									});
-							}	
+									}
+								});
 						}
 					}
 					catch( e ){}					
