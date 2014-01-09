@@ -48,7 +48,7 @@
 					}
 					
 					var eq = this.eq_factored;
-					eq = eq.replace(/"/g, '\\"').replace(/\n/g, ' ').replace(/fieldname(\d+)/g, "fieldname$1"+this.form_identifier).replace( /;\)/g, ')')
+					eq = eq.replace(/"/g, '\\"').replace(/\n/g, ' ').replace(/fieldname(\d+)/g, "fieldname$1"+this.form_identifier).replace( /;\s*\)/g, ')')
 					
 					return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'" '+( ( this.hidefield ) ? 'style="display:none;"' : '' )+'>\
 					        <label>'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label>\
@@ -82,11 +82,7 @@
 												$( '#' + d[i] ).parents( '.fields' ).css( 'display', '' );
 												$( '#' + d[i] ).parents( '.fields' ).find( '.field' ).each( function()
 													{
-														$(this).removeClass( 'ignoreCf' );
-														if ( !$(this).hasClass( 'ignorepb' ) )
-														{
-															$(this).removeClass( 'ignore' );
-														}	
+														$(this).removeClass( 'ignore' );
 													});
 												toShow[ toShow.length ] = d[i];
 												var index = $.inArray( d[ i ], toHide );
@@ -100,7 +96,6 @@
 												$( '#' + d[i] ).parents( '.fields' ).css( 'display', 'none' );
 												$( '#' + d[i] ).parents( '.fields' ).find( '.field' ).each(function()
 													{
-														$(this).addClass( 'ignoreCf');
 														$(this).addClass( 'ignore');
 													});
 												toHide[ toHide.length ] = d[i];
@@ -125,7 +120,6 @@
 												$( '#' + d[i] ).parents( '.fields' ).css( 'display', 'none' );
 												$( '#' + d[i] ).parents( '.fields' ).find( '.field' ).each(function()
 													{
-														$(this).addClass( 'ignoreCf' );
 														$(this).addClass( 'ignore');
 													});
 												toHide[ toHide.length ] = d[i];
@@ -224,7 +218,7 @@
 									    v; // field value
 									
 									// The dependent fields that are marked to be ignored are set to zero
-									if( e.hasClass( 'ignoreCf' ) )
+									if( e.hasClass( 'ignore' ) )
 									{
 										values.push( 0 );
 										return false;
@@ -407,7 +401,6 @@
 										// Check the dependent fields after evaluate the equations
 										dep = this.getDepList( equation_object[i].result, result, equation_object[i].dep ) || dep;
 										calculated_field.val(( ( result !== false ) ? this.format( result, equation_object[i].conf) : '' ));
-										calculated_field.change(); // Throw the event to evaluate other calculated fields
 									}
 								}
 							}
@@ -415,7 +408,12 @@
 							var _match = /(_\d+)$/.exec( form_identifier );
 							if( dep && _match != null )
 							{
-								$.fbuilder.showHideDep( _match[ 0 ], false );
+								$.fbuilder.showHideDep( 
+									{
+										'formIdentifier' : _match[ 0 ], 
+										'throwEvent' 	 : false 
+									}
+								);
 							}
 						},
 
@@ -449,7 +447,12 @@
 											// Check dependent fields
 											if( this.getDepList( equations[i].result, result, equations[i].dep ) )
 											{
-												$.fbuilder.showHideDep( equations[i].identifier, false );
+												$.fbuilder.showHideDep( 
+													{
+														'formIdentifier' : equations[i].identifier, 
+														'throwEvent' 	 : false 
+													}
+												);
 											}	
 										
 											calculated_field.val( ( ( result !== false ) ? this.format( result, equations[i].conf ) : '' ) );
