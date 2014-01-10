@@ -22,7 +22,7 @@
 					
 					while ( _match = /(fieldname\d+)/.exec(eq))
 					{
-						for( var i in items )
+						for( var i = 0, h = items.length; i < h; i++ )
 						{
 							if( items[ i ].name == _match[0] )
 							{
@@ -35,7 +35,12 @@
 								eq = eq.replace( _match[0], '' );
 								break;
 							}
-						}	
+						}
+						
+						if( i == h )
+						{
+							eq = eq.replace( _match[0], '' );
+						}
 					}
 					
 					this.eq_factored = $.trim( this.eq_factored );
@@ -45,7 +50,6 @@
 					}
 					
 					this.eq_factored = '(' + this.eq_factored + ')';
-					
 					if ( !this.readonly )
 					{
 						return this.name;
