@@ -42,7 +42,7 @@
 							}
 						});
 
-					if( /^\s*$/.test( this.eq_factored ) )
+					if( typeof this.optimizeEq == 'undefined' || !this.optimizeEq || /^\s*$/.test( this.eq_factored ) )
 					{
 						this.eq_factored = this.eq;
 					}

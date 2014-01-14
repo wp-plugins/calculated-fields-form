@@ -11,6 +11,7 @@
 			size:"medium",
 			toolbar:"default|mathematical",
 			eq:"",
+			optimizeEq:true,
 			eq_factored:"",
 			eq_factorize: function()
 				{
@@ -78,6 +79,21 @@
 							e.data.obj.eq_factorize();
 							$.fbuilder.reloadItems();
 						});
+					$("#sOptimizeEq").bind("click", {obj: this}, function(e) 
+						{
+							var items = e.data.obj.fBuild.getItems(),
+								optimizeEq = e.data.obj.optimizeEq = $.fbuilder.controls[ 'ffields' ].prototype[ 'optimizeEq' ] = $( e.target ).is( ':checked' );
+								
+							for( var i = 0, h = items.length; i < h; i++)
+							{
+								if( items[ i ].ftype == 'fCalculated'  )
+								{
+									items[ i ].optimizeEq = optimizeEq;
+								}
+							}
+							$.fbuilder.reloadItems();
+							
+						});	
 					$("#sSuffix").bind("keyup", {obj: this}, function(e) 
 						{
 							e.data.obj.suffix = $(this).val();
@@ -217,7 +233,7 @@
 				},
 		showAllSettings:function()
 			{
-				return this.showTitle()+this.showName()+this.showSize()+this.showLayout()+this.showFormat()+this.showRange()+this.showRequired()+this.showReadOnly()+this.showHideField()+this.showSpecialData()+this.showPredefined()+this.showEqEditor()+this.showDependencies()+this.showUserhelp()+this.showCsslayout();
+				return this.showTitle()+this.showName()+this.showSize()+this.showLayout()+this.showFormat()+this.showRange()+this.showRequired()+this.showReadOnly()+this.showHideField()+this.showSpecialData()+this.showPredefined()+this.showOptimizeEq()+this.showEqEditor()+this.showDependencies()+this.showUserhelp()+this.showCsslayout();
 			},
 		showDependencies : function()
 			{
@@ -296,6 +312,19 @@
 		showReadOnly:function()
 			{
 				return '<div><input type="checkbox" name="sReadOnly" id="sReadOnly" '+((this.readonly)?"checked":"")+'><label>Read Only</label></div>';
+			},
+		showOptimizeEq:function()
+			{
+				if( typeof $.fbuilder.controls[ 'ffields' ].prototype[ 'optimizeEq' ]  == 'undefined' )
+				{
+					$.fbuilder.controls[ 'ffields' ].prototype[ 'optimizeEq' ] = this.optimizeEq;
+				}
+				else
+				{
+					this.optimizeEq = $.fbuilder.controls[ 'ffields' ].prototype[ 'optimizeEq' ];
+				}
+				
+				return '<div><input type="checkbox" name="sOptimizeEq" id="sOptimizeEq" '+( ( this.optimizeEq ) ? "checked" : "" )+'><label>Optimize Form Equations</label></div>';
 			},
 		showEqEditor:function(eq)
 			{
