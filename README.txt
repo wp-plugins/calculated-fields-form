@@ -191,9 +191,6 @@ The fields can have "predefined" or "prefilled" values. There are two possible u
 
 #2- Can be used for showing a sample of the data that should be entered in the field. In this case you may want to mark also the checkbox "Hide predefined value on click", this way the value will disappear once the user starts using the field without having to manually delete the placeholder value.
 
-= Clone / duplicate fields =
-
-When you click a field, a small icon appears above the field for duplicating it with its settings. This is useful for example for duplicating radiobuttons or select/drop-down fields with many options without having to re-type everything again.
 
 = The "Instructions for User" option =
 

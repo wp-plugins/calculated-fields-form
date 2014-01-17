@@ -90,3 +90,6 @@ textarea {resize: none}
 }
 a.helpfbuilder{font-size:80%;text-decoration:underline;color:#00f;cursor:pointer;}
 .working_dates input[type='checkbox']{width:8%}
+.form-builder .ui-button-text {
+    display: block !important;
+}
