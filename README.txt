@@ -338,6 +338,7 @@ Note that you can make the "Instruct. Text" fields dependant from the calculated
 * Compatibility issues fixed, faster loading
 * New configuration settings
 * Compatible with all the latest WP versions
+* Fixed tags in WP directory
 
 == Upgrade Notice ==
 
