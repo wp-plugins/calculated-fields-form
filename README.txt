@@ -1,7 +1,7 @@
 === Calculated Fields Form ===
 Contributors: codepeople
 Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
-Tags: form,calculated,calculator,form builder,quote calculator,forms,payment calculator,payment,quote,fields,calculated field
+Tags: form,calculated,calculator,form builder,quote calculator,forms,payment calculator,payment,quote,fields,calculated field,price calculator
 Requires at least: 3.0.5
 Tested up to: 3.8
 Stable tag: 1.0.1
@@ -311,6 +311,12 @@ The following fields are available:
 * Calculated field: .. and of course, the calculated field that accepts formulas, functions and many related settings.
 
 New fields may be added at any time, so check the latest version of the plugin since it may have new options.
+
+= Tips for calculating prices = 
+
+One of the most frequent uses is for calculating prices. When displaying prices a good you may want to divide the form in two pages, the first one for asking the information needed to calculate the price and in a second page display the calculated field with the price and using the "Instruct. Text" fields for adding the terms, conditions and valid time for the price. 
+
+Note that you can make the "Instruct. Text" fields dependant from the calculated value, that way you can change the text shown to the user depending of the number shown in the calculated price, since frequently the terms, conditions or offers vary according to the price amount.
 
 
 == Screenshots ==
