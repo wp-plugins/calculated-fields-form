@@ -145,7 +145,7 @@
 					{
 						$(this).parents("#fieldlist"+evt.data.identifier).parents("form").submit();
 					});
-				$( '#fieldlist'+opt.identifier).find("#fieldlist"+opt.identifier+" .predefinedClick").bind("click", function() 
+				$("#fieldlist"+opt.identifier+" .predefinedClick").bind("click", function() 
 					{
 						if ($(this).attr("predefined") == $(this).val())
 						{
