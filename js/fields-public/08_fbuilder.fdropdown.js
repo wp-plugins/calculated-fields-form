@@ -54,10 +54,10 @@
 				{
 					var item = $( '#'+this.name ),
 						form_identifier = this.form_identifier;
-						
+		
 					try
 					{
-						if( item.hasClass( 'depItemSel' ) )
+						if( item.find( '.depItem' ).length )
 						{
 							var id = item.attr( 'id' );
 							item.find( '.depItem' ).each( function()

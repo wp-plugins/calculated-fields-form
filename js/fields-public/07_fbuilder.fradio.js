@@ -50,12 +50,12 @@
 				},
 			showHideDep:function( toShow, toHide )
 				{
-					var item = $( '#'+this.name ),
+					var item = $( '#'+this.name+'.depItem' ),
 						form_identifier = this.form_identifier;
 						
 					try
 					{
-						if( item.hasClass( 'depItem' ) )
+						if( item.length )
 						{
 							var parent = item.parents( '.fields' );
 							parent.find( '.field' ).each( function()
