@@ -48,9 +48,9 @@
 	// IN( term, values ) values can be a string or an array
 	lib.IN = function( _term, _values ){
 				function _reduce( str ){
-					return str.replace( /^\s+/, '').replace(/\s+$/, '').replace(/\s+/, ' ').toLowerCase();
+					return String(str).replace( /^\s+/, '').replace(/\s+$/, '').replace(/\s+/, ' ').toLowerCase();
 				};
-				
+
 				_term = _reduce( _term );
 				if( typeof _values == 'string' ) return _reduce( _values ).indexOf( _term ) != -1;
 				else if( typeof _values == 'object' && _values.length ){
