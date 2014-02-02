@@ -76,13 +76,18 @@
 											{
 												try 
 												{
-													if ( item.is( ':checked' ) && $.inArray( item.attr( 'id' ), toHide ) == -1  )
+													if ( item.is( ':checked' ) && $.inArray( item.attr( 'id' ), toHide ) == -1 )
 													{
 														$( '#'+d[i] ).parents( '.fields' ).css( 'display', '' );
 														$( '#'+d[i] ).parents( '.fields' ).find( '.field' ).each( function(){
 																$(this).removeClass( 'ignore' );
 															});
-														toShow[toShow.length] = d[i];
+															
+														if( $.inArray( d[i], toShow ) == -1 )
+														{
+															toShow[toShow.length] = d[i];
+														}	
+														
 														var index = $.inArray( d[ i ], toHide );
 														if( index != -1 )
 														{
@@ -96,8 +101,11 @@
 															{
 																$(this).addClass("ignore");
 															});
-															
-														toHide[ toHide.length ] = d[ i ];
+														
+														if( $.inArray( d[i], toHide ) == -1 )
+														{
+															toHide[ toHide.length ] = d[ i ];
+														}	
 													}
 												} catch(e){  }
 											}
