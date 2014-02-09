@@ -39,7 +39,7 @@
 .addDep, .removeDep{float:right;}
 .cf_dependence_field{width:150px;}
 .showHideDependencies,.dep{float:right}
-.choicesSet.hide {display:block}
+.choicesSet.hide {display:block;visibility: visible}
 .choicesSet.hide .choicesEditDep{display:none}
 .choicesSet.show .choicesEditDep{display:block}
 a.helpfbuilder.dep{font-size:100%;padding-left:10px}
