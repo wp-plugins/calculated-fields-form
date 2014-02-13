@@ -11,7 +11,7 @@ fbuilderjQuery(function(){
 	try 
 	{
         $md = dir("./modules");
-
+		$modules_files = array();
         while( false !== ( $entry = $md->read() ) ) 
 		{    
             if ( strlen( $entry ) > 3 && is_dir( $md->path.'/'.$entry ) )
@@ -23,13 +23,18 @@ fbuilderjQuery(function(){
 					{	
 						if( strlen( $mentry ) > 3 && strtolower( substr( $mentry, strlen( $mentry ) - 3 ) ) == '.js' )
 						{
-							require $m->path.'/'.$mentry;
+							$modules_files[] = $m->path.'/'.$mentry;
 						}
 					}
 				}	
 						
 			}			
         }
+		sort( $modules_files );
+		foreach( $modules_files as $file )
+		{
+			require $file;
+		}
 	} 
 	catch (Exception $e) 
 	{
@@ -40,12 +45,17 @@ fbuilderjQuery(function(){
     require 'fbuilder-pro-public.jquery.js';
     try {
         $d = dir("./fields-public");
+		$controls_files = array();
         while (false !== ($entry = $d->read())) {            
             if (strlen($entry) > 3 && strtolower(substr($entry,strlen($entry)-3)) == '.js')
                 if (file_exists('./fields-public/'.$entry))
-                    require './fields-public/'.$entry;
+                    $controls_files[] = './fields-public/'.$entry;
         }
-
+		sort( $controls_files );
+		foreach( $controls_files as $file )
+		{
+			require $file;
+		}
     } catch (Exception $e) {
         // ignore the error
     }
