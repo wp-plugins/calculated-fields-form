@@ -19,6 +19,7 @@
 				{
 					this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null)?this.choicesVal:this.choices.slice(0));
 					var str = "";
+
 					if (!(typeof(this.choicesDep) != "undefined" && this.choicesDep !== null))
 					{
 						this.choicesDep = new Array();
@@ -27,10 +28,18 @@
 							this.choicesDep[i] = new Array();
 						}	
 					}
+					var classDep = "";
+					for (var i=0, h = this.choicesDep.length;i<h;i++)
+					{
+						if( this.choicesDep[i].length )
+						{
+							classDep = "depItem";
+							break;
+						}
+					}
 					for (var i=0;i<this.choices.length;i++)
 					{
-						var classDep = "",
-							attrDep = "",
+						var attrDep = "",
 							separator = "",
 							d = this.choicesDep[ i ];
 							
@@ -38,13 +47,12 @@
 						{
 							if( !/^\s*$/.test( d[j] ) )
 							{
-								classDep = "depItem";
 								attrDep += separator+d[j];
 								separator = ",";
 							}	
 						}
 						
-						str += '<div class="'+this.layout+'"><label><input name="'+this.name+'" id="'+this.name+'" '+((classDep!="")?"dep=\""+attrDep+"\"":"")+' class="field '+classDep+' group '+((this.required)?" required":"")+'" value="'+$.fbuilder.htmlEncode(this.choicesVal[i])+'" vt="'+$.fbuilder.htmlEncode(this.choices[i])+'" type="radio" i="'+i+'"  '+((this.choicesVal[i]==this.choiceSelected)?"checked":"")+'/> '+this.choices[i]+'</label></div>';
+						str += '<div class="'+this.layout+'"><label><input name="'+this.name+'" id="'+this.name+'" '+((attrDep!="")?"dep=\""+attrDep+"\"":"")+' class="field '+classDep+' group '+((this.required)?" required":"")+'" value="'+$.fbuilder.htmlEncode(this.choicesVal[i])+'" vt="'+$.fbuilder.htmlEncode(this.choices[i])+'" type="radio" i="'+i+'"  '+((this.choicesVal[i]==this.choiceSelected)?"checked":"")+'/> '+this.choices[i]+'</label></div>';
 					}
 					return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'"><label>'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield">'+str+'<span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
@@ -55,6 +63,7 @@
 						
 					try
 					{
+
 						if( item.length )
 						{
 							var parent = item.parents( '.fields' );
