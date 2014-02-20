@@ -29,10 +29,18 @@
 							this.choicesDep[i] = new Array();
 						}	
 					}
+					var classDep = "";
+					for (var i=0, h = this.choicesDep.length;i<h;i++)
+					{
+						if( this.choicesDep[i].length )
+						{
+							classDep = "depItem";
+							break;
+						}
+					}
 					for (var i=0;i<this.choices.length;i++)
 					{
-						var classDep = "",
-							attrDep = "",
+						var attrDep = "",
 							separator = "",
 							d = this.choicesDep[ i ];
 							
@@ -40,15 +48,14 @@
 						{
 							if( !/^\s*$/.test( d[j] ) )
 							{
-								classDep = "depItem";
 								attrDep += separator+d[j];
 								separator = ",";
 							}	
 						}
 						
-						str += '<option '+((classDep!="")?"dep=\""+attrDep+"\"":"")+' '+((this.choiceSelected==this.choicesVal[i])?"selected":"")+' '+( ( classDep != '' ) ? 'class="'+classDep+'"' : '' )+' value="'+$.fbuilder.htmlEncode(this.choicesVal[i])+'" vt="'+$.fbuilder.htmlEncode(l[i])+'" >'+l[i]+'</option>';
+						str += '<option '+((attrDep!="")?"dep=\""+attrDep+"\"":"")+' '+((this.choiceSelected==this.choicesVal[i])?"selected":"")+' '+( ( classDep != '' ) ? 'class="'+classDep+'"' : '' )+' value="'+$.fbuilder.htmlEncode(this.choicesVal[i])+'" vt="'+$.fbuilder.htmlEncode(l[i])+'" >'+l[i]+'</option>';
 					}
-					return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'"><label for="'+this.name+'">'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><select id="'+this.name+'" name="'+this.name+'" class="field depItemSel '+this.size+((this.required)?" required":"")+'" >'+str+'</select><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div><div class="clearer"></div></div>';
+					return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'"><label for="'+this.name+'">'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><select id="'+this.name+'" name="'+this.name+'" class="field '+( ( classDep != '' ) ? ' depItemSel ' : '' )+this.size+((this.required)?" required":"")+'" >'+str+'</select><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div><div class="clearer"></div></div>';
 				},
 			showHideDep:function( toShow, toHide )
 				{
