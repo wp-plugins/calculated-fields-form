@@ -48,7 +48,7 @@
 					}
 					
 					var eq = this.eq_factored;
-					eq = eq.replace(/"/g, '\\"').replace(/\n/g, ' ').replace(/fieldname(\d+)/g, "fieldname$1"+this.form_identifier).replace( /;\s*\)/g, ')')
+					eq = eq.replace(/"/g, '\\"').replace(/\n/g, ' ').replace(/fieldname(\d+)/g, "fieldname$1"+this.form_identifier).replace( /;\s*\)/g, ')').replace(/;\s*$/, '');
 					
 					return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'" '+( ( this.hidefield ) ? 'style="display:none;"' : '' )+'>\
 					        <label>'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label>\
