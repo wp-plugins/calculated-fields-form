@@ -1,4 +1,13 @@
-	$.fbuilder.typeList.push({id:"fhidden",name:"Hidden"});
+	$.fbuilder.typeList.push(
+		{
+			id:"fhidden",
+			name:"Hidden",
+			control_category:{ 
+				id:1, 
+				title:"Form Controls"
+			}
+		}
+	);
 	$.fbuilder.controls[ 'fhidden' ]=function(){};
 	$.extend(
 		$.fbuilder.controls[ 'fhidden' ].prototype,

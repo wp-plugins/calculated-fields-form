@@ -210,6 +210,7 @@
 				// Private function, the variable names in the equations are replaced by its values, return the equation result or false if error
 				_calculate = function( form , eq, suffix )
 					{
+
 						var f = $(form),
 							_match,
 							field_regexp = new RegExp( '(fieldname\\d+'+suffix+')([\\D\\b])');
@@ -218,93 +219,14 @@
 						
 						while ( _match = field_regexp.exec( eq ) )
 						{
-							var e = f.find('[id="'+_match[1]+'"]'), 
-								values = []; // Will contain an array with values of fields that coincide with selector
-
-							e.each(function()
-								{
-									var e = $(this), 
-									    v; // field value
-									
-									// The dependent fields that are marked to be ignored are set to zero
-									if( e.hasClass( 'ignore' ) )
-									{
-										values.push( 0 );
-										return false;
-									}
-									
-									// The unchecked radio buttons or checkboxes are ignored
-									if( /(checkbox|radio)/i.test( e[0].type ) && !e[0].checked ) 
-									{
-										return;
-									}	
-									
-									if( e.hasClass( 'codepeoplecalculatedfield' ) ) 
-									{ // Remove format from calculated fields
-									   v = obj.unformat( e );
-									}
-									else
-									{
-									   v = e.val();
-									}
-									
-									// Check if value has a date format or number format
-									var d = /(\d{1,2})\/(\d{1,2})\/(\d{4})/.exec(v),
-										p = /[+-]?(([0-9]{1,3}(,[0-9]{3})+(\.[0-9]+)?)|(\d+(\.\d+)?)|(\.\d+))/.exec(v);
-
-									if( e.hasClass( 'dateddmmyyyy' ) || e.hasClass( 'datemmddyyyy' ) )
-									{
-										// Allows the future transform of a number to a date format string
-										Math.date_format = (e.hasClass('dateddmmyyyy')) ? 'ddmmyyyy' : 'mmddyyyy';
-
-										if( d ) // Is a date
-										{
-											var date = (Math.date_format == 'ddmmyyyy') ? new Date(d[3], (d[2]*1-1), d[1]) : new Date(d[3], (d[1]*1-1), d[2]);
-											values.push( Math.ceil(date.valueOf()/86400000) );
-										}
-										else
-										{
-											// Use a string to provoke an equation's fault
-											values.push('codepeople_calculate_field');
-										}
-									}
-									else
-									{
-										values.push( (p) ? p[0].replace( /\,/g, '' )*1 : v );
-									}
-								});
-							
-							function field_value(v) // Corrects the value
-								{
-									if (/^\s*$/.test(v))
-									{
-										return 0;
-									}	
-									
-									if(typeof v == 'string') 
-									{
-										return "'" + v.replace(/'/g, "\\'").replace( /\$/g, '') + "'";
-									}	
-									return v;
-								}
-
-							var x; // Convert all values in array to an unique value
-							if(values.length == 0)
+							var field = $.fbuilder[ 'forms' ][ suffix ].getItem( _match[1] ),
+								v = '';
+							if( field )
 							{
-								x = 0;
+								v = field.val();
 							}
-							else
-							{
-								for( var i=0; i<values.length; i++ )
-								{
-									values[i] = field_value( values[i] );
-								}
-								
-								x = ( values.length == 1 ) ? values[0] : eval(values.join('+'));
-							}
-							eq = eq.replace( _match[0], x+''+_match[2] ); // Replace the variable name by value
+							eq = eq.replace( _match[0], v+''+_match[2] ); // Replace the variable name by value
 						}
-
 						try
 						{
 							var r = eval( eq.replace( /^\(/, '' ).replace( /\)$/, '' ) ); // Evaluate the final equation

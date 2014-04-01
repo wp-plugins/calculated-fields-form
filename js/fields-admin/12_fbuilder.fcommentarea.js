@@ -1,4 +1,13 @@
-	$.fbuilder.typeList.push({id:"fCommentArea",name:"Instruct. Text"});
+	$.fbuilder.typeList.push(
+		{
+			id:"fCommentArea",
+			name:"Instruct. Text",
+			control_category:{ 
+				id:1, 
+				title:"Form Controls"
+			}
+		}
+	);
 	$.fbuilder.controls[ 'fCommentArea' ]=function(){};
 	$.extend(
 		$.fbuilder.controls[ 'fCommentArea' ].prototype,

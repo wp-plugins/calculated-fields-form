@@ -1,4 +1,13 @@
-	$.fbuilder.typeList.push({id:"fdate",name:"Date"});
+	$.fbuilder.typeList.push(
+		{
+			id:"fdate",
+			name:"Date",
+			control_category:{ 
+				id:1, 
+				title:"Form Controls"
+			}
+		}
+	);
 	$.fbuilder.controls[ 'fdate' ] = function(){};
 	$.extend(
 		$.fbuilder.controls[ 'fdate' ].prototype,

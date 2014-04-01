@@ -115,6 +115,20 @@
 						}
 					}
 					catch( e ){  }
+				},
+			val:function()
+				{
+					var e = $( '[id="' + this.name + '"]:checked:not(.ignore)' ),
+						v = 0,
+						me = this;
+						
+					if( e.length )
+					{
+						e.each( function(){
+							v += me.parseVal( this.value );
+						} );
+					}
+					return v;	
 				}
 		}
 	);

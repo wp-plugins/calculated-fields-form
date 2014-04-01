@@ -3,7 +3,7 @@ Contributors: codepeople
 Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Tags: form,calculated,calculator,form builder,quote calculator,forms,payment calculator,payment,quote,fields,calculated field,price calculator,email
 Requires at least: 3.0.5
-Tested up to: 3.8
+Tested up to: 3.8.1
 Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -42,8 +42,8 @@ Calculated Fields Form can be used for creating both single and complex calculat
 * Manage multiple calculated forms
 * Practical "clone" button to duplicate a form
 * Five pre-built practical samples included
-* Multi pages forms supported. 
-* Conditional rules uupported. Useful for creating wizzards.
+* Multi pages forms supported
+* Conditional rules supported. Useful for creating wizards
 * Intuitive and interactive form builder interface
 
 There are five samples already included with the installation:
@@ -53,6 +53,25 @@ There are five samples already included with the installation:
 3. Ideal Weight Calculator
 4. Pregnancy Calculator
 5. Lease Calculator
+
+The plugin has two additional (commercial) versions: **Premium** and **Developer**, each of them with its own features:
+
+=Features in Premium version=
+
+* All features of free version of plugin
+* Submits the form data, and stores the data on database, for future revisions
+* Allows send notification emails with the data submitted, to the form editor and users
+* Allows charge the calculated field directly through PayPal
+* Allows export and import your forms between different WordPress
+* Allows to display the submitted data in the thanks page
+
+=Features in Developer version=
+
+* All features of free and premium version of plugin
+* Includes new controls that get its information from different datasources (database, CSV file, Post, Taxonomies, and users data)
+* Includes financial operations
+* Includes operations for date times management
+* Includes a script for saving the submitted data in an external database
 
 You can either "**clone**" those calculated forms to complete your own form or create a new calculated form from scratch for your application.
 
@@ -162,6 +181,9 @@ A: In the "throubleshoot area" (located below the list of forms in the settings 
 
 A: Use the "Page Break" field on the form builder to indicate the new pages on the form.
 
+= Q: How to display a summary of entered data? =
+
+A: Insert a summary control and select the fields to be displayed on summary.
 
 == Other Notes ==
 
@@ -287,6 +309,78 @@ In addition to the JavaScript functions, the following functions can be used dir
 * **random():** Returns a random number between 0 and 1.
 * **Other mathematical operations:**  abs(x) , acos(x) , asin(x) , atan(x) , atan2(x,y) , ceil(x) , cos(x) , exp(x) , floor(x) , log(x) , pow(x,y) , sin(x) , sqrt(x) , tan(x)
 
+In addition to the above, the following operations that are available in the **Developer** version of plugin:
+
+**Date Time module**
+
+* **DATEOBJ(x,y):** Get the date object from an string representation of date. DATEOBJ( date_string, format )
+* **YEAR(x,y):** Get the year from an string representation of date. YEAR( date_string, format )
+* **MONTH(x,y):** Get the month from an string representation of date. MONTH( date_string, format )
+* **DAY(x,y):**	Get the days from an string representation of date. DAY( date_string, format )
+* **WEEKDAY(x,y):** Get the week day from an string representation of date. WEEKDAY( date_string, format )
+* **WEEKNUM(x,y):** Get the week number from an string representation of date, a year has 53 weeks.WEEKNUM( date_string, format )
+* **HOURS(x,y):** Get hours from an string representation of datetime. HOURS( datetime_string, format )
+* **MINUTES(x,y):** Get minutes from an string representation of datetime. MINUTES( datetime_string, format )
+* **SECONDS(x,y):** Get seconds from an string representation of datetime. SECONDS( datetime_string, format )
+* **NOW():** Get a date object with the current day-time information. NOW()
+* **TODAY():**	Get a date object with the current day information, without the time part.TODAY()	
+* **DATEDIFF(date_one, date_two, date_format, return):** Get the difference between two dates strings representation
+
+The function return an object, whose value depends of argument 'return'
+
+Possible values of return argument:
+d - return the number of days between two dates
+m - return the number of months between two dates, and remaining days
+y - return the number of years between two dates, remaining months, and remaining days
+
+* **DATETIMESUM(date_string, format, number, to_increase):** Increases the date-time string representation in the number of seconds, minutes, hours, days, months, or years, passed as parameter.
+* **GETDATETIMESTRING(datetime_object, format): ** Returns the string representation of a date object
+
+** Financial Module**
+
+* **CALCULATEPAYMENT(x,y,z):**	Calculate the Financed Payment Amount. Three parameters: amount, months, interest rate (percent)
+* **CALCULATEAMOUNT(x,y,z): ** Calculate the Financed Amount. Three parameters: months, interest rate (percent), payment
+* **CALCULATEMONTHS(x,y,z):** Calculate the Months Financed. Three parameters: amount, interest rate (percent), payment
+* **CALCULATEINTEREST(x,y,z):** Calculate the Financed Interest Rate. Three parameters: amount, months, payment
+* **CALCULATEACCRUEDINTEREST(x,y,z):** Calculate the Accrued Interest. If your money is in a bank account accruing interest, how much does it earn over x months? Three parameters: principle amount, months, interest rate (percent)
+* **CALCULATEAMORTIZATION(x,y,z,date):** Create Amortization Schedule. The result should be an array the length the number of months. Each entry is an object. Four parameters: principle amount, months, interest rate (percent), start date (optional Date object)
+
+* **Format a Number**
+
+One parameters: number
+Ex:NUMBERFORMAT(-2530023420269.123456)
+Result: -2,530,023,420,269
+
+Ex: NUMBERFORMAT(25000.123456, {precision:2})
+Result: 25,000.12
+
+* **Format Currency**
+
+Format a number to a certain currency. Two parameters: number, settings (optional). If settings option is a string it is treated as a currency name. If it is an object it is used as currency settings.
+Ex: NUMBERFORMAT(25000.123456, 'USD')
+Result: $25,000.12
+
+Settings can be format, and then override with options.
+Ex: NUMBERFORMAT(-25000.123456, 'GBP', { negative: '()', precision: 3, thousand: '' })
+Result: £(25000.123)
+
+* **Format a Percent**
+
+Format a number with a certain precision. Two parameters: number, settings ("percent" is a format)
+Ex: NUMBERFORMAT(25000.123456, 'percent')
+Result: 25,000%
+
+* **Create a Currency**
+
+You may create a currency. The library comes with "USD", "GBP", and "EUR" currency formats and "number" and "percent" numeric formats. Two parameters: key, settings
+Ex: ADDFORMAT('Dollars', { before: '', after: ' Dollars', precision: 0, thousand: ',', group: 3, decimal: '.', negative: '-' })
+Result: true
+
+Ex: NUMBERFORMAT(25000.123456, 'Dollars')
+Result: 25,000 Dollars
+
+* **REMOVEFORMAT(x):** Remove a Currency. To remove a currency. One parameter: key
+
 Into the plugin interface you will find additional help for these functions.
 
 
@@ -296,6 +390,8 @@ The following fields are available:
 
 * Single Line Text: A classic input field for a one-line text.
 * Number: A classic input field with validation rules for numeric values.
+* Currency: A classic input field for currency values, that allows separator for thousands, and currency symbols.
+* Hidden: A hidden field.
 * Email: A classic input field with validation rules for email addresses.
 * Date: A date field. It can be used directly in calculations without a previous conversion or processing.
 * Text Area: A multi-line text field.
@@ -308,7 +404,18 @@ The following fields are available:
 * Instruct. Text: Use this area for adding instructions to the end user.
 * Section Break: A line / separator for sections into the same page.
 * Page Break: A separator for pages on multi page forms.
+* Sumary: Displays a summary of form fields with the values entered.
 * Calculated field: .. and of course, the calculated field that accepts formulas, functions and many related settings.
+
+In addition to the above, the following fields are available only in the **Developer** version of plugin:
+
+* Line Text DS: An input field that gets its default values from one of following datasources - Database, Posts information, Taxonomies information or Users information
+* Email DS: An input field for Email address that gets its default values from one of following datasources - Database or Users information
+* Text Area DS: A text area field that gets its default values from one of following datasources - Database, Posts information
+* Checkboxes DS: Checkboxes for selecting one or more options into the same field that gets its options from one of following datasources - Database, CSV, Posts information, Taxonomies information or Users information
+* Radio Btns DS: Radiobuttons for selecting one option between the options available for the field that gets its options from one of following datasources - Database, CSV, Posts information, Taxonomies information or Users information
+* Drop-down DS:  A select / drop down list for selecting one of the values listed that gets its options from one of following datasources - Database, CSV, Posts information, Taxonomies information or Users information
+* Hidden DS: A hidden field that gets its value from one of following datasources - Database, Posts information, Taxonomies information, or Users information
 
 New fields may be added at any time, so check the latest version of the plugin since it may have new options.
 
@@ -317,7 +424,6 @@ New fields may be added at any time, so check the latest version of the plugin s
 One of the most frequent uses is for calculating prices. When displaying prices a good you may want to divide the form in two pages, the first one for asking the information needed to calculate the price and in a second page display the calculated field with the price and using the "Instruct. Text" fields for adding the terms, conditions and valid time for the price. 
 
 Note that you can make the "Instruct. Text" fields dependant from the calculated value, that way you can change the text shown to the user depending of the number shown in the calculated price, since frequently the terms, conditions or offers vary according to the price amount.
-
 
 == Screenshots ==
 

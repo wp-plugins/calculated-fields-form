@@ -10,9 +10,9 @@
 .fields.column2{float:left;width:49.9%;}
 .fields.column3{float:left;width:33.3%;}
 .fields.column4{float:left;width:24.9%;}
-.fields.column2 .large{width:98%;}
-.fields.column3 .large{width:97%;}
-.fields.column4 .large{width:96%;}
+#fbuilder .fields.column2 .large{width:98% !important;}
+#fbuilder .fields.column3 .large{width:97% !important;}
+#fbuilder .fields.column4 .large{width:96% !important;}
             
 .one_column{}
 .two_column{float:left;width:48%}

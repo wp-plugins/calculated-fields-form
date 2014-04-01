@@ -1,4 +1,13 @@
-	$.fbuilder.typeList.push({id:"fPhone",name:"Phone field"});
+	$.fbuilder.typeList.push(
+		{
+			id:"fPhone",
+			name:"Phone field",
+			control_category:{ 
+				id:1, 
+				title:"Form Controls"
+			}
+		}
+	);
 	$.fbuilder.controls[ 'fPhone' ] = function(){};
 	$.extend(
 		$.fbuilder.controls[ 'fPhone' ].prototype,

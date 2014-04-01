@@ -10,9 +10,11 @@
 			predefined:"888 888 8888",
 			show:function()
 			{
-				var str = "";
-				var tmp = this.dformat.split(' ');
-				var tmpv = this.predefined.split(' ');
+				var me   = this,
+					str  = "",
+					tmp  = this.dformat.split(' '),
+					tmpv = this.predefined.split(' ');
+					
 				for (var i=0;i<tmpv.length;i++)
 				{
 					if ($.trim(tmpv[i])=="")
@@ -26,7 +28,17 @@
 					{
 						str += '<div class="uh_phone" ><input type="text" id="'+this.name+'_'+i+'" name="'+this.name+'_'+i+'" class="field digits '+((this.required)?" required":"")+'" style="width:'+(15*$.trim(tmp[i]).length)+'px" value="'+((tmpv[i])?tmpv[i]:"")+'" maxlength="'+$.trim(tmp[i]).length+'" minlength="'+$.trim(tmp[i]).length+'"/><div class="l">'+$.trim(tmp[i])+'</div></div>';
 					}
+					
+					$( document ).on( 'change', '#'+this.name+'_'+i, function(){ 
+						var v = '';
+						for( var i = 0; i < tmp.length; i++ )
+						{
+							v += $( '#'+me.name+'_'+i ).val();
+						}
+						$( '#'+me.name ).val( v ).change();
+					} );
 				}	
+				
 				return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'"><label for="'+this.name+'">'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><input type="hidden" id="'+this.name+'" name="'+this.name+'" class="field " />'+str+'<span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 			}
 		}

@@ -1,4 +1,13 @@
-		$.fbuilder.typeList.push({id:"fradio",name:"Radio Buttons"});
+		$.fbuilder.typeList.push(
+			{
+				id:"fradio",
+				name:"Radio Buttons",
+				control_category:{ 
+					id:1, 
+					title:"Form Controls"
+				}
+			}
+		);
 		$.fbuilder.controls[ 'fradio' ] = function(){};
 		$.extend(
 			$.fbuilder.controls[ 'fradio' ].prototype,
@@ -171,7 +180,7 @@
 								{
 									if (items[i].name != $(this).attr("dname"))
 									{
-										str += '<option value="'+items[i].name+'" '+((items[i].name == $(this).attr("dvalue"))?"selected":"")+'>'+(items[i].title)+'</option>';
+										str += '<option value="'+items[i].name+'" '+((items[i].name == $(this).attr("dvalue"))?"selected":"")+'>'+(items[i].name)+' (' + items[i].title + ') </option>';
 									}
 								}	
 								$(this).html(str);

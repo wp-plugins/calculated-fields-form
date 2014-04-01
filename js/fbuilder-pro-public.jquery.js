@@ -94,7 +94,7 @@
 						{
 							if ($("#cpcaptchalayer"+opt.identifier).html())
 							{
-								code += '<div>'+$("#cpcaptchalayer"+opt.identifier).html()+'</div>';
+								code += '<div class="captcha">'+$("#cpcaptchalayer"+opt.identifier).html()+'</div>';
 								$("#cpcaptchalayer"+opt.identifier).html("");
 							}
 							if ($("#cp_subbtn"+opt.identifier).html())
@@ -132,7 +132,7 @@
 				{
 					if ($("#cpcaptchalayer"+opt.identifier).html())
 					{
-						$("#fieldlist"+opt.identifier+" .pb"+page).append('<div>'+$("#cpcaptchalayer"+opt.identifier).html()+'</div>');
+						$("#fieldlist"+opt.identifier+" .pb"+page).append('<div class="captcha">'+$("#cpcaptchalayer"+opt.identifier).html()+'</div>');
 						$("#cpcaptchalayer"+opt.identifier).html("");
 					}
 					if ($("#cp_subbtn"+opt.identifier).html())
@@ -205,6 +205,17 @@
 		//var theForm = new fform(),
 		var theForm,
 			ffunct = {
+				getItem: function( name )
+					{
+						for( var i in items )
+						{
+							if( items[ i ].name == name )
+							{
+								return items[ i ];
+							}
+						}
+						return false;
+					},
 				getItems: function() 
 					{
 					   return items;
@@ -215,7 +226,6 @@
 							e = $("#"+f);
 						
 						this.formId = e.parents( 'form' ).attr( 'id' );
-						
 						if ( d = $.parseJSON( e.val() ))
 						{
 						   if (d.length==2)
@@ -224,7 +234,7 @@
 							   for (var i=0;i<d[0].length;i++)
 							   {
 								   var obj = eval("new $.fbuilder.controls['"+d[0][i].ftype+"']();");
-								   obj = $.extend(obj,d[0][i]);
+								   obj = $.extend(true, {}, obj,d[0][i]);
 								   obj.name = obj.name+opt.identifier;
 								   obj.form_identifier = opt.identifier;
 								   items[items.length] = obj;
@@ -262,7 +272,20 @@
 					{
 						return 'Not available yet';
 					},
-				after_show:function(){}
+				after_show:function(){},
+				parseVal:function( v )
+					{
+						var p = /[+-]?(([0-9]{1,3}(,[0-9]{3})+(\.[0-9]+)?)|(\d+(\.\d+)?)|(\.\d+))/.exec( v );
+						return ( p ) ? p[0].replace( /\,/g, '' )*1 : '"' + v.replace(/'/g, "\\'").replace( /\$/g, '') + '"' ;
+					},
+				val:function(){
+					var e = $( "[id='" + this.name + "']:not(.ignore)" );
+					if( e.length )
+					{
+						return this.parseVal( $.trim( e.val() ) );
+					}
+					return 0;
+				}
 		});
 	
 	$.fbuilder[ 'showHideDep' ] = function( configObj )

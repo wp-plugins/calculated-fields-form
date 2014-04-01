@@ -48,6 +48,23 @@
 						{
 						  return this.optional(element) || /^(?:[1-9]|0[1-9]|1[0-2])[\/\-](?:[1-9]|0[1-9]|1[0-9]|2[0-9]|3[0-1])[\/\-]\d{4}$/.test(value);
 						});//{required: true, range: [11, 22]}
+				},
+			val:function()
+				{
+					var e = $( '[id="' + this.name + '"]:not(.ignore)' );
+					if( e.length )
+					{
+						var v = $.trim( e.val() ),
+							d = /(\d{1,2})\/(\d{1,2})\/(\d{4})/.exec( v );
+						
+						if( d )
+						{
+							var date = ( this.dformat == 'mm/dd/yyyy' ) ? new Date( d[ 3 ], ( d[ 1 ] * 1 - 1 ), d[ 2 ] ) : new Date( d[ 3 ], ( d[ 2 ] * 1 - 1 ), d[ 1 ] );
+							return Math.ceil( date.valueOf() / 86400000 );
+						}	
+						return undefined;
+					}
+					return 0;
 				}
 		}
 	);
