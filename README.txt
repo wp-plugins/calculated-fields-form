@@ -1,7 +1,7 @@
 === Calculated Fields Form ===
 Contributors: codepeople
 Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
-Tags: form,calculated,calculator,form builder,quote calculator,forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,form editor
+Tags: form,calculated,calculator,form builder,quote calculator,forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,form editor,paypal
 Requires at least: 3.0.5
 Tested up to: 3.8.1
 Stable tag: 1.0.1
@@ -404,7 +404,7 @@ The following fields are available:
 * Instruct. Text: Use this area for adding instructions to the end user.
 * Section Break: A line / separator for sections into the same page.
 * Page Break: A separator for pages on multi page forms.
-* Sumary: Displays a summary of form fields with the values entered.
+* Summary: Displays a summary of form fields with the values entered.
 * Calculated field: .. and of course, the calculated field that accepts formulas, functions and many related settings.
 
 In addition to the above, the following fields are available only in the **Developer** version of plugin:
