@@ -9,7 +9,7 @@
 .padding10{padding:10px;}
 .button, .form-builder .button{float:left;margin:5px 15px;}
 .button.n span{color:#AED0EA}
-#tabs{height:650px;overflow:auto}
+#tabs{height:650px;width:363px;overflow-y:auto;}
 #fbuilder{height:640px;overflow:auto;position:relative;}
 #fbuilder .fields{border:1px solid transparent;padding:3px 10px 14px 10px;margin:5px 0px;display:block;position:relative}
 #fbuilder .fields .arrow{position:absolute;left:-15px;top:20px;display:none}
@@ -59,7 +59,7 @@ input.disabled {background: #fff;color: #888;cursor: default;}
 label1{display:inline}
 .small{width:25%}
 .medium{width:50%}
-.large{width:100%}
+.large{width:100%;box-sizing: border-box;-webkit-box-sizing:border-box;-moz-box-sizing: border-box;}
 textarea {resize: none}            
 .one_column{}
 .two_column{float:left;width:48%}

@@ -1,4 +1,13 @@
-	$.fbuilder.typeList.push({id:"fSectionBreak",name:"Section break"});
+	$.fbuilder.typeList.push(
+		{
+			id:"fSectionBreak",
+			name:"Section break",
+			control_category:{ 
+				id:1, 
+				title:"Form Controls"
+			}
+		}
+	);
 	$.fbuilder.controls[ 'fSectionBreak' ] = function(){};
 	$.extend(
 		$.fbuilder.controls[ 'fSectionBreak' ].prototype,

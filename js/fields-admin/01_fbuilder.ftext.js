@@ -1,4 +1,13 @@
-	$.fbuilder.typeList.push({id:"ftext",name:"Single Line Text"});
+	$.fbuilder.typeList.push(
+		{
+			id:"ftext",
+			name:"Single Line Text",
+			control_category:{ 
+				id:1, 
+				title:"Form Controls"
+			}
+		}
+	);
 	$.fbuilder.controls[ 'ftext' ]=function(){};
 	$.extend(
 		$.fbuilder.controls[ 'ftext' ].prototype,

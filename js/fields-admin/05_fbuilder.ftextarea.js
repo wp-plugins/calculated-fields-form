@@ -1,4 +1,13 @@
-	$.fbuilder.typeList.push({id:"ftextarea",name:"Text Area"});
+	$.fbuilder.typeList.push(
+		{
+			id:"ftextarea",
+			name:"Text Area",
+			control_category:{ 
+				id:1, 
+				title:"Form Controls"
+			}
+		}
+	);
 	$.fbuilder.controls[ 'ftextarea' ] = function(){};
 	$.extend(
 		$.fbuilder.controls[ 'ftextarea' ].prototype,

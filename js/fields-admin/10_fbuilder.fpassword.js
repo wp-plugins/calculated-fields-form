@@ -1,4 +1,13 @@
-	$.fbuilder.typeList.push({id:"fpassword",name:"Password"});
+	$.fbuilder.typeList.push(
+		{
+			id:"fpassword",
+			name:"Password",
+			control_category:{ 
+				id:1, 
+				title:"Form Controls"
+			}
+		}
+	);
 	$.fbuilder.controls[ 'fpassword' ] = function(){};
 	$.extend(
 		$.fbuilder.controls[ 'fpassword' ].prototype,

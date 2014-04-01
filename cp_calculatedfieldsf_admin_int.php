@@ -52,7 +52,7 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf
          document.write ("<"+"script type='text/javascript' src='<?php echo plugins_url('js/jQuery.stringify.js', __FILE__); ?>'></"+"script>");
          document.write ("<"+"script type='text/javascript' src='<?php echo plugins_url('js/jquery.validate.js', __FILE__); ?>'></"+"script>");         
          document.write ("<"+"script type='text/javascript' src='<?php echo plugins_url('/js/jquery.caret.js', __FILE__); ?>'></"+"script>");
-         document.write ("<"+"script type='text/javascript' src='<?php echo plugins_url('js/fbuilder-loader-admin.php', __FILE__); ?>'></"+"script>");
+         document.write ("<"+"script type='text/javascript' src='<?php echo get_site_url( get_current_blog_id() ).'?cp_cff_resources=admin'; ?>'></"+"script>");
        } 
      </script>         
         
@@ -143,6 +143,7 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf
   </div>    
  </div> 
  
+ <p class="submit"><input type="submit" name="submit" id="submit" class="button-primary" value="Save Changes"  /></p>
  
   <div id="metabox_basic_settings" class="postbox" >
   <h3 class='hndle' style="padding:5px;"><span>Previous & Next Buttons</span></h3>

@@ -16,8 +16,9 @@
 					title:""
 				},
 				options, true),
-			typeList = 	$.fbuilder.typeList;
-				
+			typeList = 	$.fbuilder.typeList,
+			controls_categories = {};
+		
 		$.fbuilder[ 'getNameByIdFromType' ] = function( id )
 			{
 				for ( var i = 0, h = typeList.length; i < h; i++ )
@@ -28,11 +29,28 @@
 					}	
 				}		
 				return "";
-			}
+			};
 		
 		for ( var i=0, h = typeList.length; i < h; i++ )
 		{
-			$("#tabs-1").append('<div class="button itemForm width40" id="'+typeList[i].id+'">'+typeList[i].name+'</div>');
+			var category_id = typeList[ i ].control_category.id;
+			
+			if( typeof controls_categories[ category_id ]  == 'undefined' )
+			{
+				controls_categories[ category_id ] = { title : typeList[ i ].control_category.title, typeList:[] };
+			}
+			
+			controls_categories[ category_id ].typeList.push( i );
+		}
+
+		for ( var i in controls_categories )
+		{
+			$("#tabs-1").append('<div style="clear:both;"></div><div>'+controls_categories[ i ].title+'</div><hr />');
+			for( var j = 0, k = controls_categories[ i ].typeList.length; j < k; j++ )
+			{
+				var index = controls_categories[ i ].typeList[ j ];
+				$("#tabs-1").append('<div class="button itemForm width40" id="'+typeList[ index ].id+'">'+typeList[ index ].name+'</div>');
+			}
 		}
 		
 		$("#tabs-1").append('<div class="clearer"></div>');
@@ -74,8 +92,8 @@
 				   if (n1>n)
 					   n = n1;
 				}
-				items.splice( index+1, 0, $.extend( true, {}, items[index], { name:"fieldname"+(n+1) } ) );
-				for ( var i=0, h = items.length; i<h; i++ )
+				items.splice( index*1+1, 0, $.extend( true, {}, items[index], { name:"fieldname"+(n+1) } ) );
+				for ( var i=index*1+1, h = items.length; i<h; i++ )
 				{
 					items[i].index = i;
 				}	
@@ -201,7 +219,7 @@
 					var item = items[ i ];
 					if (item.ftype=="femail")
 					{
-						str += '<option value="'+item.name+'" '+((item.name == $('#cu_user_email_field').attr("def"))?"selected":"")+'>'+(item.title)+'</option>';
+						str += '<option value="'+item.name+'" '+((item.name == $('#cu_user_email_field').attr("def"))?"selected":"")+'>'+item.name+' ('+item.title+')'+'</option>';
 					}
 				}
 				
@@ -362,7 +380,7 @@
 						for (var i=0;i<d[0].length;i++)
 						{
 						   var obj = eval("new $.fbuilder.controls['"+d[0][i].ftype+"']();");
-						   obj = $.extend(obj,d[0][i]);
+						   obj = $.extend( true, {}, obj, d[0][i] );
 						   obj.name = obj.name+opt.identifier;
 						   obj.form_identifier = opt.identifier;
 						   obj.fBuild = fBuild;

@@ -10,7 +10,7 @@ fbuilderjQuery(function(){
 	// Load Module files
 	try 
 	{
-        $md = dir("./modules");
+        $md = dir( dirname( __FILE__ )."/modules" );
 		$modules_files = array();
         while( false !== ( $entry = $md->read() ) ) 
 		{    
@@ -44,12 +44,12 @@ fbuilderjQuery(function(){
 	// Load Control files
     require 'fbuilder-pro-public.jquery.js';
     try {
-        $d = dir("./fields-public");
+        $d = dir( dirname( __FILE__ )."/fields-public" );
 		$controls_files = array();
         while (false !== ($entry = $d->read())) {            
             if (strlen($entry) > 3 && strtolower(substr($entry,strlen($entry)-3)) == '.js')
-                if (file_exists('./fields-public/'.$entry))
-                    $controls_files[] = './fields-public/'.$entry;
+                if ( file_exists( $d->path.'/'.$entry ) )
+                    $controls_files[] = $d->path.'/'.$entry;
         }
 		sort( $controls_files );
 		foreach( $controls_files as $file )

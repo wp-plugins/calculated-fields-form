@@ -1,4 +1,13 @@
-	$.fbuilder.typeList.push({id:"ffile",name:"Upload File"});
+	$.fbuilder.typeList.push(
+		{
+			id:"ffile",
+			name:"Upload File",
+			control_category:{ 
+				id:1, 
+				title:"Form Controls"
+			}
+		}
+	);
 	$.fbuilder.controls[ 'ffile' ] = function(){};
 	$.extend(
 		$.fbuilder.controls[ 'ffile' ].prototype,

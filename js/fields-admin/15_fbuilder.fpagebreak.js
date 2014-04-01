@@ -1,4 +1,13 @@
-	$.fbuilder.typeList.push({id:"fPageBreak",name:"Page break"});
+	$.fbuilder.typeList.push(
+		{
+			id:"fPageBreak",
+			name:"Page break",
+			control_category:{ 
+				id:1, 
+				title:"Form Controls"
+			}
+		}
+	);
 	$.fbuilder.controls[ 'fPageBreak' ] = function(){};
 	$.extend(
 		$.fbuilder.controls[ 'fPageBreak' ].prototype,

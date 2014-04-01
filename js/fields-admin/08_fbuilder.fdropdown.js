@@ -1,4 +1,13 @@
-	$.fbuilder.typeList.push({id:"fdropdown",name:"Dropdown"});
+	$.fbuilder.typeList.push(
+		{
+			id:"fdropdown",
+			name:"Dropdown",
+			control_category:{ 
+				id:1, 
+				title:"Form Controls"
+			}
+		}
+	);
 	$.fbuilder.controls[ 'fdropdown' ] = function(){};
 	$.extend(
 		$.fbuilder.controls[ 'fdropdown' ].prototype,
@@ -167,7 +176,7 @@
 							{
 								if (items[i].name != $(this).attr("dname"))
 								{
-									str += '<option value="'+items[i].name+'" '+((items[i].name == $(this).attr("dvalue"))?"selected":"")+'>'+(items[i].title)+'</option>';
+									str += '<option value="'+items[i].name+'" '+((items[i].name == $(this).attr("dvalue"))?"selected":"")+'>'+(items[i].name)+' (' + items[ i ].title + ')</option>';
 								}
 							}	
 							$(this).html(str);

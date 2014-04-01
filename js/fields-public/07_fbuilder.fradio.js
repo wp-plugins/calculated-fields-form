@@ -126,6 +126,15 @@
 						}
 					}
 					catch( e ){  }
+				},
+			val:function()
+				{
+					var e = $( '[id="' + this.name + '"]:checked:not(.ignore)' );
+					if( e.length )
+					{
+						return this.parseVal( e.val() );
+					}
+					return 0;	
 				}	
 		}
 	);

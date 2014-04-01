@@ -1,4 +1,13 @@
-	$.fbuilder.typeList.push({id:"fcheck",name:"Checkboxes"});
+	$.fbuilder.typeList.push(
+		{
+			id:"fcheck",
+			name:"Checkboxes",
+			control_category:{ 
+				id:1, 
+				title:"Form Controls"
+			}
+		}
+	);
 	$.fbuilder.controls[ 'fcheck' ] = function(){};
 	$.extend(
 		$.fbuilder.controls[ 'fcheck' ].prototype,
@@ -173,7 +182,7 @@
 							var str = '<option value="" '+(("" == $(this).attr("dvalue"))?"selected":"")+'></option>';
 							for (var i=0;i<items.length;i++)
 								if (items[i].name != $(this).attr("dname"))
-									str += '<option value="'+items[i].name+'" '+((items[i].name == $(this).attr("dvalue"))?"selected":"")+'>'+(items[i].title)+'</option>';
+									str += '<option value="'+items[i].name+'" '+((items[i].name == $(this).attr("dvalue"))?"selected":"")+'>'+(items[i].name)+' (' + items[ i ].title + ')</option>';
 							$(this).html(str);
 						});
 					$.fbuilder.controls[ 'ffields' ].prototype.editItemEvents.call(this);
