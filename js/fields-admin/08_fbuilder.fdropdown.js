@@ -50,9 +50,10 @@
 					
 					$(".choice_select").bind("click", {obj: this}, function(e) 
 						{
+							var i = $(this).attr("i");
 							if ($(this).is(':checked'))
 							{
-								e.data.obj.choiceSelected = e.data.obj.choicesVal[$(this).attr("i")];
+								e.data.obj.choiceSelected = e.data.obj.choices[i] + ' - ' + e.data.obj.choicesVal[i];
 							}	
 							$.fbuilder.reloadItems();
 						});
@@ -107,6 +108,13 @@
 						});
 					$(".choice_remove").bind("click", {obj: this}, function(e) 
 						{
+							var i = $(this).attr("i");
+							
+							if( e.data.obj.choices[ i ] + ' - ' + e.data.obj.choicesVal[ i ] == e.data.obj.choiceSelected )
+							{
+								e.data.obj.choiceSelected = "";
+							}
+								
 							if (e.data.obj.choices.length==1)
 							{
 								e.data.obj.choices[0]="";
@@ -115,21 +123,11 @@
 							}
 							else
 							{
-								e.data.obj.choices.splice($(this).attr("i"),1);
-								e.data.obj.choicesVal.splice($(this).attr("i"),1);
-								e.data.obj.choicesDep.splice($(this).attr("i"),1);
+								e.data.obj.choices.splice( i, 1 );
+								e.data.obj.choicesVal.splice( i, 1 );
+								e.data.obj.choicesDep.splice( i, 1 );
 							}
-							if (e.data.obj.ftype=="fcheck")
-							{
-								if (e.data.obj.choiceSelected.length==1)
-								{
-									e.data.obj.choiceSelected[0]="";
-								}	
-								else
-								{
-									e.data.obj.choiceSelected.splice($(this).attr("i"),1);
-								}	
-							}
+							
 							$.fbuilder.editItem(e.data.obj.index);
 							$.fbuilder.reloadItems();
 						});
@@ -138,10 +136,6 @@
 							e.data.obj.choices.splice($(this).attr("i")*1+1,0,"");
 							e.data.obj.choicesVal.splice($(this).attr("i")*1+1,0,"");
 							e.data.obj.choicesDep.splice($(this).attr("i")*1+1,0,new Array());
-							if (e.data.obj.ftype=="fcheck")
-							{
-								e.data.obj.choiceSelected.splice($(this).attr("i")*1+1,0,false);
-							}	
 							$.fbuilder.editItem(e.data.obj.index);
 							$.fbuilder.reloadItems();
 						});
@@ -188,7 +182,6 @@
 					this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null)?this.choicesVal:this.choices.slice(0));
 					var l = this.choices;
 					var lv = this.choicesVal;
-					var v = this.choiceSelected;
 					if (!(typeof(this.choicesDep) != "undefined" && this.choicesDep !== null))
 					{
 						this.choicesDep = new Array();
@@ -201,7 +194,7 @@
 					var str = "";
 					for (var i=0;i<l.length;i++)
 					{
-						str += '<div class="choicesEdit"><input class="choice_select" i="'+i+'" type="radio" '+((this.choiceSelected==lv[i])?"checked":"")+' name="choice_select" /><input class="choice_text" i="'+i+'" type="text" name="sChoice'+this.name+'" id="sChoice'+this.name+'" value="'+$.fbuilder.htmlEncode(l[i])+'"/><input class="choice_value" i="'+i+'" type="text" name="sChoice'+this.name+'V'+i+'" id="sChoice'+this.name+'V'+i+'" value="'+$.fbuilder.htmlEncode(lv[i])+'"/><a class="choice_down ui-icon ui-icon-arrowthick-1-s" i="'+i+'" n="'+(l.length-1)+'" title="Down"></a><a class="choice_up ui-icon ui-icon-arrowthick-1-n" i="'+i+'" title="Up"></a><a class="choice_add ui-icon ui-icon-circle-plus" i="'+i+'" title="Add another choice."></a><a class="choice_remove ui-icon ui-icon-circle-minus" i="'+i+'" title="Delete this choice."></a></div>';
+						str += '<div class="choicesEdit"><input class="choice_select" i="'+i+'" type="radio" '+((this.choiceSelected==l[i]+' - '+lv[i])?"checked":"")+' name="choice_select" /><input class="choice_text" i="'+i+'" type="text" name="sChoice'+this.name+'" id="sChoice'+this.name+'" value="'+$.fbuilder.htmlEncode(l[i])+'"/><input class="choice_value" i="'+i+'" type="text" name="sChoice'+this.name+'V'+i+'" id="sChoice'+this.name+'V'+i+'" value="'+$.fbuilder.htmlEncode(lv[i])+'"/><a class="choice_down ui-icon ui-icon-arrowthick-1-s" i="'+i+'" n="'+(l.length-1)+'" title="Down"></a><a class="choice_up ui-icon ui-icon-arrowthick-1-n" i="'+i+'" title="Up"></a><a class="choice_add ui-icon ui-icon-circle-plus" i="'+i+'" title="Add another choice."></a><a class="choice_remove ui-icon ui-icon-circle-minus" i="'+i+'" title="Delete this choice."></a></div>';
 						for (var j=0;j<d[i].length;j++)
 						{
 							str += '<div class="choicesEditDep">If selected show: <select class="dependencies" i="'+i+'" j="'+j+'" dname="'+this.name+'" dvalue="'+d[i][j]+'" ></select><a class="choice_addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+j+'" title="Add another dependency."></a><a class="choice_removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+j+'" title="Delete this dependency."></a></div>';
