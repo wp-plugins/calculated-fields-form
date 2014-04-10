@@ -24,7 +24,6 @@
 							{
 								p[ i ] = $.trim( p[ i ] );
 								this.fieldsArray.push( p[ i ] + this.form_identifier );
-								
 								$( document ).on( 'change', '#' + p[ i ] + this.form_identifier, function(){ me.update(); } );
 								
 								str += '<div ref="'+p[i]+this.form_identifier+'" class="cff-summary-item"><span class="'+this.titleClassname+' cff-summary-title"></span><span class="'+this.valueClassname+' cff-summary-value"></span>';
@@ -43,13 +42,12 @@
 			update:function()
 				{
 					var me = this;
-					
 					for ( var j = 0, k = this.fieldsArray.length; j < k; j++ )
 					{
 						var i  = this.fieldsArray[ j ],
-							e  = $( '[name="' + i + '"]'),
+							e  = $( '[id="' + i + '"]'),
 							tt = $( '[ref="' + i + '"]');
-						
+
 						if( e.length && tt.length )
 						{	
 							var t  = $( '#' + i ).parents( '.fields' ).find( 'label:first' ).text(), 
