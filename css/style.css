@@ -1,7 +1,9 @@
-.form-builder{font-size:11px;}
+.form-builder{font-size:11px;width:100%;min-width:780px;}
 .clearer{clear:both;}
 .column{float:left;}
 .columnr{float:right;}
+.ctrlsColumn{width:380px;}
+.dashboardColumn{ width:calc(100% - 400px); }
 .width50{width:48%}
 .width20{width:24%}
 .width40{width:40%}
@@ -9,7 +11,7 @@
 .padding10{padding:10px;}
 .button, .form-builder .button{float:left;margin:5px 15px;}
 .button.n span{color:#AED0EA}
-#tabs{height:650px;width:363px;overflow-y:auto;}
+#tabs{height:650px;width:100%;overflow-y:auto;}
 #fbuilder{height:640px;overflow:auto;position:relative;}
 #fbuilder .fields{border:1px solid transparent;padding:3px 10px 14px 10px;margin:5px 0px;display:block;position:relative}
 #fbuilder .fields .arrow{position:absolute;left:-15px;top:20px;display:none}

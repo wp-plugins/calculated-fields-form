@@ -115,9 +115,9 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf
         
 
      
-     <div style="background:#fafafa;width:780px;" class="form-builder">
+     <div style="background:#fafafa;" class="form-builder">
      
-         <div class="column width50">
+         <div class="column ctrlsColumn">
              <div id="tabs">
      			<ul>
      				<li><a href="#tabs-1">Add a Field</a></li>
@@ -131,7 +131,7 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf
      			<div id="tabs-3"></div>
      		</div>	
          </div>
-         <div class="columnr width50 padding10" id="fbuilder">
+         <div class="column dashboardColumn padding10" id="fbuilder">
              <div id="formheader"></div>
              <div id="fieldlist"></div>
              <div class="button" id="saveForm">Save Form</div>

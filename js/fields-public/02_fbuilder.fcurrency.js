@@ -17,18 +17,13 @@
 
 			getFormattedValue:function( value )
 				{
-					function escape_symbol( value ) // Escape the symbols used in regulars expressions
-						{
-							return value.replace(/([\^\$\-\.\,\[\]\(\)\/\\\*\?\+\!\{\}])/g, "\\$1");
-						};
-						
 					this.centSeparator = $.trim(this.centSeparator);	
 					if( /^\s*$/.test( this.centSeparator ) )
 					{
 						this.centSeparator = '.';
 					}
 					
-					var v = parseFloat( value.replace( new RegExp( "[^\\d" + escape_symbol( this.centSeparator ) + "]", "g" ), '' ) );
+					var v = parseFloat( value.replace( new RegExp( "[^\\d" + $.fbuilder.escape_symbol( this.centSeparator ) + "]", "g" ), '' ) );
 					if( !isNaN( v ) )
 					{
 						v = v.toFixed(2).toString();
@@ -46,7 +41,7 @@
 							}
 							parts[0] = str;
 						}
-						if( /^\s*$/.test( this.thousandSeparator ) )
+						if( /^\s*$/.test( this.centSeparator ) )
 						{
 							this.centSeparator = '.';
 						}
@@ -70,6 +65,20 @@
 					}
 
 					return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'"><label for="'+this.name+'">'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" class="field '+this.dformat+' '+this.size+((this.required)?" required":"")+'" type="text" value="'+$.fbuilder.htmlEncode( this.getFormattedValue( this.predefined ) )+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
-				}		
+				},
+			val:function()
+				{
+					var e = $( '[id="' + this.name + '"]:not(.ignore)' );
+					if( e.length )
+					{
+						var v = $.trim( e.val() );
+						
+						v = v.replace( new RegExp( this.currencySymbol, 'g' ), '' )
+						     .replace( new RegExp( this.currencyText, 'g' ), '' );
+							 
+						return $.fbuilder.parseVal( v, this.thousandSeparator, this.centSeparator );	 
+					}
+					return 0;
+				}	
 		}
 	);
