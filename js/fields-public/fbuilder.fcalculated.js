@@ -429,10 +429,7 @@
                     unformat : function( field )
 						{
 
-							function escape_symbol( value ) // Escape the symbols used in regulars expressions
-							{
-								return value.replace(/([\^\$\-\.\,\[\]\(\)\/\\\*\?\+\!\{\}])/g, "\\$1");
-							};
+							var escape_symbol = $.fbuilder.escape_symbol;
 
 							var eq = field[0].form.equations,
 								v = field.val();

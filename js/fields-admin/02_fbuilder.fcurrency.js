@@ -114,6 +114,7 @@
 						var str = '<div><label>Currency Symbol</label><br /><input type="text" name="sCurrencySymbol" id="sCurrencySymbol" value="'+this.currencySymbol+'"></div>';
 						str += '<div><label>Currency</label><br /><input type="text" name="sCurrencyText" id="sCurrencyText" value="'+this.currencyText+'"></div>';
 						str += '<div><label>Thousands Separator</label><br /><input type="text" name="sThousandSeparator" id="sThousandSeparator" value="'+this.thousandSeparator+'"></div>';
+						str += '<div><label>Cents Separator</label><br /><input type="text" name="sCentSeparator" id="sCentSeparator" value="'+this.centSeparator+'"></div>';
 						str += '<div><label>Format Dynamically</label><br /><input type="checkbox" name="sFormatDynamically" id="sFormatDynamically" '+( (this.formatDynamically) ? 'CHECKED' : '')+'></div>';
 						return str;
 					}

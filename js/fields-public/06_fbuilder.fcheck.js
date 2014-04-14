@@ -125,7 +125,7 @@
 					if( e.length )
 					{
 						e.each( function(){
-							v += me.parseVal( this.value );
+							v += $.fbuilder.parseVal( this.value );
 						} );
 					}
 					return v;	

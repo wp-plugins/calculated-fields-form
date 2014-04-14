@@ -19,6 +19,8 @@
 				predefinedClick:false,
 				required:false,
 				size:"small",
+				thousandSeparator:"",
+				decimalSymbol:".",
 				min:"",
 				max:"",
 				dformat:"digits",
@@ -37,6 +39,14 @@
 						$("#sFormat").bind("change", {obj: this}, function(e) 
 							{
 								e.data.obj.dformat = $(this).val();
+								if( e.data.obj.dformat == 'digits')
+								{
+									$( '.fnumber-symbols' ).hide();
+								}
+								else
+								{
+									$( '.fnumber-symbols' ).show();
+								}
 								$.fbuilder.reloadItems();
 							});
 						$("#sMin").bind("change", {obj: this}, function(e) 
@@ -49,14 +59,27 @@
 								e.data.obj.max = $(this).val();
 								$.fbuilder.reloadItems();
 							});
+						$("#sThousandSeparator").bind("change keyup", {obj: this}, function(e) 
+							{
+								e.data.obj.thousandSeparator = $(this).val();
+								$.fbuilder.reloadItems();
+							});
+						$("#sDecimalSymbol").bind("change keyup", {obj: this}, function(e) 
+							{
+								e.data.obj.decimalSymbol = $(this).val();
+								$.fbuilder.reloadItems();
+							});
 						$.fbuilder.controls[ 'ffields' ].prototype.editItemEvents.call(this);
 					},
 				showFormatIntance: function() 
 					{
 						var str = "";
 						for (var i=0;i<this.formats.length;i++)
+						{
+							
 							str += '<option value="'+this.formats[i]+'" '+((this.formats[i]==this.dformat)?"selected":"")+'>'+this.formats[i]+'</option>';
-						return '<div><label>Number Format</label><br /><select name="sFormat" id="sFormat">'+str+'</select></div>';
+						}	
+						return '<div><label>Number Format</label><br /><select name="sFormat" id="sFormat">'+str+'</select></div><div class="fnumber-symbols" '+( (this.dformat == 'digits') ? 'style="display:none;"' : '' )+'><label>Decimals separator symbol (Ex: 25.20)</label><input type="text" name="sDecimalSymbol" id="sDecimalSymbol" class="large" value="'+this.decimalSymbol+'" /><label>Symbol for grouping thousands (Ex: 3,000,000)</label><input type="text" name="sThousandSeparator" id="sThousandSeparator" class="large" value="'+this.thousandSeparator+'" /></div>';
 					},
 				showRangeIntance: function() 
 					{

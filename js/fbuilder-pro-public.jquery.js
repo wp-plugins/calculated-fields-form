@@ -8,6 +8,25 @@
 		return value;
 	};
 	
+	$.fbuilder[ 'escape_symbol' ] = function( value ) // Escape the symbols used in regulars expressions
+	{
+		return value.replace(/([\^\$\-\.\,\[\]\(\)\/\\\*\?\+\!\{\}])/g, "\\$1");
+	};
+				
+	$.fbuilder[ 'parseVal' ] = function( value, thousandSeparator, decimalSymbol )
+	{
+		value += '';
+		
+		thousandSeparator = new RegExp( $.fbuilder.escape_symbol( ( typeof thousandSeparator == 'undefined' ) ? ',' : thousandSeparator ), 'g' );
+		decimalSymbol = new RegExp( $.fbuilder.escape_symbol( ( typeof decimalSymbol == 'undefined' ) ? '.' : decimalSymbol ), 'g' );
+		
+		var t = value.replace( thousandSeparator, '' ).replace( decimalSymbol, '.' ).replace( /\s/g, '' ),
+			p = /[+-]?((\d+(\.\d+)?)|(\.\d+))/.exec( t );
+			
+		return ( p ) ? p[0]*1 : '"' + value.replace(/'/g, "\\'").replace( /\$/g, '') + '"';
+	};
+				
+	
 	$.fn.fbuilder = function(options){
 		var opt = $.extend({},
 					{
@@ -273,16 +292,11 @@
 						return 'Not available yet';
 					},
 				after_show:function(){},
-				parseVal:function( v )
-					{
-						var p = /[+-]?(([0-9]{1,3}(,[0-9]{3})+(\.[0-9]+)?)|(\d+(\.\d+)?)|(\.\d+))/.exec( v );
-						return ( p ) ? p[0].replace( /\,/g, '' )*1 : '"' + v.replace(/'/g, "\\'").replace( /\$/g, '') + '"' ;
-					},
 				val:function(){
 					var e = $( "[id='" + this.name + "']:not(.ignore)" );
 					if( e.length )
 					{
-						return this.parseVal( $.trim( e.val() ) );
+						return $.fbuilder.parseVal( $.trim( e.val() ) );
 					}
 					return 0;
 				}
