@@ -83,8 +83,8 @@ The form processing and payment processing aren't included in this version. Ther
 
 = Latest Features Added =
 
-* Dependant fields: Fields can be shown/hidden based on other checkboxes, radiobuttons or drop-down selections
-* Dependant fields from calculated values: Fields can be shown/hidden based on the value of a calculated field
+* Dependent fields: Fields can be shown/hidden based on other checkboxes, radiobuttons or drop-down selections
+* Dependent fields from calculated values: Fields can be shown/hidden based on the value of a calculated field
 * Throubleshoot area to automatically fix conflicts with other scripts on themes or third party plugins and also for special characters support
 * Multi page calculated forms
 * New validations, fields types and features in the form builder
@@ -423,7 +423,7 @@ New fields may be added at any time, so check the latest version of the plugin s
 
 One of the most frequent uses is for calculating prices. When displaying prices a good you may want to divide the form in two pages, the first one for asking the information needed to calculate the price and in a second page display the calculated field with the price and using the "Instruct. Text" fields for adding the terms, conditions and valid time for the price. 
 
-Note that you can make the "Instruct. Text" fields dependant from the calculated value, that way you can change the text shown to the user depending of the number shown in the calculated price, since frequently the terms, conditions or offers vary according to the price amount.
+Note that you can make the "Instruct. Text" fields dependent from the calculated value, that way you can change the text shown to the user depending of the number shown in the calculated price, since frequently the terms, conditions or offers vary according to the price amount.
 
 == Screenshots ==
 
