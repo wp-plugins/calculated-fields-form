@@ -15,6 +15,7 @@
 				
 	$.fbuilder[ 'parseVal' ] = function( value, thousandSeparator, decimalSymbol )
 	{
+		if( value == '' ) return 0;
 		value += '';
 		
 		thousandSeparator = new RegExp( $.fbuilder.escape_symbol( ( typeof thousandSeparator == 'undefined' ) ? ',' : thousandSeparator ), 'g' );
