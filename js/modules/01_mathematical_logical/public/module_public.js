@@ -38,7 +38,7 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'default' ] = {
 		{
 			window.CDATE = window.cdate = function ( num, format )
 				{
-					Math.date_format = ( typeof format != 'undefined') ? format : 'mmddyyyy';
+					format = ( typeof format != 'undefined' ) ? format : ( ( typeof window.DATETIMEFORMAT == 'undefined' ) ? window.DATETIMEFORMAT : 'dd/mm/yyyy' );
 					
 					if(isFinite(num*1))
 					{
@@ -52,16 +52,11 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'default' ] = {
 							i = date.getMinutes(),
 							s = date.getSeconds(),
 							a = '';
-							
+			
 						m = (m < 10) ? '0'+m : m;
 						d = (d < 10) ? '0'+d : d;
 						
-						if( typeof window.DATETIMEFORMAT == 'undefined' )
-						{
-							window.DATETIMEFORMAT = ( Math.date_format == 'mmddyyyy' ) ? 'mm/dd/yyyy' : 'dd/mm/yyyy';
-						}
-						
-						if( /a/.test(window.DATETIMEFORMAT) )
+						if( /a/.test( format ) )
 						{
 							a = ( h >= 12 ) ? 'pm' : 'am';
 							h = h % 12;
@@ -71,13 +66,13 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'default' ] = {
 						i = (i < 10) ? '0'+i : i;
 						s = (s < 10) ? '0'+s : s;
 													
-						return window.DATETIMEFORMAT.replace( /y+/, y)
-													.replace( /m+/, m)
-													.replace( /d+/, d)
-													.replace( /h+/, h)
-													.replace( /i+/, i)
-													.replace( /s+/, s)
-													.replace( /a+/, a);
+						return format.replace( /y+/i, y)
+									 .replace( /m+/i, m)
+									 .replace( /d+/i, d)
+									 .replace( /h+/i, h)
+									 .replace( /i+/i, i)
+									 .replace( /s+/i, s)
+									 .replace( /a+/i, a);
 					}
 					return num;
 				};

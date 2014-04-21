@@ -323,20 +323,6 @@
 						}
 					}
 					
-					if ($("#form_structure_hidden"+identifier).length > 0)
-					{
-						var hideFields = [];
-						$.each( toHide, function(i, el)
-							{
-								el = el.substring(0,el.length-identifier.length);
-								if($.inArray(el, hideFields) === -1) 
-								{
-									hideFields.push(el);
-								}	
-							});
-						$("#form_structure_hidden"+identifier).val(hideFields.join());
-					}
-
 					if( typeof configObj[ 'throwEvent' ] == 'undefined' || configObj[ 'throwEvent' ] )
 					{
 						$( document ).trigger( 'showHideDepEvent', $.fbuilder[ 'forms' ][ identifier ][ 'formId' ] );
