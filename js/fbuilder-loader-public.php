@@ -71,15 +71,16 @@ fbuilderjQuery(function(){
 			$("#cp_calculatedfieldsf_pform"+fnum).validate({
                 ignore:".ignore,.ignorepb",
 			    errorElement: "div",
-			    errorPlacement: function(e, element) {
-			        if (element.hasClass('group'))
-                        element = element.parent();
-                    e.insertBefore(element);
-                    e.addClass('message'); // add a class to the wrapper
-                    e.css('position', 'absolute');
-                    e.css('left',0 );
-                    e.css('top',element.parent().outerHeight(true));
-			    }
+			    errorPlacement: function(e, element) 
+					{
+						if (element.hasClass('group'))
+							element = element.parent();
+						e.insertBefore(element);
+						e.addClass('message'); // add a class to the wrapper
+						e.css('position', 'absolute');
+						e.css('left',0 );
+						e.css('top',element.parent().outerHeight(true));
+					}
      		});
      		} catch (e) {}
 	    	fcount++;
