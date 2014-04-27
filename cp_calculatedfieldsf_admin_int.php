@@ -33,6 +33,7 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf
 
  <h2>Form Settings:</h2>
  <hr />
+ <div>* Different form styles available on the tab Form Settings &gt;&gt; Form Template</div>
  <div id="metabox_basic_settings" class="postbox" >
   <h3 class='hndle' style="padding:5px;"><span>Form Builder</span></h3>
   <div class="inside">   
