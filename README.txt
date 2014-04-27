@@ -22,6 +22,7 @@ Calculated Fields Form is for visually:
     ♦ Health / fitness calculators
     ♦ Form builder for adding input fields on the form
     ♦ Add one or more calculated fields
+    ♦ Predefined forms templates
 
 With Calculated Fields Form you can create **forms with dynamically calculated fields** to **display the calculated values**.
 
@@ -45,6 +46,7 @@ Calculated Fields Form can be used for creating both single and complex calculat
 * Multi pages forms supported
 * Conditional rules supported. Useful for creating wizards
 * Intuitive and interactive form builder interface
+* Predefined forms templates
 
 There are five samples already included with the installation:
 
