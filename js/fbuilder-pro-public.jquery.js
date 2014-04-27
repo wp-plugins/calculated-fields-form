@@ -62,6 +62,7 @@
 		var items = [];
 		var reloadItemsPublic = function() 
 			{
+				$("#fieldlist"+opt.identifier).parents( 'form' ).addClass( theForm.formtemplate );
 				for (var i=0, h = $.fbuilder.showSettings.formlayoutList.length; i<h; i++)
 				{
 					$("#fieldlist"+opt.identifier).removeClass($.fbuilder.showSettings.formlayoutList[i].id);
@@ -217,6 +218,7 @@
 				title:"Untitled Form",
 				description:"This is my form. Please fill it out. It's awesome!",
 				formlayout:"top_aligned",
+				formtemplate:"",
 				show:function(){
 					return '<div class="fform" id="field"><h1>'+this.title+'</h1><span>'+this.description+'</span></div>';
 				}

@@ -1,4 +1,5 @@
 	$.fbuilder[ 'typeList' ] = [];
+	$.fbuilder[ 'categoryList' ] = [];
 	$.fbuilder[ 'controls' ] = {};
 	$.fbuilder[ 'htmlEncode' ] = function(value)
 	{
@@ -17,8 +18,8 @@
 				},
 				options, true),
 			typeList = 	$.fbuilder.typeList,
-			controls_categories = {};
-		
+			categoryList = $.fbuilder.categoryList;
+			
 		$.fbuilder[ 'getNameByIdFromType' ] = function( id )
 			{
 				for ( var i = 0, h = typeList.length; i < h; i++ )
@@ -33,22 +34,31 @@
 		
 		for ( var i=0, h = typeList.length; i < h; i++ )
 		{
-			var category_id = typeList[ i ].control_category.id;
+			var category_id = typeList[ i ].control_category;
 			
-			if( typeof controls_categories[ category_id ]  == 'undefined' )
+			if( typeof categoryList[ category_id ]  == 'undefined' )
 			{
-				controls_categories[ category_id ] = { title : typeList[ i ].control_category.title, typeList:[] };
+				categoryList[ category_id ] = { title : '', description : '', typeList : [] };
+			}
+			else if( typeof categoryList[ category_id ][ 'typeList' ]  == 'undefined' )
+			{
+				categoryList[ category_id ][ 'typeList' ] = [];
 			}
 			
-			controls_categories[ category_id ].typeList.push( i );
+			categoryList[ category_id ].typeList.push( i );
 		}
 
-		for ( var i in controls_categories )
+		for ( var i in categoryList )
 		{
-			$("#tabs-1").append('<div style="clear:both;"></div><div>'+controls_categories[ i ].title+'</div><hr />');
-			for( var j = 0, k = controls_categories[ i ].typeList.length; j < k; j++ )
+			$("#tabs-1").append('<div style="clear:both;"></div><div>'+categoryList[ i ].title+'</div><hr />');
+			if( typeof categoryList[ i ][ 'description' ] != 'undefined' && !/^\s*$/.test( categoryList[ i ][ 'description' ] ) )
 			{
-				var index = controls_categories[ i ].typeList[ j ];
+				$("#tabs-1").append('<div style="clear:both;"></div><div class="category-description">'+categoryList[ i ].description+'</div>');
+			}
+			
+			for( var j = 0, k = categoryList[ i ].typeList.length; j < k; j++ )
+			{
+				var index = categoryList[ i ].typeList[ j ];
 				$("#tabs-1").append('<div class="button itemForm width40" id="'+typeList[ index ].id+'">'+typeList[ index ].name+'</div>');
 			}
 		}
@@ -122,6 +132,29 @@
 					theForm.formlayout = $(this).val();
 					$.fbuilder.reloadItems();
 				});
+				
+				$("#fTemplate").change(function()
+				{
+					theForm.formtemplate = $(this).val();
+					var template 	= $.fbuilder.showSettings.formTemplateDic[ theForm.formtemplate ],
+						thumbnail	= '',
+						description = '';
+
+					if( typeof template != 'undefined' )
+					{
+						if( typeof template[ 'thumbnail' ] != 'undefined' )
+						{
+							thumbnail = '<img src="' + template[ 'thumbnail' ] + '">';
+						}
+						if( typeof template[ 'description' ] != 'undefined' )
+						{
+							description = template[ 'description' ];
+						}
+					}
+					$( '#fTemplateThumbnail' ).html( thumbnail );
+					$( '#fTemplateDescription' ).html( description );
+					$.fbuilder.reloadItems();
+				});
 			};
 		
 		$.fbuilder[ 'reloadItems' ] = function() 
@@ -186,14 +219,6 @@
 							$(this).blur();
 						});	
 				}
-				if ($("#fieldlist"+opt.identifier).html() == "")
-				{
-					$("#saveForm").css("display","none");
-				}	
-				else
-				{
-					$("#saveForm").css("display","none"); // changed "inline" to "none"
-				}
 				
 				$(".fform").mouseover(function() 
 					{
@@ -255,6 +280,7 @@
 				title:"Untitled Form",
 				description:"This is my form. Please fill it out. It's awesome!",
 				formlayout:"top_aligned",
+				formtemplate:"",
 				display:function()
 				{
 					return '<div class="fform" id="field"><div class="arrow ui-icon ui-icon-play "></div><h1>'+this.title+'</h1><span>'+this.description+'</span></div>';
@@ -262,12 +288,38 @@
 				
 				showAllSettings:function()
 				{
-					var str = "";
-					for (var i=0;i< $.fbuilder.showSettings.formlayoutList.length;i++)
+					var layout 	    = '',
+						template    = '<option value="">Use default template</option>',
+						thumbnail   = '',
+						description = '',
+						selected    = '';
+						
+					for ( var i = 0; i< $.fbuilder.showSettings.formlayoutList.length; i++ )
 					{
-						str += '<option value="'+$.fbuilder.showSettings.formlayoutList[i].id+'" '+(($.fbuilder.showSettings.formlayoutList[i].id==this.formlayout)?"selected":"")+'>'+$.fbuilder.showSettings.formlayoutList[i].name+'</option>';
+						layout += '<option value="'+$.fbuilder.showSettings.formlayoutList[i].id+'" '+(($.fbuilder.showSettings.formlayoutList[i].id==this.formlayout)?"selected":"")+'>'+$.fbuilder.showSettings.formlayoutList[i].name+'</option>';
 					}	
-					return '<div><label>Form Name</label><input class="large" name="fTitle" id="fTitle" value="'+$.fbuilder.htmlEncode(this.title)+'" /></div><div><label>Description</label><textarea class="large" name="fDescription" id="fDescription">'+this.description+'</textarea></div><div><label>Label Placement</label><br /><select name="fLayout" id="fLayout">'+str+'</select></div>';
+
+					for ( var i in $.fbuilder.showSettings.formTemplateDic )
+					{
+						selected = '';
+						if( $.fbuilder.showSettings.formTemplateDic[i].prefix==this.formtemplate )
+						{
+							selected = 'SELECTED';
+							if( typeof $.fbuilder.showSettings.formTemplateDic[i].thumbnail != 'undefined' )
+							{
+								thumbnail = '<img src="'+$.fbuilder.showSettings.formTemplateDic[i].thumbnail+'">'; 
+							}
+							
+							if( typeof $.fbuilder.showSettings.formTemplateDic[i].description != 'undefined' )
+							{
+								description = $.fbuilder.showSettings.formTemplateDic[i].description; 
+							}
+						}
+						
+						template += '<option value="'+$.fbuilder.showSettings.formTemplateDic[i].prefix+'" ' + selected + '>'+$.fbuilder.showSettings.formTemplateDic[i].title+'</option>';
+					}	
+					
+					return '<div><label>Form Name</label><input class="large" name="fTitle" id="fTitle" value="'+$.fbuilder.htmlEncode(this.title)+'" /></div><div><label>Description</label><textarea class="large" name="fDescription" id="fDescription">'+this.description+'</textarea></div><div><label>Label Placement</label><br /><select name="fLayout" id="fLayout" class="large">'+layout+'</select></div><div><label>Form Template</label><br /><select name="fTemplate" id="fTemplate" class="large">'+template+'</select></div><br /><div><span id="fTemplateThumbnail" style="float:left;padding-right:10px;">'+thumbnail+'</span><span  id="fTemplateDescription" style="float:left;">'+description+'</span></div>' ;
 				}
 			}
 		);
@@ -366,30 +418,35 @@
 			{
 			   $("#"+f).val("["+ $.stringifyXX( items, false )+",["+ $.stringifyXX(theForm,false)+"]]");
 		    },
-		    loadData:function(f)
+		    loadData:function(form_structure, available_templates)
 			{
-		        var d, // JSON data
-					json_str = $("#"+f).val(),
+		        var structure = $.parseJSON( $("#"+form_structure).val() ), // JSON data
+					templates = ( typeof available_templates == 'undefined' ) ? null : $.parseJSON( $("#"+available_templates).val() ),
 					fBuild = this;
-					
-			    if ( d = $.parseJSON( json_str ) )
+
+			    if ( structure )
 				{
-					if (d.length==2)
+					if (structure.length==2)
 					{
 						items = [];
-						for (var i=0;i<d[0].length;i++)
+						for (var i=0;i<structure[0].length;i++)
 						{
-						   var obj = eval("new $.fbuilder.controls['"+d[0][i].ftype+"']();");
-						   obj = $.extend( true, {}, obj, d[0][i] );
+						   var obj = eval("new $.fbuilder.controls['"+structure[0][i].ftype+"']();");
+						   obj = $.extend( true, {}, obj, structure[0][i] );
 						   obj.name = obj.name+opt.identifier;
 						   obj.form_identifier = opt.identifier;
 						   obj.fBuild = fBuild;
 						   items[items.length] = obj;
 						}
 						theForm = new fform();
-						theForm = $.extend(theForm,d[1][0]);
+						theForm = $.extend(theForm,structure[1][0]);
 						$.fbuilder.reloadItems();
 					}
+				}
+				
+				if( templates )
+				{
+					$.fbuilder.showSettings.formTemplateDic = templates;
 				}
 		    },
 		    removeItem: $.fbuilder[ 'removeItem' ],
@@ -404,6 +461,7 @@
 		sizeList:new Array({id:"small",name:"Small"},{id:"medium",name:"Medium"},{id:"large",name:"Large"}),
 		layoutList:new Array({id:"one_column",name:"One Column"},{id:"two_column",name:"Two Column"},{id:"three_column",name:"Three Column"},{id:"side_by_side",name:"Side by Side"}),
 		formlayoutList:new Array({id:"top_aligned",name:"Top Aligned"},{id:"left_aligned",name:"Left Aligned"},{id:"right_aligned",name:"Right Aligned"}),
+		formTemplateDic: {}, // Form Template dictionary
 		showTitle: function(f,v) 
 		{
 			var str = '<label>Field Label</label><textarea class="large" name="sTitle" id="sTitle">'+v+'</textarea>';

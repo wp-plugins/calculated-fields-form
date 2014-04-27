@@ -2,10 +2,7 @@
 			{
 				id:"fradio",
 				name:"Radio Buttons",
-				control_category:{ 
-					id:1, 
-					title:"Form Controls"
-				}
+				control_category:1
 			}
 		);
 		$.fbuilder.controls[ 'fradio' ] = function(){};
