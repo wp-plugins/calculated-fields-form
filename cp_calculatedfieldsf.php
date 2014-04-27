@@ -358,6 +358,31 @@ function cp_calculatedfieldsf_filter_content($atts) {
 $CP_CFF_global_form_count_number = 0;
 $CP_CFF_global_form_count = "_".$CP_CFF_global_form_count_number;
 
+function cp_calculatedfieldsf_available_templates(){	
+	global $CP_CFF_global_templates;
+	
+	if( empty( $CP_CFF_global_templates ) )
+	{
+		// Get available designs
+		$tpls_dir = dir( plugin_dir_path( __FILE__ ).'templates' );
+		$CP_CFF_global_templates = array();
+		while( false !== ( $entry = $tpls_dir->read() ) ) 
+		{    
+			if ( $entry != '.' && $entry != '..' && is_dir( $tpls_dir->path.'/'.$entry ) && file_exists( $tpls_dir->path.'/'.$entry.'/config.ini' ) )
+			{
+				if( ( $ini_array = parse_ini_file( $tpls_dir->path.'/'.$entry.'/config.ini' ) ) !== false )
+				{
+					if( !empty( $ini_array[ 'file' ] ) ) $ini_array[ 'file' ] = plugins_url( 'templates/'.$entry.'/'.$ini_array[ 'file' ], __FILE__ );
+					if( !empty( $ini_array[ 'thumbnail' ] ) ) $ini_array[ 'thumbnail' ] = plugins_url( 'templates/'.$entry.'/'.$ini_array[ 'thumbnail' ], __FILE__ );
+					$CP_CFF_global_templates[ $ini_array[ 'prefix' ] ] = $ini_array;
+				}
+			}			
+		}
+	}
+		
+	return $CP_CFF_global_templates;
+}
+
 function cp_calculatedfieldsf_get_public_form($id) {
     global $wpdb;
     global $CP_CFF_global_form_count;
@@ -371,9 +396,9 @@ function cp_calculatedfieldsf_get_public_form($id) {
     else
         $myrows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE );
     
-    $previous_label = cp_calculatedfieldsf_get_option('vs_text_previousbtn', 'Previous',$id);;
+    $previous_label = cp_calculatedfieldsf_get_option('vs_text_previousbtn', 'Previous',$id);
     $previous_label = ($previous_label==''?'Previous':$previous_label);
-    $next_label = cp_calculatedfieldsf_get_option('vs_text_nextbtn', 'Next',$id);;
+    $next_label = cp_calculatedfieldsf_get_option('vs_text_nextbtn', 'Next',$id);
     $next_label = ($next_label==''?'Next':$next_label);
     
     if (CP_CALCULATEDFIELDSF_DEFAULT_DEFER_SCRIPTS_LOADING)

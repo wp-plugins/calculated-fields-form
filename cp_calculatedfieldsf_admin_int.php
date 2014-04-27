@@ -37,8 +37,8 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf
   <h3 class='hndle' style="padding:5px;"><span>Form Builder</span></h3>
   <div class="inside">   
 
-     <input type="hidden" name="form_structure" id="form_structure" size="180" value="<?php echo str_replace('"','&quot;',str_replace("\r","",str_replace("\n","",esc_attr(cp_calculatedfieldsf_cleanJSON(cp_calculatedfieldsf_get_option('form_structure', CP_CALCULATEDFIELDSF_DEFAULT_form_structure)))))); ?>" />
-     
+     <input type="hidden" name="form_structure" id="form_structure" value="<?php echo str_replace('"','&quot;',str_replace("\r","",str_replace("\n","",esc_attr(cp_calculatedfieldsf_cleanJSON(cp_calculatedfieldsf_get_option('form_structure', CP_CALCULATEDFIELDSF_DEFAULT_form_structure)))))); ?>" />
+	 <input type="hidden" name="templates" id="templates" value="<?php echo esc_attr( json_encode( cp_calculatedfieldsf_available_templates() ) ); ?>" /> 	
      <link href="<?php echo plugins_url('css/style.css', __FILE__); ?>" type="text/css" rel="stylesheet" />   
      <link href="<?php echo plugins_url('css/cupertino/jquery-ui-1.8.20.custom.css', __FILE__); ?>" type="text/css" rel="stylesheet" />   
 
@@ -60,12 +60,8 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf
          
          $calculatedfieldsfQuery(document).ready(function() {
             var f = $calculatedfieldsfQuery("#fbuilder").fbuilder();
-            f.fBuild.loadData("form_structure");
+            f.fBuild.loadData( "form_structure", "templates" );
             
-            $calculatedfieldsfQuery("#saveForm").click(function() {       
-                f.fBuild.saveData("form_structure");
-            });  
-                 
             $calculatedfieldsfQuery(".itemForm").click(function() {
      	       f.fBuild.addItem($calculatedfieldsfQuery(this).attr("id"));
      	   });  
@@ -134,7 +130,6 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf
          <div class="column dashboardColumn padding10" id="fbuilder">
              <div id="formheader"></div>
              <div id="fieldlist"></div>
-             <div class="button" id="saveForm">Save Form</div>
          </div>
          <div class="clearer"></div>
          
