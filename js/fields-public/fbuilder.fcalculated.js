@@ -140,7 +140,21 @@
 						}
 					} 
 					catch(e){}
-				}		
+				},
+			val : function()
+				{
+					var e = $( '[id="' + this.name + '"]:not(.ignore)' );
+					if( e.length )
+					{
+						var v = $.trim( e.val() );
+						
+						v = v.replace( new RegExp( $.fbuilder[ 'escape_symbol' ](this.prefix), 'g' ), '' )
+						     .replace( new RegExp( $.fbuilder[ 'escape_symbol' ](this.suffix), 'g' ), '' );
+						
+						return $.fbuilder.parseVal( v, this.groupingsymbol, this.decimalsymbol );	 
+					}
+					return 0;
+				}
 		}
 	);
 	

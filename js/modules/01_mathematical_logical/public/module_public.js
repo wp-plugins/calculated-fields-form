@@ -38,8 +38,8 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'default' ] = {
 		{
 			window.CDATE = window.cdate = function ( num, format )
 				{
-					format = ( typeof format != 'undefined' ) ? format : ( ( typeof window.DATETIMEFORMAT == 'undefined' ) ? window.DATETIMEFORMAT : 'dd/mm/yyyy' );
-					
+					format = ( typeof format != 'undefined' ) ? format : ( ( typeof window.DATETIMEFORMAT != 'undefined' ) ? window.DATETIMEFORMAT : 'dd/mm/yyyy' );
+
 					if(isFinite(num*1))
 					{
 						num = Math.round(Math.abs(num)*86400000);

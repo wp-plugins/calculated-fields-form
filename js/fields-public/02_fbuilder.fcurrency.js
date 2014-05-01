@@ -9,7 +9,7 @@
 			predefinedClick:false,
 			required:false,
 			size:"small",
-			
+			readonly:false,
 			currencyText:"USD",
 			thousandSeparator:",",
 			centSeparator:".",
@@ -22,11 +22,13 @@
 					{
 						this.centSeparator = '.';
 					}
-					
-					var v = parseFloat( value.replace( new RegExp( "[^\\d" + $.fbuilder.escape_symbol( this.centSeparator ) + "]", "g" ), '' ) );
+					var v = $.trim( value );
+					v = v.replace( new RegExp( $.fbuilder[ 'escape_symbol' ](this.currencySymbol), 'g' ), '' )
+						 .replace( new RegExp( $.fbuilder[ 'escape_symbol' ](this.currencyText), 'g' ), '' );
+					v = $.fbuilder.parseVal( v, this.thousandSeparator, this.centSeparator );	 
 					if( !isNaN( v ) )
 					{
-						v = v.toFixed(2).toString();
+						v = v.toString();
 						var parts = v.toString().split("."),
 							counter = 0,
 							str = '';
@@ -64,7 +66,7 @@
 						} );
 					}
 
-					return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'"><label for="'+this.name+'">'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" class="field '+this.dformat+' '+this.size+((this.required)?" required":"")+'" type="text" value="'+$.fbuilder.htmlEncode( this.getFormattedValue( this.predefined ) )+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
+					return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'"><label for="'+this.name+'">'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><input '+(( this.readonly )? 'READONLY' : '' )+' id="'+this.name+'" name="'+this.name+'" class="field '+this.dformat+' '+this.size+((this.required)?" required":"")+'" type="text" value="'+$.fbuilder.htmlEncode( this.getFormattedValue( this.predefined ) )+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 			val:function()
 				{
@@ -73,9 +75,9 @@
 					{
 						var v = $.trim( e.val() );
 						
-						v = v.replace( new RegExp( this.currencySymbol, 'g' ), '' )
-						     .replace( new RegExp( this.currencyText, 'g' ), '' );
-							 
+						v = v.replace( new RegExp( $.fbuilder[ 'escape_symbol' ](this.currencySymbol), 'g' ), '' )
+						     .replace( new RegExp( $.fbuilder[ 'escape_symbol' ](this.currencyText), 'g' ), '' );
+						
 						return $.fbuilder.parseVal( v, this.thousandSeparator, this.centSeparator );	 
 					}
 					return 0;
