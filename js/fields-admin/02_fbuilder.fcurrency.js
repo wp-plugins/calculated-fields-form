@@ -16,32 +16,35 @@
 				predefinedClick:false,
 				required:false,
 				size:"small",
-				
+				readonly:false,
 				currencySymbol:"$",
 				currencyText:"USD",
 				thousandSeparator:",",
 				centSeparator:".",
 				formatDynamically:false,
-				
+				showReadonly:function()
+					{
+						return '<div><label><input type="checkbox" name="sReadonly" id="sReadonly" '+( ( this.readonly ) ? 'CHECKED' : '' )+' > Read Only</label></div>';
+					},
 				getPredefinedValue:function()
 					{
-						
-						function escape_symbol( value ) // Escape the symbols used in regulars expressions
-						{
-							return value.replace(/([\^\$\-\.\,\[\]\(\)\/\\\*\?\+\!\{\}])/g, "\\$1");
-						};
 						
 						this.centSeparator = $.trim(this.centSeparator);	
 						if( /^\s*$/.test( this.centSeparator ) )
 						{
 							this.centSeparator = '.';
 						}
-					
-						var v = parseFloat( this.predefined.replace( new RegExp( "[^\\d" + escape_symbol( this.centSeparator ) + "]", "g" ), '' ) );	
+						
+						var v = $.trim( this.predefined );
+						
+						v = v.replace( new RegExp( $.fbuilder[ 'escape_symbol' ](this.currencySymbol), 'g' ), '' )
+						     .replace( new RegExp( $.fbuilder[ 'escape_symbol' ](this.currencyText), 'g' ), '' );
+						
+						v = $.fbuilder.parseVal( v, this.thousandSeparator, this.centSeparator );	 
 						
 						if( !isNaN( v ) )
 						{
-							v = v.toFixed(2).toString();
+							v = v.toString();
 							var parts = v.toString().split("."),
 								counter = 0,
 								str = '';
@@ -100,11 +103,17 @@
 								$.fbuilder.reloadItems();
 							});
 							
+						$("#sReadonly").bind("click", {obj: this}, function(e) 
+							{
+								e.data.obj.readonly = $(this).is(':checked');
+								$.fbuilder.reloadItems();
+							});
+							
 						$.fbuilder.controls[ 'ffields' ].prototype.editItemEvents.call(this);
 					},
 				showAllSettings:function()
 					{
-						return this.showTitle()+this.showName()+this.showSize()+this.showLayout()+this.showRequired()+this.showCurrencyFormat()+this.showPredefined()+this.showUserhelp()+this.showCsslayout();
+						return this.showTitle()+this.showName()+this.showSize()+this.showReadonly()+this.showLayout()+this.showRequired()+this.showCurrencyFormat()+this.showPredefined()+this.showUserhelp()+this.showCsslayout();
 					},	
 				showCurrencyFormat: function() 
 					{

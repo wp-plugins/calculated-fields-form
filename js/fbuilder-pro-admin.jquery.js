@@ -8,6 +8,25 @@
 		return value;
 	};
 	
+	$.fbuilder[ 'escape_symbol' ] = function( value ) // Escape the symbols used in regulars expressions
+	{
+		return value.replace(/([\^\$\-\.\,\[\]\(\)\/\\\*\?\+\!\{\}])/g, "\\$1");
+	};
+				
+	$.fbuilder[ 'parseVal' ] = function( value, thousandSeparator, decimalSymbol )
+	{
+		if( value == '' ) return 0;
+		value += '';
+		
+		thousandSeparator = new RegExp( $.fbuilder.escape_symbol( ( typeof thousandSeparator == 'undefined' ) ? ',' : thousandSeparator ), 'g' );
+		decimalSymbol = new RegExp( $.fbuilder.escape_symbol( ( typeof decimalSymbol == 'undefined' ) ? '.' : decimalSymbol ), 'g' );
+		
+		var t = value.replace( thousandSeparator, '' ).replace( decimalSymbol, '.' ).replace( /\s/g, '' ),
+			p = /[+-]?((\d+(\.\d+)?)|(\.\d+))/.exec( t );
+			
+		return ( p ) ? p[0]*1 : '"' + value.replace(/'/g, "\\'").replace( /\$/g, '') + '"';
+	};
+	
 	// fbuilder plugin
 	$.fn.fbuilder = function(options){
 		var opt = $.extend({},
