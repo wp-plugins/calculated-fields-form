@@ -42,7 +42,7 @@
 #fbuilder .cpp_form { text-align:left;}
 #fbuilder .pbreak{display:none;}
 #fbuilder .pbreak.pb0{display:block;}
-#fbuilder .pbreak .pbPrevious,.pbreak .pbNext,.pbSubmit{background:#ccc;color:#000;display:block;float:left;cursor:pointer;margin:30px 10px 0px 0px;padding:5px 20px;}
+#fbuilder .pbreak .pbPrevious,.pbreak .pbNext,.pbSubmit{background:#ccc;color:#000;display:block;float:left;cursor:pointer;margin:10px 10px 0px 0px;padding:5px 20px;}
 #fbuilder .pbreak.pb0 .pbPrevious{display:none;}
 #fbuilder .pbreak.pbEnd .pbNext{display:none;}
 #fbuilder .ignore{border:5px solid black;}
