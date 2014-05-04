@@ -435,6 +435,7 @@ Note that you can make the "Instruct. Text" fields dependent from the calculated
 4. Calculated field settings
 5. Calculator Form builder
 6. Editing general fields
+7. Available designs
 
 == Changelog ==
 
