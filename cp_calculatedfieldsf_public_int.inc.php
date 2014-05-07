@@ -3,7 +3,7 @@
 <link href="<?php echo plugins_url('css/stylepublic.css', __FILE__); ?>" type="text/css" rel="stylesheet" />
 <link href="<?php echo plugins_url('css/cupertino/jquery-ui-1.8.20.custom.css', __FILE__); ?>" type="text/css" rel="stylesheet" />
 <?php
-$raw_form_str = str_replace("\r","",str_replace("\n","",cp_calculatedfieldsf_cleanJSON(cp_calculatedfieldsf_get_option('form_structure', CP_CALCULATEDFIELDSF_DEFAULT_form_structure,$id))));
+$raw_form_str = str_replace("\r"," ",str_replace("\n"," ",cp_calculatedfieldsf_cleanJSON(cp_calculatedfieldsf_get_option('form_structure', CP_CALCULATEDFIELDSF_DEFAULT_form_structure,$id))));
 $form_data = json_decode( $raw_form_str );
 if( is_null( $form_data ) ){
 	$json = new JSON;
