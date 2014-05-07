@@ -43,6 +43,10 @@
 							}
 							parts[0] = str;
 						}
+						if( typeof parts[ 1 ] != 'undefined' && parts[ 1 ].length == 1 )
+						{
+							parts[ 1 ] += '0';
+						}
 						if( /^\s*$/.test( this.centSeparator ) )
 						{
 							this.centSeparator = '.';
