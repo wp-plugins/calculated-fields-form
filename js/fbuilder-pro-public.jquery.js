@@ -8,26 +8,6 @@
 		return value;
 	};
 	
-	$.fbuilder[ 'escape_symbol' ] = function( value ) // Escape the symbols used in regulars expressions
-	{
-		return value.replace(/([\^\$\-\.\,\[\]\(\)\/\\\*\?\+\!\{\}])/g, "\\$1");
-	};
-				
-	$.fbuilder[ 'parseVal' ] = function( value, thousandSeparator, decimalSymbol )
-	{
-		if( value == '' ) return 0;
-		value += '';
-		
-		thousandSeparator = new RegExp( $.fbuilder.escape_symbol( ( typeof thousandSeparator == 'undefined' ) ? ',' : thousandSeparator ), 'g' );
-		decimalSymbol = new RegExp( $.fbuilder.escape_symbol( ( typeof decimalSymbol == 'undefined' ) ? '.' : decimalSymbol ), 'g' );
-		
-		var t = value.replace( thousandSeparator, '' ).replace( decimalSymbol, '.' ).replace( /\s/g, '' ),
-			p = /[+-]?((\d+(\.\d+)?)|(\.\d+))/.exec( t );
-			
-		return ( p ) ? p[0]*1 : '"' + value.replace(/'/g, "\\'").replace( /\$/g, '') + '"';
-	};
-				
-	
 	$.fn.fbuilder = function(options){
 		var opt = $.extend({},
 					{
@@ -62,7 +42,6 @@
 		var items = [];
 		var reloadItemsPublic = function() 
 			{
-				$("#fieldlist"+opt.identifier).parents( 'form' ).addClass( theForm.formtemplate );
 				for (var i=0, h = $.fbuilder.showSettings.formlayoutList.length; i<h; i++)
 				{
 					$("#fieldlist"+opt.identifier).removeClass($.fbuilder.showSettings.formlayoutList[i].id);
@@ -115,7 +94,7 @@
 						{
 							if ($("#cpcaptchalayer"+opt.identifier).html())
 							{
-								code += '<div class="captcha">'+$("#cpcaptchalayer"+opt.identifier).html()+'</div>';
+								code += '<div>'+$("#cpcaptchalayer"+opt.identifier).html()+'</div>';
 								$("#cpcaptchalayer"+opt.identifier).html("");
 							}
 							if ($("#cp_subbtn"+opt.identifier).html())
@@ -153,7 +132,7 @@
 				{
 					if ($("#cpcaptchalayer"+opt.identifier).html())
 					{
-						$("#fieldlist"+opt.identifier+" .pb"+page).append('<div class="captcha">'+$("#cpcaptchalayer"+opt.identifier).html()+'</div>');
+						$("#fieldlist"+opt.identifier+" .pb"+page).append('<div>'+$("#cpcaptchalayer"+opt.identifier).html()+'</div>');
 						$("#cpcaptchalayer"+opt.identifier).html("");
 					}
 					if ($("#cp_subbtn"+opt.identifier).html())
@@ -161,7 +140,7 @@
 						$("#fieldlist"+opt.identifier+" .pb"+page).append('<div class="pbSubmit">'+$("#cp_subbtn"+opt.identifier).html()+'</div>');
 					}	
 				}
-				$("#fieldlist"+opt.identifier+" .pb0").find(".field")[0].focus();
+				
 				$( '#fieldlist'+opt.identifier).find(".pbSubmit").bind("click", { 'identifier' : opt.identifier }, function( evt ) 
 					{
 						$(this).parents("#fieldlist"+evt.data.identifier).parents("form").submit();
@@ -218,7 +197,6 @@
 				title:"Untitled Form",
 				description:"This is my form. Please fill it out. It's awesome!",
 				formlayout:"top_aligned",
-				formtemplate:"",
 				show:function(){
 					return '<div class="fform" id="field"><h1>'+this.title+'</h1><span>'+this.description+'</span></div>';
 				}
@@ -227,17 +205,6 @@
 		//var theForm = new fform(),
 		var theForm,
 			ffunct = {
-				getItem: function( name )
-					{
-						for( var i in items )
-						{
-							if( items[ i ].name == name )
-							{
-								return items[ i ];
-							}
-						}
-						return false;
-					},
 				getItems: function() 
 					{
 					   return items;
@@ -248,6 +215,7 @@
 							e = $("#"+f);
 						
 						this.formId = e.parents( 'form' ).attr( 'id' );
+						
 						if ( d = $.parseJSON( e.val() ))
 						{
 						   if (d.length==2)
@@ -256,7 +224,7 @@
 							   for (var i=0;i<d[0].length;i++)
 							   {
 								   var obj = eval("new $.fbuilder.controls['"+d[0][i].ftype+"']();");
-								   obj = $.extend(true, {}, obj,d[0][i]);
+								   obj = $.extend(obj,d[0][i]);
 								   obj.name = obj.name+opt.identifier;
 								   obj.form_identifier = opt.identifier;
 								   items[items.length] = obj;
@@ -294,15 +262,7 @@
 					{
 						return 'Not available yet';
 					},
-				after_show:function(){},
-				val:function(){
-					var e = $( "[id='" + this.name + "']:not(.ignore)" );
-					if( e.length )
-					{
-						return $.fbuilder.parseVal( $.trim( e.val() ) );
-					}
-					return 0;
-				}
+				after_show:function(){}
 		});
 	
 	$.fbuilder[ 'showHideDep' ] = function( configObj )
@@ -325,6 +285,20 @@
 						}
 					}
 					
+					if ($("#form_structure_hidden"+identifier).length > 0)
+					{
+						var hideFields = [];
+						$.each( toHide, function(i, el)
+							{
+								el = el.substring(0,el.length-identifier.length);
+								if($.inArray(el, hideFields) === -1) 
+								{
+									hideFields.push(el);
+								}	
+							});
+						$("#form_structure_hidden"+identifier).val(hideFields.join());
+					}
+
 					if( typeof configObj[ 'throwEvent' ] == 'undefined' || configObj[ 'throwEvent' ] )
 					{
 						$( document ).trigger( 'showHideDepEvent', $.fbuilder[ 'forms' ][ identifier ][ 'formId' ] );
