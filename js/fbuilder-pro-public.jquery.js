@@ -161,7 +161,7 @@
 						$("#fieldlist"+opt.identifier+" .pb"+page).append('<div class="pbSubmit">'+$("#cp_subbtn"+opt.identifier).html()+'</div>');
 					}	
 				}
-				
+				$("#fieldlist"+opt.identifier+" .pb0").find(".field")[0].focus();
 				$( '#fieldlist'+opt.identifier).find(".pbSubmit").bind("click", { 'identifier' : opt.identifier }, function( evt ) 
 					{
 						$(this).parents("#fieldlist"+evt.data.identifier).parents("form").submit();
