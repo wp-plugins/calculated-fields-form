@@ -121,7 +121,7 @@
 					}
 					
 					this.setEvents();
-					var p  = { dateFormat: this.dformat.replace(/yyyy/g,"yy") },
+					var p  = { dateFormat: this.dformat.replace(/yyyy/g,"yy")},
 						dp = $( "#"+this.name+"_date" ),
 						dd = (this.defaultDate != "") ? this.defaultDate : new Date(),
 						options = {
@@ -140,7 +140,7 @@
 					dp.datepicker(p);
 					dp.attr("working_dates", $.stringifyXX(this.working_dates));
 					dp.datepicker( "setDate", dd);
-					
+					dp.click( function(){ $(document).click(); $(this).focus(); } );
 					if( this.showTimepicker )
 					{
 						var parts, time = {}, tmp = 0;
