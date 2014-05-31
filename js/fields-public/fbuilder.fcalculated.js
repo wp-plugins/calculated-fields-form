@@ -412,7 +412,8 @@
 						{
 							if( $.isNumeric( value ) ) // If is a number set the separators symbols for thousands and decimals
 							{
-								var parts = value.toString().split("."),
+								var symbol = ( value < 0 ) ? '-' : '',
+									parts = Math.abs(value).toString().split("."),
 									counter = 0,
 									str = '';
 									
@@ -426,7 +427,7 @@
 									}
 									parts[0] = str;
 								}
-								value = parts.join( config.decimalsymbol );
+								value = symbol+parts.join( config.decimalsymbol );
 							}
 							
 							if( config.prefix )
