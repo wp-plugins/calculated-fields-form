@@ -1,6 +1,30 @@
 	$.fbuilder[ 'typeList' ] = [];
 	$.fbuilder[ 'categoryList' ] = [];
 	$.fbuilder[ 'controls' ] = {};
+	
+	$.fbuilder[ 'preview' ] = function( e )
+	{
+		var f  = $( e.form );
+		f.attr( 'target', 'formpopup' ).attr( 
+			'onsubmit', 
+			function( f )
+			{
+				var w = screen.width*0.8,
+					h = screen.height*0.7,
+					l = screen.width/2 - w/2,
+					t = screen.height/2 - h/2,
+					new_window = window.open('', 'formpopup', 'resizeable,scrollbars,width='+w+',height='+h+',left='+l+',top='+t);
+					
+				$( f ).removeAttr( 'onsubmit' );
+				new_window.focus();
+			} 
+		);
+		$( '<input type="hidden" name="preview" value="1" />' ).appendTo( f );
+		
+		f[ 0 ].submit();
+		f.attr( 'target', '_self' ).find( 'input[name="preview"]').remove();
+	};
+	
 	$.fbuilder[ 'htmlEncode' ] = function(value)
 	{
 		value = $('<div/>').text(value).html()
