@@ -97,6 +97,7 @@ register_activation_hook(__FILE__,'cp_calculatedfieldsf_install');
 add_action( 'init', 'cp_calculated_fields_form_load_resources', 0 );
 function cp_calculated_fields_form_load_resources()
 	{
+		
 		if( isset( $_REQUEST[ 'cp_cff_resources' ] ) )
 		{
 			if( $_REQUEST[ 'cp_cff_resources' ] == 'admin' )
@@ -124,8 +125,8 @@ if ( is_admin() ) {
     add_filter("plugin_action_links_".$plugin, 'cp_calculatedfieldsf_helpLink');
 
     function cp_calculatedfieldsf_admin_menu() {
-        add_options_page('Calculated Fields Form Options', 'Calculated Fields Form', 'manage_options', 'cp_calculated_fields_form', 'cp_calculatedfieldsf_html_post_page' );
-    }
+		add_options_page('Calculated Fields Form Options', 'Calculated Fields Form', 'manage_options', 'cp_calculated_fields_form', 'cp_calculatedfieldsf_html_post_page' );
+	}
 } else { // if not admin
     add_shortcode( 'CP_CALCULATED_FIELDS', 'cp_calculatedfieldsf_filter_content' );        
 }
@@ -551,7 +552,15 @@ function cp_calculated_fields_form_check_posted_data() {
     if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf_post_options'] ) && is_admin() )
     {
         cp_calculatedfieldsf_save_options();
-        return;
+		if( isset( $_POST[ 'preview' ] ) )
+		{
+			print '<html>'; 
+			print( cp_calculatedfieldsf_filter_content( array( 'id' => $_POST[ 'cp_calculatedfieldsf_id' ] ) ));
+			wp_footer();
+			print '</html>';
+			exit;
+		}	
+		return;
     }
 }            
 

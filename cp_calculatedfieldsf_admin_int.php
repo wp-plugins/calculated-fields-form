@@ -139,7 +139,10 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf
   </div>    
  </div> 
  
- <p class="submit"><input type="submit" name="submit" id="submit" class="button-primary" value="Save Changes"  /></p>
+ <p class="submit">
+	<input type="submit" name="save" id="save" 	 class="button-primary" value="Save Changes"  />
+	<input type="button" name="previewbtn" id="previewbtn" class="button-primary" value="Save & Preview" onclick="jQuery.fbuilder.preview( this );" />
+</p>
  
   <div id="metabox_basic_settings" class="postbox" >
   <h3 class='hndle' style="padding:5px;"><span>Previous & Next Buttons</span></h3>
@@ -230,7 +233,10 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf
   </div>
 </div>   
  
- <p class="submit"><input type="submit" name="submit" id="submit" class="button-primary" value="Save Changes"  /></p>
+ <p class="submit">
+	<input type="submit" name="save" id="save" class="button-primary" value="Save Changes"  />
+	<input type="button" name="previewbtn" id="previewbtn" class="button-primary" value="Save & Preview" onclick="jQuery.fbuilder.preview( this );" />
+</p>
 
  [<a href="http://wordpress.dwbooster.com/contact-us" target="_blank">Request Custom Modifications</a>] | [<a href="http://wordpress.dwbooster.com/forms/calculated-fields-form" target="_blank">Help</a>]
  
@@ -497,7 +503,10 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf
 </div> 
 
 
-<p class="submit"><input type="submit" name="submit" id="submit" class="button-primary" value="Save Changes"  /></p>
+<p class="submit">
+	<input type="submit" name="save" id="save" class="button-primary" value="Save Changes"  />
+	<input type="button" name="previewbtn" id="previewbtn" class="button-primary" value="Save & Preview" onclick="jQuery.fbuilder.preview( this );" />
+</p>
 
 
 [<a href="http://wordpress.dwbooster.com/contact-us" target="_blank">Request Custom Modifications</a>] | [<a href="http://wordpress.dwbooster.com/forms/calculated-fields-form" target="_blank">Help</a>]
@@ -528,16 +537,3 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf
 
      </script>
 <script type="text/javascript">generateCaptcha();</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
