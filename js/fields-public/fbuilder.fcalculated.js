@@ -342,7 +342,6 @@
 									if( calculated_field.length )
 									{
 										var result = _calculate( form[0], equation_object[i].equation,  equation_object[i].identifier );
-
 										// Check the dependent fields after evaluate the equations
 										dep = this.getDepList( equation_object[i].result, result, equation_object[i].dep ) || dep;
 										calculated_field.val(( ( result !== false ) ? this.format( result, equation_object[i].conf) : '' ));
@@ -412,11 +411,12 @@
 						{
 							if( $.isNumeric( value ) ) // If is a number set the separators symbols for thousands and decimals
 							{
+								
 								var symbol = ( value < 0 ) ? '-' : '',
-									parts = Math.abs(value).toString().split("."),
+									parts = value.toString().replace( "-", "" ).split("."),
 									counter = 0,
 									str = '';
-									
+
 								if(config.groupingsymbol)
 								{
 									for( var i = parts[0].length-1; i >= 0; i--){
@@ -427,6 +427,7 @@
 									}
 									parts[0] = str;
 								}
+								
 								value = symbol+parts.join( config.decimalsymbol );
 							}
 							
