@@ -121,21 +121,16 @@
 					}
 					
 					this.setEvents();
-					var p  = { dateFormat: this.dformat.replace(/yyyy/g,"yy")},
+					var p  = { 
+							dateFormat: this.dformat.replace(/yyyy/g,"yy"),
+							minDate: this.minDate,
+							maxDate: this.maxDate
+						},
 						dp = $( "#"+this.name+"_date" ),
-						dd = (this.defaultDate != "") ? this.defaultDate : new Date(),
-						options = {
-							"minDate": this.minDate,
-							"maxDate": this.maxDate
-						};
+						dd = (this.defaultDate != "") ? this.defaultDate : new Date();
 						
 					if (this.showDropdown) p = $.extend(p,{changeMonth: true,changeYear: true,yearRange: this.dropdownRange});
 					p = $.extend(p,{beforeShowDay: function (d) {if (!eval($(this).attr("working_dates"))[d.getDay()]) return [false,""]; else return [true,""];}});
-					
-					dp.datepicker( 
-						"option", 
-						options 
-					);
 					
 					dp.datepicker(p);
 					dp.attr("working_dates", $.stringifyXX(this.working_dates));
