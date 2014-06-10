@@ -113,7 +113,8 @@
 						
 						if (index == page)
 						{
-							if ($("#cpcaptchalayer"+opt.identifier).html())
+
+							if ( $( "#cpcaptchalayer"+opt.identifier ).length && !/^\s*$/.test( $( "#cpcaptchalayer"+opt.identifier ).html() ) )
 							{
 								code += '<div class="captcha">'+$("#cpcaptchalayer"+opt.identifier).html()+'</div>';
 								$("#cpcaptchalayer"+opt.identifier).html("");
@@ -151,7 +152,7 @@
 				}
 				else
 				{
-					if ($("#cpcaptchalayer"+opt.identifier).html())
+					if ( $( "#cpcaptchalayer"+opt.identifier ).length && !/^\s*$/.test( $( "#cpcaptchalayer"+opt.identifier ).html() ) )
 					{
 						$("#fieldlist"+opt.identifier+" .pb"+page).append('<div class="captcha">'+$("#cpcaptchalayer"+opt.identifier).html()+'</div>');
 						$("#cpcaptchalayer"+opt.identifier).html("");
@@ -163,11 +164,11 @@
 				}
 				focusWithoutScrolling = function(el){
                   var x = window.scrollX, y = window.scrollY;
-                  el.focus();
+                  if( !/date/.test( el.id ) ) el.focus();
                   window.scrollTo(x, y);
                 
                 };
-				focusWithoutScrolling($("#fieldlist"+opt.identifier+" .pb0").find(".field")[0]);
+				focusWithoutScrolling($("#fieldlist"+opt.identifier+" .pb0").find(".field")[0]);			
 				$( '#fieldlist'+opt.identifier).find(".pbSubmit").bind("click", { 'identifier' : opt.identifier }, function( evt ) 
 					{
 						$(this).parents("#fieldlist"+evt.data.identifier).parents("form").submit();
