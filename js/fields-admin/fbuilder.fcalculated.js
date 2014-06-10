@@ -75,7 +75,7 @@
 			hidefield:false,
 			display:function()
 				{
-					return '<div class="fields" id="field'+this.form_identifier+'-'+this.index+'"><div class="arrow ui-icon ui-icon-play "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input class="field disabled '+this.size+'" type="text" value="'+this.predefined+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
+					return '<div class="fields '+this.name+'" id="field'+this.form_identifier+'-'+this.index+'"><div class="arrow ui-icon ui-icon-play "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input class="field disabled '+this.size+'" type="text" value="'+this.predefined+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{
@@ -237,9 +237,9 @@
 						});
 					$.fbuilder.controls[ 'ffields' ].prototype.editItemEvents.call(this);
 				},
-		showAllSettings:function()
+		showSpecialDataInstance: function()
 			{
-				return this.showTitle()+this.showName()+this.showSize()+this.showLayout()+this.showFormat()+this.showRange()+this.showRequired()+this.showReadOnly()+this.showHideField()+this.showSpecialData()+this.showPredefined()+this.showOptimizeEq()+this.showEqEditor()+this.showDependencies()+this.showUserhelp()+this.showCsslayout();
+				return this.showReadOnly()+this.showHideField()+this.showOptimizeEq()+this.showEqEditor()+this.showDependencies();
 			},
 		showDependencies : function()
 			{

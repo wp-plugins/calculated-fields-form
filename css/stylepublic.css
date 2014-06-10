@@ -46,8 +46,8 @@
 #fbuilder .pbreak.pb0 .pbPrevious{display:none;}
 #fbuilder .pbreak.pbEnd .pbNext{display:none;}
 #fbuilder .ignore{border:5px solid black;}
-#fbuilder .pbreak fieldset{border:1px solid #ccc;padding:10px;}
-#fbuilder .pbreak legend{border:1px solid #ccc;padding:5px 10px;}
+#fbuilder fieldset{border:1px solid #ccc;padding:10px;}
+#fbuilder legend{border:1px solid #ccc;padding:5px 10px;}
 #fbuilder .cpcaptchalayer,.cp_subbtn{display:none;}
 
 #fbuilder input[type='radio'],#fbuilder input[type='checkbox']{width:auto;}

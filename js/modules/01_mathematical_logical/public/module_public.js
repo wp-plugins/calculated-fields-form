@@ -12,22 +12,7 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'default' ] = {
 				{
 					if(/^\d+$/.test(pr) && /^[+-]?\d+(\.\d+)?$/.test(num))
 					{
-						result = Math.round(num * Math.pow(10,pr));
-						result = result/Math.pow(10,pr);
-						tmp    = result.toString().indexOf('.');
-						if(tmp == -1 && pr > 0)
-						{
-							tmp = pr;
-							result = result+'.';
-						}
-						else
-						{
-							tmp = pr-((result.toString().length) - (tmp+1));
-						}
-						for(var i = 0; i < tmp; i++)
-						{
-							result += '0';
-						}
+						result = num.toFixed( pr );
 						return result;
 					}
 					return num;

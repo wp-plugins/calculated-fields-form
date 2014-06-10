@@ -99,11 +99,14 @@
 				$("#tabs-1").append('<div style="clear:both;"></div><div class="category-description">'+categoryList[ i ].description+'</div>');
 			}
 			
-			for( var j = 0, k = categoryList[ i ].typeList.length; j < k; j++ )
+			if( typeof categoryList[ i ][ 'typeList' ]  != 'undefined' )
 			{
-				var index = categoryList[ i ].typeList[ j ];
-				$("#tabs-1").append('<div class="button itemForm width40" id="'+typeList[ index ].id+'">'+typeList[ index ].name+'</div>');
-			}
+				for( var j = 0, k = categoryList[ i ].typeList.length; j < k; j++ )
+				{
+					var index = categoryList[ i ].typeList[ j ];
+					$("#tabs-1").append('<div class="button itemForm width40" id="'+typeList[ index ].id+'">'+typeList[ index ].name+'</div>');
+				}
+			}	
 		}
 		
 		$("#tabs-1").append('<div class="clearer"></div>');
@@ -126,12 +129,13 @@
 			
 		$.fbuilder[ 'removeItem' ] = function( index ) 
 			{
+				if( typeof items[ index ][ 'remove' ] != 'undefined' ) items[ index ][ 'remove' ]();
 				items.splice(index,1);
 				for ( var i=0, h = items.length; i<h; i++ )
 				{
 					items[i].index = i;
 				}
-				
+				selected = -2;
 				$('#tabs').tabs("option", "active", 0);
 				$.fbuilder.reloadItems();
 			};
@@ -145,11 +149,19 @@
 				   if (n1>n)
 					   n = n1;
 				}
+				
+				if( $( '#field-' + items[ index ].index ).parents( '.fields' ).length )
+				{
+					var i = $( '#field-' + items[ index ].index ).parents( '.fields' ).attr( 'id' ).replace( 'field-', '' );
+					if( typeof items[ i ][ 'duplicateItem' ] != 'undefined' ) items[ i ][ 'duplicateItem' ]( items[ index ].name, 'fieldname'+( n + 1 ) );
+				}
+				
 				items.splice( index*1+1, 0, $.extend( true, {}, items[index], { name:"fieldname"+(n+1) } ) );
 				for ( var i=index*1+1, h = items.length; i<h; i++ )
 				{
 					items[i].index = i;
-				}	
+				}
+				
 				$('#tabs').tabs("option", "active", 0);
 				$.fbuilder.reloadItems();
 			}
@@ -158,6 +170,7 @@
 			{
 				$('#tabs-3').html(theForm.showAllSettings());
 				selected = -1;
+
 				$("#fTitle").keyup(function()
 				{
 					theForm.title = $(this).val();
@@ -241,21 +254,28 @@
 						});
 						
 				}
+				for ( var i=0, h = items.length; i < h; i++ )
+				{
+					if( typeof items[ i ].after_show != 'undefined' ) items[ i ].after_show();
+				}
 				if (items.length>0)
 				{
-				    $(".fields").mouseover(function() 
+				    $(".fields").mouseover(function( evt ) 
 						{
 							$(this).addClass("ui-over");
+							evt.stopPropagation();
 						})
-						.mouseout(function()
+						.mouseout(function( evt )
 						{
-							$(this).removeClass("ui-over")
+							$(this).removeClass("ui-over");
+							evt.stopPropagation();
 						})
-						.click(function()
+						.click(function( evt )
 						{
 							$.fbuilder[ 'editItem' ]($(this).attr("id").replace("field"+opt.identifier+"-",""));
-							$(this).siblings().removeClass("ui-selected");
+							$( '#fieldlist .ui-selected' ).removeClass("ui-selected");
 							$(this).addClass("ui-selected");
+							evt.stopPropagation();
 						});
 					$(".field").focus(function()
 						{
@@ -370,34 +390,29 @@
 		var theForm = new fform();
 		$("#fieldlist"+opt.identifier).sortable(
 			{
-			    start: function(event, ui) 
+				'connectWith': '.ui-sortable',
+				'items': '.fields',
+				'update': function( event, ui )
 				{
-				   var start_pos = ui.item.index();
-				   ui.item.data('start_pos', start_pos);
-			    },
-			    stop: function(event, ui) 
-				{
-				    var end_pos = parseInt(ui.item.index()),
-						start_pos = parseInt(ui.item.data('start_pos')),
-						tmp = items[start_pos];
+					var i, h = items.length;
+					for( i = 0; i < h; i++ )
+					{
+						if( ui.item.hasClass( items[ i ].name ) ) break;
+					}
 						
-				    if (end_pos > start_pos)
-				    {
-					    for (var i = start_pos; i<end_pos; i++)
-						{
-						   items[i] = items[i+1];
-						}   
-				   }
-				   else
-				   {
-					    for (var i = start_pos; i > end_pos; i--)
-					    {
-						   items[i] = items[i-1];
-						}   
-				   }
-				   items[end_pos] = tmp;
-				   $.fbuilder.reloadItems();
-			    }
+					if( ui.item.parent().attr( 'id' ) == 'fieldlist' )
+					{
+						// receive or change order in fieldlist
+						var end_pos = parseInt( ui.item.index() );
+						items.splice( end_pos, 0,  items.splice( i, 1 )[ 0 ] );
+						$.fbuilder.reloadItems();
+					}
+					else
+					{
+						// remove
+						items = items.concat( items.splice( i, 1 ) );
+					}
+				}
 			}   
 		);
 		
@@ -405,28 +420,29 @@
 			{
 				activate: function(event, ui) 
 					{
-					   if ($(this).tabs( "option", "active" )!=1)
-					   {
-							$(".fields").removeClass("ui-selected");
-							selected = -2;
-							if ($(this).tabs( "option", "active" )==2)
-							{
-							   $(".fform").addClass("ui-selected");
-							   $.fbuilder.editForm();
-							}
-							else
-							{
-							   $(".fform").removeClass("ui-selected");
-							} 
-					   }
-					   else
-					   {
-							$(".fform").removeClass("ui-selected");
-							if (selected < 0)
-							{
-							   $('#tabs-2').html('<b>No Field Selected</b><br />Please click on a field in the form preview on the right to change its properties.');
-							}   
-					   }
+						switch( $(this).tabs( "option", "active" ) )
+						{
+							case 0:
+								$(".fform").removeClass("ui-selected");
+								if( $(".fields.ui-selected").find( '.fcontainer' ).length == 0 ) // There is no selected container
+								{
+									$(".fields").removeClass("ui-selected");
+									selected = -2;
+								}
+							break;
+							case 1:
+								$(".fform").removeClass("ui-selected");
+								if (selected < 0)
+								{
+								   $('#tabs-2').html('<b>No Field Selected</b><br />Please click on a field in the form preview on the right to change its properties.');
+								}
+							break;
+							case 2:
+								$(".fields").removeClass("ui-selected");
+								$(".fform").addClass("ui-selected");
+								$.fbuilder.editForm();
+							break;
+						}
 					}	   
 			}		
 		);
@@ -441,9 +457,8 @@
 			    var obj = eval("new $.fbuilder.controls['"+id+"']();"),
 					fBuild = this,
 					n = 0;
-			    
+
 				obj.init();
-			    
 			    for (var i=0, h = items.length; i < h; i++)
 			    {
 		 		    n1 = parseInt(items[i].name.replace(/fieldname/g,""));
@@ -452,9 +467,11 @@
 					   n = n1;
 					}   
  			    }
+				n++;
 				obj.fBuild = fBuild;
-			    $.extend(obj,{name:"fieldname"+(n+1)});
+			    $.extend(obj,{name:"fieldname"+n});
 			    items[items.length] = obj;
+				if( selected >= 0 && typeof items[ selected ][ 'addItem' ] != 'undefined' ) items[ selected ][ 'addItem' ]( obj.name );
 			    $.fbuilder.reloadItems();
 		    },
 		    saveData:function(f)
@@ -511,11 +528,14 @@
 			if (v=="Page Break") str = "";
 			return '<label>Field Type: '+$.fbuilder[ 'getNameByIdFromType' ](f)+'</label><br /><br />'+str;
 		},
-		showName: function(v1,v2) 
+		showShortLabel: function( v )
 		{
-			return '<div><label>Short label (optional) [<a class="helpfbuilder" text="The short label is used at title for the column when exporting the form data to CSV files.\n\nIf the short label is empty then, the field label will be used for the CSV file.">help?</a>] :</label><input class="large" name="sShortlabel" id="sShortlabel" value="'+v2+'" /></div>'+
-				   '<div><label>Field tag for the message (optional):</label><input readonly="readonly" class="large" name="sNametag" id="sNametag" value="&lt;%'+v1+'%&gt;" />'+
-				   '<input style="display:none" readonly="readonly" class="large" name="sName" id="sName" value="'+v1+'" /></div>';
+			return '<div><label>Short label (optional) [<a class="helpfbuilder" text="The short label is used at title for the column when exporting the form data to CSV files.\n\nIf the short label is empty then, the field label will be used for the CSV file.">help?</a>] :</label><input class="large" name="sShortlabel" id="sShortlabel" value="'+v+'" /></div>';
+		},
+		showName: function( v ) 
+		{
+			return '<div><label>Field tag for the message (optional):</label><input readonly="readonly" class="large" name="sNametag" id="sNametag" value="&lt;%'+v+'%&gt;" />'+
+				   '<input style="display:none" readonly="readonly" class="large" name="sName" id="sName" value="'+v+'" /></div>';
 		},
 		showPredefined: function(v,c) 
 		{
@@ -739,17 +759,17 @@
 			
 			showUserhelp:function()
 			{
-				return ((this.ftype!="fPageBreak") ? $.fbuilder.showSettings.showUserhelp(this.userhelp,this.userhelpTooltip) : "");
+				return $.fbuilder.showSettings.showUserhelp(this.userhelp,this.userhelpTooltip);
 			},
 			
 			showCsslayout:function()
 			{
-				return ((this.ftype!="fPageBreak") ? $.fbuilder.showSettings.showCsslayout(this.csslayout) : "");
+				return $.fbuilder.showSettings.showCsslayout(this.csslayout);
 			},
 			
 			showAllSettings:function()
 			{
-				return this.showTitle()+this.showName()+this.showSize()+this.showLayout()+this.showFormat()+this.showRange()+this.showRequired()+this.showSpecialData()+this.showEqualTo()+this.showPredefined()+this.showChoice()+this.showUserhelp()+this.showCsslayout();
+				return this.showTitle()+this.showShortLabel()+this.showName()+this.showSize()+this.showLayout()+this.showFormat()+this.showRange()+this.showRequired()+this.showSpecialData()+this.showEqualTo()+this.showPredefined()+this.showChoice()+this.showUserhelp()+this.showCsslayout();
 			},
 			
 			showTitle:function()
@@ -759,7 +779,12 @@
 			
 			showName:function()
 			{
-				return ((this.ftype!="fPageBreak") ? $.fbuilder.showSettings.showName(this.name,this.shortlabel) : "");
+				return $.fbuilder.showSettings.showName(this.name);
+			},
+			
+			showShortLabel:function()
+			{
+				return $.fbuilder.showSettings.showShortLabel(this.shortlabel);
 			},
 			
 			display:function()
@@ -767,7 +792,8 @@
 				return 'Not available yet';
 			},
 			
-			show:function(){
+			show:function()
+			{
 				return 'Not available yet';
 			}
 		}

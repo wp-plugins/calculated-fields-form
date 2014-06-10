@@ -72,7 +72,7 @@
 					},
 				display:function()
 					{
-						return '<div class="fields" id="field'+this.form_identifier+'-'+this.index+'"><div class="arrow ui-icon ui-icon-play "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input class="field disabled '+this.size+'" type="text" value="'+$.fbuilder.htmlEncode(this.getPredefinedValue())+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
+						return '<div class="fields '+this.name+'" id="field'+this.form_identifier+'-'+this.index+'"><div class="arrow ui-icon ui-icon-play "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input class="field disabled '+this.size+'" type="text" value="'+$.fbuilder.htmlEncode(this.getPredefinedValue())+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 					},
 				editItemEvents:function()
 					{
@@ -115,10 +115,10 @@
 							
 						$.fbuilder.controls[ 'ffields' ].prototype.editItemEvents.call(this);
 					},
-				showAllSettings:function()
+				showSpecialDataInstance: function()
 					{
-						return this.showTitle()+this.showName()+this.showSize()+this.showReadonly()+this.showLayout()+this.showRequired()+this.showCurrencyFormat()+this.showPredefined()+this.showUserhelp()+this.showCsslayout();
-					},	
+						return this.showCurrencyFormat();
+					},
 				showCurrencyFormat: function() 
 					{
 						var str = '<div><label>Currency Symbol</label><br /><input type="text" name="sCurrencySymbol" id="sCurrencySymbol" value="'+this.currencySymbol+'"></div>';
