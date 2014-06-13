@@ -4,7 +4,7 @@
 	$.fbuilder[ 'htmlEncode' ] = function(value)
 	{
 		value = $('<div/>').text(value).html()
-		value = value.replace(/"/g, "&quot;");
+		value = value.replace(/"/g, "&quot;").replace( /&/g, '&amp;');
 		return value;
 	};
 	
