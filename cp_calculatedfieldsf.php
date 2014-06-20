@@ -343,17 +343,29 @@ function _cp_calculatedfieldsf_install() {
 
 
 function cp_calculatedfieldsf_filter_content($atts) {
-    global $wpdb;    
-    extract( shortcode_atts( array(
-		'id' => '',
-	), $atts ) );
-    //if ($id != '')
-    //    define ('CP_CALCULATEDFIELDSF_ID',$id);    
-    ob_start();  
-    cp_calculatedfieldsf_get_public_form($id);
-    $buffered_contents = ob_get_contents();
-    ob_end_clean();       
-    return $buffered_contents;
+    global $wpdb;
+	
+    if( $atts[ 'id' ] )
+	{
+		ob_start();  
+		cp_calculatedfieldsf_get_public_form($id);
+		$buffered_contents = ob_get_contents();
+		if( count( $atts ) > 1 )
+		{
+			$buffered_contents .= '<script>'; 
+			foreach( $atts as $i => $v )
+			{
+				if( $i != 'id' && !is_numeric( $i ) )
+				{
+					$buffered_contents .= $i.'='.( ( is_numeric( $v ) ) ? $v : '"'.addcslashes( $v, '"' ).'"' ).';';
+				}
+			}
+			$buffered_contents .= '</script>';
+		}
+		ob_end_clean();       
+		return $buffered_contents;
+	}
+	return '';
 }
 
 $CP_CFF_global_form_count_number = 0;

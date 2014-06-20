@@ -117,6 +117,11 @@ http://wordpress.dwbooster.com/forms/calculated-fields-form
 
 A: You can publish the forms into pages and posts. The shortcode can be also placed into the template. Other versions of the plugin also allow publishing it as a widget.
 
+= Q: Can I create global variables to be used in the equations? =
+
+A: Yes, it is possible create global variables in javascript through the shortcode of the plugin. For example, in the following shortcode [CP_CALCULATED_FIELDS id=1 myvar=4], the id=1 identifies the form to be loaded, and myvar=4 will be a global variable in javascript with value 4, that may be used in the equations.
+
+If your form includes the numeric field: "fieldname1", and a calculated field. The equation for the calculated field could be fieldname1*myvar
 
 = Q: Is the form processing an option, for example, to email the form data and calculated results? =
 
