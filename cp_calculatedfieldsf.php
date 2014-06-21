@@ -343,12 +343,11 @@ function _cp_calculatedfieldsf_install() {
 
 
 function cp_calculatedfieldsf_filter_content($atts) {
-    global $wpdb;
-	
+    global $wpdb;	
     if( $atts[ 'id' ] )
 	{
 		ob_start();  
-		cp_calculatedfieldsf_get_public_form($id);
+		cp_calculatedfieldsf_get_public_form($atts[ 'id' ]);
 		$buffered_contents = ob_get_contents();
 		if( count( $atts ) > 1 )
 		{
