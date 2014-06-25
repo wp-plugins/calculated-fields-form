@@ -305,7 +305,7 @@
 				for ( var i=0, h = items.length; i < h; i++ )
 				{
 					var item = items[ i ];
-					if (item.ftype=="femail")
+					if (item.ftype=="femail" || item.ftype=="femailds")
 					{
 						str += '<option value="'+item.name+'" '+((item.name == $('#cu_user_email_field').attr("def"))?"selected":"")+'>'+item.name+' ('+item.title+')'+'</option>';
 					}
