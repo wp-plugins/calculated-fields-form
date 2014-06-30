@@ -143,6 +143,13 @@
                         return [true,""]; 
                     };
                     
+                    function validator( v, e )
+                    {
+                        var p = e.name.replace( '_date', '' ).split( '_' ),
+                            item = $.fbuilder[ 'forms' ][ '_'+p[ 1 ] ].getItem( p[ 0 ]+'_'+p[ 1 ] );
+                        return this.optional( e ) || validateDate( $( e ).datepicker( 'getDate' ), item.working_dates, item.invalidDates )[ 0 ];
+                    };
+                    
 					this.setEvents();
 					var p  = { 
 							dateFormat: this.dformat.replace(/yyyy/g,"yy"),
@@ -182,17 +189,9 @@
 					}
 					
 					$( '#'+this.name+'_date' ).change();
-					
-					$.validator.addMethod(
-                        "dateddmmyyyy", 
-                        (   function( w, i ){ 
-                                return function(value, element) 
-                                {
-                                    return this.optional(element) || validateDate( $( element ).datepicker( 'getDate' ), w, i )[ 0 ];
-                                };
-                            }    
-                        )( this.working_dates, this.invalidDates )
-                    );
+                    
+                    $.validator.addMethod("dateddmmyyyy", validator );
+					$.validator.addMethod("datemmddyyyy", validator );
 				},
 			val:function()
 				{
