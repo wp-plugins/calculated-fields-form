@@ -118,6 +118,15 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
     document.location = 'options-general.php?page=cp_calculated_fields_form&a=1&r='+Math.random()+'&name='+encodeURIComponent(calname);       
  }
  
+ function cp_addItem_keyup( e )
+ {
+    e.which = e.which || e.keyCode;
+    if(e.which == 13) {
+        var calname = document.getElementById("cp_itemname").value;
+        document.location = 'options-general.php?page=cp_calculated_fields_form&a=1&r='+Math.random()+'&name='+encodeURIComponent(calname);       
+    }
+ }
+ 
  function cp_updateItem(id)
  {
     var calname = document.getElementById("calname_"+id).value;    
@@ -214,7 +223,7 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
    
     <form name="additem">
       Item Name:<br />
-      <input type="text" name="cp_itemname" id="cp_itemname"  value="" /> <input type="button" onclick="cp_addItem();" name="gobtn" value="Add" />
+      <input type="text" name="cp_itemname" id="cp_itemname"  value="" onkeyup="cp_addItem_keyup( event );" /> <input type="button" onclick="cp_addItem();" name="gobtn" value="Add" />
       <br /><br />      
     </form>
 

@@ -14,6 +14,7 @@
 			dropdownRange:"-10:+10",
 			minDate:"",
 			maxDate:"",
+            invalidDates:"",
 			minHour:0,
 			maxHour:23,
 			minMinute:0,
@@ -45,7 +46,14 @@
 					this.maxMinute 	= checkValue( this.maxMinute, 0, 59 );
 					this.stepHour 	= checkValue( this.stepHour, 1, Math.max( 1, this.maxHour - this.minHour ) );
 					this.stepMinute = checkValue( this.stepMinute, 1, Math.max( 1, this.maxMinute - this.minMinute ) );
-				},
+                    
+                    this.invalidDates = this.invalidDates.replace( /\s+/g, '').match( /\d{1,2}\/\d{1,2}\/\d{4}/g );
+                    if( this.invalidDates !== null )
+                    {
+                        for( var i = 0, h = this.invalidDates.length; i < h; i++ )
+                            this.invalidDates[ i ] = new Date( this.invalidDates[ i ] );
+                    }
+                },
 			get_hours:function()
 				{
 					var str = '',
@@ -118,8 +126,23 @@
 							}
 						} );
 						$( f+'[value="' + ( ( v < m ) ? v : m ) + '"]' ).attr( 'selected', true );
-					}
+					};
 					
+                    function validateDate( d, w, i )
+                    {
+                        if( d === null ) return [false,""];
+                        if ( ! w[ d.getDay()]) return [false,""];
+                        if( i !== null )
+                        {
+                            for( var j = 0, h = i.length; j < h; j++ )
+                            {
+                                if( d.getDate() == i[ j ].getDate() && d.getMonth() == i[ j ].getMonth() && d.getFullYear() == i[ j ].getFullYear() ) return [false,""];
+                            }
+                        }
+                        
+                        return [true,""]; 
+                    };
+                    
 					this.setEvents();
 					var p  = { 
 							dateFormat: this.dformat.replace(/yyyy/g,"yy"),
@@ -128,14 +151,17 @@
 						},
 						dp = $( "#"+this.name+"_date" ),
 						dd = (this.defaultDate != "") ? this.defaultDate : new Date();
-						
+                        
+					dp.click( function(){ $(document).click(); $(this).focus(); } );	
 					if (this.showDropdown) p = $.extend(p,{changeMonth: true,changeYear: true,yearRange: this.dropdownRange});
-					p = $.extend(p,{beforeShowDay: function (d) {if (!eval($(this).attr("working_dates"))[d.getDay()]) return [false,""]; else return [true,""];}});
-					
+					p = $.extend(p, { beforeShowDay: ( function ( w, i ) { return function( d ){ return validateDate( d, w, i ); }; } )( this.working_dates, this.invalidDates ) } );
 					dp.datepicker(p);
-					dp.attr("working_dates", $.stringifyXX(this.working_dates));
-					dp.datepicker( "setDate", dd);
-					dp.click( function(){ $(document).click(); $(this).focus(); } );
+                    
+                    if( validateDate( dd, this.working_dates, this.invalidDates)[ 0 ]  )
+                    {    
+                        dp.datepicker( "setDate", dd);
+                    }
+					
 					if( this.showTimepicker )
 					{
 						var parts, time = {}, tmp = 0;
@@ -157,15 +183,16 @@
 					
 					$( '#'+this.name+'_date' ).change();
 					
-					$.validator.addMethod("dateddmmyyyy", function(value, element) 
-						{
-						  return this.optional(element) || /^(?:[1-9]|0[1-9]|1[0-9]|2[0-9]|3[0-1])[\/\-](?:[1-9]|0[1-9]|1[0-2])[\/\-]\d{4}$/.test(value);
-						});
-					
-					$.validator.addMethod("datemmddyyyy", function(value, element) 
-						{
-						  return this.optional(element) || /^(?:[1-9]|0[1-9]|1[0-2])[\/\-](?:[1-9]|0[1-9]|1[0-9]|2[0-9]|3[0-1])[\/\-]\d{4}$/.test(value);
-						});//{required: true, range: [11, 22]}
+					$.validator.addMethod(
+                        "dateddmmyyyy", 
+                        (   function( w, i ){ 
+                                return function(value, element) 
+                                {
+                                    return this.optional(element) || validateDate( $( element ).datepicker( 'getDate' ), w, i )[ 0 ];
+                                };
+                            }    
+                        )( this.working_dates, this.invalidDates )
+                    );
 				},
 			val:function()
 				{
