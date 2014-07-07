@@ -65,7 +65,7 @@
 						identifier = this.form_identifier;
 					try 
 					{
-						if ( ( item.parents( '#fieldlist' + identifier ).length==1 ) && ( ( item.attr( 'dep' ) && item.attr( 'dep' ) != '' ) || ( item.attr( 'notdep' ) && item.attr( 'notdep' ) != '' ) ) )
+						if ( ( item.closest( '#fieldlist' + identifier ).length==1 ) && ( ( item.attr( 'dep' ) && item.attr( 'dep' ) != '' ) || ( item.attr( 'notdep' ) && item.attr( 'notdep' ) != '' ) ) )
 						{
 							var d = item.attr( 'dep').split( ',' );
 							for ( i=0; i<d.length; i++ )
@@ -79,8 +79,8 @@
 										{
 											if  ( $.inArray( item.attr( 'id' ), toHide ) == -1 )
 											{
-												$( '#' + d[i] ).parents( '.fields' ).css( 'display', '' );
-												$( '#' + d[i] ).parents( '.fields' ).find( '.field' ).each( function()
+												$( '#' + d[i] ).closest( '.fields' ).css( 'display', '' );
+												$( '#' + d[i] ).closest( '.fields' ).find( '.field' ).each( function()
 													{
 														$(this).removeClass( 'ignore' );
 													});
@@ -98,8 +98,8 @@
 											}
 											else
 											{
-												$( '#' + d[i] ).parents( '.fields' ).css( 'display', 'none' );
-												$( '#' + d[i] ).parents( '.fields' ).find( '.field' ).each(function()
+												$( '#' + d[i] ).closest( '.fields' ).css( 'display', 'none' );
+												$( '#' + d[i] ).closest( '.fields' ).find( '.field' ).each(function()
 													{
 														$(this).addClass( 'ignore');
 													});
@@ -126,8 +126,8 @@
 									{
 										try 
 										{
-												$( '#' + d[i] ).parents( '.fields' ).css( 'display', 'none' );
-												$( '#' + d[i] ).parents( '.fields' ).find( '.field' ).each(function()
+												$( '#' + d[i] ).closest( '.fields' ).css( 'display', 'none' );
+												$( '#' + d[i] ).closest( '.fields' ).find( '.field' ).each(function()
 													{
 														$(this).addClass( 'ignore');
 													});
