@@ -57,7 +57,7 @@
 					{
 						if( item.length )
 						{
-							var parent = item.parents( '.fields' );
+							var parent = item.closest( '.fields' );
 							parent.find( '.field' ).each( function()
 							{
 								var item = $( this );
@@ -76,8 +76,8 @@
 												{
 													if ( item.is( ':checked' ) && $.inArray( item.attr( 'id' ), toHide ) == -1  )
 													{
-														$( '#'+d[i] ).parents( '.fields' ).css( 'display', '' );
-														$( '#'+d[i] ).parents( '.fields' ).find( '.field' ).each( function(){
+														$( '#'+d[i] ).closest( '.fields' ).css( 'display', '' );
+														$( '#'+d[i] ).closest( '.fields' ).find( '.field' ).each( function(){
 																$(this).removeClass( 'ignore' );
 															});
 															
@@ -94,8 +94,8 @@
 													}
 													else
 													{
-														$( '#' + d[i] ).parents( '.fields' ).css( 'display', 'none' );
-														$( '#' + d[i] ).parents( '.fields' ).find( '.field' ).each(function()
+														$( '#' + d[i] ).closest( '.fields' ).css( 'display', 'none' );
+														$( '#' + d[i] ).closest( '.fields' ).find( '.field' ).each(function()
 															{
 																$(this).addClass('ignore');
 															});
