@@ -163,9 +163,9 @@
 					}	
 				}
 				focusWithoutScrolling = function(el){
-                  var x = window.scrollX, y = window.scrollY;
+                  var x = $(window).scrollLeft(), y = $(window).scrollTop();
                   if( !/date/.test( el.id ) ) el.focus();
-                  window.scrollTo(x, y);
+                  setTimeout( function(){ window.scrollTo(x,y); }, 0 );
                 
                 };
 				focusWithoutScrolling($("#fieldlist"+opt.identifier+" .pb0").find(".field")[0]);			
