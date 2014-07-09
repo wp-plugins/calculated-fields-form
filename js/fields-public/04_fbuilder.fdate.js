@@ -145,9 +145,22 @@
                     
                     function validator( v, e )
                     {
-                        var p = e.name.replace( '_date', '' ).split( '_' ),
-                            item = $.fbuilder[ 'forms' ][ '_'+p[ 1 ] ].getItem( p[ 0 ]+'_'+p[ 1 ] );
-                        return this.optional( e ) || validateDate( $( e ).datepicker( 'getDate' ), item.working_dates, item.invalidDates )[ 0 ];
+                        try
+                        {
+                            var p           = e.name.replace( '_date', '' ).split( '_' ),
+                                item        = $.fbuilder[ 'forms' ][ '_'+p[ 1 ] ].getItem( p[ 0 ]+'_'+p[ 1 ] ),
+                                inst        = $.datepicker._getInst( e ),
+                                minDate     = $.datepicker._determineDate( inst, $.datepicker._get( inst, 'minDate'), null),
+                                maxDate     = $.datepicker._determineDate(inst, $.datepicker._get(inst, 'maxDate'), null),
+                                dateFormat  = $.datepicker._get(inst, 'dateFormat'),
+                                date        = $.datepicker.parseDate(dateFormat, v, $.datepicker._getFormatConfig(inst));
+
+                            return this.optional( e ) || ( ( minDate == null || date >= minDate  ) && ( maxDate == null || date <= maxDate ) && validateDate( $( e ).datepicker( 'getDate' ), item.working_dates, item.invalidDates )[ 0 ] );
+                        }
+                        catch( er )
+                        {
+                            return false;
+                        }
                     };
                     
 					this.setEvents();
