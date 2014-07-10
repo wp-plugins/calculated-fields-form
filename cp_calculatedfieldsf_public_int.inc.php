@@ -25,5 +25,6 @@ $raw_form_str = str_replace('"','&quot;',esc_attr($raw_form_str));
       <div id="formheader<?php echo $CP_CFF_global_form_count; ?>"></div>
       <div id="fieldlist<?php echo $CP_CFF_global_form_count; ?>"></div>
   </div>
-</div>  
+</div> 
+<div class="clearer"></div> 
 </form>
