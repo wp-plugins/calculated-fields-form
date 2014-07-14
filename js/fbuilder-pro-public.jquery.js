@@ -4,7 +4,7 @@
 	$.fbuilder[ 'htmlEncode' ] = function(value)
 	{
 		value = $('<div/>').text(value).html()
-		value = value.replace(/"/g, "&quot;").replace( /&/g, '&amp;');
+		value = value.replace( /&/g, '&amp;').replace(/"/g, "&quot;");
 		return value;
 	};
 	
@@ -100,7 +100,6 @@
 						}
 					}
 				}
-				
 				if (page>0)
 				{
 					$("#fieldlist"+opt.identifier+" .pb"+page).addClass("pbEnd");
@@ -166,9 +165,9 @@
                   var x = $(window).scrollLeft(), y = $(window).scrollTop();
                   if( !/date/.test( el.id ) ) el.focus();
                   setTimeout( function(){ window.scrollTo(x,y); }, 0 );
-                
                 };
 				focusWithoutScrolling($("#fieldlist"+opt.identifier+" .pb0").find(".field")[0]);			
+                
 				$( '#fieldlist'+opt.identifier).find(".pbSubmit").bind("click", { 'identifier' : opt.identifier }, function( evt ) 
 					{
 						$(this).parents("#fieldlist"+evt.data.identifier).parents("form").submit();
@@ -187,7 +186,7 @@
 							$(this).val($(this).attr("predefined"));
 						}	
 					});
-
+                    
 				if (i>0)
 				{
 					for (var i=0;i<items.length;i++)

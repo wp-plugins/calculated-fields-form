@@ -2,7 +2,7 @@
 		{
 			id:"fdiv",
 			name:"Div",
-			control_category:3
+			control_category:10
 		}
 	);
 	$.fbuilder.controls[ 'fdiv' ]=function(){};

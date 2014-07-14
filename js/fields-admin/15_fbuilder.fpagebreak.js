@@ -20,6 +20,7 @@
 				{ 				    
 					$.fbuilder.controls[ 'ffields' ].prototype.editItemEvents.call(this);
 				},
+			showTitle: function(){ return ''; },
 			showName: function(){ return ''; },
 			showShortLabel: function(){ return ''; },
 			showUserhelp: function(){ return ''; },

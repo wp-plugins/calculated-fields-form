@@ -19,6 +19,7 @@
 #fbuilder .fields .copy{position:absolute;bottom:0;right:20px;display:none;background-color:#fff;cursor:pointer}
 #fbuilder legend{ border:1px solid rgba(222,222,222,.75); background:#FFF; margin-left:5px; padding: 0 5px; }
 #fbuilder .fcontainer{ border:1px solid rgba(222,222,222,.75); min-height:67px; }
+.groupBox,
 .dependenciesBox,
 .choicesSet{border:1px dashed #888;margin:10px 0px;padding:5px}
 .choicesEdit input[type=text]{width:120px;}
@@ -51,6 +52,7 @@ input [disabled] {background-color: #f00;}
 input [readonly] {background-color: #f00;}
 #fbuilder .fields.ui-selected{background-color:#DFEFFF;border:1px solid #C2D7EF}
 #fbuilder .fields.ui-selected .arrow,#fbuilder .fields.ui-selected>.remove,#fbuilder .fields.ui-selected>.copy{display:inline}
+#fbuilder .fields.fmark,
 #fbuilder .fields.ui-over{border:1px dashed #888;}
 
 #fbuilder .fform{border:1px solid transparent;padding:10px 10px 20px 10px;margin:5px 0px;display:block;position:relative}

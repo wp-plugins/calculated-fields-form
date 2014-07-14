@@ -2,7 +2,7 @@
 		{
 			id:"ffieldset",
 			name:"Fieldset",
-			control_category:3
+			control_category:10
 		}
 	);
 	$.fbuilder.controls[ 'ffieldset' ]=function(){};
