@@ -55,16 +55,21 @@
 					{
 						return this.name;
 					}
-					
-					this.eq_factored = '(' + this.eq_factored + ')';
-					if ( !this.readonly )
-					{
-						return this.name;
-					}
-					else
-					{
-						return this.eq_factored;
-					}
+					else{
+                        this.eq_factored = '(' + this.eq_factored + ')';
+                        var tmp = this.eq_factored.replace( /fieldname\d+/g, 1 );
+                        try{
+                            eval( tmp );
+                        }catch( er )
+                        {
+                            this.eq_factored = "";
+                        }
+                        if ( !this.readonly || /^\s*$/.test( this.eq_factored ) )
+                        {
+                            return this.name;
+                        }
+                        return this.eq_factored;
+                    }
 				},
 			suffix:"",
 			prefix:"",
@@ -425,7 +430,7 @@
 							  <div style="float:right;">\
 								<a href="javascript:window.open(\'http://wordpress.dwbooster.com/includes/calculated-field/equations.html\', \'_blak\');">Read an equation tutorial</a>\
 							  </div>\
-							  <div style="border:1px dashed #888;">\
+							  <div class="groupBox">\
 								<select id="sFieldList" style="width:260px;">';
 								
                     var items = this.fBuild.getItems();
@@ -445,7 +450,7 @@
 								<input type="button" value="+" class="eq_btn" onclick="'+tools+'.setField();" />\
 							</div>\
 							<label>Operators</label>\
-							<div style="border:1px dashed #888;text-align:center;">\
+							<div style="text-align:center;" class="groupBox">\
 								<div style="text-align:left;">'+$.fbuilder.controls[ 'fCalculated' ][ 'tools' ].loadToolbarList()+'\
 									<span id="sEqModuleTutorial">'+$.fbuilder.controls[ 'fCalculated' ][ 'tools' ].loadTutorial( me.toolbar )+'</span>\
 								</div>\

@@ -512,7 +512,7 @@
 							if( t.hasClass( 'depItem' ) || ( t.prop( 'tagName' ) == 'INPUT' && t.attr( 'type' ).toLowerCase() == 'text' && evt.type != 'change' ) )
 							{
 								return;
-							}	
+							}
 							obj.Calculate(evt.target);
 						}
 					});

@@ -6,6 +6,8 @@ if ( !is_admin() )
     exit;
 }
 
+wp_enqueue_media();
+
 if (!defined('CP_CALCULATEDFIELDSF_ID'))
     define ('CP_CALCULATEDFIELDSF_ID',intval($_GET["cal"]));
     

@@ -28,7 +28,7 @@
 	$.fbuilder[ 'htmlEncode' ] = function(value)
 	{
 		value = $('<div/>').text(value).html()
-		value = value.replace(/"/g, "&quot;").replace( /&/g, '&amp;' );
+		value = value.replace( /&/g, '&amp;' ).replace(/"/g, "&quot;");
 		return value;
 	};
 	
@@ -522,11 +522,13 @@
 		layoutList:new Array({id:"one_column",name:"One Column"},{id:"two_column",name:"Two Column"},{id:"three_column",name:"Three Column"},{id:"side_by_side",name:"Side by Side"}),
 		formlayoutList:new Array({id:"top_aligned",name:"Top Aligned"},{id:"left_aligned",name:"Left Aligned"},{id:"right_aligned",name:"Right Aligned"}),
 		formTemplateDic: {}, // Form Template dictionary
-		showTitle: function(f,v) 
+        showFieldType: function( v )
+        {
+            return '<label>Field Type: '+$.fbuilder[ 'getNameByIdFromType' ]( v )+'</label><br /><br />';
+        },
+		showTitle: function(v) 
 		{
-			var str = '<label>Field Label</label><textarea class="large" name="sTitle" id="sTitle">'+v+'</textarea>';
-			if (v=="Page Break") str = "";
-			return '<label>Field Type: '+$.fbuilder[ 'getNameByIdFromType' ](f)+'</label><br /><br />'+str;
+			return '<label>Field Label</label><textarea class="large" name="sTitle" id="sTitle">'+v+'</textarea>';
 		},
 		showShortLabel: function( v )
 		{
@@ -769,12 +771,17 @@
 			
 			showAllSettings:function()
 			{
-				return this.showTitle()+this.showShortLabel()+this.showName()+this.showSize()+this.showLayout()+this.showFormat()+this.showRange()+this.showRequired()+this.showSpecialData()+this.showEqualTo()+this.showPredefined()+this.showChoice()+this.showUserhelp()+this.showCsslayout();
+				return this.showFieldType()+this.showTitle()+this.showShortLabel()+this.showName()+this.showSize()+this.showLayout()+this.showFormat()+this.showRange()+this.showRequired()+this.showSpecialData()+this.showEqualTo()+this.showPredefined()+this.showChoice()+this.showUserhelp()+this.showCsslayout();
+			},
+			
+			showFieldType:function()
+			{
+				return $.fbuilder.showSettings.showFieldType(this.ftype);
 			},
 			
 			showTitle:function()
 			{
-				return $.fbuilder.showSettings.showTitle(this.ftype,this.title);
+				return $.fbuilder.showSettings.showTitle(this.title);
 			},
 			
 			showName:function()
