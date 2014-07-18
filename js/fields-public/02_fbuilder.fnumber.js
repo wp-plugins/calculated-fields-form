@@ -23,31 +23,39 @@
 				{
 					if( typeof $[ 'validator' ] != 'undefined' )
 					{
-						$.validator.addMethod( 'number', ( function( thousandSeparator, decimalSymbol ) 
-							{
-							
-							  return function( value, element )
+						$.validator.addMethod( 'number', function( value, element )
 										{
+                                            var sf = element.id.match( /_\d+$/)[ 0 ],
+                                                e = $.fbuilder[ 'forms' ][ element.id.match( /_\d+$/)[ 0 ] ].getItem( element.name ),
+                                                thousandSeparator = ( typeof e.thousandSeparator != 'undefined' ) ? e.thousandSeparator : '',
+                                                decimalSymbol = ( typeof e.decimalSymbol != 'undefined' && $.trim( e.decimalSymbol ) ) ? e.decimalSymbol : '.';
+                                                
 											var regExp = new RegExp( '^-?(?:\\d+|\\d{1,3}(?:' + $.fbuilder.escape_symbol( thousandSeparator ) + '\\d{3})+)?(?:' + $.fbuilder.escape_symbol( decimalSymbol ) + '\\d+)?$' );
+
 											return this.optional(element) || regExp.test( value );
-										};	
-							} )( this.thousandSeparator, this.decimalSymbol )
+										}
 						);
 						
-						$.validator.addMethod( 'min', ( function( thousandSeparator, decimalSymbol )
-							{
-								return function( value, element, param ) {
-									return this.optional(element) || $.fbuilder.parseVal( value, thousandSeparator, decimalSymbol ) >= param;
-								};
-							} )( this.thousandSeparator, this.decimalSymbol )	
+						$.validator.addMethod( 'min', function( value, element, param ) 
+                                        {
+                                            var sf = element.id.match( /_\d+$/)[ 0 ],
+                                                e = $.fbuilder[ 'forms' ][ element.id.match( /_\d+$/)[ 0 ] ].getItem( element.name ),
+                                                thousandSeparator = ( typeof e.thousandSeparator != 'undefined' ) ? e.thousandSeparator : '',
+                                                decimalSymbol = ( typeof e.decimalSymbol != 'undefined' && $.trim( e.decimalSymbol ) ) ? e.decimalSymbol : '.';
+                                                
+											return this.optional(element) || $.fbuilder.parseVal( value, thousandSeparator, decimalSymbol ) >= param;
+                                        }
 						);
 
-						$.validator.addMethod( 'max', ( function( thousandSeparator, decimalSymbol )
-							{
-								return function( value, element, param ) {
-									return this.optional(element) || $.fbuilder.parseVal( value, thousandSeparator, decimalSymbol ) <= param;
-								};
-							} )( this.thousandSeparator, this.decimalSymbol )	
+						$.validator.addMethod( 'max', function( value, element, param ) 
+                                        {
+                                            var sf = element.id.match( /_\d+$/)[ 0 ],
+                                                e = $.fbuilder[ 'forms' ][ element.id.match( /_\d+$/)[ 0 ] ].getItem( element.name ),
+                                                thousandSeparator = ( typeof e.thousandSeparator != 'undefined' ) ? e.thousandSeparator : '',
+                                                decimalSymbol = ( typeof e.decimalSymbol != 'undefined' && $.trim( e.decimalSymbol ) ) ? e.decimalSymbol : '.';
+                                                
+											return this.optional(element) || $.fbuilder.parseVal( value, thousandSeparator, decimalSymbol ) <= param;
+                                        }
 						);
 						
 					}
