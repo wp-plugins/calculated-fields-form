@@ -189,6 +189,7 @@
                     
 				if (i>0)
 				{
+                    theForm.after_show( opt.identifier );
 					for (var i=0;i<items.length;i++)
 					{
 						items[i].after_show();
@@ -225,9 +226,13 @@
 				description:"This is my form. Please fill it out. It's awesome!",
 				formlayout:"top_aligned",
 				formtemplate:"",
+                evalequations:1,
 				show:function(){
-					return '<div class="fform" id="field"><h1>'+this.title+'</h1><span>'+this.description+'</span></div>';
-				}
+                    return '<div class="fform" id="field"><h1>'+this.title+'</h1><span>'+this.description+'</span></div>';
+				},
+                after_show:function( id ){
+                    $( '#cp_calculatedfieldsf_pform'+id ).attr( 'data-evalequations', this.evalequations );
+                }
 			});
 		
 		//var theForm = new fform(),

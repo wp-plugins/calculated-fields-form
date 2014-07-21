@@ -486,7 +486,14 @@
 				// Associate events to the document for throw the corresponding equations
                 $( document ).bind('keyup change blur', function(evt)
 					{
-						if( evt.type == 'keyup' )
+                        // If evalequations = 0 the equations shouldn't be evaluated dynamically
+                        var evalequations = $( evt.target ).closest( 'form' ).attr( 'data-evalequations' );
+                        if( typeof evalequations != 'undefined' && evalequations*1 == 0 )
+                        {
+                            return;
+                        }
+                        
+                        if( evt.type == 'keyup' )
 						{
 							// The key out of range
 							if(evt.keyCode && (evt.keyCode >= 33 && evt.keyCode <= 40))
@@ -520,7 +527,12 @@
 				//Associate an event to the document waiting for the showHideDepEvent and recalculate all equations
 				$(document).bind( 'showHideDepEvent', function( evt, form_identifier )
 					{
-						obj.defaultCalc( '#'+form_identifier );
+                        // If evalequations = 0 the equations shouldn't be evaluated dynamically
+                        var evalequations = $( '#'+form_identifier ).attr( 'data-evalequations' );
+                        if( typeof evalequations == 'undefined' || evalequations*1 == 1 )
+                        {
+                            obj.defaultCalc( '#'+form_identifier );
+                        }    
 					});
                 return obj; // Return the public object
             }
