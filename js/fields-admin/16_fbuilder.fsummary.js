@@ -65,7 +65,7 @@
 					str += '<div><label>Select field and press the plus button</label><br /><select name="sSelectedField" id="sSelectedField" style="width:80%;">';
 					for ( var i=0; i<items.length; i++ )
 					{
-						str += '<option value="'+items[i].name+'">'+items[i].title+'('+items[i].name+')'+'</option>';
+						str += '<option value="'+items[i].name+'">'+( ( typeof items[i].title != 'undefined' ) ? items[i].title : '' )+'('+items[i].name+')'+'</option>';
 					}
 					str += '</select><input type="button" value="+" name="sPlusBtn" id="sPlusBtn" style="padding:3px 10px;" /></div><div class="clearer"></div>';
 					

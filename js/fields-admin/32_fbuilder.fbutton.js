@@ -11,7 +11,7 @@
 		$.fbuilder.controls[ 'ffields' ].prototype,
 		{
 			ftype:"fButton",
-            sType:"button", // button, reset
+            sType:"button", // button, reset, calculate
             sValue:"button",
             sOnclick:"",
 			userhelp:"A description of the section goes here.",
@@ -29,7 +29,7 @@
 					$("[name='sType']").bind("click", {obj: this}, function(e) 
 						{
 							e.data.obj.sType = $( this ).val();
-							$.fbuilder.reloadItems();
+                            $.fbuilder.reloadItems();
 						});
 					$.fbuilder.controls[ 'ffields' ].prototype.editItemEvents.call(this);
 				},
@@ -39,7 +39,7 @@
                 },
             _showTypeSettings: function()
                 {
-                    var l = [ 'button', 'reset' ],
+                    var l = [ 'reset', 'button', 'calculate' ],
                         r  = "", v;
                     
                     for( var i = 0, h = l.length; i < h; i++ )

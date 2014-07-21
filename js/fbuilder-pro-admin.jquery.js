@@ -177,6 +177,12 @@
 					$.fbuilder.reloadItems();
 				});
 				
+				$("#fEvalEquations").click(function()
+				{
+					theForm.evalequations = ($(this).is( ':checked' )) ? 1 : 0;
+					$.fbuilder.reloadItems();
+				});
+				
 				$("#fDescription").keyup(function()
 				{
 					theForm.description = $(this).val();
@@ -344,6 +350,7 @@
 				description:"This is my form. Please fill it out. It's awesome!",
 				formlayout:"top_aligned",
 				formtemplate:"",
+                evalequations:1,
 				display:function()
 				{
 					return '<div class="fform" id="field"><div class="arrow ui-icon ui-icon-play "></div><h1>'+this.title+'</h1><span>'+this.description+'</span></div>';
@@ -382,7 +389,7 @@
 						template += '<option value="'+$.fbuilder.showSettings.formTemplateDic[i].prefix+'" ' + selected + '>'+$.fbuilder.showSettings.formTemplateDic[i].title+'</option>';
 					}	
 					
-					return '<div><label>Form Name</label><input class="large" name="fTitle" id="fTitle" value="'+$.fbuilder.htmlEncode(this.title)+'" /></div><div><label>Description</label><textarea class="large" name="fDescription" id="fDescription">'+this.description+'</textarea></div><div><label>Label Placement</label><br /><select name="fLayout" id="fLayout" class="large">'+layout+'</select></div><div><label>Form Template</label><br /><select name="fTemplate" id="fTemplate" class="large">'+template+'</select></div><br /><div><span id="fTemplateThumbnail" style="float:left;padding-right:10px;">'+thumbnail+'</span><span  id="fTemplateDescription" style="float:left;">'+description+'</span></div>' ;
+					return '<div><label>Form Name</label><input class="large" name="fTitle" id="fTitle" value="'+$.fbuilder.htmlEncode(this.title)+'" /></div><div><label>Description</label><textarea class="large" name="fDescription" id="fDescription">'+this.description+'</textarea></div><div><label>Label Placement</label><br /><select name="fLayout" id="fLayout" class="large">'+layout+'</select></div><div><label><input type="checkbox" name="fEvalEquations" id="fEvalEquations" '+( ( this.evalequations ) ? 'CHECKED' : '' )+' /> Eval dynamically the equations associated to the calculated fields</label></div><div><label>Form Template</label><br /><select name="fTemplate" id="fTemplate" class="large">'+template+'</select></div><br /><div><span id="fTemplateThumbnail" style="float:left;padding-right:10px;">'+thumbnail+'</span><span  id="fTemplateDescription" style="float:left;">'+description+'</span></div>' ;
 				}
 			}
 		);
