@@ -26,6 +26,11 @@
 #fbuilder .right_aligned .fields label{float:left;width:31%;text-align:right;padding:3px 3px 0px 0px;}
 #fbuilder .right_aligned .fields .dfield{float:left;width:65%;}
 
+#fbuilder .left_aligned .section_breaks.fields label,
+#fbuilder .left_aligned .comment_area.fields label,
+#fbuilder .right_aligned .section_breaks.fields label,
+#fbuilder .right_aligned .comment_area.fields label{width:100%;clear:both;}
+
 #fbuilder .cpefb_error{border1:1px solid red;}
 #fbuilder .top_aligned .fields label.cpefb_error,.left_aligned .fields label.cpefb_error,.right_aligned .fields label.cpefb_error{display:block;border:0px;color:#f00;float:none;}
 
