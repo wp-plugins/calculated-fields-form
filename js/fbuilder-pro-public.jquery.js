@@ -115,7 +115,7 @@
 
 							if ( $( "#cpcaptchalayer"+opt.identifier ).length && !/^\s*$/.test( $( "#cpcaptchalayer"+opt.identifier ).html() ) )
 							{
-								code += '<div class="captcha">'+$("#cpcaptchalayer"+opt.identifier).html()+'</div>';
+								code += '<div class="captcha">'+$("#cpcaptchalayer"+opt.identifier).html()+'</div><div class="clearer"></div>';
 								$("#cpcaptchalayer"+opt.identifier).html("");
 							}
 							if ($("#cp_subbtn"+opt.identifier).html())
