@@ -63,9 +63,9 @@ input [readonly] {background-color: #f00;}
 #fbuilder .fform h1{margin:5px 0px;padding:0px;}
 input.disabled {background: #fff;color: #888;cursor: default;}
 label1{display:inline}
-.small{width:25%}
-.medium{width:50%}
-.large{width:100%;box-sizing: border-box;-webkit-box-sizing:border-box;-moz-box-sizing: border-box;}
+input.small, select.small, textarea.small, .small{width:25%}
+input.medium, select.medium, textarea.medium, .medium{width:50%}
+input.large, select.large, textarea.large, .large{width:100%;box-sizing: border-box;-webkit-box-sizing:border-box;-moz-box-sizing: border-box;}
 textarea {resize: none}            
 .one_column{}
 .two_column{float:left;width:48%}
