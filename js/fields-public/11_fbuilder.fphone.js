@@ -13,7 +13,8 @@
 				var me   = this,
 					str  = "",
 					tmp  = this.dformat.split(' '),
-					tmpv = this.predefined.split(' ');
+					tmpv = this.predefined.split(' '),
+                    attr = ( typeof this.predefinedClick != 'undefined' && this.predefinedClick ) ? 'placeholder' : 'value';
 					
 				for (var i=0;i<tmpv.length;i++)
 				{
@@ -22,11 +23,12 @@
 						tmpv.splice(i,1);
 					}
 				}	
+                
 				for (var i=0;i<tmp.length;i++)
 				{
 					if ($.trim(tmp[i])!="")
 					{
-						str += '<div class="uh_phone" ><input type="text" id="'+this.name+'_'+i+'" name="'+this.name+'_'+i+'" class="field digits '+((this.required)?" required":"")+'" style="width:'+(15*$.trim(tmp[i]).length)+'px" value="'+((tmpv[i])?tmpv[i]:"")+'" maxlength="'+$.trim(tmp[i]).length+'" minlength="'+$.trim(tmp[i]).length+'"/><div class="l">'+$.trim(tmp[i])+'</div></div>';
+                        str += '<div class="uh_phone" ><input type="text" id="'+this.name+'_'+i+'" name="'+this.name+'_'+i+'" class="field digits '+((this.required)?" required":"")+'" style="width:'+(15*$.trim(tmp[i]).length)+'px" '+attr+'="'+((tmpv[i])?tmpv[i]:"")+'" maxlength="'+$.trim(tmp[i]).length+'" minlength="'+$.trim(tmp[i]).length+'"/><div class="l">'+$.trim(tmp[i])+'</div></div>';
 					}
 					
 					$( document ).on( 'change', '#'+this.name+'_'+i, function(){ 

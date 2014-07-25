@@ -85,10 +85,9 @@
 						$("#fieldlist"+opt.identifier+" .pb"+page).append(items[i].show());
 						if (items[i].predefinedClick)
 						{
-							var cl = $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).attr("class")+" predefinedClick";
-							$("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).attr("class",cl);
-							$("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).attr("predefined",items[i].predefined);
-						}
+                            $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).attr("placeholder",items[i].predefined);
+                            $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).attr("value","");
+                        }
 						if (items[i].userhelpTooltip)
 						{
 							var uh = $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).parents(".fields");
@@ -170,23 +169,8 @@
                 
 				$( '#fieldlist'+opt.identifier).find(".pbSubmit").bind("click", { 'identifier' : opt.identifier }, function( evt ) 
 					{
-						$(this).parents("#fieldlist"+evt.data.identifier).parents("form").submit();
+                        $(this).closest("form").submit();
 					});
-				$("#fieldlist"+opt.identifier+" .predefinedClick").bind("click", function() 
-					{
-						if ($(this).attr("predefined") == $(this).val())
-						{
-							$(this).val("");
-						}	
-					});
-				$("#fieldlist"+opt.identifier+" .predefinedClick").blur("click", function() 
-					{
-						if ($(this).val()=="")
-						{
-							$(this).val($(this).attr("predefined"));
-						}	
-					});
-                    
 				if (i>0)
 				{
                     theForm.after_show( opt.identifier );
@@ -310,7 +294,7 @@
 					var e = $( "[id='" + this.name + "']:not(.ignore)" );
 					if( e.length )
 					{
-						return $.fbuilder.parseVal( $.trim( e.val() ) );
+                        return $.fbuilder.parseVal( $.trim( e.val() ) );
 					}
 					return 0;
 				}
