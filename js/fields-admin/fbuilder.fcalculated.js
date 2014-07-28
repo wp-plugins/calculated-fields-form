@@ -424,14 +424,7 @@
 							}
 					};
 				
-                    var out = '<label>Set Equation</label>\
-							  <textarea class="large" name="sEq" id="sEq">'+me.eq+'</textarea>\
-							  <label>Operands</label>\
-							  <div style="float:right;">\
-								<a href="javascript:window.open(\'http://wordpress.dwbooster.com/includes/calculated-field/equations.html\', \'_blak\');">Read an equation tutorial</a>\
-							  </div>\
-							  <div class="groupBox">\
-								<select id="sFieldList" style="width:260px;">';
+                    var out = '<label>Set Equation</label><textarea class="large" name="sEq" id="sEq">'+me.eq+'</textarea><label>Operands</label><div style="float:right;"><a href="javascript:window.open(\'http://wordpress.dwbooster.com/includes/calculated-field/equations.html\', \'_blak\');">Read an equation tutorial</a></div><div class="groupBox"><select id="sFieldList" style="width:260px;">';
 								
                     var items = this.fBuild.getItems();
 					for( var i in items )
@@ -446,24 +439,7 @@
 							out += '<option value="' + fName + '">'+item[ 'name' ] + ( ( item[ 'title' ] && !/^\s*$/.test( item[ 'title' ] ) ) ? '('+item[ 'title' ] + ')' : '' ) + '</option>';
 						}
 					}
-                    out += '	</select>\
-								<input type="button" value="+" class="eq_btn" onclick="'+tools+'.setField();" />\
-							</div>\
-							<label>Operators</label>\
-							<div style="text-align:center;" class="groupBox">\
-								<div style="text-align:left;">'+$.fbuilder.controls[ 'fCalculated' ][ 'tools' ].loadToolbarList()+'\
-									<span id="sEqModuleTutorial">'+$.fbuilder.controls[ 'fCalculated' ][ 'tools' ].loadTutorial( me.toolbar )+'</span>\
-								</div>\
-								<div id="sEqButtonsContainer">'+$.fbuilder.controls[ 'fCalculated' ][ 'tools' ].loadToolbar( me.toolbar )+'</div>\
-								<div id="sEqTipsContainer" style="background-color:#DFEFFF;border:1px solid #C2D7EF;padding:5px;margin:5px;display:none;text-align:left;"></div>\
-							</div>\
-							<label>Symbol to display at beginning of calculated field</label>\
-							<input type="text" name="sPrefix" id="sPrefix" class="large" value="'+me.prefix+'" />\
-							<label>Symbol to display at the end of calculated field</label>\
-							<input type="text" name="sSuffix" id="sSuffix" class="large" value="'+me.suffix+'" />\
-							<label>Decimals separator symbol (Ex: 25.20)</label>\
-							<input type="text" name="sDecimalSymbol" id="sDecimalSymbol" class="large" value="'+me.decimalsymbol+'" />\
-							<label>Symbol for grouping thousands (Ex: 3,000,000)</label><input type="text" name="sGroupingSymbol" id="sGroupingSymbol" class="large" value="'+me.groupingsymbol+'" />';
+                    out += '	</select><input type="button" value="+" class="eq_btn" onclick="'+tools+'.setField();" /></div><label>Operators</label><div style="text-align:center;" class="groupBox"><div style="text-align:left;">'+$.fbuilder.controls[ 'fCalculated' ][ 'tools' ].loadToolbarList()+'<span id="sEqModuleTutorial">'+$.fbuilder.controls[ 'fCalculated' ][ 'tools' ].loadTutorial( me.toolbar )+'</span></div><div id="sEqButtonsContainer">'+$.fbuilder.controls[ 'fCalculated' ][ 'tools' ].loadToolbar( me.toolbar )+'</div><div id="sEqTipsContainer" style="background-color:#DFEFFF;border:1px solid #C2D7EF;padding:5px;margin:5px;display:none;text-align:left;"></div></div><label>Symbol to display at beginning of calculated field</label><input type="text" name="sPrefix" id="sPrefix" class="large" value="'+me.prefix+'" /><label>Symbol to display at the end of calculated field</label><input type="text" name="sSuffix" id="sSuffix" class="large" value="'+me.suffix+'" /><label>Decimals separator symbol (Ex: 25.20)</label><input type="text" name="sDecimalSymbol" id="sDecimalSymbol" class="large" value="'+me.decimalsymbol+'" /><label>Symbol for grouping thousands (Ex: 3,000,000)</label><input type="text" name="sGroupingSymbol" id="sGroupingSymbol" class="large" value="'+me.groupingsymbol+'" />';
 
                     return out;
 			}
