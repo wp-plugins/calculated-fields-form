@@ -62,12 +62,8 @@
 		var items = [];
 		var reloadItemsPublic = function() 
 			{
-				$("#fieldlist"+opt.identifier).parents( 'form' ).addClass( theForm.formtemplate );
-				for (var i=0, h = $.fbuilder.showSettings.formlayoutList.length; i<h; i++)
-				{
-					$("#fieldlist"+opt.identifier).removeClass($.fbuilder.showSettings.formlayoutList[i].id);
-				}	
-				$("#fieldlist"+opt.identifier).html("").addClass(theForm.formlayout);
+				$("#fieldlist"+opt.identifier).closest( 'form' ).addClass( theForm.formtemplate );
+                $("#fieldlist"+opt.identifier).html("").addClass(theForm.formlayout);
 				$("#formheader"+opt.identifier).html(theForm.show());
 				
 				var page = 0;
@@ -99,13 +95,14 @@
 						}
 					}
 				}
+                
 				if (page>0)
 				{
+                
 					$("#fieldlist"+opt.identifier+" .pb"+page).addClass("pbEnd");
 					$("#fieldlist"+opt.identifier+" .pbreak").find(".field").addClass("ignorepb");
 					$("#fieldlist"+opt.identifier+" .pb0").find(".field").removeClass("ignorepb");
 					$("#fieldlist"+opt.identifier+" .pbreak").each(function(index) {
-					
 						var code = $(this).html();
 						var bSubmit = '';
 						
@@ -147,7 +144,7 @@
 						}
 						return false;
 					});
-				}
+                }
 				else
 				{
 					if ( $( "#cpcaptchalayer"+opt.identifier ).length && !/^\s*$/.test( $( "#cpcaptchalayer"+opt.identifier ).html() ) )
@@ -160,17 +157,13 @@
 						$("#fieldlist"+opt.identifier+" .pb"+page).append('<div class="pbSubmit">'+$("#cp_subbtn"+opt.identifier).html()+'</div>');
 					}	
 				}
-				focusWithoutScrolling = function(el){
-                  var x = $(window).scrollLeft(), y = $(window).scrollTop();
-                  if( !/date/.test( el.id ) ) el.focus();
-                  setTimeout( function(){ window.scrollTo(x,y); }, 0 );
-                };
-				focusWithoutScrolling($("#fieldlist"+opt.identifier+" .pb0").find(".field")[0]);			
+							
                 
 				$( '#fieldlist'+opt.identifier).find(".pbSubmit").bind("click", { 'identifier' : opt.identifier }, function( evt ) 
 					{
                         $(this).closest("form").submit();
 					});
+
 				if (i>0)
 				{
                     theForm.after_show( opt.identifier );
@@ -201,6 +194,17 @@
 					} catch(e){}
 
 				}
+                
+                focusWithoutScrolling = function(el){
+                    if( el.length )
+                    {
+                        el = el[0];
+                        var x = $(window).scrollLeft(), y = $(window).scrollTop();
+                        if( !/date/.test( el.id ) ) el.focus();
+                        setTimeout( function(){ window.scrollTo(x,y); }, 0 );
+                    } 
+                };
+				focusWithoutScrolling($("#fieldlist"+opt.identifier+" .pb0").find(".field"));
 			};
 			
 		var fform=function(){};
