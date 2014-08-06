@@ -32,14 +32,15 @@
                                 {
                                     var suffix = e.attr( 'id' ).match(/_\d+$/)[0],
                                         items = $.fbuilder[ 'forms' ][ suffix ].getItems();
-                                }
-                                $.fbuilder[ 'calculator' ].defaultCalc( '#'+e.closest( 'form' ).attr( 'id' ) );
-                                for(var i = 0, h = items.length; i < h; i++ )
-                                {
-                                    if(items[i].ftype == 'fsummary')
-                                    { 
-                                        items[i].update();
-                                    }
+                                    
+                                    $.fbuilder[ 'calculator' ].defaultCalc( '#'+e.closest( 'form' ).attr( 'id' ) );
+                                    for(var i = 0, h = items.length; i < h; i++ )
+                                    {
+                                        if(items[i].ftype == 'fsummary')
+                                        { 
+                                            items[i].update();
+                                        }
+                                    }    
                                 }
                             }
                     );
