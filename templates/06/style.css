@@ -14,6 +14,10 @@
 .cp_cff_clean #fbuilder legend{-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;border-color:#EBECEC;}
 .cp_cff_clean #fbuilder legend{background: #EBECEC;border:0;}
 
+.cp_cff_clean #fbuilder .fields.column2{float:left;width:calc( 49.9% - 20px );width:-webkit-calc( 49.9% - 20px );width:-moz-calc( 49.9% - 20px );}
+.cp_cff_clean #fbuilder .fields.column3{float:left;width:calc( 33.3% - 20px );width:-webkit-calc( 33.3% - 20px );width:-moz-calc( 33.3% - 20px );}
+.cp_cff_clean #fbuilder .fields.column4{float:left;width:calc( 24.9% - 20px );width:-webkit-calc( 24.9% - 20px );width:-moz-calc( 24.9% - 20px );}
+
 .cp_cff_clean #fbuilder .pbSubmit,
 .cp_cff_clean #fbuilder .pbPrevious,
 .cp_cff_clean #fbuilder .pbNext{color:#fff;font-size:14px;background: #0093DA;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;margin:0 10px 0 0;}
