@@ -95,7 +95,7 @@
                 },
             show:function()
 				{
-						return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'"><div class="clearer">'+this[ '_show_'+this.sMediaType]()+'</div><span class="uh">'+this.data[ this.sMediaType].sFigcaption+'</span><div class="clearer"></div></div>';
+						return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'"><div class="clearer"><div class="field" id="'+this.name+'">'+this[ '_show_'+this.sMediaType]()+'</div></div><span class="uh">'+this.data[ this.sMediaType].sFigcaption+'</span><div class="clearer"></div></div>';
 				}
 		}
 	);
