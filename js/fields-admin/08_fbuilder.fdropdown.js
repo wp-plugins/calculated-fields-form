@@ -167,7 +167,7 @@
 							{
 								if (items[i].name != $(this).attr("dname"))
 								{
-									str += '<option value="'+items[i].name+'" '+((items[i].name == $(this).attr("dvalue"))?"selected":"")+'>'+(items[i].name)+' (' + items[ i ].title + ')</option>';
+									str += '<option value="'+items[i].name+'" '+((items[i].name == $(this).attr("dvalue"))?"selected":"")+'>'+(items[i].name)+( ( typeof items[ i ].title != 'undefined' ) ? ' (' + items[ i ].title + ')' : '' )+'</option>';
 								}
 							}	
 							$(this).html(str);

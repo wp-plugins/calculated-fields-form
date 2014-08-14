@@ -179,7 +179,7 @@
 							var str = '<option value="" '+(("" == $(this).attr("dvalue"))?"selected":"")+'></option>';
 							for (var i=0;i<items.length;i++)
 								if (items[i].name != $(this).attr("dname"))
-									str += '<option value="'+items[i].name+'" '+((items[i].name == $(this).attr("dvalue"))?"selected":"")+'>'+(items[i].name)+' (' + items[ i ].title + ')</option>';
+									str += '<option value="'+items[i].name+'" '+((items[i].name == $(this).attr("dvalue"))?"selected":"")+'>'+(items[i].name)+( ( typeof items[ i ].title != 'undefined' ) ? ' (' + items[ i ].title + ')' : '' )  +'</option>';
 							$(this).html(str);
 						});
 					$.fbuilder.controls[ 'ffields' ].prototype.editItemEvents.call(this);

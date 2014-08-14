@@ -305,7 +305,7 @@
 								{
 									if (items[k].name != me.name)
 									{
-										opt += '<option value="'+items[k].name+'" '+( ( items[k].name == v ) ? 'selected="SELECTED"' : '' )+'>'+items[k].name+' (' + items[ k ].title + ')</option>';
+										opt += '<option value="'+items[k].name+'" '+( ( items[k].name == v ) ? 'selected="SELECTED"' : '' )+'>'+items[k].name+( ( typeof items[ k ].title != 'undefined' ) ? ' (' + items[ k ].title + ')' : '' ) + '</option>';
 									}
 								}
 								r += '<div style="position:relative;">If rule is valid show: <select class="cf_dependence_field" i="'+i+'" j="'+j+'" >'+opt+'</select><a class="addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+j+'" title="Add another dependency."></a><a class="removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+j+'" title="Delete this dependency."></a></div>';
