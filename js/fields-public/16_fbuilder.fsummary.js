@@ -26,7 +26,7 @@
 								this.fieldsArray.push( p[ i ] + this.form_identifier );
 								$( document ).on( 'change', '#' + p[ i ] + this.form_identifier, function(){ me.update(); } );
 								
-								str += '<div ref="'+p[i]+this.form_identifier+'" class="cff-summary-item"><span class="'+this.titleClassname+' cff-summary-title"></span><span class="'+this.valueClassname+' cff-summary-value"></span>';
+								str += '<div ref="'+p[i]+this.form_identifier+'" class="cff-summary-item"><span class="'+this.titleClassname+' cff-summary-title"></span><span class="'+this.valueClassname+' cff-summary-value"></span></div>';
 							}	
 						}
 						str += '</div></div>';
