@@ -344,7 +344,7 @@ function _cp_calculatedfieldsf_install() {
 
 function cp_calculatedfieldsf_filter_content($atts) {
     global $wpdb;	
-    if( $atts[ 'id' ] )
+    if( !empty( $atts[ 'id' ] ) )
 	{
 		ob_start();  
 		cp_calculatedfieldsf_get_public_form($atts[ 'id' ]);
