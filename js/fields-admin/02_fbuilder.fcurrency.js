@@ -21,6 +21,8 @@
 				currencyText:"USD",
 				thousandSeparator:",",
 				centSeparator:".",
+				min:"",
+				max:"",
 				formatDynamically:false,
 				showReadonly:function()
 					{
@@ -106,10 +108,19 @@
 								e.data.obj.formatDynamically = $(this).is(':checked');
 								$.fbuilder.reloadItems();
 							});
-							
 						$("#sReadonly").bind("click", {obj: this}, function(e) 
 							{
 								e.data.obj.readonly = $(this).is(':checked');
+								$.fbuilder.reloadItems();
+							});
+						$("#sMin").bind("change", {obj: this}, function(e) 
+							{
+								e.data.obj.min = $(this).val();
+								$.fbuilder.reloadItems();
+							});
+						$("#sMax").bind("change", {obj: this}, function(e) 
+							{
+								e.data.obj.max = $(this).val();
 								$.fbuilder.reloadItems();
 							});
 							
@@ -127,5 +138,9 @@
 						str += '<div><label>Cents Separator</label><br /><input type="text" name="sCentSeparator" id="sCentSeparator" value="'+this.centSeparator+'"></div>';
 						str += '<div><label>Format Dynamically</label><br /><input type="checkbox" name="sFormatDynamically" id="sFormatDynamically" '+( (this.formatDynamically) ? 'CHECKED' : '')+'></div>';
 						return str;
-					}
+					},
+                showRangeIntance: function() 
+					{
+						return '<div class="clearer"></div><div class="column"><label>Min</label><br /><input name="sMin" id="sMin" value="'+this.min+'"></div><div class="column"><label>Max</label><br /><input name="sMax" id="sMax" value="'+this.max+'"></div><div class="clearer">Enter the min/max values as numbers, and not as currencies</div>';
+					}    
 		});

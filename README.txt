@@ -414,6 +414,11 @@ The following fields are available:
 * Summary: Displays a summary of form fields with the values entered.
 * Calculated field: .. and of course, the calculated field that accepts formulas, functions and many related settings.
 
+The form builder includes some container controls. The container controls allow to insert another controls in them:
+
+* Fieldset Container: Allows insert a fieldset control in the form, with a legend.
+* Div Container: Inserts a container very useful for grouping related controls, and not modifies the appearance of the form.
+
 In addition to the above, the following fields are available only in the **Developer** version of plugin:
 
 * Line Text DS: An input field that gets its default values from one of following datasources - Database, Posts information, Taxonomies information or Users information
