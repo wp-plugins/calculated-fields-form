@@ -79,16 +79,15 @@
 								}
 							);
 							
-							tt.find( '.cff-summary-title' ).html( ( /^\s*$/.test( t ) ) ? '' : t+': ' );
+							tt.find( '.cff-summary-title' ).html( ( /^\s*$/.test( t ) ) ? '' : t );
 							tt.find( '.cff-summary-value' ).html( v.join( ', ' ) );	
-
 							if( e.hasClass( 'ignore' ) )
 							{
-								tt.find( '.cff-summary-item' ).hide();
+								tt.hide();
 							}
 							else
 							{
-								tt.find( '.cff-summary-item' ).show();
+								tt.show();
 							}
 						}	
 					}

@@ -215,11 +215,12 @@
 				formlayout:"top_aligned",
 				formtemplate:"",
                 evalequations:1,
+                autocomplete:1,
 				show:function(){
                     return '<div class="fform" id="field"><h1>'+this.title+'</h1><span>'+this.description+'</span></div>';
 				},
                 after_show:function( id ){
-                    $( '#cp_calculatedfieldsf_pform'+id ).attr( 'data-evalequations', this.evalequations );
+                    $( '#cp_calculatedfieldsf_pform'+id ).attr( 'data-evalequations', this.evalequations ).attr( 'autocomplete', ( ( this.autocomplete ) ? 'on' : 'off' ) );
                 }
 			});
 		

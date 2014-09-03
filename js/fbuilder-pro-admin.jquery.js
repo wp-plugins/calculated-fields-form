@@ -118,12 +118,11 @@
 			
 		$.fbuilder[ 'editItem' ] = function( id ) 
 			{		    
-				$('#tabs').tabs("option", "active", 1);
-				try 
-				{ 
-					$('#tabs-2').html( items[id].showAllSettings() ); 
-				} catch (e) {}
 				selected = id;
+                try 
+                { 
+                    $('#tabs-2').html( items[id].showAllSettings() ); 
+                } catch (e) {}
 				items[id].editItemEvents();
 			};
 			
@@ -180,6 +179,12 @@
 				$("#fEvalEquations").click(function()
 				{
 					theForm.evalequations = ($(this).is( ':checked' )) ? 1 : 0;
+					$.fbuilder.reloadItems();
+				});
+				
+				$("#fAutocomplete").click(function()
+				{
+					theForm.autocomplete = ($(this).is( ':checked' )) ? 1 : 0;
 					$.fbuilder.reloadItems();
 				});
 				
@@ -244,6 +249,7 @@
 					if ( i == selected )
 					{
 						$("#field"+opt.identifier+"-"+i).addClass("ui-selected");
+                        $.fbuilder[ 'editItem' ]( i );
 					}	
 					else
 					{
@@ -282,7 +288,8 @@
 							$( '#fieldlist .ui-selected' ).removeClass("ui-selected");
 							$(this).addClass("ui-selected");
 							evt.stopPropagation();
-						});
+                            $('#tabs').tabs("option", "active", 1);
+                        });
 					$(".field").focus(function()
 						{
 							$(this).blur();
@@ -351,6 +358,7 @@
 				formlayout:"top_aligned",
 				formtemplate:"",
                 evalequations:1,
+                autocomplete:1,
 				display:function()
 				{
 					return '<div class="fform" id="field"><div class="arrow ui-icon ui-icon-play "></div><h1>'+this.title+'</h1><span>'+this.description+'</span></div>';
@@ -389,7 +397,7 @@
 						template += '<option value="'+$.fbuilder.showSettings.formTemplateDic[i].prefix+'" ' + selected + '>'+$.fbuilder.showSettings.formTemplateDic[i].title+'</option>';
 					}	
 					
-					return '<div><label>Form Name</label><input class="large" name="fTitle" id="fTitle" value="'+$.fbuilder.htmlEncode(this.title)+'" /></div><div><label>Description</label><textarea class="large" name="fDescription" id="fDescription">'+this.description+'</textarea></div><div><label>Label Placement</label><br /><select name="fLayout" id="fLayout" class="large">'+layout+'</select></div><div><label><input type="checkbox" name="fEvalEquations" id="fEvalEquations" '+( ( this.evalequations ) ? 'CHECKED' : '' )+' /> Eval dynamically the equations associated to the calculated fields</label></div><div><label>Form Template</label><br /><select name="fTemplate" id="fTemplate" class="large">'+template+'</select></div><br /><div><span id="fTemplateThumbnail" style="float:left;padding-right:10px;">'+thumbnail+'</span><span  id="fTemplateDescription" style="float:left;">'+description+'</span></div>' ;
+					return '<div><label>Form Name</label><input class="large" name="fTitle" id="fTitle" value="'+$.fbuilder.htmlEncode(this.title)+'" /></div><div><label>Description</label><textarea class="large" name="fDescription" id="fDescription">'+this.description+'</textarea></div><div><label>Label Placement</label><br /><select name="fLayout" id="fLayout" class="large">'+layout+'</select></div><div><label><input type="checkbox" name="fAutocomplete" id="fAutocomplete" '+( ( this.autocomplete ) ? 'CHECKED' : '' )+' /> Enable autocompletion</label></div><div><label><input type="checkbox" name="fEvalEquations" id="fEvalEquations" '+( ( this.evalequations ) ? 'CHECKED' : '' )+' /> Eval dynamically the equations associated to the calculated fields</label></div><div><label>Form Template</label><br /><select name="fTemplate" id="fTemplate" class="large">'+template+'</select></div><br /><div><span id="fTemplateThumbnail" style="float:left;padding-right:10px;">'+thumbnail+'</span><span  id="fTemplateDescription" style="float:left;">'+description+'</span></div>' ;
 				}
 			}
 		);
@@ -431,11 +439,6 @@
 						{
 							case 0:
 								$(".fform").removeClass("ui-selected");
-								if( $(".fields.ui-selected").find( '.fcontainer' ).length == 0 ) // There is no selected container
-								{
-									$(".fields").removeClass("ui-selected");
-									selected = -2;
-								}
 							break;
 							case 1:
 								$(".fform").removeClass("ui-selected");
@@ -477,9 +480,25 @@
 				n++;
 				obj.fBuild = fBuild;
 			    $.extend(obj,{name:"fieldname"+n});
-			    items[items.length] = obj;
-				if( selected >= 0 && typeof items[ selected ][ 'addItem' ] != 'undefined' ) items[ selected ][ 'addItem' ]( obj.name );
-			    $.fbuilder.reloadItems();
+                
+                if( selected >= 0 )
+                {
+                    items.splice( (selected)*1+1, 0, obj );
+                    if( typeof items[ selected ][ 'addItem' ] != 'undefined' )
+                    {
+                        items[ selected ][ 'addItem' ]( obj.name );
+                    }
+                    else
+                    {
+                        selected++;
+                    }
+                }
+                else
+                {
+                    selected = items.length;
+                    items[selected] = obj;
+                }    
+				$.fbuilder.reloadItems();
 		    },
 		    saveData:function(f)
 			{

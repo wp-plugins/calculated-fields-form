@@ -61,3 +61,5 @@
 #fbuilder .ui-tooltip.uh-tooltip{width:250px;font-size:10px;font-weight:normal;padding:5px;}
 #fbuilder input[type="checkbox"]{-webkit-appearance:checkbox!important;}
 #fbuilder input[type="radio"]{-webkit-appearance:radio!important;}
+
+#fbuilder  .cff-summary-title:after{ content: ': '; }
