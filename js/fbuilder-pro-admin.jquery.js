@@ -249,7 +249,10 @@
 					if ( i == selected )
 					{
 						$("#field"+opt.identifier+"-"+i).addClass("ui-selected");
-                        $.fbuilder[ 'editItem' ]( i );
+                        if( $('#tabs').tabs("option", "active") != 1 )
+                        {
+                            $.fbuilder[ 'editItem' ]( i );
+                        }    
 					}	
 					else
 					{
