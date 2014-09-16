@@ -272,7 +272,7 @@
 								}
 								// The equation hasn't been inserted previously
 								if( i == h ){
-									form.equations.push( {'result':calculeated_field, 'equation':equation, 'conf':configuration, 'dep':dependencies, 'identifier' : form_identifier} );
+									form.equations.unshift( {'result':calculeated_field, 'equation':equation, 'conf':configuration, 'dep':dependencies, 'identifier' : form_identifier} );
 								}
 							}
 
