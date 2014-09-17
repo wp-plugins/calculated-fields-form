@@ -409,36 +409,39 @@
 
                     format : function( value,  config )
 						{
-							if( $.isNumeric( value ) ) // If is a number set the separators symbols for thousands and decimals
-							{
-								
-								var symbol = ( value < 0 ) ? '-' : '',
-									parts = value.toString().replace( "-", "" ).split("."),
-									counter = 0,
-									str = '';
+                            if( !/^\s*$/.test( value ) )
+                            {
+                                if( $.isNumeric( value ) ) // If is a number set the separators symbols for thousands and decimals
+                                {
+                                    
+                                    var symbol = ( value < 0 ) ? '-' : '',
+                                        parts = value.toString().replace( "-", "" ).split("."),
+                                        counter = 0,
+                                        str = '';
 
-								if(config.groupingsymbol)
-								{
-									for( var i = parts[0].length-1; i >= 0; i--){
-										counter++;
-										str = parts[0][i] + str;
-										if( counter%3 == 0 && i != 0 ) str = config.groupingsymbol + str;
+                                    if(config.groupingsymbol)
+                                    {
+                                        for( var i = parts[0].length-1; i >= 0; i--){
+                                            counter++;
+                                            str = parts[0][i] + str;
+                                            if( counter%3 == 0 && i != 0 ) str = config.groupingsymbol + str;
 
-									}
-									parts[0] = str;
-								}
-								
-								value = symbol+parts.join( config.decimalsymbol );
-							}
-							
-							if( config.prefix )
-							{
-								value = config.prefix + value;
-							}	
-							if( config.suffix ) 
-							{
-								value += config.suffix;
-							}	
+                                        }
+                                        parts[0] = str;
+                                    }
+                                    
+                                    value = symbol+parts.join( config.decimalsymbol );
+                                }
+                                
+                                if( config.prefix )
+                                {
+                                    value = config.prefix + value;
+                                }	
+                                if( config.suffix ) 
+                                {
+                                    value += config.suffix;
+                                }	
+                            }    
 							return value;
 						},
 
