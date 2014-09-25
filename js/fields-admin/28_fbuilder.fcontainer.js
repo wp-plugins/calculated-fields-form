@@ -23,7 +23,7 @@
 					{
 						if( this.fields[ i ] == currentField )
 						{
-							this.fields.splice( i, 0, newField );
+							this.fields.splice( i+1, 0, newField );
 							return;
 						}
 					}

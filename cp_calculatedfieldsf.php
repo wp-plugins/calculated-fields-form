@@ -94,7 +94,7 @@ define('CP_CALCULATEDFIELDSF_POSTS_TABLE_NAME', @$wpdb->prefix ."cp_calculated_f
 // -----------------------------------------
 
 register_activation_hook(__FILE__,'cp_calculatedfieldsf_install');
-add_action( 'init', 'cp_calculated_fields_form_load_resources', 0 );
+add_action( 'init', 'cp_calculated_fields_form_load_resources', 1 );
 function cp_calculated_fields_form_load_resources()
 	{
 		
