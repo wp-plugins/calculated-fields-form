@@ -50,7 +50,7 @@
 
 						if( e.length && tt.length )
 						{	
-							var t  = $( '#' + i ).parents( '.fields' ).find( 'label:first' ).text(), 
+							var t  = $( '#' + i ).closest( '.fields' ).find( 'label:first' ).text(), 
 								v  = [];
 								
 							e.each( 
