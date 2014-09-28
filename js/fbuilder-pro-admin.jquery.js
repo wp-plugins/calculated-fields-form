@@ -114,6 +114,8 @@
 		
 		// Create a items object
 		var items = [],
+            fieldsIndex = {},
+            calculatedFields = {},
 			selected = -3;
 			
 		$.fbuilder[ 'editItem' ] = function( id ) 
@@ -226,6 +228,7 @@
 		
 		$.fbuilder[ 'reloadItems' ] = function() 
 			{
+                
 				for ( var i=0, h = $.fbuilder.showSettings.formlayoutList.length; i < h; i++ )
 				{
 					$("#fieldlist"+opt.identifier).removeClass( $.fbuilder.showSettings.formlayoutList[i].id );
@@ -242,9 +245,16 @@
 					$(".fform").removeClass("ui-selected");
 				}
 				
+                fieldsIndex = {};
+                calculatedFields = {};
 				for ( var i=0, h = items.length; i < h; i++ )
 				{
 					items[i].index = i;
+                    fieldsIndex[ items[i].name ] = i;
+                    if( items[i].ftype == 'fCalculated')
+                    {
+                        calculatedFields[ items[i].name ] = i;
+                    }
 					$("#fieldlist"+opt.identifier).append(items[i].display());
 					if ( i == selected )
 					{
@@ -461,7 +471,15 @@
 		);
 		
 	    var ffunct = {
-	        getItems: function() 
+	        getFieldsIndex: function() 
+			{
+			   return fieldsIndex;
+		    },
+		    getCalculatedFields: function() 
+			{
+			   return calculatedFields;
+		    },
+		    getItems: function() 
 			{
 			   return items;
 		    },

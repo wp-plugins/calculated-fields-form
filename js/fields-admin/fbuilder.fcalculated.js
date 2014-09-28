@@ -22,36 +22,42 @@
 			eq_factorize: function()
 				{
 					var items = this.fBuild.getItems(),
+                        fieldsIndex = this.fBuild.getFieldsIndex(),
+                        calculatedFields = this.fBuild.getCalculatedFields(),
 						eq = this.eq,
 						_match;
-						
+
 					this.eq_factored =  this.eq + ' ';
-					
 					while ( _match = /(fieldname\d+)/.exec(eq))
 					{
-						for( var i = 0, h = items.length; i < h; i++ )
-						{
-							if( items[ i ].name == _match[0] )
-							{
-								if( items[ i ].ftype == 'fCalculated' )
-								{
-									var factored = items[ i ].eq_factorize();
-									factored = factored.replace( /([\D\b])(prec|PREC)([\D\b])/g, "$11*$2$3" ).replace( /;\s*$/g, '');
-									this.eq_factored = this.eq_factored.replace( _match[0], factored );
-								}
-								eq = eq.replace( _match[0], '' );
-								break;
-							}
-						}
-						
-						if( i == h )
+                        if( typeof fieldsIndex[ _match[0] ] != 'undefined' )
+                        {
+                            var item = items[ fieldsIndex[ _match[0] ] ];
+                            if( item.ftype == 'fCalculated' )
+                            {
+                                var factored = item.eq_factorize();
+                                factored = factored.replace( /([\D\b])(prec|PREC)([\D\b])/g, "$11*$2$3" ).replace( /;\s*$/g, '');
+                                this.eq_factored = this.eq_factored.replace( _match[0], factored );
+                            }
+                            eq = eq.replace( _match[0], '' );
+                        }
+                        else
 						{
 							eq = eq.replace( _match[0], '' );
 						}
 					}
-					
 					this.eq_factored = $.trim( this.eq_factored );
-					if( /^\s*$/.test( this.eq_factored ) )
+                    for( var index in calculatedFields)
+                    {
+                        var item = items[ calculatedFields[ index ] ],
+                            re = new RegExp( '[\\D\\b]'+this.name+'[\\D\\b]');
+                        if( re.test( '('+item.eq+')' ) && !re.test( '('+item.eq_factored+')' ) )
+                        {
+                            item.eq_factored = item.eq;
+                        }
+                    }
+                    
+                    if( /^\s*$/.test( this.eq_factored ) )
 					{
 						return this.name;
 					}
@@ -86,9 +92,12 @@
 				{
 					$("#sEq").bind("keyup", {obj: this}, function(e) 
 						{
-							e.data.obj.eq = $(this).val();
-							e.data.obj.eq_factorize();
-							$.fbuilder.reloadItems();
+                            if( $.inArray( e.keyCode, [16,17,18,27,37,38,39,40] ) == -1 )
+                            {
+                                e.data.obj.eq = $(this).val();
+                                e.data.obj.eq_factorize();
+                                $.fbuilder.reloadItems();
+                            }    
 						});
 					$("#sOptimizeEq").bind("click", {obj: this}, function(e) 
 						{
