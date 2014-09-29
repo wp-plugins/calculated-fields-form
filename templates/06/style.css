@@ -6,7 +6,15 @@
 .cp_cff_clean #fbuilder select,
 .cp_cff_clean #fbuilder textarea,
 .cp_cff_clean #fbuilder input[type=text],
-.cp_cff_clean #fbuilder input[type=file]{border: solid 1px #D7D9DA;background:#FFF;padding-left:5px;padding-right:5px;}
+.cp_cff_clean #fbuilder input[type=file]{
+border: solid 1px #D7D9DA;
+background:#FFF;
+padding-left:5px;
+padding-right:5px;
+width: calc( 100% - 10px ) !important;
+width: -webkit-calc( 100% - 10px ) !important;
+width: -moz-calc( 100% - 10px ) !important;
+}
 
 .cp_cff_clean #fbuilder .captcha,
 .cp_cff_clean #fbuilder .fields:not(.section_breaks){padding: 10px;margin-bottom:10px;background:#EBECEC;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;}
