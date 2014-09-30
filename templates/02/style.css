@@ -15,9 +15,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5e513e', end
 .cp_cff_professional #fbuilder textarea,
 .cp_cff_professional #fbuilder input[type=text],
 .cp_cff_professional #fbuilder input[type=file]{
-width: calc( 100% - 10px ) !important;
-width: -webkit-calc( 100% - 10px ) !important;
-width: -moz-calc( 100% - 10px ) !important;
 border-bottom:1px solid #776D5D;
 border-top:1px solid #252118;
 border-left:1px solid #312C20;
@@ -34,6 +31,11 @@ background: -o-linear-gradient(top,  #322c20 0%,#3b3425 8%,#483f2e 100%);
 background: -ms-linear-gradient(top,  #322c20 0%,#3b3425 8%,#483f2e 100%);
 background: linear-gradient(to bottom,  #322c20 0%,#3b3425 8%,#483f2e 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#322c20', endColorstr='#483f2e',GradientType=0 );
+}
+.cp_cff_professional #fbuilder .large{
+width: calc( 100% - 10px ) !important;
+width: -webkit-calc( 100% - 10px ) !important;
+width: -moz-calc( 100% - 10px ) !important;
 }
 
 .cp_cff_professional #fbuilder fieldset{border:0;}
