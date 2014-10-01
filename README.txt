@@ -266,6 +266,12 @@ Examples: Add a class named "specialclass" into the setting "Add CSS Layout Keyw
         border: 2px solid #00f;
     }
 
+= Q: How can I include the link to the uploaded file into the email message? =
+
+A: The uploaded file is attached to the email and in addition to that you can include a link to it by adding a specific field tag into the email message.
+
+In the form builder select/click the upload field for that field, there is a read-only setting named "Field tag for the message (optional):" that shows the field tag for the "uploaded file name", for example: <%fieldname7%>. If that is the tag for your file field then copy and paste that tag into the email message, adding the postfix _url, example: <%fieldname7_url%>.
+
 == Other Notes ==
 
 This section contains mainly notes about the form builder features that are too long to explain in the main description page.
