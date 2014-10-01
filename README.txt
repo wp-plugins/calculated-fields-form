@@ -192,6 +192,10 @@ A: Use the "Page Break" field on the form builder to indicate the new pages on t
 
 A: Insert a summary control and select the fields to be displayed on summary.
 
+= Q: How assign multiple class names to a field? =
+
+A: The class names are assigned to the fields through the attribute: "Add Css Layout Keywords". If you need assign multiple class names to a field, you only should enter the class names separated by space characters. For example: myclass1 myclass2
+
 == Other Notes ==
 
 This section contains mainly notes about the form builder features that are too long to explain in the main description page.
