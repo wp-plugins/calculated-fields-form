@@ -196,6 +196,76 @@ A: Insert a summary control and select the fields to be displayed on summary.
 
 A: The class names are assigned to the fields through the attribute: "Add Css Layout Keywords". If you need assign multiple class names to a field, you only should enter the class names separated by space characters. For example: myclass1 myclass2
 
+= Q: How can I apply CSS styles to the form fields? =
+
+A: To modify the whole styles of the form fields and labels, edit the styles file "wp-content/plugins/cp-calculated-fields-form/css/stylepublic.css" and add these rules at the end of that file:
+
+* Change all the labels:
+    #fbuilder, #fbuilder label, #fbuilder span {
+        color: #00f;
+    }
+    
+* Change all the input, textarea and select fields:
+    #fbuilder input[type=text], #fbuilder textarea, #fbuilder select {
+        border: 2px solid #00f;
+    }
+    
+* Change the submit button:
+    #fbuilder .pbSubmit {
+        color: #00f;
+        font-weight: bold;
+    }
+    
+* Change the "Section Break" field:
+    #fbuilder .section_breaks .section_break { border:0px; }
+    #fbuilder .section_breaks label { font-size:18px; }
+    #fbuilder .section_breaks span { font-size:14px; }
+    
+* Change the "Instructions Text" field:
+    #fbuilder .comment_area label { font-size:18px; }
+    #fbuilder .comment_area span { font-size:14px; }
+    
+* Change the "next" and "previous" buttons:
+    #fbuilder .pbNext,#fbuilder .pbPrevious {
+        color: #00f;
+        font-weight: bold;
+    }
+    
+* Change the "form title" and "header description":
+    #fbuilder .fform h1 {font-size:32px;}
+    #fbuilder .fform span {font-size:16px;}
+    
+* Change the "asterisk" in required fields:
+    #fbuilder label .r {color:#f00;}
+    
+* Hide the ### ### #### in the phone field:
+    .uh_phone .l {display:none;}
+    
+* Hide the Date Format label in the date field:
+    #fbuilder .dformat {display:none;}
+    
+* On the other hand to modify only a specific field into the form:
+
+Step #1: Into the form editor, click a field to edit its details, there is a setting there named "Add CSS Layout Keywords".
+
+Step #2: You can add a class name into that field, so the style specified into the CSS class will be applied to that field.
+
+Step #3 (Note): Don't add style rules directly there but the the name of a CSS class.
+
+Step #4: You can place the CSS class either into the CSS file of your template or into the file "wp-content/plugins/cp-calculated-fields-form/css/stylepublic.css" located into the plugin's folder.
+
+Examples: Add a class named "specialclass" into the setting "Add CSS Layout Keywords" and add one of these CSS rules into the mentioned file: 
+
+* Change the field label:
+    .specialclass label {
+       color: #00f;
+    }
+    
+* Change the input, textarea or select of the field:
+    .specialclass input[type=text],.specialclass textarea,.specialclass select {
+        border: 2px solid #00f;
+    }
+
 == Other Notes ==
 
 This section contains mainly notes about the form builder features that are too long to explain in the main description page.
