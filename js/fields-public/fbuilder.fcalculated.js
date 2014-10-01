@@ -59,6 +59,31 @@
 							<div class="clearer">\
 							</div>'+((!/^\s*$/.test(this.eq))? '<script>'+$.fbuilder[ 'objName' ]+'.fbuilder.calculator.addEquation("'+this.name.replace(/"/g, '\\"')+'", "'+eq+'", '+$.stringifyXX( configuration, false )+', '+$.stringifyXX( dependencies, false )+', "'+this.form_identifier+'");</script>' : '')+'</div>';
 				},
+            after_show: function()
+                {
+                    var e = $( '[id="'+this.name+'"]' );
+                    e.bind( 
+                        'calcualtedfield_change',
+                        {obj: this},
+                        function( evt ){
+                            if( $.fbuilder[ 'calculator' ].getDepList( evt.data.obj.name, evt.data.obj.val(), evt.data.obj.dependencies ) )
+                            {
+                                $.fbuilder.showHideDep( 
+                                                {
+                                                    'formIdentifier' : evt.data.obj.form_identifier, 
+                                                    'throwEvent' 	 : false 
+                                                }
+                                            );
+                            }
+                        } 
+                    ).bind(
+                        'change',
+                        function( evt )
+                        {
+                            $( evt.target ).trigger( 'calcualtedfield_change' );
+                        }
+                    );
+                },
 			showHideDep: function( toShow, toHide )
 				{
 					var item = $( '#'+this.name ),
@@ -387,18 +412,6 @@
 										if( calculated_field.length )
 										{
 											var result = _calculate( form, equations[i].equation, equations[i].identifier );
-											
-											// Check dependent fields
-											if( this.getDepList( equations[i].result, result, equations[i].dep ) )
-											{
-												$.fbuilder.showHideDep( 
-													{
-														'formIdentifier' : equations[i].identifier, 
-														'throwEvent' 	 : false 
-													}
-												);
-											}	
-										
 											calculated_field.val( ( ( result !== false ) ? this.format( result, equations[i].conf ) : '' ) );
 											calculated_field.change(); // Throw the change event to evaluate other equations
 										}
@@ -511,6 +524,7 @@
 												return function()
 													{
 														$.fbuilder[ 'calculator' ][ 'enqueue_fields' ].splice( $.inArray( t, $.fbuilder[ 'calculator' ][ 'enqueue_fields' ] ), 1 );
+                                                        $( t ).trigger( 'calcualtedfield_change' );
 														obj.Calculate( t );
 													};
 											})( evt.target ), 500 );
