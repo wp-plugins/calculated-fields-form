@@ -201,49 +201,60 @@ A: The class names are assigned to the fields through the attribute: "Add Css La
 A: To modify the whole styles of the form fields and labels, edit the styles file "wp-content/plugins/cp-calculated-fields-form/css/stylepublic.css" and add these rules at the end of that file:
 
 * Change all the labels:
+    ```
     #fbuilder, #fbuilder label, #fbuilder span {
         color: #00f;
     }
+    ```
     
 * Change all the input, textarea and select fields:
+    ```
     #fbuilder input[type=text], #fbuilder textarea, #fbuilder select {
         border: 2px solid #00f;
     }
-    
+    ```
 * Change the submit button:
+    ```
     #fbuilder .pbSubmit {
         color: #00f;
         font-weight: bold;
     }
-    
+    ```
 * Change the "Section Break" field:
+    ```
     #fbuilder .section_breaks .section_break { border:0px; }
     #fbuilder .section_breaks label { font-size:18px; }
     #fbuilder .section_breaks span { font-size:14px; }
-    
+    ```
 * Change the "Instructions Text" field:
+    ```
     #fbuilder .comment_area label { font-size:18px; }
     #fbuilder .comment_area span { font-size:14px; }
-    
+    ```
 * Change the "next" and "previous" buttons:
+    ```
     #fbuilder .pbNext,#fbuilder .pbPrevious {
         color: #00f;
         font-weight: bold;
     }
-    
+    ```
 * Change the "form title" and "header description":
+    ```
     #fbuilder .fform h1 {font-size:32px;}
     #fbuilder .fform span {font-size:16px;}
-    
+    ```
 * Change the "asterisk" in required fields:
+    ```
     #fbuilder label .r {color:#f00;}
-    
+    ```
 * Hide the ### ### #### in the phone field:
-    .uh_phone .l {display:none;}
-    
+    ```
+    .uh_phone .l {display:none;}`
+    ```
 * Hide the Date Format label in the date field:
-    #fbuilder .dformat {display:none;}
-    
+    ```
+    #fbuilder .dformat {display:none;}`
+    ```
 * On the other hand to modify only a specific field into the form:
 
 Step #1: Into the form editor, click a field to edit its details, there is a setting there named "Add CSS Layout Keywords".
@@ -257,20 +268,22 @@ Step #4: You can place the CSS class either into the CSS file of your template o
 Examples: Add a class named "specialclass" into the setting "Add CSS Layout Keywords" and add one of these CSS rules into the mentioned file: 
 
 * Change the field label:
+    ```
     .specialclass label {
        color: #00f;
     }
-    
+    ```
 * Change the input, textarea or select of the field:
+    ```
     .specialclass input[type=text],.specialclass textarea,.specialclass select {
         border: 2px solid #00f;
     }
-
+    ```
 = Q: How can I include the link to the uploaded file into the email message? =
 
 A: The uploaded file is attached to the email and in addition to that you can include a link to it by adding a specific field tag into the email message.
 
-In the form builder select/click the upload field for that field, there is a read-only setting named "Field tag for the message (optional):" that shows the field tag for the "uploaded file name", for example: <%fieldname7%>. If that is the tag for your file field then copy and paste that tag into the email message, adding the postfix _url, example: <%fieldname7_url%>.
+In the form builder select/click the upload field for that field, there is a read-only setting named "Field tag for the message (optional):" that shows the field tag for the "uploaded file name", for example: &lt;%fieldname7%&gt;. If that is the tag for your file field then copy and paste that tag into the email message, adding the postfix _url, example: &lt;%fieldname7_url%&gt;
 
 == Other Notes ==
 
@@ -296,9 +309,9 @@ This feature is frequently used to ask the user enter the email address twice to
 
 The fields can have "predefined" or "prefilled" values. There are two possible uses for this:
 
-#1- Can be used for pre-filling the form with common values and save time to the end user.
+1- Can be used for pre-filling the form with common values and save time to the end user.
 
-#2- Can be used for showing a sample of the data that should be entered in the field. In this case you may want to mark also the checkbox "Hide predefined value on click", this way the value will disappear once the user starts using the field without having to manually delete the placeholder value.
+2- Can be used for showing a sample of the data that should be entered in the field. In this case you may want to mark also the checkbox "Hide predefined value on click", this way the value will disappear once the user starts using the field without having to manually delete the placeholder value.
 
 
 = The "Instructions for User" option =
@@ -365,16 +378,18 @@ Here are some sample formulas that can be used as base:
 
 * There is a huge number of equations that can't be recreated with simple mathematical operators, or the operations listed above, requiring "IF" conditions, here is a sample of the formula that can be used in that case:
 
-    
-    `(function(){`        
-        `    if(fieldname3 > 100) return fieldname1+fieldname2;`       
-        `    if(fieldname3 <= 100) return fieldname1*fieldname2;`        
-    `})();`
+    ```
+    (function(){       
+            if(fieldname3 > 100) return fieldname1+fieldname2;       
+            if(fieldname3 <= 100) return fieldname1*fieldname2;        
+    })();
+    ```
     
 
 * For complex equations where is required to define blocks of JavaScript code, you should use the following format:
     
-    `(function(){`  
+    `
+    (function(){`  
         `    var calculatedValue = 0;`    
         `    //Your code here`        
         `    return calculatedValue;`        
