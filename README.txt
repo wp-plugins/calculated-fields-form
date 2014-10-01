@@ -221,14 +221,14 @@ A: To modify the whole styles of the form fields and labels, edit the styles fil
     
 * Change the "Section Break" field:
     
-        `#fbuilder .section_breaks .section_break { border:0px; }`    
-        `#fbuilder .section_breaks label { font-size:18px; }`    
-        `#fbuilder .section_breaks span { font-size:14px; }`    
+        #fbuilder .section_breaks .section_break { border:0px; }    
+        #fbuilder .section_breaks label { font-size:18px; }    
+        #fbuilder .section_breaks span { font-size:14px; }    
     
 * Change the "Instructions Text" field:
     
-        `#fbuilder .comment_area label { font-size:18px; }`    
-        `#fbuilder .comment_area span { font-size:14px; }`    
+        #fbuilder .comment_area label { font-size:18px; }    
+        #fbuilder .comment_area span { font-size:14px; }    
     
 * Change the "next" and "previous" buttons:
     
@@ -239,8 +239,8 @@ A: To modify the whole styles of the form fields and labels, edit the styles fil
     
 * Change the "form title" and "header description":
     
-        `#fbuilder .fform h1 {font-size:32px;}`    
-        `#fbuilder .fform span {font-size:16px;}`    
+        #fbuilder .fform h1 {font-size:32px;}    
+        #fbuilder .fform span {font-size:16px;}    
     
 * Change the "asterisk" in required fields:
     
@@ -252,7 +252,7 @@ A: To modify the whole styles of the form fields and labels, edit the styles fil
     
 * Hide the Date Format label in the date field:
     
-        `#fbuilder .dformat {display:none;}`
+        #fbuilder .dformat {display:none;}
     
 * On the other hand to modify only a specific field into the form:
 
@@ -262,7 +262,7 @@ Step #2: You can add a class name into that field, so the style specified into t
 
 Step #3 (Note): Don't add style rules directly there but the the name of a CSS class.
 
-Step #4: You can place the CSS class either into the CSS file of your template or into the file `wp-content/plugins/cp-calculated-fields-form/css/stylepublic.css` located into the plugin's folder.
+Step #4: You can place the CSS class either into the CSS file of your template or into the file "wp-content/plugins/cp-calculated-fields-form/css/stylepublic.css" located into the plugin's folder.
 
 Examples: Add a class named "specialclass" into the setting "Add CSS Layout Keywords" and add one of these CSS rules into the mentioned file: 
 
