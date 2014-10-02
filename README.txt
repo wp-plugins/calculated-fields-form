@@ -284,6 +284,20 @@ A: The uploaded file is attached to the email and in addition to that you can in
 
 In the form builder select/click the upload field for that field, there is a read-only setting named "Field tag for the message (optional):" that shows the field tag for the "uploaded file name", for example: &lt;%fieldname7%&gt;. If that is the tag for your file field then copy and paste that tag into the email message, adding the postfix _url, example: &lt;%fieldname7_url%&gt;
 
+= Q: How can be displayed texts in the calculated fields? =
+
+A: The calculated fields have been implemented to display the result of mathematical equations, but if you want display texts in the calculated fields, you only should modify a little the plugin's code. 
+
+1. Open the "/wp-content/plugins/calculated-fields-form/js/modules/01_mathematical_logical/public/module_public.js" file, in the text editor your choice.
+
+2. Go to the snippet of code:
+
+        return isFinite( v ) || /\d{2}[\/\-\.]\d{2}[\/\-\.]\d{4}/.test( v );        
+
+and edit it like follow:
+
+        return (typeof v != 'undefined');       
+
 == Other Notes ==
 
 This section contains mainly notes about the form builder features that are too long to explain in the main description page.
