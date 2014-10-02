@@ -57,7 +57,7 @@
 							<span class="uh">'+this.userhelp+'</span>\
 							</div>\
 							<div class="clearer">\
-							</div>'+((!/^\s*$/.test(this.eq))? '<script>'+$.fbuilder[ 'objName' ]+'.fbuilder.calculator.addEquation("'+this.name.replace(/"/g, '\\"')+'", "'+eq+'", '+$.stringifyXX( configuration, false )+', '+$.stringifyXX( dependencies, false )+', "'+this.form_identifier+'");</script>' : '')+'</div>';
+							</div>'+((!/^\s*$/.test(this.eq))? '<script>'+$.fbuilder[ 'objName' ]+'.fbuilder.calculator.addEquation("'+this.name.replace(/"/g, '\\"')+'", "'+eq+'", '+$.stringifyXX( configuration )+', '+$.stringifyXX( dependencies )+', "'+this.form_identifier+'");</script>' : '')+'</div>';
 				},
             after_show: function()
                 {
