@@ -99,3 +99,5 @@ a.helpfbuilder{font-size:80%;text-decoration:underline;color:#00f;cursor:pointer
 .form-builder .ui-button-text {
     display: block !important;
 }
+
+.form-builder-error-messages .error-text{ color: #FF0000; border: 1px solid #FF0000; margin-bottom: 10px; padding:5px; }
