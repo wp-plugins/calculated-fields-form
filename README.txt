@@ -296,7 +296,11 @@ A: The calculated fields have been implemented to display the result of mathemat
 
 and edit it like follow:
 
-        return (typeof v != 'undefined');       
+        return (typeof v != 'undefined');  
+
+= Q: Why the form builder is displaying the error message: "The entered data includes invalid characters..."? =
+
+A: Sometimes the users copy the text for the fields labels, and descriptions, from a different platform, for example Excel or MS Word, but the text copied can include invalid characters. The plugin validates the form's structure to avoid this type of errors.
 
 == Other Notes ==
 
