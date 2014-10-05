@@ -194,18 +194,7 @@
 					} catch(e){}
 
 				}
-                
-                focusWithoutScrolling = function(el){
-                    if( el.length )
-                    {
-                        el = el[0];
-                        var x = $(window).scrollLeft(), y = $(window).scrollTop();
-                        if( !/date/.test( el.id ) ) el.focus();
-                        setTimeout( function(){ window.scrollTo(x,y); }, 0 );
-                    } 
-                };
-				focusWithoutScrolling($("#fieldlist"+opt.identifier+" .pb0").find(".field"));
-			};
+            };
 			
 		var fform=function(){};
 		$.extend(fform.prototype,
