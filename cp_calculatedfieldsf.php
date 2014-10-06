@@ -590,6 +590,7 @@ function cp_calculatedfieldsf_save_options()
     cp_calculatedfieldsf_add_field_verify($wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE,'vs_text_nextbtn'," varchar(250) NOT NULL default ''");   
     
     if( 
+        true ||
         isset( $_REQUEST[ 'form_structure_crc' ] ) && 
         isset( $_REQUEST[ 'form_structure' ] ) && 
         $_REQUEST[ 'form_structure_crc' ] == strlen( stripslashes( $_REQUEST[ 'form_structure' ] ) ) 
