@@ -329,6 +329,14 @@ Following the same example in the previous point:
             else return 1000;       
         })()        
 
+= Q: Why the users are not receiving the notification emails if was selected the option for send a copy to the user, and selected the email field, from the form's settings? =
+
+A: If the users are not receiving the notification emails with submission data, the probable reasons are:
+
+1. The email should be sent through SMTP. In this case you should install in your WordPress one of the available plugins for SMTP integration, in the WordPress directory.
+
+2. The web server allows send emails directly, but the email address entered in the "from" attribute, does not belongs to the same domain of the website. In this case, the email services classify the notification email as a possible identity fishing; and the email is deleted by security. You should enter in this attribute an email address belonging to the website's domain.        
+        
 == Other Notes ==
 
 This section contains mainly notes about the form builder features that are too long to explain in the main description page.
