@@ -306,7 +306,7 @@ A: Sometimes the users copy the text for the fields labels, and descriptions, fr
 
 A: There are three ways to use conditional statements in the equations:
 
-1. Using the IF operation (don't confuse the operation "IF" with the reserved word "if" of javascript, the code in javascript  is case sensitive)
+* Using the IF operation (don't confuse the operation "IF" with the reserved word "if" of javascript, the code in javascript  is case sensitive)
 
         IF( condition, value if true, value if false)       
         
@@ -314,7 +314,7 @@ For example, if the result of the equation is 100 when the value of fieldname1 i
         
         IF(fieldname1<100,100,1000)     
         
-2. Using the ternary operator of javascript
+* Using the ternary operator of javascript
 
         (condition) ? value if true : value if false    
 
@@ -322,7 +322,7 @@ Following the same example in the previous point:
 
         (fieldname1<100) ? 100 : 1000       
         
-3. With a more powerful equation
+* With a more powerful equation
         
         (function(){        
             if( fieldname1 < 100) return 100;       
