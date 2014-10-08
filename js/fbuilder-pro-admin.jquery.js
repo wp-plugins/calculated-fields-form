@@ -51,12 +51,7 @@
 		return ( p ) ? p[0]*1 : '"' + value.replace(/'/g, "\\'").replace( /\$/g, '') + '"';
 	};
 	
-    $.fbuilder[ 'showErrorMssg' ] = function( str ) // Display an error message
-    {
-        $( '.form-builder-error-messages' ).html( '<div class="error-text">' + str + '</div>' );
-    };
-    
-	// fbuilder plugin
+    // fbuilder plugin
 	$.fn.fbuilder = function(options){
 		var opt = $.extend({},
 				{
@@ -530,34 +525,10 @@
 			{
                 var itemsStringified   = $.stringifyXX( items ),
                     theFormStringified = $.stringifyXX( theForm ),
-                    errorTxt = 'The entered data includes invalid characters. Please, if you are copying and pasting from another platform, be sure the data not include invalid characters.',
                     str;
-                
-                if( typeof global_varible_save_data != 'undefined' )
-                {
-                    // If the global_varible_save_data exists clear the form-builder-error-messages
-                    $( '.form-builder-error-messages' ).html( '' );
-                }
-                
-                try{
-                    if( true || $.parseJSON( itemsStringified ) != null && $.parseJSON( theFormStringified ) != null )
-                    {
-                        str = "["+ itemsStringified +",["+ theFormStringified +"]]";
-                        $( "#"+f ).val( str );
-                        $( "#form_structure_crc" ).val( str.length );
-                    }
-                    else
-                    {
-                        $.fbuilder[ 'showErrorMssg' ]( errorTxt );
-                    }    
-                }
-                catch( err )
-                {
-                    $.fbuilder[ 'showErrorMssg' ]( errorTxt );
-                }
-                
-                global_varible_save_data = true;
-		    },
+                str = "["+ itemsStringified +",["+ theFormStringified +"]]";
+                $( "#"+f ).val( str );
+            },
 		    loadData:function(form_structure, available_templates)
 			{
 		        var structure = $.parseJSON( $("#"+form_structure).val() ), // JSON data
