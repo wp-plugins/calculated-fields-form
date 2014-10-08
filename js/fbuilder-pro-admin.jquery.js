@@ -540,7 +540,7 @@
                 }
                 
                 try{
-                    if( $.parseJSON( itemsStringified ) != null && $.parseJSON( theFormStringified ) != null )
+                    if( true || $.parseJSON( itemsStringified ) != null && $.parseJSON( theFormStringified ) != null )
                     {
                         str = "["+ itemsStringified +",["+ theFormStringified +"]]";
                         $( "#"+f ).val( str );
