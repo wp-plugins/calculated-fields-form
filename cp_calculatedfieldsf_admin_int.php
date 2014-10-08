@@ -39,14 +39,6 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf
  <div id="metabox_basic_settings" class="postbox" >
   <h3 class='hndle' style="padding:5px;"><span>Form Builder</span></h3>
   <div class="inside">   
-     <div class="form-builder-error-messages"><?php
-        global $cff_structure_error;
-        if( !empty( $cff_structure_error ) )
-        {
-            echo $cff_structure_error;
-        }
-     ?></div>
-     <input type="hidden" name="form_structure_crc" id="form_structure_crc" />
      <input type="hidden" name="form_structure" id="form_structure" value="<?php echo str_replace('"','&quot;',str_replace("\r","",str_replace("\n","",esc_attr(cp_calculatedfieldsf_cleanJSON(cp_calculatedfieldsf_get_option('form_structure', CP_CALCULATEDFIELDSF_DEFAULT_form_structure)))))); ?>" />
 	 <input type="hidden" name="templates" id="templates" value="<?php echo esc_attr( json_encode( cp_calculatedfieldsf_available_templates() ) ); ?>" /> 	
      <link href="<?php echo plugins_url('css/style.css', __FILE__); ?>" type="text/css" rel="stylesheet" />   

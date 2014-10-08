@@ -565,10 +565,10 @@ function cp_calculated_fields_form_check_posted_data() {
         cp_calculatedfieldsf_save_options();
 		if( isset( $_POST[ 'preview' ] ) )
 		{
-			print '<html>'; 
+			print '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body>'; 
 			print( cp_calculatedfieldsf_filter_content( array( 'id' => $_POST[ 'cp_calculatedfieldsf_id' ] ) ));
 			wp_footer();
-			print '</html>';
+			print '</body></html>';
 			exit;
 		}	
 		return;
@@ -589,76 +589,63 @@ function cp_calculatedfieldsf_save_options()
     cp_calculatedfieldsf_add_field_verify($wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE,'vs_text_previousbtn'," varchar(250) NOT NULL default ''");
     cp_calculatedfieldsf_add_field_verify($wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE,'vs_text_nextbtn'," varchar(250) NOT NULL default ''");   
     
-    if( 
-        
-        isset( $_REQUEST[ 'form_structure_crc' ] ) && 
-        isset( $_REQUEST[ 'form_structure' ] ) //&& 
-        //$_REQUEST[ 'form_structure_crc' ] == strlen( utf8_decode( stripslashes( $_REQUEST[ 'form_structure' ] ) ) ) 
-    )    
-    {
-        foreach ($_POST as $item => $value)    
-            $_POST[$item] = stripcslashes($value);
+    foreach ($_POST as $item => $value)    
+        $_POST[$item] = stripcslashes($value);
 
-        $data = array(
-                      'form_structure' => $_POST['form_structure'],
+    $data = array(
+                  'form_structure' => $_POST['form_structure'],
 
-                      'fp_from_email' => $_POST['fp_from_email'],
-                      'fp_destination_emails' => $_POST['fp_destination_emails'],
-                      'fp_subject' => $_POST['fp_subject'],
-                      'fp_inc_additional_info' => $_POST['fp_inc_additional_info'],
-                      'fp_return_page' => $_POST['fp_return_page'],
-                      'fp_message' => $_POST['fp_message'],
-                      'fp_emailformat' => $_POST['fp_emailformat'],
+                  'fp_from_email' => $_POST['fp_from_email'],
+                  'fp_destination_emails' => $_POST['fp_destination_emails'],
+                  'fp_subject' => $_POST['fp_subject'],
+                  'fp_inc_additional_info' => $_POST['fp_inc_additional_info'],
+                  'fp_return_page' => $_POST['fp_return_page'],
+                  'fp_message' => $_POST['fp_message'],
+                  'fp_emailformat' => $_POST['fp_emailformat'],
 
-                      'cu_enable_copy_to_user' => $_POST['cu_enable_copy_to_user'],
-                      'cu_user_email_field' => (isset($_POST['cu_user_email_field'])?$_POST['cu_user_email_field']:''),
-                      'cu_subject' => $_POST['cu_subject'],
-                      'cu_message' => $_POST['cu_message'],
-                      'cu_emailformat' => $_POST['cu_emailformat'],
-                      
-                      'enable_paypal' => @$_POST["enable_paypal"],
-                      'paypal_email' => $_POST["paypal_email"],
-                      'request_cost' => $_POST["request_cost"],
-                      'paypal_product_name' => $_POST["paypal_product_name"],
-                      'currency' => $_POST["currency"],
-                      'paypal_language' => $_POST["paypal_language"],
-                      'paypal_mode' => $_POST["paypal_mode"],
-                      'paypal_recurrent' => $_POST["paypal_recurrent"],
-                      'paypal_identify_prices' => (isset($_POST['paypal_identify_prices'])?$_POST['paypal_identify_prices']:'0'),
-                      'paypal_zero_payment' => $_POST["paypal_zero_payment"],
+                  'cu_enable_copy_to_user' => $_POST['cu_enable_copy_to_user'],
+                  'cu_user_email_field' => (isset($_POST['cu_user_email_field'])?$_POST['cu_user_email_field']:''),
+                  'cu_subject' => $_POST['cu_subject'],
+                  'cu_message' => $_POST['cu_message'],
+                  'cu_emailformat' => $_POST['cu_emailformat'],
+                  
+                  'enable_paypal' => @$_POST["enable_paypal"],
+                  'paypal_email' => $_POST["paypal_email"],
+                  'request_cost' => $_POST["request_cost"],
+                  'paypal_product_name' => $_POST["paypal_product_name"],
+                  'currency' => $_POST["currency"],
+                  'paypal_language' => $_POST["paypal_language"],
+                  'paypal_mode' => $_POST["paypal_mode"],
+                  'paypal_recurrent' => $_POST["paypal_recurrent"],
+                  'paypal_identify_prices' => (isset($_POST['paypal_identify_prices'])?$_POST['paypal_identify_prices']:'0'),
+                  'paypal_zero_payment' => $_POST["paypal_zero_payment"],
 
-                      'vs_use_validation' => $_POST['vs_use_validation'],
-                      'vs_text_is_required' => $_POST['vs_text_is_required'],
-                      'vs_text_is_email' => $_POST['vs_text_is_email'],
-                      'vs_text_datemmddyyyy' => $_POST['vs_text_datemmddyyyy'],
-                      'vs_text_dateddmmyyyy' => $_POST['vs_text_dateddmmyyyy'],
-                      'vs_text_number' => $_POST['vs_text_number'],
-                      'vs_text_digits' => $_POST['vs_text_digits'],
-                      'vs_text_max' => $_POST['vs_text_max'],
-                      'vs_text_min' => $_POST['vs_text_min'],
-                      'vs_text_previousbtn' => $_POST['vs_text_previousbtn'],
-                      'vs_text_nextbtn' => $_POST['vs_text_nextbtn'],
+                  'vs_use_validation' => $_POST['vs_use_validation'],
+                  'vs_text_is_required' => $_POST['vs_text_is_required'],
+                  'vs_text_is_email' => $_POST['vs_text_is_email'],
+                  'vs_text_datemmddyyyy' => $_POST['vs_text_datemmddyyyy'],
+                  'vs_text_dateddmmyyyy' => $_POST['vs_text_dateddmmyyyy'],
+                  'vs_text_number' => $_POST['vs_text_number'],
+                  'vs_text_digits' => $_POST['vs_text_digits'],
+                  'vs_text_max' => $_POST['vs_text_max'],
+                  'vs_text_min' => $_POST['vs_text_min'],
+                  'vs_text_previousbtn' => $_POST['vs_text_previousbtn'],
+                  'vs_text_nextbtn' => $_POST['vs_text_nextbtn'],
 
-                      'cv_enable_captcha' => $_POST['cv_enable_captcha'],
-                      'cv_width' => $_POST['cv_width'],
-                      'cv_height' => $_POST['cv_height'],
-                      'cv_chars' => $_POST['cv_chars'],
-                      'cv_font' => $_POST['cv_font'],
-                      'cv_min_font_size' => $_POST['cv_min_font_size'],
-                      'cv_max_font_size' => $_POST['cv_max_font_size'],
-                      'cv_noise' => $_POST['cv_noise'],
-                      'cv_noise_length' => $_POST['cv_noise_length'],
-                      'cv_background' => $_POST['cv_background'],
-                      'cv_border' => $_POST['cv_border'],
-                      'cv_text_enter_valid_captcha' => $_POST['cv_text_enter_valid_captcha']
-        );
-        $wpdb->update ( $wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE, $data, array( 'id' => CP_CALCULATEDFIELDSF_ID ));    
-    }
-    else
-    {
-        global $cff_structure_error;
-        $cff_structure_error = '<div class="error-text">The data cannot be stored in database because has occurred an error with the form structure. Please, try to save the data again. If the issue persist, please <a href="http://wordpress.dwbooster.com/support">contact us</a></div>';
-    }    
+                  'cv_enable_captcha' => $_POST['cv_enable_captcha'],
+                  'cv_width' => $_POST['cv_width'],
+                  'cv_height' => $_POST['cv_height'],
+                  'cv_chars' => $_POST['cv_chars'],
+                  'cv_font' => $_POST['cv_font'],
+                  'cv_min_font_size' => $_POST['cv_min_font_size'],
+                  'cv_max_font_size' => $_POST['cv_max_font_size'],
+                  'cv_noise' => $_POST['cv_noise'],
+                  'cv_noise_length' => $_POST['cv_noise_length'],
+                  'cv_background' => $_POST['cv_background'],
+                  'cv_border' => $_POST['cv_border'],
+                  'cv_text_enter_valid_captcha' => $_POST['cv_text_enter_valid_captcha']
+    );
+    $wpdb->update ( $wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE, $data, array( 'id' => CP_CALCULATEDFIELDSF_ID ));        
 }
 
 
