@@ -137,16 +137,18 @@
 					
                     function validateDate( d, w, i )
                     {
-                        if( d === null ) return [false,""];
-                        if ( ! w[ d.getDay()]) return [false,""];
-                        if( i !== null )
-                        {
-                            for( var j = 0, h = i.length; j < h; j++ )
+                        try{
+                            if( d === null ) return [false,""];
+                            if ( ! w[ d.getDay()]) return [false,""];
+                            if( i !== null )
                             {
-                                if( d.getDate() == i[ j ].getDate() && d.getMonth() == i[ j ].getMonth() && d.getFullYear() == i[ j ].getFullYear() ) return [false,""];
+                                for( var j = 0, h = i.length; j < h; j++ )
+                                {
+                                    if( d.getDate() == i[ j ].getDate() && d.getMonth() == i[ j ].getMonth() && d.getFullYear() == i[ j ].getFullYear() ) return [false,""];
+                                }
                             }
                         }
-                        
+                        catch( _err ){}
                         return [true,""]; 
                     };
                     
@@ -183,10 +185,10 @@
 					if (this.showDropdown) p = $.extend(p,{changeMonth: true,changeYear: true,yearRange: this.dropdownRange});
 					p = $.extend(p, { beforeShowDay: ( function ( w, i ) { return function( d ){ return validateDate( d, w, i ); }; } )( this.working_dates, this.invalidDates ) } );
 					dp.datepicker(p);
-                    
-                    if( validateDate( dd, this.working_dates, this.invalidDates)[ 0 ]  )
+                    dp.datepicker( "setDate", dd);
+                    if( !validateDate( dp.datepicker( "getDate"), this.working_dates, this.invalidDates)[ 0 ]  )
                     {    
-                        dp.datepicker( "setDate", dd);
+                        dp.datepicker( "setDate", '');
                     }
 					
 					if( this.showTimepicker )
