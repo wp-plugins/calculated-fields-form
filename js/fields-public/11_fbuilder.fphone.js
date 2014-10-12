@@ -30,8 +30,18 @@
 					{
                         str += '<div class="uh_phone" ><input type="text" id="'+this.name+'_'+i+'" name="'+this.name+'_'+i+'" class="field digits '+((this.required)?" required":"")+'" style="width:'+(15*$.trim(tmp[i]).length)+'px" '+attr+'="'+((tmpv[i])?tmpv[i]:"")+'" maxlength="'+$.trim(tmp[i]).length+'" minlength="'+$.trim(tmp[i]).length+'"/><div class="l">'+$.trim(tmp[i])+'</div></div>';
 					}
-					
-					$( document ).on( 'change', '#'+this.name+'_'+i, function(){ 
+				}	
+				
+				return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'"><label for="'+this.name+'">'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><input type="hidden" id="'+this.name+'" name="'+this.name+'" class="field " />'+str+'<span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
+			},
+            after_show: function()
+            {
+                var me   = this,
+                    tmp  = me.dformat.split(' ');
+                
+                for (var i = 0, h = tmp.length; i < h; i++ )
+				{
+					$( '#'+me.name+'_'+i ).bind( 'change', function(){ 
 						var v = '';
 						for( var i = 0; i < tmp.length; i++ )
 						{
@@ -39,9 +49,18 @@
 						}
 						$( '#'+me.name ).val( v ).change();
 					} );
-				}	
-				
-				return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'"><label for="'+this.name+'">'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><input type="hidden" id="'+this.name+'" name="'+this.name+'" class="field " />'+str+'<span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
-			}
+                    if( i+1 < h )
+                    {
+                        $('#'+me.name+'_'+i).bind( 'keyup', { 'next': i+1 }, function( evt ){
+                            var e = $( this );
+                            if( e.val().length == e.attr( 'maxlength' ) )
+                            {
+                                e.change();
+                                $( '#'+me.name+'_'+evt.data.next ).focus();
+                            }
+                        } );
+                    }    
+                }
+            }
 		}
 	);
