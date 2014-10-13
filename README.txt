@@ -609,4 +609,5 @@ Note that you can make the "Instruct. Text" fields dependent from the calculated
 == Upgrade Notice ==
 
 = 1.0.1 =
-Stable version released.
+* Stable version released.
+* New behaviour in the Phone controls.
