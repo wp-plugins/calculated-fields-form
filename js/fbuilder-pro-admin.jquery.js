@@ -297,11 +297,11 @@
 						})
 						.click(function( evt )
 						{
-							$.fbuilder[ 'editItem' ]($(this).attr("id").replace("field"+opt.identifier+"-",""));
+							evt.stopPropagation();
+                            $.fbuilder[ 'editItem' ]($(this).attr("id").replace("field"+opt.identifier+"-",""));
 							$( '#fieldlist .ui-selected' ).removeClass("ui-selected");
 							$(this).addClass("ui-selected");
-							evt.stopPropagation();
-                            $('#tabs').tabs("option", "active", 1);
+							$('#tabs').tabs("option", "active", 1);
                         });
 					$(".field").focus(function()
 						{
@@ -317,7 +317,8 @@
 					{
 						$(this).removeClass("ui-over");
 					})
-					.click(function(){
+					.click(function( evt ){
+                        evt.stopPropagation();
 						$('#tabs').tabs("option", "active", 2);
 						$.fbuilder.editForm();
 						$(this).siblings().removeClass("ui-selected");
@@ -416,7 +417,16 @@
 		);
 		
 		var theForm = new fform();
-		$("#fieldlist"+opt.identifier).sortable(
+		$("#fbuilder").click( function( evt )
+            { 
+                evt.stopPropagation();
+                selected = -2;
+                $(".fform").removeClass("ui-selected")
+                $( '#fieldlist .ui-selected' ).removeClass("ui-selected");
+                $('#tabs').tabs("option", "active", 0);
+            } 
+        );
+        $("#fieldlist"+opt.identifier).sortable(
 			{
 				'connectWith': '.ui-sortable',
 				'items': '.fields',
