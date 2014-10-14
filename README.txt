@@ -277,7 +277,46 @@ Examples: Add a class named "specialclass" into the setting "Add CSS Layout Keyw
         .specialclass input[type=text],.specialclass textarea,.specialclass select {        
             border: 2px solid #00f;        
         }        
-    
+
+= Q: What files can be uploaded through the form? =
+
+A: The File control includes an attribute for entering the file extensions that can be uploaded. But, Can be entered any file extension? The answer is NO. The last decision is taken by WordPress. WordPress for security reasons, accepts a specific list of files extensions, but with the file control it is possible restrict this list even more.
+
+The files accepted in WordPress by default are: 
+
+* Images
+
+    .jpg
+    .jpeg
+    .png
+    .gif
+
+* Documents
+
+    .pdf (Portable Document Format; Adobe Acrobat)
+    .doc, .docx (Microsoft Word Document)
+    .ppt, .pptx, .pps, .ppsx (Microsoft PowerPoint Presentation)
+    .odt (OpenDocument Text Document)
+    .xls, .xlsx (Microsoft Excel Document)
+
+* Audio
+
+    .mp3
+    .m4a
+    .ogg
+    .wav
+
+* Video
+
+    .mp4, .m4v
+    .mov
+    .wmv
+    .avi
+    .mpg
+    .ogv (Ogg)
+    .3gp (3GPP)
+    .3g2 (3GPP2)
+        
 = Q: How can I include the link to the uploaded file into the email message? =
 
 A: The uploaded file is attached to the email and in addition to that you can include a link to it by adding a specific field tag into the email message.
