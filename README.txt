@@ -316,7 +316,20 @@ The files accepted in WordPress by default are:
     .ogv (Ogg)
     .3gp (3GPP)
     .3g2 (3GPP2)
-        
+
+= Q: How can be modified the files allowed to be uploaded in WordPress? =
+
+A: You need to add a new plugin hook. In your theme's functions.php file, add this line:
+
+        add_filter('upload_mimes', 'cpcff_custom_upload_mimes');        
+        function cpcff_custom_upload_mimes ( $existing_mimes=array() ) {        
+            // add your ext => mime to the array ($existing_mimes['extension'] = 'mime/type';). For example to add files ai      
+            $existing_mimes['ai'] = 'application/postscript';     
+            // add as many as you like      
+            // and return the new full result       
+            return $existing_mimes;     
+        }       
+
 = Q: How can I include the link to the uploaded file into the email message? =
 
 A: The uploaded file is attached to the email and in addition to that you can include a link to it by adding a specific field tag into the email message.
