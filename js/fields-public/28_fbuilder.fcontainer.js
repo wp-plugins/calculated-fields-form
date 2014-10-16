@@ -4,9 +4,9 @@
 		after_show: function()
 			{
 				var e  = $( '#'+this.name );
-				for( var i = 0, h = this.fields.length; i < h; i++ )
+                for( var i = 0, h = this.fields.length; i < h; i++ )
 				{
-					$( '#'+this.fields[ i ]+this.form_identifier ).parents( '.fields' ).detach().appendTo( e );
+					$( '#'+this.fields[ i ]+this.form_identifier ).closest( '.fields' ).detach().appendTo( e );
 				}					
 			},
 		showHideDep:function( toShow, toHide )
@@ -26,7 +26,7 @@
 							toShow.splice( index, 1);
 						}
 						
-						$( '#' + this.fields[ i ]+this.form_identifier ).parents( '.fields' )
+						$( '#' + this.fields[ i ]+this.form_identifier ).closest( '.fields' )
 																		.find( '.field' )
 																		.each(function()
 																		{
