@@ -388,6 +388,12 @@ A: If the users are not receiving the notification emails with submission data, 
 1. The email should be sent through SMTP. In this case you should install in your WordPress one of the available plugins for SMTP integration, in the WordPress directory.
 
 2. The web server allows send emails directly, but the email address entered in the "from" attribute, does not belongs to the same domain of the website. In this case, the email services classify the notification email as a possible identity fishing; and the email is deleted by security. You should enter in this attribute an email address belonging to the website's domain.        
+
+= Q: How could be printed the form only and not the complete page? =
+
+A: To print only the form, but not the rest of page, you should insert a button in the form, and paste the snippet of code below, as its onlcick event. Be sure not entering any change of line:
+
+        var w=window.open(null, 'Print_Page', 'scrollbars=yes');jQuery('#fbuilder input').each(function(){var e = jQuery(this);e.attr('value', e.val());});w.document.write(jQuery('#fbuilder').html());w.document.close();w.print();       
         
 == Other Notes ==
 
