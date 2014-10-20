@@ -130,8 +130,15 @@ A: The form processing isn't available in the version listed on this directory. 
 
 = Q: Which calculation operations are included? =
 
-A: In addition to the basic and most common operations (+,-,*,/) the following functions are also available: ABS (absolute value), ceil (rounds up to the nearest integer), floor (rounds a downwards to the nearest integer), round (integer round), prec (round with decimal precision), log (logarithm), pow (x to the power of y), sqrt (square root), max (maximum value between two numbers), min (minimum value between two numbers) and cdate (convert a value to display it as a date). For advanced users, the JavaScript ternary operator (condition ? value_if_true : value_if_false) is also supported.
+A: In addition to the basic and most common operations (+,-,*,/) the following functions are also available: ABS (absolute value), CEIL (rounds up to the nearest integer), FLOOR (rounds a downwards to the nearest integer), ROUND (integer round), PREC (round with decimal precision), LOG (logarithm), POW (x to the power of y), SQRT (square root), MAX (maximum value between two numbers), MIN (minimum value between two numbers) and CDATE (convert a value to display it as a date). For advanced users, the JavaScript ternary operator (condition ? value_if_true : value_if_false) is also supported.
 
+= Q: How can I round the calculated result to 2 decimal digits? =
+
+A: Use the "PREC" function/operator for that purpose, example:
+
+    PREC(fieldname4*fieldname5,2)
+
+The above sample rounds the result of fieldname4*fieldname5 to two decimal digits.
 
 = Q: Is there a way to format the form in a table structure (various fields in the same line) ? =
 
@@ -152,20 +159,9 @@ A: Each time a field value changes (including the calculated fields) an event is
 
 The value of a calculated field will appear automatically once all the fields used in the calculations become available with a valid number or date. The calculation is instant in all cases.
 
-
-= Q: How can I round the calculated result to 2 decimal digits? =
-
-A: Use the "prec" function/operator for that purpose, example:
-
-    prec(fieldname4*fieldname5,2)
-
-The above sample rounds the result of fieldname4*fieldname5 to two decimal digits.
-
-
 = Q: Can I link the calculated amount to a PayPal payment form? =
 
 A: That feature is available in the pro version that can be acquired at this page http://wordpress.dwbooster.com/forms/calculated-fields-form
-
 
 = Q: How can I apply CSS styles to the form fields? =
 
