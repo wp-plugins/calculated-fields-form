@@ -53,9 +53,7 @@
 #fbuilder .cpcaptchalayer,.cp_subbtn{display:none;}
 
 #fbuilder input[type='radio'],#fbuilder input[type='checkbox']{width:auto;}
-#fbuilder .ui-tooltip.uh-tooltip{width:250px;font-size:10px;font-weight:normal;padding:5px;}
-#fbuilder input[type='radio'],#fbuilder input[type='checkbox']{width:auto;}
-#fbuilder .ui-tooltip.uh-tooltip{width:250px;font-size:10px;font-weight:normal;padding:5px;}
+.ui-tooltip.uh-tooltip{width:250px;font-size:10px;font-weight:normal;padding:5px;}
 #fbuilder input[type="checkbox"]{-webkit-appearance:checkbox!important;}
 #fbuilder input[type="radio"]{-webkit-appearance:radio!important;}
 

@@ -86,7 +86,7 @@
                         }
 						if (items[i].userhelpTooltip)
 						{
-							var uh = $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).parents(".fields");
+							var uh = $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).parents(".dfield");
 							uh.find(".uh").css("display","none");
 							if (uh.find(".uh").text()!="")
 							{
@@ -190,7 +190,7 @@
 						});
 					try 
 					{
-						$( "#fbuilder"+opt.identifier ).tooltip({show: false,hide:false,tooltipClass:"uh-tooltip",position: { my: "left top", at: "left bottom", collision: "none"  },items: "[uh]",content: function (){return $(this).attr("uh");} });
+						$( "#fbuilder"+opt.identifier ).tooltip({show: false,hide:false,tooltipClass:"uh-tooltip",position: { my: "left top", at: "left bottom+5", collision: "none"  },items: "[uh]",content: function (){return $(this).attr("uh");} });
 					} catch(e){}
 
 				}
