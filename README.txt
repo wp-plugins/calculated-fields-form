@@ -127,7 +127,6 @@ If your form includes the numeric field: "fieldname1", and a calculated field. T
 
 A: The form processing isn't available in the version listed on this directory. There are other versions with form processing, email notifications and payment processing. You can check other versions at http://wordpress.dwbooster.com/forms/calculated-fields-form
 
-
 = Q: Which calculation operations are included? =
 
 A: In addition to the basic and most common operations (+,-,*,/) the following functions are also available: ABS (absolute value), CEIL (rounds up to the nearest integer), FLOOR (rounds a downwards to the nearest integer), ROUND (integer round), PREC (round with decimal precision), LOG (logarithm), POW (x to the power of y), SQRT (square root), MAX (maximum value between two numbers), MIN (minimum value between two numbers) and CDATE (convert a value to display it as a date). For advanced users, the JavaScript ternary operator (condition ? value_if_true : value_if_false) is also supported.
@@ -148,6 +147,85 @@ A: Use the "PREC" function/operator for that purpose, example:
 
 The above sample rounds the result of fieldname4*fieldname5 to two decimal digits.
 
+= Q: Does the plugin operations to calculate dates? =
+
+A: The free and pro versions of the plugin allow obtain the number of days between two date fields, or add a number of days to a date and get the result as a date string through the operation CDATE. CDATE( number, format ), but the developer version of the plugin includes a module dedicated solely for dates operations.
+
+The operations included in the date module are:
+
+* DATEOBJ: Get the date object from an string representation of date. DATEOBJ( date_string, format ). 
+
+    DATEOBJ('2013-05-21', 'yyyy-mm-dd')     
+    Result: date object     
+
+* YEAR: Get the year from an string representation of date. YEAR( date_string, format )
+
+    YEAR('2013-05-21', 'yyyy-mm-dd')    
+    Result: 2013        
+
+* MONTH: Get the month from an string representation of date. MONTH( date_string, format )
+
+    MONTH('2013-05-21', 'yyyy-mm-dd')   
+    Result: 5       
+
+* DAY: Get the days from an string representation of date. DAY( date_string, format )
+
+    DAY('2013-05-21', 'yyyy-mm-dd')     
+    Result: 21      
+    
+* WEEKDAY: Get the week day from an string representation of date. WEEKDAY( date_string, format )
+
+    WEEKDAY('2013-10-27', 'yyyy-mm-dd')     
+    Result: 1 Sunday is the day number one      
+    
+* WEEKNUM: Get the week number from an string representation of date, a year has 53 weeks. WEEKNUM( date_string, format )
+
+    WEEKNUM('2013-10-27', 'yyyy-mm-dd')     
+    Result: 43      
+    
+* HOURS: Get hours from an string representation of datetime. HOURS( datetime_string, format )
+
+    HOURS('2013-10-27 01:21', 'yyyy-mm-dd hh:ii')       
+    Result: 1       
+    
+* MINUTES: Get minutes from an string representation of datetime. MINUTES( datetime_string, format )
+
+    MINUTES('2013-10-27 01:22', 'yyyy-mm-dd hh:ii')     
+    Result: 22      
+    
+* SECONDS: Get seconds from an string representation of datetime. SECONDS( datetime_string, format )
+
+    SECONDS('2013-10-27 01:22:56', 'yyyy-mm-dd hh:ii:ss')       
+    Result: 56          
+    
+* NOW: Get a date object with the current day-time information. NOW()
+
+    NOW()       
+    Result: 2013-10-27 01:42:19     
+    
+* TODAY: Get a date object with the current day information, without the time part. TODAY()    
+* DATEDIFF: Get the difference between two dates strings representation. DATEDIFF(date_one, date_two, date_format, return)   
+
+The function return an object, whose value depends of argument 'return'
+Possible values of return argument:
+d - return the number of days between two dates
+m - return the number of months between two dates, and remaining days
+y - return the number of years between two dates, remaining months, and remaining days
+
+    DATEDIFF('2013-10-27', '2012-06-22', 'yyyy-mm-dd', 'y')['months']       
+    Result: 5       
+
+* DATETIMESUM: Increases the date-time string representation in the number of seconds, minutes, hours, days, months, or years, passed as parameter. DATETIMESUM( date_string, format, number, to_increase )
+
+    DATETIMESUM('2013-10-27', 'yyyy-mm-dd', 5, 'd')     
+    Result: The date object representation of 2013/11/01        
+    
+* GETDATETIMESTRING: Returns the string representation of a date object. GETDATETIMESTRING( datetime_object, format )
+
+    GETDATETIMESTRING(TODAY(), 'yyyy-mm-dd')        
+    Result: 2013-10-27      
+    
+    
 = Q: Is there a way to format the form in a table structure (various fields in the same line) ? =
 
 A: Into the calculated form editor click a field and into its settings there is one field named "Add Css Layout Keywords". Into that field you can put the name of a CSS class that will be applied to the field.
