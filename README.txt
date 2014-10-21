@@ -132,6 +132,14 @@ A: The form processing isn't available in the version listed on this directory. 
 
 A: In addition to the basic and most common operations (+,-,*,/) the following functions are also available: ABS (absolute value), CEIL (rounds up to the nearest integer), FLOOR (rounds a downwards to the nearest integer), ROUND (integer round), PREC (round with decimal precision), LOG (logarithm), POW (x to the power of y), SQRT (square root), MAX (maximum value between two numbers), MIN (minimum value between two numbers) and CDATE (convert a value to display it as a date). For advanced users, the JavaScript ternary operator (condition ? value_if_true : value_if_false) is also supported.
 
+The plugin includes other operations that are very important in multiple situations: the Logical Operators.
+
+* IF: Checks whether a condition is met, and returns one value if true, and another if false. IF(logical_test, value_if_true, value_if_false)
+* AND: Checks whether all arguments are true, and return true if all values are true. AND(logical1,logical2,...)
+* OR: Checks whether any of arguments are true. Returns false only if all arguments are false. OR(logical1,logical2,...)
+* NOT: Changes false to true, or true to false. NOT(logical)
+* IN: Checks whether the term is included in the second argument, the second argument may be a string or strings array. IN(term, string/array)
+
 = Q: How can I round the calculated result to 2 decimal digits? =
 
 A: Use the "PREC" function/operator for that purpose, example:
