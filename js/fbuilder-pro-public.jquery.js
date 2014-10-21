@@ -100,8 +100,6 @@
 				{
                 
 					$("#fieldlist"+opt.identifier+" .pb"+page).addClass("pbEnd");
-					$("#fieldlist"+opt.identifier+" .pbreak").find(".field").addClass("ignorepb");
-					$("#fieldlist"+opt.identifier+" .pb0").find(".field").removeClass("ignorepb");
 					$("#fieldlist"+opt.identifier+" .pbreak").each(function(index) {
 						var code = $(this).html();
 						var bSubmit = '';
@@ -194,6 +192,7 @@
 					} catch(e){}
 
 				}
+                $("#fieldlist"+opt.identifier+" .pbreak:not(.pb0)").find(".field").addClass("ignorepb");
             };
 			
 		var fform=function(){};
