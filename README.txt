@@ -225,7 +225,100 @@ y - return the number of years between two dates, remaining months, and remainin
     GETDATETIMESTRING(TODAY(), 'yyyy-mm-dd')        
     Result: 2013-10-27      
     
+= Q: Does the plugin includes financial operations? =
+
+A: The developer version of the plugin includes a module solely for financial operations. See the complete operations list below:
+
+* CALCULATEPAYMENT: Calculate the Financed Payment Amount. The operation requires three parameters: amount, months, interest rate (percent)
+
+        CALCULATEPAYMENT(25000, 60, 5.25)       
+        Result: 474.65      
     
+* CALCULATEAMOUNT: Calculate the Financed Amount. The operation accepts three parameters: months, interest rate (percent), payment
+
+        CALCULATEAMOUNT(60, 5.25, 474.65)       
+        Result: 25000.02        
+    
+* CALCULATEMONTHS: Calculate the Months Financed. The operation accepts three parameters: amount, interest rate (percent), payment
+
+        CALCULATEMONTHS(25000, 5.25, 474.65)        
+        Result: 60      
+
+* CALCULATEINTEREST: Calculate the Financed Interest Rate. The operation accepts three parameters: amount, months, payment
+
+        CALCULATEINTEREST(25000, 60, 474.65)        
+        Result: 5.25        
+
+* CALCULATEACCRUEDINTEREST: Calculate the Accrued Interest. If your money is in a bank account accruing interest, how much does it earn over x months?. The operation accepts three parameters: principle amount, months, interest rate (percent)
+
+        CALCULATEACCRUEDINTEREST(25000, 60, 5.25)       
+        Result: 7485.806648756854       
+
+* CALCULATEAMORTIZATION: Create Amortization Schedule. This operation is very particular, and its result should be an array the length the number of months. Each entry is an object. Four parameters: principle amount, months, interest rate (percent), start date (optional Date object).
+
+        CALCULATEAMORTIZATION(25000, 60, 5.25, new Date(2011,11,20) )       
+        Result:         
+        [       
+          {         
+            principle: 24634.725        
+            interest: 109.375       
+            payment: 474.65         
+            paymentToPrinciple: 365.275         
+            paymentToInterest: 109.375      
+            date: Tue Dec 20 2011 00:00:00 GMT+0100 (Romance Daylight Time)         
+          },        
+          {         
+            principle: 24267.851921874997       
+            interest: 217.151921875         
+            payment: 474.65         
+            paymentToPrinciple: 366.873078125       
+            paymentToInterest: 107.776921875        
+            date: Fri Jan 20 2012 00:00:00 GMT+0100 (Romance Daylight Time)         
+          },        
+        ...         
+        ]               
+        
+* NUMBERFORMAT: Format a Number. The number of parameters of this operation can vary, and the result will depend of parameters passed to the operation.
+    
+One parameters: number
+
+        NUMBERFORMAT(-2530023420269.123456)     
+        Result: -2,530,023,420,269
+
+        NUMBERFORMAT(25000.123456, {precision:2})       
+        Result: 25,000.12
+
+Format Currency
+
+Format a number to a certain currency. Two parameters: number, settings (optional). If settings option is a string it is treated as a currency name. If it is an object it is used as currency settings.
+
+        NUMBERFORMAT(25000.123456, 'USD')       
+        Result: $25,000.12      
+
+Settings can be format, and then override with options.
+
+        NUMBERFORMAT(-25000.123456, 'GBP', { negative: '()', precision: 3, thousand: '' })      
+        Result: £(25000.123)
+
+Format a Percent
+
+Format a number with a certain precision. Two parameters: number, settings ("percent" is a format)
+
+        NUMBERFORMAT(25000.123456, 'percent')       
+        Result: 25,000%     
+
+* ADDFORMAT: Create a Currency. You may create a currency. The library comes with "USD", "GBP", and "EUR" currency formats and "number" and "percent" numeric formats. Two parameters: key, settings
+
+        ADDFORMAT('Dollars', { before: '', after: ' Dollars', precision: 0, thousand: ',', group: 3, decimal: '.', negative: '-' })     
+        Result: true        
+        NUMBERFORMAT(25000.123456, 'Dollars')       
+        Result: 25,000 Dollars        
+
+* REMOVEFORMAT: Remove a Currency. To remove a currency. One parameter: key
+
+        REMOVEFORMAT('Dollars')     
+        Result: true        
+        
 = Q: Is there a way to format the form in a table structure (various fields in the same line) ? =
 
 A: Into the calculated form editor click a field and into its settings there is one field named "Add Css Layout Keywords". Into that field you can put the name of a CSS class that will be applied to the field.
