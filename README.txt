@@ -578,17 +578,17 @@ A: To disable the dynamic evaluation of the equations in the form, you only shou
 
 A: There are special tags that can be used in the notification emails to display the forms information:
 
-<%INFO%>, the tag <%INFO%> is replaced by the labels and values of fields that are submitted from the form, all of them.
+&lt;%INFO%&gt;, the tag &lt;%INFO%&gt; is replaced by the labels and values of fields that are submitted from the form, all of them.
 
-To insert only specific fields, use the format <%fieldnameX%>, for example, if you want include the fieldname1 and fieldname3 in the notification email, use the tags <%fieldname1%>, and <%fieldname3%>, the tag will be replace by the pair: label-value of field.
+To insert only specific fields, use the format &lt;%fieldnameX%&gt;, for example, if you want include the fieldname1 and fieldname3 in the notification email, use the tags &lt;%fieldname1%&gt;, and &lt;%fieldname3%&gt;, the tag will be replace by the pair: label-value of field.
 
-To insert only the field's label, use the format <%fieldnameX_label%>, for example <%fieldname1_label%>
+To insert only the field's label, use the format &lt;%fieldnameX_label%&gt;, for example &lt;%fieldname1_label%&gt;
 
-To insert only the field's value, use the format <%fieldnameX_value%>, for example <%fieldname3_value%>
+To insert only the field's value, use the format &lt;%fieldnameX_value%&gt;, for example &lt;%fieldname3_value%&gt;
 
-To display the final price, after apply the discount if was defined, use the tag <%final_price%>
+To display the final price, after apply the discount if was defined, use the tag &lt;%final_price%&gt;
 
-To display the coupon/discount applied, if was applied a discount, uses the tag <%coupon%>
+To display the coupon/discount applied, if was applied a discount, uses the tag &lt;%coupon%&gt;
 
 To display the payment option selected, in case that PayPal has been set as optional, use the tag <%payment_option%>
  
