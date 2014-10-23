@@ -573,6 +573,24 @@ A: To print only the form, but not the rest of page, you should insert a button 
 = Q: How to disable the dynamic evaluation of the equations, when vary the fields values? =         
 
 A: To disable the dynamic evaluation of the equations in the form, you only should uncheck the option: "Eval dynamically the equations associated to the calculated fields", from the "Form Settings" tab, of form builder. But, should be inserted a button with "calculate" type, to evaluate the equations with an direct action of users.
+
+= Q: How to send specific fields in the notification emails, and not all form fields? =
+
+A: There are special tags that can be used in the notification emails to display the forms information:
+
+<%INFO%>, the tag <%INFO%> is replaced by the labels and values of fields that are submitted from the form, all of them.
+
+To insert only specific fields, use the format <%fieldnameX%>, for example, if you want include the fieldname1 and fieldname3 in the notification email, use the tags <%fieldname1%>, and <%fieldname3%>, the tag will be replace by the pair: label-value of field.
+
+To insert only the field's label, use the format <%fieldnameX_label%>, for example <%fieldname1_label%>
+
+To insert only the field's value, use the format <%fieldnameX_value%>, for example <%fieldname3_value%>
+
+To display the final price, after apply the discount if was defined, use the tag <%final_price%>
+
+To display the coupon/discount applied, if was applied a discount, uses the tag <%coupon%>
+
+To display the payment option selected, in case that PayPal has been set as optional, use the tag <%payment_option%>
  
 == Other Notes ==
 
