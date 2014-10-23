@@ -569,7 +569,11 @@ A: If the users are not receiving the notification emails with submission data, 
 A: To print only the form, but not the rest of page, you should insert a button in the form, and paste the snippet of code below, as its onlcick event. Be sure not entering any change of line:
 
         var w=window.open(null, 'Print_Page', 'scrollbars=yes');jQuery('#fbuilder input').each(function(){var e = jQuery(this);e.attr('value', e.val());});w.document.write(jQuery('#fbuilder').html());w.document.close();w.print();       
-        
+
+= Q: How to disable the dynamic evaluation of the equations, when vary the fields values? =         
+
+A: To disable the dynamic evaluation of the equations in the form, you only should uncheck the option: "Eval dynamically the equations associated to the calculated fields", from the "Form Settings" tab, of form builder. But, should be inserted a button with "calculate" type, to evaluate the equations with an direct action of users.
+ 
 == Other Notes ==
 
 This section contains mainly notes about the form builder features that are too long to explain in the main description page.
