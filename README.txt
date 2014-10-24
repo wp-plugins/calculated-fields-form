@@ -367,6 +367,15 @@ A: Use the "Page Break" field on the form builder to indicate the new pages on t
 
 A: Insert a summary control and select the fields to be displayed on summary.
 
+= Q: How to highlight the fields in the summary? =
+
+A: The summary uses two specific class names: cff-summary-title, and cff-summary-value, for the fields labels, and fields values respectively; you only should define both classes in any of css files loaded by your website:
+
+.cff-summary-title{}
+.and cff-summary-value{}
+
+These styles will be applied to all summary fields in your form, but what to do if you want change the styles for only one summary field? The summary field includes two attributes: "Classname for fields titles", and "Classname for fields values", you can enter, through these attributes, the class names you want applied to the labels and values of the fields displayed in a specific summary field, using particular class names for each summary control,  allows show summary fields with different designs.
+
 = Q: How assign multiple class names to a field? =
 
 A: The class names are assigned to the fields through the attribute: "Add Css Layout Keywords". If you need assign multiple class names to a field, you only should enter the class names separated by space characters. For example: myclass1 myclass2
