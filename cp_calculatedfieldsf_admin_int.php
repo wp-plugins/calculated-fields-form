@@ -41,7 +41,7 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf
   <div class="inside">
      <p style="border:1px solid #F0AD4E;background:#FBE6CA;padding:10px;">If you need also the form to be sent to the server side for processing (for example to deliver emails) then the <a href="http://wordpress.dwbooster.com/forms/calculated-fields-form#download">Professional or Developer versions</a> of the plugin will be required.</p>
      <input type="hidden" name="form_structure" id="form_structure" value="<?php echo str_replace('"','&quot;',str_replace("\r","",str_replace("\n","",esc_attr(cp_calculatedfieldsf_cleanJSON(cp_calculatedfieldsf_get_option('form_structure', CP_CALCULATEDFIELDSF_DEFAULT_form_structure)))))); ?>" />
-	 <input type="hidden" name="templates" id="templates" value="<?php echo esc_attr( json_encode( cp_calculatedfieldsf_available_templates() ) ); ?>" /> 	
+	 <input type="hidden" name="templates" id="templates" value="<?php echo str_replace( '"', '&quot;', esc_attr( json_encode( cp_calculatedfieldsf_available_templates() ) ) ); ?>" /> 	
      <link href="<?php echo plugins_url('css/style.css', __FILE__); ?>" type="text/css" rel="stylesheet" />   
      <link href="<?php echo plugins_url('css/cupertino/jquery-ui-1.8.20.custom.css', __FILE__); ?>" type="text/css" rel="stylesheet" />   
 
