@@ -318,6 +318,162 @@ Format a number with a certain precision. Two parameters: number, settings ("per
 
         REMOVEFORMAT('Dollars')     
         Result: true        
+
+= Q: How calculate the amortization? =
+
+A: The CALCULATEAMORTIZATION  is the operation with most complexity in the "Calculated Fields Form" and requires its own section. 
+
+The CALCULATEAMORTIZATION operation returns a list of objects. For example:
+
+        CALCULATEAMORTIZATION(25000, 60, 5.25, new Date(2011,11,20) )       
+        Result:         
+        [       
+          {         
+            principle: 24634.725        
+            interest: 109.375       
+            payment: 474.65         
+            paymentToPrinciple: 365.275         
+            paymentToInterest: 109.375      
+            date: Tue Dec 20 2011 00:00:00 GMT+0100 (Romance Daylight Time)         
+          },        
+          {         
+            principle: 24267.851921874997       
+            interest: 217.151921875         
+            payment: 474.65         
+            paymentToPrinciple: 366.873078125       
+            paymentToInterest: 107.776921875        
+            date: Fri Jan 20 2012 00:00:00 GMT+0100 (Romance Daylight Time)         
+          },        
+        ...         
+        ]           
+
+* principle: how much remains for paying.
+* interest: is the accumulated of interest paid until this date.
+* payment: is the monthly payment (payment of interests and payment of principle).
+* paymentToPrinciple: is the part of payment that is considered as payment of principle.
+* paymentToInterest: is the part of payment that is considered as payment of interest.
+* date: is the date of payment.
+
+In the example, followed to explain the use of the CALCULATEAMORTIZATION operation: the fieldname1 represents the principle amount, fieldname3 the number of months, and the fieldname2 the interest rate.
+
+So, the value returned by CALCULATEAMORTIZATION(fieldname1,fieldname3,fieldname2) cannot by assigned directly to the calculated field, or will be displayed a text like: [object],[object],...... So, will be needed create a formatted string, with HTML tags, to display the CALCULATEAMORTIZATION results in an understandable  format.
+
+        (function(){    
+            var r = CALCULATEAMORTIZATION(fieldname1,fieldname3,fieldname2),    
+            str = '';   
+            
+            if(r.length)    
+            {   
+                str = '<table cellpadding=" 10" >';     
+                str += '<tr>';      
+                str += '<td>Date</td>';     
+                str += '<td>Interest</td>';     
+                str += '<td>Payment</td>';      
+                str += '<td>Payment to Interest</td>';      
+                str += '<td>Payment to Principle</td>';     
+                str += '<td>Principle</td>';        
+                str += '</tr>';     
+                for(var i = 0, h = r.length; i < h; i++)        
+                {       
+                    str += '<tr>';      
+                    str += '<td>'+GETDATETIMESTRING( new Date(r[i]['date']), 'yyyy-mm-dd')+'</td>';     
+                    str += '<td>'+PREC(r[i]['interest'],2)+'</td>';     
+                    str += '<td>'+PREC(r[i]['payment'],2)+'</td>';      
+                    str += '<td>'+PREC(r[i]['paymentToInterest'],2)+'</td>';        
+                    str += '<td>'+PREC(r[i]['paymentToPrinciple'],2)+'</td>';       
+                    str += '<td>'+PREC(r[i]['principle'],2)+'</td>';        
+                    str += '</tr>';     
+                }       
+                str += '</table>';      
+            }       
+            jQuery('.comment_area .uh').html( str );        
+        })()        
+
+The first step will be store the list of objects returned by the CALCULATEAMORTIZATION operation, in a local variable, and create another variable to store the amortization data, but with an HTML format:
+ 
+        var r = CALCULATEAMORTIZATION(fieldname1,fieldname3,fieldname2),        
+        str = '';       
+
+The equation validates if the previous operation returns a value, because if the CALCULATEAMORTIZATION was called with wrong values can return an empty array:
+    
+        if(r.length)        
+        {       
+        ....        
+        }       
+
+I've decided display the results of CALCULATEAMORTIZATION operation in a tabular format because is easier to understand. The first element in the result is the tag to open the table: <table>, and the row with the column names:
+    
+        str = '<table cellpadding=" 10" >';     
+        str += '<tr>';      
+        str += '<td>Date</td>';     
+        str += '<td>Interest</td>';     
+        str += '<td>Payment</td>';      
+        str += '<td>Payment to Interest</td>';      
+        str += '<td>Payment to Principle</td>';     
+        str += '<td>Principle</td>';        
+        str += '</tr>';     
+
+Now, is the moment to traverse the list to create each row of the table with the values of monthly amortization.
+
+        for(var i = 0, h = r.length; i < h; i++)        
+        {       
+            str += '<tr>';      
+            str += '<td>'+GETDATETIMESTRING( new Date(r[i]['date']), 'yyyy-mm-dd')+'</td>';     
+            str += '<td>'+PREC(r[i]['interest'],2)+'</td>';     
+            str += '<td>'+PREC(r[i]['payment'],2)+'</td>';      
+            str += '<td>'+PREC(r[i]['paymentToInterest'],2)+'</td>';        
+            str += '<td>'+PREC(r[i]['paymentToPrinciple'],2)+'</td>';       
+            str += '<td>'+PREC(r[i]['principle'],2)+'</td>';        
+            str += '</tr>';     
+        }       
+
+The previous code has its particularities. By default the dates returned by the CALCULATEAMORTIZATION operation have the complete format including hours and seconds, In this form the information about hours and seconds is not relevant, so, is preferred to use a short date format: yyyy-mm-dd. The date string will be formatted with the GETDATETIMESTRING operation, included in the Date module of developers version of the plugin (the second parameter is the format to use):
+
+        str += '<td>'+GETDATETIMESTRING( new Date(r[i]['date']), 'yyyy-mm-dd')+'</td>';     
+    
+Another particularity is the use of the PREC operation. By default the CALCULATEAMORTIZATION returns the numeric values with all its decimals digits, for example: 366.873078125, but for humans is common to identify the money representation with two decimal digits. So, I've used the PREC operation with the number 2 as the second parameter.
+    
+        str += '<td>'+PREC(r[i]['interest'],2)+'</td>';     
+    
+After create all table rows, is the moment to close the table, and print the results:
+
+        str += '</table>';      
+    
+If you display the result directly in the calculated field, you will see a weird text (or very hard to understand) because the input fields in HTML are not able to display tables, in this case I've preferred show the result in an "Instruct Text" field. I've inserted an "Instruct Text" field in the form, this type of field uses the class name "comment_are", and includes an <span> tag with the class "uh". Then, using jQuery to select the correct field, I've inserted the formatted result of the CALCULATEAMORTIZATION in the <span> tag included in the "Instruct Text" field:
+
+        jQuery('.comment_area .uh').html( str );        
+    
+The complete equation is:    
+        (function(){        
+            var r = CALCULATEAMORTIZATION(fieldname1,fieldname3,fieldname2),        
+            str = '';       
+                    
+            if(r.length)        
+            {       
+                str = '<table cellpadding=" 10" >';     
+                str += '<tr>';      
+                str += '<td>Date</td>';     
+                str += '<td>Interest</td>';     
+                str += '<td>Payment</td>';      
+                str += '<td>Payment to Interest</td>';      
+                str += '<td>Payment to Principle</td>';     
+                str += '<td>Principle</td>';        
+                str += '</tr>';     
+                for(var i = 0, h = r.length; i < h; i++)        
+                {       
+                    str += '<tr>';      
+                    str += '<td>'+GETDATETIMESTRING( new Date(r[i]['date']), 'yyyy-mm-dd')+'</td>';     
+                    str += '<td>'+PREC(r[i]['interest'],2)+'</td>';     
+                    str += '<td>'+PREC(r[i]['payment'],2)+'</td>';      
+                    str += '<td>'+PREC(r[i]['paymentToInterest'],2)+'</td>';        
+                    str += '<td>'+PREC(r[i]['paymentToPrinciple'],2)+'</td>';       
+                    str += '<td>'+PREC(r[i]['principle'],2)+'</td>';        
+                    str += '</tr>';     
+                }       
+                str += '</table>';      
+            }       
+            jQuery('.comment_area .uh').html( str );        
+        })()        
         
 = Q: Is there a way to format the form in a table structure (various fields in the same line) ? =
 
