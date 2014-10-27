@@ -401,7 +401,7 @@ The equation validates if the previous operation returns a value, because if the
         ....        
         }       
 
-I've decided display the results of CALCULATEAMORTIZATION operation in a tabular format because is easier to understand. The first element in the result is the tag to open the table: <table>, and the row with the column names:
+I've decided display the results of CALCULATEAMORTIZATION operation in a tabular format because is easier to understand. The first element in the result is the tag to open the table: &lt;table&gt;, and the row with the column names:
     
         str = '<table cellpadding=" 10" >';     
         str += '<tr>';      
@@ -439,7 +439,7 @@ After create all table rows, is the moment to close the table, and print the res
 
         str += '</table>';      
     
-If you display the result directly in the calculated field, you will see a weird text (or very hard to understand) because the input fields in HTML are not able to display tables, in this case I've preferred show the result in an "Instruct Text" field. I've inserted an "Instruct Text" field in the form, this type of field uses the class name "comment_are", and includes an <span> tag with the class "uh". Then, using jQuery to select the correct field, I've inserted the formatted result of the CALCULATEAMORTIZATION in the <span> tag included in the "Instruct Text" field:
+If you display the result directly in the calculated field, you will see a weird text (or very hard to understand) because the input fields in HTML are not able to display tables, in this case I've preferred show the result in an "Instruct Text" field. I've inserted an "Instruct Text" field in the form, this type of field uses the class name "comment_are", and includes an &lt;span&gt; tag with the class "uh". Then, using jQuery to select the correct field, I've inserted the formatted result of the CALCULATEAMORTIZATION in the &lt;span&gt; tag included in the "Instruct Text" field:
 
         jQuery('.comment_area .uh').html( str );        
     
