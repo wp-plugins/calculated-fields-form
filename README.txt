@@ -474,7 +474,19 @@ The complete equation is:
             }       
             jQuery('.comment_area .uh').html( str );        
         })()        
-        
+ 
+= Q: How to define an initial date in a date field? =
+ 
+A: The Date control allows to define two types of initial dates, a static date, for example 03/24/2015, or a relative date depending of the current date, for example 3 days after today.
+
+The static dates are very easy to define: select the date field in the form, and type the date string in any of the attributes: "Predefined Value", or "Default Date",for the static dates, any of attributes can be used interchangeably.
+
+The case of relative dates is a little more restrictive, the rules must be typed in the "Default date" attribute, and should comply any of formats:
+
+Number: will be considered a number of days from today. For example, the number 2 represent two days from today, and the number -1 represent yesterday.
+
+String: A smart text indicating a relative date. Relative dates must contain a pair of value(number) and period; valid periods are "y" representing years, "m" representing months, "w"  represents weeks, and "d" represents days. For example "+1m +7d" indicates one month and seven days from today.
+ 
 = Q: Is there a way to format the form in a table structure (various fields in the same line) ? =
 
 A: Into the calculated form editor click a field and into its settings there is one field named "Add Css Layout Keywords". Into that field you can put the name of a CSS class that will be applied to the field.
