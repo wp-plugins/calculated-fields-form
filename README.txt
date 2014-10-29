@@ -486,7 +486,36 @@ The case of relative dates is a little more restrictive, the rules must be typed
 Number: will be considered a number of days from today. For example, the number 2 represent two days from today, and the number -1 represent yesterday.
 
 String: A smart text indicating a relative date. Relative dates must contain a pair of value(number) and period; valid periods are "y" representing years, "m" representing months, "w"  represents weeks, and "d" represents days. For example "+1m +7d" indicates one month and seven days from today.
- 
+
+= Q: How to change the language on datepicker? = 
+
+A: The following steps describe how to use the French language in the datepicker, but it is possible translate the months and days names to another language:
+
+* Creates a new file in the text editor your choice.
+* Paste the following code in the file.
+
+        jQuery(function($){     
+                $.datepicker.regional['fr'] = {         
+                        closeText: 'Fermer',        
+                        prevText: '&#x3c;Préc',         
+                        nextText: 'Suiv&#x3e;',         
+                        currentText: 'Courant',         
+                        monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin', 'Juillet','Août','Septembre','Octobre','Novembre','Décembre'],      
+                        monthNamesShort: ['Jan','Fév','Mar','Avr','Mai','Jun', 'Jul','Aoû','Sep','Oct','Nov','Déc'],        
+                        dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],      
+                        dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],         
+                        dayNamesMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],      
+                        weekHeader: 'Sm',       
+                        dateFormat: 'dd/mm/yy',         
+                        firstDay: 1,        
+                        isRTL: false,       
+                        showMonthAfterYear: false,      
+                        yearSuffix: ''};        
+                $.datepicker.setDefaults($.datepicker.regional['fr']);      
+        });         
+
+* Finally, store the new file in the "/wp-content/plugins/calculated-fields-form/js/fields-public", with the name you prefer, but with "js" as the file's extension, for example: datepicker_fr.js
+        
 = Q: Is there a way to format the form in a table structure (various fields in the same line) ? =
 
 A: Into the calculated form editor click a field and into its settings there is one field named "Add Css Layout Keywords". Into that field you can put the name of a CSS class that will be applied to the field.
