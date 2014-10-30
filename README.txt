@@ -539,15 +539,6 @@ The value of a calculated field will appear automatically once all the fields us
 
 A: That feature is available in the pro version that can be acquired at this page http://wordpress.dwbooster.com/forms/calculated-fields-form
 
-= Q: How can I apply CSS styles to the form fields? =
-
-A: Into the calculated form editor, click a field to edit its details, there is a setting there named "Add CSS Layout Keywords". You can add the class name into that field, so the style specified into the CSS class will be applied to that field.
-
-Note: Don't add style rules directly there but the the name of a CSS class.
-
-You can place the CSS class either into the CSS file of your template or into the file "cp-calculated-fields-form\css\stylepublic.css" located int o the plugin's folder.
-
-
 = Q: Non-latin characters aren't being displayed in the calculator form. There is a workaround? =
 
 A: New: Use the "throubleshoot area" to change the character encoding. If you want to do that manually then please change the encoding of the database table "wp_cp_calculated_fields_form_settings" to utf-8. You can do that from the PHPMyAdmin or the tool that you are using to access the database. After changing the encoding, edit again the calculator form to re-enter the characters that aren't being correctly displayed.
@@ -572,6 +563,22 @@ A: The summary uses two specific class names: cff-summary-title, and cff-summary
 .and cff-summary-value{}
 
 These styles will be applied to all summary fields in your form, but what to do if you want change the styles for only one summary field? The summary field includes two attributes: "Classname for fields titles", and "Classname for fields values", you can enter, through these attributes, the class names you want applied to the labels and values of the fields displayed in a specific summary field, using particular class names for each summary control,  allows show summary fields with different designs.
+
+= Q: How can I apply CSS styles to the form fields? =
+
+A: Into the calculated form editor, click a field to edit its details, there is a setting there named "Add CSS Layout Keywords". You can add the class name into that field, so the style specified into the CSS class will be applied to that field.
+
+Note: Don't add style rules directly there but the the name of a CSS class.
+
+You can place the CSS class either into the CSS file of your template or into the file "cp-calculated-fields-form\css\stylepublic.css" located int o the plugin's folder.
+
+= Q: How to hide the fields on forms? =
+
+A: In the case of Calculated Fields, the action is very simple, you only should check the option "Hide Field From Public Page", in this case the field use the type="hidden", instead of type="text" (used by default). 
+
+For the other fields, you should use a custom class name. All fields include the attribute "Add Css Layout Keywords", you only should enter through this attribute a custom class name (the class name you prefer), for example myclass, and then define the new class in a css file of your website, that could be the "wp-content/plugins/cp-calculated-fields-form/css/stylepublic.css" file, like follow:
+
+.myclass{ display:none; }
 
 = Q: How assign multiple class names to a field? =
 
