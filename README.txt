@@ -666,6 +666,12 @@ Examples: Add a class named "specialclass" into the setting "Add CSS Layout Keyw
             border: 2px solid #00f;        
         }        
 
+* Change the input box in the calculated fields:
+    
+        #fbuilder .codepeoplecalculatedfield{        
+            background: #00ff00;        
+        }        
+
 = Q: What files can be uploaded through the form? =
 
 A: The File control includes an attribute for entering the file extensions that can be uploaded. But, Can be entered any file extension? The answer is NO. The last decision is taken by WordPress. WordPress for security reasons, accepts a specific list of files extensions, but with the file control it is possible restrict this list even more.
