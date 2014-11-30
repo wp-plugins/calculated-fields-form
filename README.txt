@@ -528,6 +528,11 @@ There are some pre-defined CSS classes to use align two, three or four fields in
 
 For example if you want to put two fields into the same line then specify for both fields the class name "column2". The above is valid for both the classic fields and the calculated fields.
 
+= Q: How to display an image in a checkbox or radio button? =
+
+A: The choices of the Radio Buttons, and Checkboxes controls, are formed by two input fields, the input field for choice value, and the input field for the text. In the input field for the choice text, should be entered an IMG tag, with an absolute URL in the src attribute:
+
+&lt;IMG src="http://..." &gt;
 
 = Q: In which order are "calculated" the fields? =
 
