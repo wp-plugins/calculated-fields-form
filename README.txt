@@ -534,6 +534,12 @@ A: The choices of the Radio Buttons, and Checkboxes controls, are formed by two 
 
 &lt;IMG src="http://..." &gt;
 
+= Q: How to insert an image in the notification emails? =
+
+A: If you want send an image in the notification emails, like a header, you should insert an IMG tag in the "Message" attribute of form settings, with an absolute URL in the SRC attribute of IMG tag:
+
+&lt;IMG src="http://..." &gt;
+
 = Q: In which order are "calculated" the fields? =
 
 A: Each time a field value changes (including the calculated fields) an event is fired to re-calculate all the fields, so the order isn't relevant, just avoid creating an endless cycle between calculated fields.
