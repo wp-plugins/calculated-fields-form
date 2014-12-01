@@ -15,6 +15,8 @@
 #fbuilder .two_column{float:left;width:48%;}
 #fbuilder .three_column{float:left;width:30%;}
 #fbuilder .side_by_side{float:left;}
+
+
 #fbuilder .dfield{position:relative;}
 #fbuilder .top_aligned .fields label{}
 #fbuilder .top_aligned .fields .dfield{}
@@ -22,6 +24,11 @@
 #fbuilder .left_aligned .fields .dfield{float:left;width:65%;}
 #fbuilder .right_aligned .fields label{float:left;width:31%;text-align:right;padding:3px 3px 0px 0px;}
 #fbuilder .right_aligned .fields .dfield{float:left;width:65%;}
+
+#fbuilder .one_column label,
+#fbuilder .two_column label,
+#fbuilder .three_column label,
+#fbuilder .side_by_side label{ width:100% !important; }
 
 #fbuilder .left_aligned .section_breaks.fields label,
 #fbuilder .left_aligned .comment_area.fields label,
