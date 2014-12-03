@@ -583,6 +583,19 @@ Note: Don't add style rules directly there but the the name of a CSS class.
 
 You can place the CSS class either into the CSS file of your template or into the file "cp-calculated-fields-form\css\stylepublic.css" located int o the plugin's folder.
 
+= Q: Is possible modify any of predefined templates included with the plugin? =
+
+A: The plugin includes multiple templates that can be assigned to the Forms to display a predefined design: Default template, Letter template, Professional, Natural, Elegant, Decorative and Clean Design.
+
+Each template is stored in its own directory, in the "templates" folder ( "/wp-content/plugins/calculated-fields-form/templates"). Basically the templates are formed by a CSS file ( style.css ). If you want change the appearance of a predefined template, you simply should modify the style.css file corresponding to the template. The directories of each template are:
+
+* Letter Template: templates/01 directory.
+* Professional Template: templates/02 directory.
+* Natural Template: templates/03 directory.
+* Elegant Template: templates/04 directory.
+* Decorative Template: templates/05 directory.
+* Clean Design Template: templates/06 directory.
+
 = Q: How to hide the fields on forms? =
 
 A: In the case of Calculated Fields, the action is very simple, you only should check the option "Hide Field From Public Page", in this case the field use the type="hidden", instead of type="text" (used by default). 
