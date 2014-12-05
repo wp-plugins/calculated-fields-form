@@ -1,7 +1,7 @@
 === Calculated Fields Form ===
 Contributors: codepeople
 Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
-Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form
+Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce
 Requires at least: 3.0.5
 Tested up to: 4.0
 Stable tag: 1.0.1
@@ -74,6 +74,7 @@ The plugin has two additional (commercial) versions: **Premium** and **Developer
 * Includes financial operations
 * Includes operations for date times management
 * Includes a script for saving the submitted data in an external database
+* Includes an add-on to integrate the forms with the WooCommerce products (Beta Version).
 
 You can either "**clone**" those calculated forms to complete your own form or create a new calculated form from scratch for your application.
 
@@ -1082,6 +1083,15 @@ One of the most frequent uses is for calculating prices. When displaying prices 
 
 Note that you can make the "Instruct. Text" fields dependent from the calculated value, that way you can change the text shown to the user depending of the number shown in the calculated price, since frequently the terms, conditions or offers vary according to the price amount.
 
+= WooCommerce add-on (Beta Version) - Only available in the Developer version of the plugin =
+
+The developer version of the plugin includes the WooCommerce add-on, to integrate the forms created by the "Calculated Fields Form" with the WooCommerce products. The add-on inserts an additional metabox in the WooCommerce products, with two settings fields:
+
+* Enter the ID of the form: Allows select the form that will be associated to the product.
+* Calculate the product price through the form: Allows calculate the price of the products through the form.
+
+Note: If you want calculate the price of products through the form, will be required that you select the field of the price in the attribute: "Request cost" in the form's settings.
+
 == Screenshots ==
 
 1. Calculated forms list
@@ -1091,6 +1101,7 @@ Note that you can make the "Instruct. Text" fields dependent from the calculated
 5. Calculator Form builder
 6. Editing general fields
 7. Available designs
+7. WooCommerce add-on
 
 == Changelog ==
 
