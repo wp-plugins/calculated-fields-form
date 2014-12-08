@@ -563,11 +563,11 @@ A: In the "throubleshoot area" (located below the list of forms in the settings 
 
 A: Use the "Page Break" field on the form builder to indicate the new pages on the form.
 
-= Q: How to display a summary of entered data? =
+= Q: How to display a summary of entered data in the form? =
 
 A: Insert a summary control and select the fields to be displayed on summary.
 
-= Q: How to highlight the fields in the summary? =
+= Q: How to highlight the fields in the summary control? =
 
 A: The summary uses two specific class names: cff-summary-title, and cff-summary-value, for the fields labels, and fields values respectively; you only should define both classes in any of css files loaded by your website:
 
@@ -575,6 +575,14 @@ A: The summary uses two specific class names: cff-summary-title, and cff-summary
 .and cff-summary-value{}
 
 These styles will be applied to all summary fields in your form, but what to do if you want change the styles for only one summary field? The summary field includes two attributes: "Classname for fields titles", and "Classname for fields values", you can enter, through these attributes, the class names you want applied to the labels and values of the fields displayed in a specific summary field, using particular class names for each summary control,  allows show summary fields with different designs.
+
+= Q: Could be displayed a summary of submitted fields in the thank you page? =
+
+A: The thank you page can be associated to the form through the attribute: "Thank you page (after sending the message)", in this page is possible publish a text of thanks to the form's users, but you can also insert a shortcode to display a summary of submitted fields, like follow:
+
+[CP_CALCULATED_FIELDS_RESULT]
+
+CP_CALCULATED_FIELDS
 
 = Q: How can I apply CSS styles to the form fields? =
 
