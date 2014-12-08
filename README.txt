@@ -582,8 +582,6 @@ A: The thank you page can be associated to the form through the attribute: "Than
 
 [CP_CALCULATED_FIELDS_RESULT]
 
-CP_CALCULATED_FIELDS
-
 = Q: How can I apply CSS styles to the form fields? =
 
 A: Into the calculated form editor, click a field to edit its details, there is a setting there named "Add CSS Layout Keywords". You can add the class name into that field, so the style specified into the CSS class will be applied to that field.
