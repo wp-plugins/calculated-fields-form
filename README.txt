@@ -582,6 +582,12 @@ A: The thank you page can be associated to the form through the attribute: "Than
 
 [CP_CALCULATED_FIELDS_RESULT]
 
+= Q: Could you show only a subset of submitted fields in the summary inserted in the thank you page? =
+
+A: The shortcode to display the summary of submitted fields in the thank you page, accepts the attribute: fields, to select the list of fields to display in the summary, separated by the comma symbol. So, if you want insert in the summary only the fields: fieldname1, and fieldname4, the shortcode should be inserted like follow:
+
+[CP_CALCULATED_FIELDS_RESULT fields="fieldname1,fieldname4"]
+
 = Q: How can I apply CSS styles to the form fields? =
 
 A: Into the calculated form editor, click a field to edit its details, there is a setting there named "Add CSS Layout Keywords". You can add the class name into that field, so the style specified into the CSS class will be applied to that field.
