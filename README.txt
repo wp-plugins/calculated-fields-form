@@ -588,6 +588,14 @@ A: The shortcode to display the summary of submitted fields in the thank you pag
 
 [CP_CALCULATED_FIELDS_RESULT fields="fieldname1,fieldname4"]
 
+Note: You can insert in a thank you page as many summary shortcodes as you need. For example, if you want format the thank you page with a summary that includes some of fields, a text, and another summary with the rest of fields, the content might be like follows:
+
+[CP_CALCULATED_FIELDS_RESULT fields="fieldname1,fieldname2"]
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vestibulum blandit mi vitae bibendum. Aliquam convallis feugiat eros. Nulla sit amet erat lacus. Ut faucibus felis enim, aliquam tincidunt lectus viverra eget. Sed ornare dapibus felis, vitae tempor tellus condimentum vitae. Curabitur id lorem vel urna condimentum hendrerit. Pellentesque sit amet diam tincidunt, facilisis erat non, tempus lacus. Integer bibendum ultricies molestie.
+
+[CP_CALCULATED_FIELDS_RESULT fields="fieldname3,fieldname4"]
+
 = Q: How can I apply CSS styles to the form fields? =
 
 A: Into the calculated form editor, click a field to edit its details, there is a setting there named "Add CSS Layout Keywords". You can add the class name into that field, so the style specified into the CSS class will be applied to that field.
