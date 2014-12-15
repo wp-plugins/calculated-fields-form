@@ -820,6 +820,10 @@ Following the same example in the previous point:
             else return 1000;       
         })()        
 
+= Q: My company has different departments( the sales department, and the support group). Could you send a notification email to a representative of each departments when the form be submitted? =
+
+A: Yes, that is possible, you only should enter all emails addresses separated by the comma symbol, through the attribute: "Destination emails", in the form's settings.
+
 = Q: Why the users are not receiving the notification emails if was selected the option for send a copy to the user, and selected the email field, from the form's settings? =
 
 A: If the users are not receiving the notification emails with submission data, the probable reasons are:
