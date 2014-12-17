@@ -17,6 +17,13 @@ define('CP_CALCULATEDFIELDSF_DEFAULT_fp_destination_emails', CP_CALCULATEDFIELDS
 
 if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf_post_options'] ) )
     echo "<div id='setting-error-settings_updated' class='updated settings-error'> <p><strong>Settings saved.</strong></p></div>";
+    
+global $cpcff_default_texts_array;
+$cpcff_texts_array = cp_calculatedfieldsf_get_option( 'vs_all_texts', $cpcff_default_texts_array );
+$cpcff_texts_array = array_replace_recursive( 
+    $cpcff_default_texts_array, 
+    is_string( $cpcff_texts_array ) ? unserialize( $cpcff_texts_array ) : $cpcff_texts_array
+);
 
 ?>
 <div class="wrap">
@@ -147,7 +154,7 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf
 </p>
  
   <div id="metabox_basic_settings" class="postbox" >
-  <h3 class='hndle' style="padding:5px;"><span>Previous & Next Buttons</span></h3>
+  <h3 class='hndle' style="padding:5px;"><span>Define Texts</span></h3>
   <div class="inside">   
      <table class="form-table">  
         <tr valign="top">
@@ -163,6 +170,18 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf
         - The styles can be applied into any of the CSS files of your theme or into the CSS file <em>"calculated-fields-form\css\stylepublic.css"</em>. <br />        
         - For general CSS styles modifications to the form and samples <a href="http://wordpress.dwbooster.com/faq/calculated-fields-form#q82" target="_blank">check this FAQ</a>.
         </tr>
+        <?php
+         // Display all other text fields
+         foreach( $cpcff_texts_array as $cpcff_text_index => $cpcff_text_attr )
+         {
+            print '
+            <tr valign="top">
+                <th scope="row">'.$cpcff_text_attr[ 'label' ].':</th>
+                <td><input type="text" name="cpcff_text_array['.$cpcff_text_index.'][text]" size="40" value="'. esc_attr( $cpcff_text_attr[ 'text' ] ).'" /></td>
+            </tr>
+            ';
+         }
+        ?>
      </table>
   </div>    
  </div> 

@@ -39,8 +39,7 @@
 		opt.messages = $.extend({
 					previous: "Previous",
 					next: "Next",
-					page: "Page",
-					of: "of",
+					pageof: "Page {0} of {0}",
 					required: "This field is required.",
 					email: "Please enter a valid email address.",
 					datemmddyyyy: "Please enter a valid date with this format(mm/dd/yyyy)",
@@ -117,7 +116,7 @@
 								bSubmit = '<div class="pbSubmit">'+$("#cp_subbtn"+opt.identifier).html()+'</div>';
 							}	
 						}
-						$(this).html('<fieldset><legend>'+opt.messages.page+' '+(index+1)+' '+opt.messages.of+' '+(page+1)+'</legend>'+code+'<div class="pbPrevious">'+opt.messages.previous+'</div><div class="pbNext">'+opt.messages.next+'</div>'+bSubmit+'<div class="clearer"></div></fieldset>');
+						$(this).html('<fieldset><legend>'+opt.messages.pageof.replace( /\{\s*\d+\s*\}/, (index+1) ).replace( /\{\s*\d+\s*\}/, (page+1) )+'</legend>'+code+'<div class="pbPrevious">'+opt.messages.previous+'</div><div class="pbNext">'+opt.messages.next+'</div>'+bSubmit+'<div class="clearer"></div></fieldset>');
 					});
 					$( '#fieldlist'+opt.identifier).find(".pbPrevious,.pbNext").bind("click", { 'identifier' : opt.identifier }, function( evt ) {
 					    var identifier = evt.data.identifier;
