@@ -86,9 +86,15 @@ define('CP_CALCULATEDFIELDSF_DISCOUNT_CODES_TABLE_NAME', @$wpdb->prefix ."cp_cal
 
 define('CP_CALCULATEDFIELDSF_POSTS_TABLE_NAME_NO_PREFIX', "cp_calculated_fields_form_posts");
 define('CP_CALCULATEDFIELDSF_POSTS_TABLE_NAME', @$wpdb->prefix ."cp_calculated_fields_form_posts");
-
-
 // end Calculated Fields Form constants
+
+// Defined general texts
+$cpcff_default_texts_array = array(
+    'page_of_text' => array( 
+                             'label' => 'Page X of Y (text)',
+                             'text' => 'Page {0} of {0}'
+                            )
+);
 
 // code initialization, hooks
 // -----------------------------------------
@@ -235,6 +241,7 @@ function _cp_calculatedfieldsf_install() {
          vs_text_submitbtn VARCHAR(250) DEFAULT '' NOT NULL,
          vs_text_previousbtn VARCHAR(250) DEFAULT '' NOT NULL,
          vs_text_nextbtn VARCHAR(250) DEFAULT '' NOT NULL,         
+         vs_all_texts text DEFAULT '' NOT NULL,         
          
          enable_paypal varchar(10) DEFAULT '' NOT NULL,
          paypal_email varchar(255) DEFAULT '' NOT NULL ,
@@ -396,9 +403,10 @@ function cp_calculatedfieldsf_available_templates(){
 }
 
 function cp_calculatedfieldsf_get_public_form($id) {
-    global $wpdb;
+    global $wpdb, $cpcff_default_texts_array;
     global $CP_CFF_global_form_count;
     global $CP_CFF_global_form_count_number;
+    
     $CP_CFF_global_form_count_number++;
     $CP_CFF_global_form_count = "_".$CP_CFF_global_form_count_number;    
     if ( !defined('CP_AUTH_INCLUDE') ) define('CP_AUTH_INCLUDE', true); 
@@ -412,6 +420,13 @@ function cp_calculatedfieldsf_get_public_form($id) {
     $previous_label = ($previous_label==''?'Previous':$previous_label);
     $next_label = cp_calculatedfieldsf_get_option('vs_text_nextbtn', 'Next',$id);
     $next_label = ($next_label==''?'Next':$next_label);
+    
+    $cpcff_texts_array = cp_calculatedfieldsf_get_option( 'vs_all_texts', $cpcff_default_texts_array, $id );
+    $cpcff_texts_array = array_replace_recursive( 
+        $cpcff_default_texts_array, 
+        is_string( $cpcff_texts_array ) ? unserialize( $cpcff_texts_array ) : $cpcff_texts_array
+    );
+    $page_of_label = $cpcff_texts_array[ 'page_of_text' ][ 'text' ];
     
     if (CP_CALCULATEDFIELDSF_DEFAULT_DEFER_SCRIPTS_LOADING)
     {        
@@ -436,7 +451,8 @@ function cp_calculatedfieldsf_get_public_form($id) {
         	                	"max": "'.str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_max', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_max,$id)).'",
         	                	"min": "'.str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_min', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_min,$id)).'",
     	                    	"previous": "'.str_replace(array('"'),array('\\"'),$previous_label).'",
-    	                    	"next": "'.str_replace(array('"'),array('\\"'),$next_label).'"  
+    	                    	"next": "'.str_replace(array('"'),array('\\"'),$next_label).'",
+                                "pageof": "'.str_replace(array('"'),array('\\"'),$page_of_label).'"
         	                }}'
         ));    
     }  
@@ -468,7 +484,7 @@ function cp_calculatedfieldsf_get_public_form($id) {
      <script type='text/javascript' src='<?php echo plugins_url('js/jquery.validate.js', __FILE__); ?>'></script>
      <script type='text/javascript'>     
      /* <![CDATA[ */
-     var cp_calculatedfieldsf_fbuilder_config<?php echo $CP_CFF_global_form_count; ?> = {"obj":"{\"pub\":true,\"identifier\":\"<?php echo $CP_CFF_global_form_count; ?>\",\"messages\": {\n    \t                \t\"required\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_is_required', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_required,$id));?>\",\n    \t                \t\"email\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_is_email', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_email,$id));?>\",\n    \t                \t\"datemmddyyyy\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_datemmddyyyy', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_datemmddyyyy,$id));?>\",\n    \t                \t\"dateddmmyyyy\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_dateddmmyyyy', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_dateddmmyyyy,$id));?>\",\n    \t                \t\"number\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_number', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_number,$id));?>\",\n    \t                \t\"digits\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_digits', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_digits,$id));?>\",\n    \t                \t\"max\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_max', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_max,$id));?>\",\n    \t                \t\"min\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_min', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_min,$id));?>\",\"previous\": \"<?php echo str_replace(array('"'),array('\\"'),$previous_label); ?>\",\"next\": \"<?php echo str_replace(array('"'),array('\\"'),$next_label); ?>\"\n    \t                }}"};
+     var cp_calculatedfieldsf_fbuilder_config<?php echo $CP_CFF_global_form_count; ?> = {"obj":"{\"pub\":true,\"identifier\":\"<?php echo $CP_CFF_global_form_count; ?>\",\"messages\": {\n    \t                \t\"required\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_is_required', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_required,$id));?>\",\n    \t                \t\"email\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_is_email', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_email,$id));?>\",\n    \t                \t\"datemmddyyyy\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_datemmddyyyy', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_datemmddyyyy,$id));?>\",\n    \t                \t\"dateddmmyyyy\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_dateddmmyyyy', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_dateddmmyyyy,$id));?>\",\n    \t                \t\"number\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_number', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_number,$id));?>\",\n    \t                \t\"digits\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_digits', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_digits,$id));?>\",\n    \t                \t\"max\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_max', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_max,$id));?>\",\n    \t                \t\"min\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_min', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_min,$id));?>\",\"previous\": \"<?php echo str_replace(array('"'),array('\\"'),$previous_label); ?>\",\"next\": \"<?php echo str_replace(array('"'),array('\\"'),$next_label); ?>\",\"pageof\": \"<?php echo str_replace(array('"'),array('\\"'),$page_of_label); ?>\"\n    \t                }}"};
      /* ]]> */
      </script>     
      <script type='text/javascript' src='<?php echo get_site_url( get_current_blog_id() ).'?cp_cff_resources=public'; ?>'></script>
@@ -589,6 +605,22 @@ function cp_calculatedfieldsf_save_options()
     cp_calculatedfieldsf_add_field_verify($wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE,'vs_text_previousbtn'," varchar(250) NOT NULL default ''");
     cp_calculatedfieldsf_add_field_verify($wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE,'vs_text_nextbtn'," varchar(250) NOT NULL default ''");   
     
+    cp_calculatedfieldsf_add_field_verify($wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE,'vs_all_texts'," text NOT NULL default ''");
+    
+    global $cpcff_default_texts_array;
+    $cpcff_text_array = '';
+        
+    if( isset( $_POST[ 'cpcff_text_array' ] ) )
+    {
+        foreach( $_POST[ 'cpcff_text_array' ] as $cpcff_text_index => $cpcff_text_attr )
+        {
+            $_POST[ 'cpcff_text_array' ][ $cpcff_text_index ][ 'text' ] = stripcslashes( $cpcff_text_attr[ 'text' ] );
+        }
+        $cpcff_text_array = $_POST[ 'cpcff_text_array' ];
+        unset( $_POST[ 'cpcff_text_array' ] );
+        
+    }
+        
     foreach ($_POST as $item => $value)    
         $_POST[$item] = stripcslashes($value);
 
@@ -631,6 +663,7 @@ function cp_calculatedfieldsf_save_options()
                   'vs_text_min' => $_POST['vs_text_min'],
                   'vs_text_previousbtn' => $_POST['vs_text_previousbtn'],
                   'vs_text_nextbtn' => $_POST['vs_text_nextbtn'],
+                  'vs_all_texts' => serialize( $cpcff_text_array ),
 
                   'cv_enable_captcha' => $_POST['cv_enable_captcha'],
                   'cv_width' => $_POST['cv_width'],
@@ -681,8 +714,10 @@ function cp_calculatedfieldsf_get_option ($field, $default_value, $id = '')
        $cp_calculatedfieldsf_option_buffered_item = $myrows[0];
        $cp_calculatedfieldsf_option_buffered_id  = $id;
     }
-    if ($value == '' && $cp_calculatedfieldsf_option_buffered_item->form_structure == '')
-        $value = $default_value;    
+    
+    if ( ( $field == 'vs_all_texts' && empty( $value ) ) || ( $value == '' && $cp_calculatedfieldsf_option_buffered_item->form_structure == '' ) )
+        $value = $default_value;
+        
     return $value;
 }
 
