@@ -11,37 +11,51 @@
 			fieldsArray:[],
 			show:function()
 				{
-				
-					var p = $.trim(this.fields.replace( /\,+/g, ',') ).split( ',' ),
-					    l = p.length,
-						me = this;
+					var me = this,
+                        p = $.trim( me.fields.replace( /\,+/g, ',') ).split( ',' ),
+					    l = p.length;
 					if( l )
 					{
-						var str = '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'"><h2>'+this.title+'</h2><div id="'+this.name+'">';
+						var str = '<div class="fields '+me.csslayout+'" id="field'+me.form_identifier+'-'+me.index+'"><h2>'+me.title+'</h2><div id="'+me.name+'">';
 						for( var i = 0; i < l; i++ )
 						{
 							if( !/^\s*$/.test( p[ i ] ) )
 							{
 								p[ i ] = $.trim( p[ i ] );
-								this.fieldsArray.push( p[ i ] + this.form_identifier );
-								$( document ).on( 'change', '#' + p[ i ] + this.form_identifier, function(){ me.update(); } );
-								
-								str += '<div ref="'+p[i]+this.form_identifier+'" class="cff-summary-item"><span class="'+this.titleClassname+' cff-summary-title"></span><span class="'+this.valueClassname+' cff-summary-value"></span></div>';
+								str += '<div ref="'+p[i]+me.form_identifier+'" class="cff-summary-item"><span class="'+me.titleClassname+' cff-summary-title"></span><span class="'+me.valueClassname+' cff-summary-value"></span></div>';
 							}	
 						}
 						str += '</div></div>';
 						
-						$( document ).one( 'showHideDepEvent', function( evt, form_identifier )
-						{
-							me.update();
-						});
-						
 						return str;
 					}
 				},
+			after_show: function(){
+                    var me = this,
+                        p = $.trim(me.fields.replace( /\,+/g, ',') ).split( ',' ),
+                        l = p.length;
+                        
+                    if( l )
+                    {
+                        for( var i = 0; i < l; i++ )
+                        {
+                            if( !/^\s*$/.test( p[ i ] ) )
+                            {
+                                p[ i ] = $.trim( p[ i ] );
+                                me.fieldsArray.push( p[ i ] + me.form_identifier );    
+                                $( document ).on( 'change', '#' + p[ i ] + me.form_identifier, function(){ me.update(); } );
+                            }	
+                        }
+                        $( document ).one( 'showHideDepEvent', function( evt, form_identifier )
+                        {
+                            me.update();
+                        });
+                        
+                        $( '#cp_calculatedfieldsf_pform'+me.form_identifier ).bind( 'reset', function(){ setTimeout( function(){ me.update(); }, 10 ); } );
+                    }
+                },    
 			update:function()
 				{
-					var me = this;
 					for ( var j = 0, k = this.fieldsArray.length; j < k; j++ )
 					{
 						var i  = this.fieldsArray[ j ],
