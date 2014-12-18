@@ -3,7 +3,7 @@ Contributors: codepeople
 Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons
 Requires at least: 3.0.5
-Tested up to: 4.0
+Tested up to: 4.1
 Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
