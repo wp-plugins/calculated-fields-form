@@ -1141,6 +1141,11 @@ Note: If you want calculate the price of products through the form, will be requ
 
 == Upgrade Notice ==
 
+= 1.0.2 =
+* Improved plugin features
+
+Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
+
 = 1.0.1 =
 * Stable version released.
 * New behaviour in the Phone controls.
