@@ -3,7 +3,7 @@
 Plugin Name: Calculated Fields Form
 Plugin URI: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Description: Create forms with field values calculated based in other form field values.
-Version: 1.0.1
+Version: 1.0.2
 Author: CodePeople.net
 Author URI: http://codepeople.net
 License: GPL
@@ -467,15 +467,18 @@ function cp_calculatedfieldsf_get_public_form($id) {
     if (!CP_CALCULATEDFIELDSF_DEFAULT_DEFER_SCRIPTS_LOADING)
     {              
         // This code won't be used in most cases. This code is for preventing problems in wrong WP themes and conflicts with third party plugins.
-?>
-     <?php $plugin_url = plugins_url('', __FILE__); ?>
+        $plugin_url = plugins_url('', __FILE__); 
+        $prefix_ui = '';
+        if (file_exists(dirname( _FILE_ ).'/../../../wp-includes/js/jquery/ui/jquery.ui.core.min.js'))
+        $prefix_ui = 'jquery.ui.';
+    ?>
      <script> if( typeof jQuery != 'undefined' ) var jQueryBK = jQuery.noConflict(); </script>
      <script type='text/javascript' src='<?php echo $plugin_url.'/../../../wp-includes/js/jquery/jquery.js'; ?>'></script>
-     <script type='text/javascript' src='<?php echo $plugin_url.'/../../../wp-includes/js/jquery/ui/jquery.ui.core.min.js'; ?>'></script>
-     <script type='text/javascript' src='<?php echo $plugin_url.'/../../../wp-includes/js/jquery/ui/jquery.ui.datepicker.min.js'; ?>'></script>
-     <script type='text/javascript' src='<?php echo $plugin_url.'/../../../wp-includes/js/jquery/ui/jquery.ui.widget.min.js'; ?>'></script>
-     <script type='text/javascript' src='<?php echo $plugin_url.'/../../../wp-includes/js/jquery/ui/jquery.ui.position.min.js'; ?>'></script> 
-     <script type='text/javascript' src='<?php echo $plugin_url.'/../../../wp-includes/js/jquery/ui/jquery.ui.tooltip.min.js'; ?>'></script>    
+     <script type='text/javascript' src='<?php echo $plugin_url.'/../../../wp-includes/js/jquery/ui/'.$prefix_ui.'core.min.js'; ?>'></script>
+     <script type='text/javascript' src='<?php echo $plugin_url.'/../../../wp-includes/js/jquery/ui/'.$prefix_ui.'datepicker.min.js'; ?>'></script>
+     <script type='text/javascript' src='<?php echo $plugin_url.'/../../../wp-includes/js/jquery/ui/'.$prefix_ui.'widget.min.js'; ?>'></script>
+     <script type='text/javascript' src='<?php echo $plugin_url.'/../../../wp-includes/js/jquery/ui/'.$prefix_ui.'position.min.js'; ?>'></script> 
+     <script type='text/javascript' src='<?php echo $plugin_url.'/../../../wp-includes/js/jquery/ui/'.$prefix_ui.'tooltip.min.js'; ?>'></script>    
      <script> 
         var fbuilderjQuery = jQuery.noConflict( ); 
         if( typeof jQueryBK != 'undefined' ) jQuery = jQueryBK;
