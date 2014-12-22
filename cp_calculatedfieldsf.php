@@ -96,6 +96,35 @@ $cpcff_default_texts_array = array(
                             )
 );
 
+if( !function_exists( 'array_replace_recursive' ) )
+{
+    function array_replace_recursive($array1, $array2)
+    {
+        foreach( $array2 as $key1 => $val1 )
+        {
+            if( isset( $array1[ $key1 ] ) )
+            {
+                if( is_array( $val1 ) )
+                {
+                    foreach( $val1 as $key2 => $val2)
+                    {
+                        $array1[ $key1 ][ $key2 ] = $val2;
+                    }
+                }
+                else
+                {
+                    $array1[ $key1 ] = $val1;
+                }
+            }
+            else
+            {
+                $array1[ $key1 ] = $val1;
+            }
+        }
+        return $array1; 
+    }
+}
+
 // code initialization, hooks
 // -----------------------------------------
 
