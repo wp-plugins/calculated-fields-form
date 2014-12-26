@@ -848,11 +848,18 @@ A: There are special tags that can be used in the notification emails to display
 
 &lt;%INFO%&gt;, the tag &lt;%INFO%&gt; is replaced by the labels and values of fields that are submitted from the form, all of them.
 
-To insert only specific fields, use the format &lt;%fieldnameX%&gt;, for example, if you want include the fieldname1 and fieldname3 in the notification email, use the tags &lt;%fieldname1%&gt;, and &lt;%fieldname3%&gt;, the tag will be replace by the pair: label-value of field.
+To insert only specific fields, use the format &lt;%fieldname#%&gt;, for example, if you want include the fieldname1 and fieldname3 in the notification email, use the tags &lt;%fieldname1%&gt;, and &lt;%fieldname3%&gt;, the tag will be replace by the pair: label-value of field.
 
-To insert only the field's label, use the format &lt;%fieldnameX_label%&gt;, for example &lt;%fieldname1_label%&gt;
+To insert only the field's label, use the format &lt;%fieldname#_label%&gt;, for example &lt;%fieldname1_label%&gt;
 
-To insert only the field's value, use the format &lt;%fieldnameX_value%&gt;, for example &lt;%fieldname3_value%&gt;
+To insert only the field's value, use the format &lt;%fieldname#_value%&gt;, for example &lt;%fieldname3_value%&gt;
+
+To display all previous tags only if the fields have been filled by the users, you should use the attribute if_not_empty in the tags:
+
+%lt;%INFO if_not_empty%&gt;
+%lt;%fieldname# if_not_empty%&gt;
+%lt;%fieldname#_label if_not_empty%&gt;
+%lt;%fieldname#_value if_not_empty%&gt;
 
 To display the final price, after apply the discount if was defined, use the tag &lt;%final_price%&gt;
 
