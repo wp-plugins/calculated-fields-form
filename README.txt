@@ -1,7 +1,7 @@
 === Calculated Fields Form ===
 Contributors: codepeople
 Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
-Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons
+Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout
 Requires at least: 3.0.5
 Tested up to: 4.1
 Stable tag: 1.0.2
@@ -857,8 +857,11 @@ To insert only the field's value, use the format &lt;%fieldname#_value%&gt;, for
 To display all previous tags only if the fields have been filled by the users, you should use the attribute if_not_empty in the tags:
 
 &lt;%INFO if_not_empty%&gt;
+
 &lt;%fieldname# if_not_empty%&gt;
+
 &lt;%fieldname#_label if_not_empty%&gt;
+
 &lt;%fieldname#_value if_not_empty%&gt;
 
 To display the final price, after apply the discount if was defined, use the tag &lt;%final_price%&gt;
