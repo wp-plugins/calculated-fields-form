@@ -856,10 +856,10 @@ To insert only the field's value, use the format &lt;%fieldname#_value%&gt;, for
 
 To display all previous tags only if the fields have been filled by the users, you should use the attribute if_not_empty in the tags:
 
-%lt;%INFO if_not_empty%&gt;
-%lt;%fieldname# if_not_empty%&gt;
-%lt;%fieldname#_label if_not_empty%&gt;
-%lt;%fieldname#_value if_not_empty%&gt;
+&lt;%INFO if_not_empty%&gt;
+&lt;%fieldname# if_not_empty%&gt;
+&lt;%fieldname#_label if_not_empty%&gt;
+&lt;%fieldname#_value if_not_empty%&gt;
 
 To display the final price, after apply the discount if was defined, use the tag &lt;%final_price%&gt;
 
