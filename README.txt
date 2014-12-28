@@ -529,6 +529,8 @@ There are some pre-defined CSS classes to use align two, three or four fields in
 
 For example if you want to put two fields into the same line then specify for both fields the class name "column2". The above is valid for both the classic fields and the calculated fields.
 
+But, what happen if you want create 6, 8, 12 or 14 columns? The answer is simple, use the container controls ( the DIV field ). If you want create 6 columns, a way to do it would be insert two DIV container, and assign to each of them the class name: column2, finally you should insert three fields in each of containers and assign to all of them the class name column3. You will have inserted 6 columns. Following this method you can create as many columns as you want.
+
 = Q: How to display an image in a checkbox or radio button? =
 
 A: The choices of the Radio Buttons, and Checkboxes controls, are formed by two input fields, the input field for choice value, and the input field for the text. In the input field for the choice text, should be entered an IMG tag, with an absolute URL in the src attribute:
