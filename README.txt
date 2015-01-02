@@ -543,6 +543,12 @@ A: If you want send an image in the notification emails, like a header, you shou
 
 &lt;IMG src="http://..." &gt;
 
+= Q: How to insert changes of lines in the notification emails, when the HTML format is selected? =
+
+A: If you are using the HTML format in the notification emails, you should insert the BR tags for the changes of lines in the emails content:
+
+&lt;BR /&gt;
+
 = Q: In which order are "calculated" the fields? =
 
 A: Each time a field value changes (including the calculated fields) an event is fired to re-calculate all the fields, so the order isn't relevant, just avoid creating an endless cycle between calculated fields.
