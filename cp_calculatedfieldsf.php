@@ -453,7 +453,9 @@ function cp_calculatedfieldsf_get_public_form($id) {
     $cpcff_texts_array = cp_calculatedfieldsf_get_option( 'vs_all_texts', $cpcff_default_texts_array, $id );
     $cpcff_texts_array = array_replace_recursive( 
         $cpcff_default_texts_array, 
-        is_string( $cpcff_texts_array ) ? unserialize( $cpcff_texts_array ) : $cpcff_texts_array
+        ( is_string( $cpcff_texts_array ) && is_array( unserialize( $cpcff_texts_array ) ) ) 
+            ? unserialize( $cpcff_texts_array ) 
+            : ( ( is_array( $cpcff_texts_array ) ) ? $cpcff_texts_array : array() )
     );
     $page_of_label = $cpcff_texts_array[ 'page_of_text' ][ 'text' ];
     
