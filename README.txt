@@ -604,6 +604,34 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vestibulum blan
 
 [CP_CALCULATED_FIELDS_RESULT fields="fieldname3,fieldname4"]
 
+= Q: Is possible formatting  the thank you page? =
+
+A: The thank you page can be formatted like the notification emails, using exactly the same tags, but the shortcode should be inserted as:
+
+[CP_CALCULATED_FIELDS_RESULT]
+....
+[/CP_CALCULATED_FIELDS_RESULT]
+
+with the content in middle.
+
+For example, if the fieldname1 is used to get the user name, you could insert:
+
+[CP_CALCULATED_FIELDS_RESULT]
+&lt;p&gt;&lt;%fieldname1%&gt;&lt;/p&gt;
+[/CP_CALCULATED_FIELDS_RESULT]
+
+or maybe
+
+[CP_CALCULATED_FIELDS_RESULT]
+&lt;p&gt;&lt;strong&gt;Your name is:&lt;/strong&gt; &lt;%fieldname1_value%&gt;&lt;/p&gt;
+[/CP_CALCULATED_FIELDS_RESULT]
+
+or
+
+[CP_CALCULATED_FIELDS_RESULT]
+&lt;p&gt;&lt;strong&gt;&lt;%fieldname1_label%&gt;:&lt;/strong&gt; &lt;%fieldname1_value%&gt;&lt;/p&gt;
+[/CP_CALCULATED_FIELDS_RESULT]
+
 = Q: How can I apply CSS styles to the form fields? =
 
 A: Into the calculated form editor, click a field to edit its details, there is a setting there named "Add CSS Layout Keywords". You can add the class name into that field, so the style specified into the CSS class will be applied to that field.
