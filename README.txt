@@ -904,7 +904,9 @@ To display the final price, after apply the discount if was defined, use the tag
 
 To display the coupon/discount applied, if was applied a discount, uses the tag &lt;%coupon%&gt;
 
-To display the payment option selected, in case that PayPal has been set as optional, use the tag <%payment_option%>
+To display the payment option selected, in case that PayPal has been set as optional, use the tag &lt;%payment_option%&gt;
+
+For sending to the user an unique ID that identify the submission, use the tag &lt;%itemnumber%&gt;
  
 == Other Notes ==
 
