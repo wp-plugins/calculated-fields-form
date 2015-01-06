@@ -907,6 +907,10 @@ To display the coupon/discount applied, if was applied a discount, uses the tag 
 To display the payment option selected, in case that PayPal has been set as optional, use the tag &lt;%payment_option%&gt;
 
 For sending to the user an unique ID that identify the submission, use the tag &lt;%itemnumber%&gt;
+
+= Q: How to include my own javascript files to implement my own operations? =
+
+A: The "Calculated Fields Form" plugin, loads dynamically all javascript files included in the directories: "/wp-content/plugins/calculated-fields-form/js/fields-admin/", and  "/wp-content/plugins/calculated-fields-form/js/fields-public/", for the form builder, and the public forms respectively, the files are loaded ordered by its names. So, if you want implement your own operations to be used from the equations, you simply should create a new javascript file in the "/wp-content/plugins/calculated-fields-form/js/fields-public/" directory, with the implementation of your own operations, and then, use the new operations from the equations associated to the calculated fields.
  
 == Other Notes ==
 
