@@ -179,13 +179,13 @@
 							maxDate: this.maxDate
 						},
 						dp = $( "#"+this.name+"_date" ),
-						dd = (this.defaultDate != "") ? this.defaultDate : ( ( this.predefined != "" && !this.predefinedClick ) ? this.predefined : new Date() );
-                        
+						dd = (this.defaultDate != "") ? this.defaultDate : ( ( this.predefined != "" ) ? this.predefined : new Date() );
+
 					dp.click( function(){ $(document).click(); $(this).focus(); } );	
 					if (this.showDropdown) p = $.extend(p,{changeMonth: true,changeYear: true,yearRange: this.dropdownRange});
 					p = $.extend(p, { beforeShowDay: ( function ( w, i ) { return function( d ){ return validateDate( d, w, i ); }; } )( this.working_dates, this.invalidDates ) } );
 					dp.datepicker(p);
-                    dp.datepicker( "setDate", dd);
+                    if( !this.predefinedClick ) dp.datepicker( "setDate", dd);
                     if( !validateDate( dp.datepicker( "getDate"), this.working_dates, this.invalidDates)[ 0 ]  )
                     {    
                         dp.datepicker( "setDate", '');
