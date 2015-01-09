@@ -66,6 +66,7 @@ The plugin has two additional (commercial) versions: **Premium** and **Developer
 * Allows charge the calculated field directly through PayPal
 * Allows export and import your forms between different WordPress
 * Allows to display the submitted data in the thanks page
+* Includes a dashboard widget to display the submissions of the last week
 
 =Features in Developer version=
 
