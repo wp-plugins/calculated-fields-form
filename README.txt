@@ -919,7 +919,7 @@ A: In my explanation I'll assume that the fieldname1 field is a textarea. The eq
 
 		(function(){	
 			var text = 'fieldname1';	
-			text = text.replace( /^\s+/, '' ).replace( /\s+$/, '').replace(/\s+/g, ' ');	
+			text = text.replace( /[^\w]/g, ' ' ).replace( /^\s+/, '' ).replace( /\s+$/, '').replace(/\s+/g, ' ');	
 			return (text.length) ? text.split(' ').length : 0;	
 		})()	
 		
