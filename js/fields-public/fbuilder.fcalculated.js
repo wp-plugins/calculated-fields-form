@@ -19,6 +19,11 @@
 			hidefield:false,
 			show:function()
 				{
+					return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'" '+( ( this.hidefield ) ? 'style="display:none;"' : '' )+'><label>'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" '+((this.readonly) ? ' readonly ' : '')+' class="codepeoplecalculatedfield field '+this.size+((this.required)?" required":"")+'" type="'+( ( this.hidefield ) ? 'hidden' : 'text' )+'" value="'+this.predefined+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
+				},
+            after_show:function()
+				{
+                    // Add equations
 					var me = this,
 						configuration = { "suffix" : me.suffix, "prefix" : me.prefix, "groupingsymbol" : me.groupingsymbol, "decimalsymbol" : me.decimalsymbol },
 						dependencies = [];
@@ -48,20 +53,15 @@
 					}
 					
 					var eq = this.eq_factored;
-					eq = eq.replace(/"/g, '\\"').replace(/\n/g, ' ').replace(/fieldname(\d+)/g, "fieldname$1"+this.form_identifier).replace( /;\s*\)/g, ')').replace(/;\s*$/, '');
-					
-					return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'" '+( ( this.hidefield ) ? 'style="display:none;"' : '' )+'>\
-					        <label>'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label>\
-							<div class="dfield">\
-							<input id="'+this.name+'" name="'+this.name+'" '+((this.readonly) ? ' readonly ' : '')+' class="codepeoplecalculatedfield field '+this.size+((this.required)?" required":"")+'" type="'+( ( this.hidefield ) ? 'hidden' : 'text' )+'" value="'+this.predefined+'"/>\
-							<span class="uh">'+this.userhelp+'</span>\
-							</div>\
-							<div class="clearer">\
-							</div>'+((!/^\s*$/.test(this.eq))? '<script>'+$.fbuilder[ 'objName' ]+'.fbuilder.calculator.addEquation("'+this.name.replace(/"/g, '\\"')+'", "'+eq+'", '+$.stringifyXX( configuration )+', '+$.stringifyXX( dependencies )+', "'+this.form_identifier+'");</script>' : '')+'</div>';
-				},
-            after_show: function()
-                {
-                    var e = $( '[id="'+this.name+'"]' );
+					eq = eq.replace(/\n/g, ' ').replace(/fieldname(\d+)/g, "fieldname$1"+this.form_identifier).replace( /;\s*\)/g, ')').replace(/;\s*$/, '');
+                    
+					if( !/^\s*$/.test(this.eq) )
+                    {
+                        $.fbuilder.calculator.addEquation( this.name, eq, configuration, dependencies, this.form_identifier );
+                    }
+                    
+                    // Events
+			        var e = $( '[id="'+this.name+'"]' );
                     e.bind( 
                         'calcualtedfield_change',
                         {obj: this},
@@ -386,6 +386,7 @@
 									}
 								);
 							}
+                            $( form ).trigger( 'cpcff_default_calc' );
 						},
 
                     Calculate : function ( field )
