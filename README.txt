@@ -922,6 +922,16 @@ A: In my explanation I'll assume that the fieldname1 field is a textarea. The eq
 			text = text.replace( /[^\w]/g, ' ' ).replace( /^\s+/, '' ).replace( /\s+$/, '').replace(/\s+/g, ' ');	
 			return (text.length) ? text.split(' ').length : 0;	
 		})()	
+
+= Q: How to calculate the number of characters in a text, excluding the blank characters? = 
+
+A: In my explanation I'll assume that the fieldname1 field is a textarea. The equation in this case would be:
+
+		(function(){	
+			var text = 'fieldname1';	
+			text = text.replace( /[\s\t\r\n]/g, '' );	
+			return text.length;	
+		})()
 		
 == Other Notes ==
 
