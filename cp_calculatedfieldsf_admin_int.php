@@ -58,12 +58,16 @@ $cpcff_texts_array = array_replace_recursive(
        try{$calculatedfieldsfQuery = jQuery.noConflict();window.jQuery = window.$ = jQuery;} catch (e) {}
        if (typeof $calculatedfieldsfQuery == 'undefined')
        {
-         // This code won't be used in most cases. This code is for preventing problems in wrong WP themes and conflicts with third party plugins.
-         document.write ("<"+"script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></"+"script>");
-         document.write ("<"+"script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.20/jquery-ui.min.js'></"+"script>");
-         document.write ("<"+"script type='text/javascript' src='<?php echo plugins_url('js/jQuery.stringify.js', __FILE__); ?>'></"+"script>");
-         document.write ("<"+"script type='text/javascript' src='<?php echo plugins_url('js/jquery.validate.js', __FILE__); ?>'></"+"script>");         
-         document.write ("<"+"script type='text/javascript' src='<?php echo plugins_url('/js/jquery.caret.js', __FILE__); ?>'></"+"script>");
+			document.write ("<"+"script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></"+"script>");
+			$calculatedfieldsfQuery = jQuery.noConflict();
+			window.jQuery = window.$ = jQuery;
+			document.write ("<"+"script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.20/jquery-ui.min.js'></"+"script>");
+			document.write ("<"+"script type='text/javascript' src='<?php echo plugins_url('js/jQuery.stringify.js', __FILE__); ?>'></"+"script>");
+			document.write ("<"+"script type='text/javascript' src='<?php echo plugins_url('js/jquery.validate.js', __FILE__); ?>'></"+"script>");         
+			document.write ("<"+"script type='text/javascript' src='<?php echo plugins_url('/js/jquery.caret.js', __FILE__); ?>'></"+"script>");
+	   }
+       if ( typeof $fbuilderloadedflag == 'undefined' )
+       {
          document.write ("<"+"script type='text/javascript' src='<?php echo get_site_url( get_current_blog_id() ).'?cp_cff_resources=admin'; ?>'></"+"script>");
        } 
      </script>         

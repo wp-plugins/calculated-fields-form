@@ -3,7 +3,7 @@
 Plugin Name: Calculated Fields Form
 Plugin URI: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Description: Create forms with field values calculated based in other form field values.
-Version: 1.0.2
+Version: 1.0.3
 Author: CodePeople.net
 Author URI: http://codepeople.net
 License: GPL
@@ -564,12 +564,23 @@ function cp_calculatedfieldsf_html_post_page() {
 
 
 function set_cp_calculatedfieldsf_insert_adminScripts($hook) {
-    if (isset($_GET["page"]) && $_GET["page"] == "cp_calculated_fields_form")
+    if ( isset($_GET["page"]) && $_GET["page"] == "cp_calculated_fields_form" )
     {        
         wp_deregister_script('query-stringify');
         wp_register_script('query-stringify', plugins_url('/js/jQuery.stringify.js', __FILE__));
+		
+		wp_enqueue_script( "jquery" );
+		wp_enqueue_script( "jquery-ui-core" );
+		wp_enqueue_script( "jquery-ui-sortable" );
+		wp_enqueue_script( "jquery-ui-tabs" );
+		wp_enqueue_script( "jquery-ui-droppable" );
+		wp_enqueue_script( "jquery-ui-button" );
+		wp_enqueue_script( "jquery-ui-datepicker" );
+		wp_enqueue_script( "query-stringify" );
+
         wp_enqueue_script( 'cp_calculatedfieldsf_buikder_script', get_site_url( get_current_blog_id() ).'?cp_cff_resources=admin', array("jquery","jquery-ui-core","jquery-ui-sortable","jquery-ui-tabs","jquery-ui-droppable","jquery-ui-button","jquery-ui-datepicker","query-stringify") );
-		wp_enqueue_script( 'cp_calculatedfieldsf_buikder_script_caret', plugins_url('/js/jquery.caret.js', __FILE__),array("jquery") );
+
+		wp_enqueue_script( 'cp_calculatedfieldsf_buikder_script_caret', plugins_url('/js/jquery.caret.js', __FILE__),array("jquery"));
         wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
     }    
 

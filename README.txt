@@ -4,7 +4,7 @@ Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout
 Requires at least: 3.0.5
 Tested up to: 4.1
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -1212,7 +1212,21 @@ Note: If you want calculate the price of products through the form, will be requ
 * Compatible with all the latest WP versions
 * Fixed tags in WP directory
 
+= 1.0.2 =
+* Corrects an issue with the placeholder attribute in the date/time fields
+* The reset button clears the fields values in the summary fields
+* Improves the performance of the calculated fields
+
+= 1.0.3 =
+* Modifies the loading process of the javascript files.
+* Modifies some styles applied to the forms to improve the appearance of the forms in small screens, like mobiles and tablets.
+
 == Upgrade Notice ==
+
+= 1.0.3 =
+* Improved plugin features
+
+Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
 = 1.0.2 =
 * Improved plugin features
