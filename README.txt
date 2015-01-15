@@ -932,7 +932,28 @@ A: In my explanation I'll assume that the fieldname1 field is a textarea. The eq
 			text = text.replace( /[\s\t\r\n]/g, '' );	
 			return text.length;	
 		})()
-		
+
+= Q: How to assign a value to a field that is not a calculated field from an equation? =
+
+A: To assign a value to a field that is not a calculated field, from an equation, you should follow the steps below:
+
+1. Assign a class name to the field that you want populate from the equation, to identify the field from the equation's code, for example: myclass.
+
+Note: You cannot use the fieldnameX in this case, because in the equations the texts with the format fieldnameX, are replaced by the values of fields that represent.
+
+2. Uses the following code as part of the equation:
+
+jQuery( '.myclass input').val( Y );
+
+The Y in the previous code would be the value to be assigned to the field.
+
+Note: The previous code is applied to those fields that include an input field, for example: the number fields, the single texts, the calculated fields, etc. In the case of text areas the code would be a little different: jQuery( '.myclass textarea').val( Y );
+
+For the "Instruct. Text" fields the code varies a little more. In the "Instruct. Text" field the value can be assigned to the label or to the description, with the codes below:
+
+jQuery( '.myclass label').html( Y );
+jQuery( '.myclass .uh').html( Y );
+
 == Other Notes ==
 
 This section contains mainly notes about the form builder features that are too long to explain in the main description page.
