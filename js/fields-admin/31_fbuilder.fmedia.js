@@ -12,43 +12,46 @@
 		{
 			ftype:"fMedia",
             sMediaType:"image", // image, audio, video
-            data:{
-                image:{
-                    sWidth:"",
-                    sHeight:"",
-                    sSrc:"",
-                    sAlt:"",
-                    sLink:"",
-                    sTarget:"",
-                    sFigcaption: ""
-                },
-                audio:{
-                    sWidth:"",
-                    sSrc:"",
-                    sSrcAlt:"",
-                    sControls:1,
-                    sLoop:0,
-                    sAutoplay:0,
-                    sMuted:0,
-                    sPreload: "auto",
-                    sFallback: "",
-                    sFigcaption: ""
-                },
-                video:{
-                    sWidth:"",
-                    sHeight:"",
-                    sSrc:"",
-                    sSrcAlt:"",
-                    sPoster:"",
-                    sControls:1,
-                    sLoop:0,
-                    sAutoplay:0,
-                    sMuted:0,
-                    sPreload: "auto",
-                    sFallback: "",
-                    sFigcaption: ""
-                }
-            },
+            init : function()
+				{
+					this.data = {
+							image:{
+								sWidth:"",
+								sHeight:"",
+								sSrc:"",
+								sAlt:"",
+								sLink:"",
+								sTarget:"",
+								sFigcaption: ""
+							},
+							audio:{
+								sWidth:"",
+								sSrc:"",
+								sSrcAlt:"",
+								sControls:1,
+								sLoop:0,
+								sAutoplay:0,
+								sMuted:0,
+								sPreload: "auto",
+								sFallback: "",
+								sFigcaption: ""
+							},
+							video:{
+								sWidth:"",
+								sHeight:"",
+								sSrc:"",
+								sSrcAlt:"",
+								sPoster:"",
+								sControls:1,
+								sLoop:0,
+								sAutoplay:0,
+								sMuted:0,
+								sPreload: "auto",
+								sFallback: "",
+								sFigcaption: ""
+							}
+						};
+				},
             _display_image: function()
                 {
                     var d = this.data.image,
