@@ -960,6 +960,17 @@ A: The form builder does not include a field to insert links explicitly in the f
 
 &lt;a href="http://wordpress.dwbooster.com"&gt;Visit the website&lt;/a&gt;
 
+= Q: How can be created dependencies with  multiple fields? =
+
+A: To insert a field dependent of multiple fields, you should show/hide the field through the equations, and not directly in the fields settings. The following is a particular example that includes all points to create the dependencies.
+
+In this example there are three fields: fieldname1, fieldname2, and fieldname3. If the value of fieldname1 is equal to 10, and the value of the fieldname2 is equal to 100, the form should display the fieldname3 field, or hide the field in other cases. First, you should assign a class name to the fieldname3 to identify the field from the equations(for example enter the value: myclass through the attribute: "Add Css Layout Keywords" of the fieldname3 field). Finally, you should  use the following snippet of code as part of your equation:
+
+if(fieldname1 == 10 && fieldname2 == 100 ) jQuery('.myclass').show().children( '.field' ).removeClass( 'ignore' );
+else jQuery('.myclass').hide().children( '.field' ).addClass( 'ignore' );
+
+The fields names and values have been selected randomly, only for the explanation, use the fields names, and values, corresponding to your project.
+
 == Other Notes ==
 
 This section contains mainly notes about the form builder features that are too long to explain in the main description page.
