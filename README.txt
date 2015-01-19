@@ -954,6 +954,12 @@ For the "Instruct. Text" fields the code varies a little more. In the "Instruct.
 jQuery( '.myclass label').html( Y );
 jQuery( '.myclass .uh').html( Y );
 
+= Q: How to insert a link in the form? =
+
+A: The form builder does not include a field to insert links explicitly in the form, but you can insert a link through an "Instruct. Text" field. Simply insert an "Instruct. Text" field in the form, and then, enter the tag of the link in any of the field's attributes: "Field Label", or "Instructions for User". For example, to insert a link to our website, you should enter the following tag:
+
+&lt;a href="http://wordpress.dwbooster.com"&gt;Visit the website&lt;/a&gt;
+
 == Other Notes ==
 
 This section contains mainly notes about the form builder features that are too long to explain in the main description page.
