@@ -971,6 +971,12 @@ else jQuery('.myclass').hide().children( '.field' ).addClass( 'ignore' );
 
 The fields names and values have been selected randomly, only for the explanation, use the fields names, and values, corresponding to your project.
 
+There is another solution to your problem, that simplifies the equation, but the dependencies are associated to the calculated field. For example, with the same conditions of the previous situation, inserts in your form a calculated field, and enter  the following equation:
+
+IF( AND(fieldname1 == 10, fieldname2 == 100), 1, 0)
+
+and then in the dependencies section of the calculated field, select the rule: If value is equal to, enter the number 1 in the input box, and select the fieldname3 as the field to be displayed.
+
 == Other Notes ==
 
 This section contains mainly notes about the form builder features that are too long to explain in the main description page.
