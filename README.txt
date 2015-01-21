@@ -966,8 +966,8 @@ A: To insert a field dependent of multiple fields, you should show/hide the fiel
 
 In this example there are three fields: fieldname1, fieldname2, and fieldname3. If the value of fieldname1 is equal to 10, and the value of the fieldname2 is equal to 100, the form should display the fieldname3 field, or hide the field in other cases. First, you should assign a class name to the fieldname3 to identify the field from the equations(for example enter the value: myclass through the attribute: "Add Css Layout Keywords" of the fieldname3 field). Finally, you should  use the following snippet of code as part of your equation:
 
-if(fieldname1 == 10 && fieldname2 == 100 ) jQuery('.myclass').show().children( '.field' ).removeClass( 'ignore' );
-else jQuery('.myclass').hide().children( '.field' ).addClass( 'ignore' );
+		if(fieldname1 == 10 && fieldname2 == 100 ) jQuery('.myclass').show().children( '.field' ).removeClass( 'ignore' );		
+		else jQuery('.myclass').hide().children( '.field' ).addClass( 'ignore' );		
 
 The fields names and values have been selected randomly, only for the explanation, use the fields names, and values, corresponding to your project.
 
@@ -976,6 +976,19 @@ There is another solution to your problem, that simplifies the equation, but the
 IF( AND(fieldname1 == 10, fieldname2 == 100), 1, 0)
 
 and then in the dependencies section of the calculated field, select the rule: If value is equal to, enter the number 1 in the input box, and select the fieldname3 as the field to be displayed.
+
+= Q: How integrate the forms with the WooCommerce products? = 
+
+A: The forms should be created as usual, but if you want calculate the price of products through the form, you should select the calculated field in the "Request cost" attribute in the form settings. 
+
+Pay attention, each form has associated a number, that represent the form ID (the first column of forms list, in the settings page of the plugin).
+
+After create the form, is time to edit the product, the addon for WooCommerce includes a new section in the product's settings (the "Calculated Fields Form" section), that allows:
+
+1. Associate the form with the product, entering the form ID , through the "Enter the ID of the form" attribute.
+2. If you want calculate the final price of product through the form, check the option: "Calculate the product price through the form".
+
+The data submitted through the form are available from the Orders section of WooCommerce.
 
 == Other Notes ==
 
