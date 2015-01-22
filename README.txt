@@ -987,6 +987,7 @@ After create the form, is time to edit the product, the addon for WooCommerce in
 
 1. Associate the form with the product, entering the form ID , through the "Enter the ID of the form" attribute.
 2. If you want calculate the final price of product through the form, check the option: "Calculate the product price through the form".
+3. Define a minimum price for products, to avoid selling the products to a lower price than allowed.
 
 The data submitted through the form are available from the Orders section of WooCommerce.
 
