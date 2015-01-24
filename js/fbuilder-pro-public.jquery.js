@@ -1,5 +1,5 @@
-	$.fbuilder[ 'controls' ] = {};
-	$.fbuilder[ 'forms' ] = {};
+	$.fbuilder[ 'controls' ] = ( typeof $.fbuilder[ 'controls' ] != 'undefined' ) ? $.fbuilder[ 'controls' ]: {};
+	$.fbuilder[ 'forms' ] = ( typeof $.fbuilder[ 'forms' ] != 'undefined' ) ? $.fbuilder[ 'forms' ]: {};
 	
 	$.fbuilder[ 'htmlEncode' ] = function(value)
 	{
