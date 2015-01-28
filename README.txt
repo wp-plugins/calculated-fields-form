@@ -4,7 +4,7 @@ Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout
 Requires at least: 3.0.5
 Tested up to: 4.1
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -1286,7 +1286,15 @@ Note: If you want calculate the price of products through the form, will be requ
 * The fields defined as small or medium, are displayed large in small screens.
 * Corrects a conflict with others of our plugins that use the form builder, when both plugins are inserted in the same page.
 
+= 1.0.6 =
+* The current update allows to define the time control as 12 or 24 hours.
+
 == Upgrade Notice ==
+
+= 1.0.6 =
+* Improves the date/time control
+
+Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
 = 1.0.5 =
 * Improved plugin features

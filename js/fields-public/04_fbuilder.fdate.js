@@ -10,6 +10,7 @@
 			size:"medium",
 			required:false,
 			dformat:"mm/dd/yyyy",
+			tformat:"24",
 			showDropdown:false,
 			dropdownRange:"-10:+10",
 			minDate:"",
@@ -58,18 +59,18 @@
 				{
 					var str = '',
 						i = 0,
-						h;
+						h,
+						from = ( this.tformat == 12 ) ? 1  : this.minHour,
+						to   = ( this.tformat == 12 ) ? 12 : this.maxHour;
 					
-					while( ( h = this.minHour + this.stepHour * i ) <= this.maxHour )
+					while( ( h = from + this.stepHour * i ) <= to )
 					{
-						if( h < 10 )
-						{
-							h = '0'+''+h;
-						}
+
+						if( h < 10 ) h = '0'+''+h;
 						str += '<option value="' + h + '">' + h + '</option>';
 						i++;
 					}
-					return ' ( <select id="'+this.name+'_hours" name="'+this.name+'_hours">' + str + '</select>:';
+					return '<select id="'+this.name+'_hours" name="'+this.name+'_hours">' + str + '</select>:';
 				},
 			get_minutes:function()
 				{
@@ -86,14 +87,24 @@
 						str += '<option value="' + m + '">' + m + '</option>';
 						i++;
 					}
-					return '<select id="'+this.name+'_minutes" name="'+this.name+'_minutes">' + str + '</select> )';
+					return '<select id="'+this.name+'_minutes" name="'+this.name+'_minutes">' + str + '</select>';
+				},
+			get_ampm:function()
+				{
+					var str = '';	
+					if( this.tformat == 12 )
+					{
+						return '<select id="'+this.name+'_ampm"><option value="am">am</option><option value="pm">pm</option></select>';
+					}
+					return str;
 				},
 			set_date_time:function()
 				{
 					var str = $( '#'+this.name+'_date' ).val();
 					if( this.showTimepicker )
 					{
-						str += ' '+$( '#'+this.name+'_hours' ).val()+':'+$( '#'+this.name+'_minutes' ).val();
+						var h = $( '#'+this.name+'_hours' ).val();
+						str += ' '+( ( this.tformat == 12 && $( '#'+this.name+'_ampm' ).val() == 'pm' ) ? ( h + 12 ) % 24 : h )+':'+$( '#'+this.name+'_minutes' ).val();
 					}
 					$( '#'+this.name ).val( str ).change();
 				},
@@ -107,7 +118,7 @@
                         attr = 'placeholder';
                     }
                     
-					return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'"><label for="'+this.name+'">'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+' <span class="dformat">('+this.dformat+( ( this.showTimepicker ) ? ' HH:mm': '' )+')</span></label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" type="hidden" value="'+$.fbuilder.htmlEncode(this.predefined)+'"/><input id="'+this.name+'_date" name="'+this.name+'_date" class="field date'+this.dformat.replace(/\//g,"")+' '+this.size+((this.required)?" required":"")+'" type="text" '+attr+'="'+$.fbuilder.htmlEncode(this.predefined)+'"/>'+( ( this.showTimepicker ) ? this.get_hours()+this.get_minutes() : '' )+'<span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
+					return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'"><label for="'+this.name+'">'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+' <span class="dformat">('+this.dformat+( ( this.showTimepicker ) ? ' HH:mm': '' )+')</span></label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" type="hidden" value="'+$.fbuilder.htmlEncode(this.predefined)+'"/><input id="'+this.name+'_date" name="'+this.name+'_date" class="field date'+this.dformat.replace(/\//g,"")+' '+this.size+((this.required)?" required":"")+'" type="text" '+attr+'="'+$.fbuilder.htmlEncode(this.predefined)+'"/>'+( ( this.showTimepicker ) ? ' '+this.get_hours()+this.get_minutes()+' '+this.get_ampm() : '' )+'<span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 			setEvents : function()
 				{
@@ -115,31 +126,22 @@
 					$( document ).on( 'change', '#'+this.name+'_date', 	  function(){ me.set_date_time(); } );
 					$( document ).on( 'change', '#'+this.name+'_hours',   function(){ me.set_date_time(); } );
 					$( document ).on( 'change', '#'+this.name+'_minutes', function(){ me.set_date_time(); } );
+					$( document ).on( 'change', '#'+this.name+'_ampm', 	  function(){ me.set_date_time(); } );
 				},
 			after_show:function()
 				{
 					function setValue( f, v, m )
 					{
-						f = '#'+f+' option';
-						v = ( ( v+'' ).length == 1 ) ? '0'+v : v;
-						m = ( ( m+'' ).length == 1 ) ? '0'+m : m;
-						
-						$( f ).each( function(){
-							var t = $( this ).attr( 'value' );
-							if( v <= t )
-							{
-								v = t;
-								return false; 
-							}
-						} );
-						$( f+'[value="' + ( ( v < m ) ? v : m ) + '"]' ).attr( 'selected', true );
+						v = Math.min( v*1, m*1 );
+						v = ( v < 10 ) ? 0+''+v : v; 
+						$( '#' + f + ' [value="' + v + '"]' ).attr( 'selected', true );
 					};
 					
                     function validateDate( d, w, i )
                     {
                         try{
                             if( d === null ) return [false,""];
-                            if ( ! w[ d.getDay()]) return [false,""];
+                            if ( !w[ d.getDay()]) return [false,""];
                             if( i !== null )
                             {
                                 for( var j = 0, h = i.length; j < h; j++ )
@@ -152,8 +154,23 @@
                         return [true,""]; 
                     };
                     
+					function validateTime( e, i )
+					{
+						if( i.showTimepicker )
+						{
+							var base = e.name.replace( '_date', '' ),
+								h = $('#'+base+'_hours').val(),
+								m = $('#'+base+'_minutes').val();
+								
+							if( i.tformat == 12 && $('#'+base+'_ampm').val() == 'pm' ) h = h*1 + 12;
+							if( h < i.minHour || h > i.maxHour ) return false;
+						}
+						return true;	
+					};
+
                     function validator( v, e )
                     {
+												
                         try
                         {
                             var p           = e.name.replace( '_date', '' ).split( '_' ),
@@ -164,7 +181,13 @@
                                 dateFormat  = $.datepicker._get(inst, 'dateFormat'),
                                 date        = $.datepicker.parseDate(dateFormat, v, $.datepicker._getFormatConfig(inst));
 
-                            return this.optional( e ) || ( ( minDate == null || date >= minDate  ) && ( maxDate == null || date <= maxDate ) && validateDate( $( e ).datepicker( 'getDate' ), item.working_dates, item.invalidDates )[ 0 ] );
+                            return 	this.optional( e ) || 
+									( 
+										( minDate == null || date >= minDate  ) && 
+										( maxDate == null || date <= maxDate ) && 
+										validateDate( $( e ).datepicker( 'getDate' ), item.working_dates, item.invalidDates )[ 0 ] &&
+										validateTime( e, item )
+									);
                         }
                         catch( er )
                         {
@@ -205,9 +228,15 @@
 							time[ 'hour' ] = d.getHours();
 							time[ 'minute' ] = d.getMinutes();
 						}
-						
-						setValue( this.name+'_hours', time[ 'hour' ], this.maxHour );
-						setValue( this.name+'_minutes', time[ 'minute' ], this.maxMinute );
+ 
+						setValue( 
+							this.name+'_hours', 
+							( this.tformat == 12 ) ? ( ( time[ 'hour' ] > 12 ) ? time[ 'hour' ] - 12 : ( ( time[ 'hour' ] == 0 ) ? 12 : time[ 'hour' ] ) ) : time[ 'hour' ], 
+							( this.tformat == 12 ) ? 12 : this.maxHour 
+						);
+
+						setValue( this.name+'_minutes', time[ 'minute' ], this.maxMinute );					  						
+						$( '#'+this.name+'_ampm'+' [value="' + ( ( time[ 'hour' ] < 12 ) ? 'am' : 'pm' ) + '"]' ).attr( 'selected', true );
 					}
 					
 					$( '#'+this.name+'_date' ).change();

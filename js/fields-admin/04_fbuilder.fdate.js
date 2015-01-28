@@ -17,6 +17,7 @@
 			size:"medium",
 			required:false,
 			dformat:"mm/dd/yyyy",
+			tformat:"24",
 			showDropdown:false,
 			dropdownRange:"-10:+10",
 			
@@ -58,6 +59,11 @@
 					$("#sFormat").bind("change", {obj: this}, function(e) 
 						{
 							e.data.obj.dformat = $(this).val();
+							$.fbuilder.reloadItems();
+						});
+					$("[name='sTimeFormat']").bind("change", {obj: this}, function(e) 
+						{
+							e.data.obj.tformat = $(this).val();
 							$.fbuilder.reloadItems();
 						});
 					$("#sMinDate").bind("change", {obj: this}, function(e) 
@@ -170,6 +176,7 @@
 					str += '<hr></hr>'
 					str += '<div><input type="checkbox" name="sShowTimepicker" id="sShowTimepicker" '+( ( this.showTimepicker ) ? 'CHECKED' : '' )+' > <label>Include time</label></div>';
 					str += '<div class="time-options" '+( ( !this.showTimepicker ) ? 'style="display:none;"': '' )+'>';
+					str += '<div><label>Time Format</label><br /><label><input type="radio" name="sTimeFormat" id="sTimeFormat" value="24" '+( ( this.tformat == 24 ) ? 'CHECKED' : '' )+' /> 24 hours</label> <label><input type="radio" name="sTimeFormat" id="sTimeFormat" value="12" '+( ( this.tformat == 12 ) ? 'CHECKED' : '' )+' /> 12 hours</label></div>';
 					str += '<div><label>Default Time HH:mm</label><br /><input class="medium" name="sDefaultTime" id="sDefaultTime" value="'+this.defaultTime+'" /></div>';
 					str += '<div><label>Min Hour</label><br /><input class="medium" name="sMinHour" id="sMinHour" value="'+this.minHour+'" /></div>';
 					str += '<div><label>Max Hour</label><br /><input class="medium" name="sMaxHour" id="sMaxHour" value="'+this.maxHour+'" /></div>';
