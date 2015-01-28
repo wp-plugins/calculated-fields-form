@@ -16,7 +16,7 @@
 					    l = p.length;
 					if( l )
 					{
-						var str = '<div class="fields '+me.csslayout+'" id="field'+me.form_identifier+'-'+me.index+'"><h2>'+me.title+'</h2><div id="'+me.name+'">';
+						var str = '<div class="fields '+me.csslayout+'" id="field'+me.form_identifier+'-'+me.index+'">'+( ( !/^\s*$/.test( me.title ) ) ? '<h2>'+me.title+'</h2>': '' )+'<div id="'+me.name+'">';
 						for( var i = 0; i < l; i++ )
 						{
 							if( !/^\s*$/.test( p[ i ] ) )
