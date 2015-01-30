@@ -110,8 +110,6 @@
 				},
 			show:function()
 				{
-                    this.init();
-                    
                     var attr = 'value';
                     if( this.predefinedClick )
                     {

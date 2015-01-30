@@ -9,12 +9,6 @@
 			required:false,
 			choiceSelected:"",
 			showDep:false,
-			init:function()
-				{
-					this.choices = new Array("First Choice","Second Choice","Third Choice");
-					this.choicesVal = new Array("First Choice","Second Choice","Third Choice");
-					this.choicesDep = new Array(new Array(),new Array(),new Array());
-				},
 			show:function()
 				{
 					this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null)?this.choicesVal:this.choices.slice(0));
