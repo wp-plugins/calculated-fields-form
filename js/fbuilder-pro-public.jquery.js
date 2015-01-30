@@ -246,6 +246,7 @@
 								   obj = $.extend(true, {}, obj,d[0][i]);
 								   obj.name = obj.name+opt.identifier;
 								   obj.form_identifier = opt.identifier;
+								   obj.init();
 								   items[items.length] = obj;
 							   }
 							   theForm = new fform();
