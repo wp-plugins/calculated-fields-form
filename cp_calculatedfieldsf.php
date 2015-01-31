@@ -501,7 +501,7 @@ function cp_calculatedfieldsf_get_public_form($id) {
         // This code won't be used in most cases. This code is for preventing problems in wrong WP themes and conflicts with third party plugins.
         $plugin_url = plugins_url('', __FILE__); 
         $prefix_ui = '';
-        if (file_exists(dirname( _FILE_ ).'/../../../wp-includes/js/jquery/ui/jquery.ui.core.min.js'))
+        if ( @file_exists( dirname( _FILE_ ).'/../../../wp-includes/js/jquery/ui/jquery.ui.core.min.js' ) )
         $prefix_ui = 'jquery.ui.';
     ?>
      <script> if( typeof jQuery != 'undefined' ) var jQueryBK = jQuery.noConflict(); </script>
