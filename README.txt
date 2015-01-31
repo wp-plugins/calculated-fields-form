@@ -108,6 +108,16 @@ To install Calculated Fields Form, follow these steps:
 
 == Frequently Asked Questions ==
 
+= Q: Is the "Calculated Fields Form" plugin compatible with "Autoptimize"? =
+
+A: Yes, both plugins are compatible, but you should configure the plugins, following the steps below:
+
+1. In the settings page of the "Calculated Fields Form" plugin, select the option: "Classic (Recommended)", for the attribute: "Script load method:".
+
+2. Now, in the settings of the "Autoptimize" plugin, press the button: "Show advanced settings", and enter the files names: jquery.js,jquery.validate.js, in the attribute: "Exclude scripts from Autoptimize:".
+
+3. Finally, press the "Save Changes and Empty Cache" button.
+
 = Q: What means each field in the Calculated Fields Form settings area? =
 
 A: The Calculated Fields Form's page contains detailed information about each field and customization:
