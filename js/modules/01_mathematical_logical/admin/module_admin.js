@@ -20,7 +20,7 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'default' ] = {
 							{ "value" : "FLOOR", 	"code" : "FLOOR(", 	"tip" : "Returns the next lower integer that is less than or equal to the number passed as parameter. <strong>FLOOR(number)</strong>" },
 							{ "value" : "ROUND", 	"code" : "ROUND(", 	"tip" : "Returns an integer that follows rounding rules. If the value of the passed parameter is greater than or equal to x.5, the returned value is x+1; otherwise the returned value is x. <strong>ROUND(number)</strong>" },
 							{ "value" : "PREC",  	"code" : "PREC(",  	"tip" : "Returns the value of the number passed in the first parameter with so many decimal digits as the number passed in the second parameter. <strong>PREC(number1, number2)</strong>" },
-							{ "value" : "CDATE", 	"code" : "CDATE(", 	"tip" : "Returns the number formatted like a Date. <strong>CDATE(number)</strong>" },
+							{ "value" : "CDATE", 	"code" : "CDATE(", 	"tip" : "Returns the number formatted like a Date. <strong>CDATE(number,format)</strong>. The second parameter defines the format of the output date: &quot;mm/dd.yyyy&quot;, &quot;dd/mm/yyyy&quot;" },
 							{ "value" : "LOG",   	"code" : "LOG(",   	"tip" : "Returns the natural logarithm (base e) of the number passed as parameter. <strong>LOG(number)</strong>" },
 							{ "value" : "POW",   	"code" : "POW(",   	"tip" : "Returns the value of the first parameter raised to the power of the second parameter. <strong>POW(number1, number2)</strong>" },
 							{ "value" : "SQRT",  	"code" : "SQRT(",  	"tip" : "Returns the square root of the number passed as parameter. <strong>SQRT(number1, number2)</strong>" },

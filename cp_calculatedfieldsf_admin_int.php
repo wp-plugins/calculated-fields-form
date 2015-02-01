@@ -318,6 +318,12 @@ $cpcff_texts_array = array_replace_recursive(
         </td>
         </tr>  
         
+		<tr valign="top">        
+        <th scope="row">Base amount:</th>
+        <td><input type="text" name="paypal_base_amount" value="<?php echo esc_attr(cp_calculatedfieldsf_get_option( 'paypal_base_amount', '0.01' ) ); ?>" /> Minimum amount to charge. If the final price is lesser than this number, the base amount will be applied.
+        </td>
+        </tr> 
+		       
         <tr valign="top">
         <th scope="row">Paypal product name</th>
         <td><input type="text" name="paypal_product_name" size="50" value="<?php echo esc_attr(cp_calculatedfieldsf_get_option('paypal_product_name',CP_CALCULATEDFIELDSF_DEFAULT_PRODUCT_NAME)); ?>" /></td>
