@@ -1121,7 +1121,7 @@ In addition to the JavaScript functions, the following functions can be used dir
 
 * **prec(A,B):** Return the A number with B decimal digits
 * **round(A):** Rounds A to the nearest integer. In most cases "prec(A, B)" is more useful for indicating the digits precision.
-* **cdate(A):** Returns the number A formatted like a Date. The number represents the number of days from Jan 1, 1970. For example, if fieldname1 is a date field, and its value is 3/11/2013: cdate(fieldname1+10) would be 13/11/2013.
+* **cdate(A,format):** Returns the number A formatted like a Date, the second parameter defines the output date ('mm/dd/yyyy', 'dd/mm/yyyy'). The number represents the number of days from Jan 1, 1970. For example, if fieldname1 is a date field, and its value is 3/11/2013: cdate(fieldname1+10) would be 13/11/2013.
 * **min(x,y,z,...,n):** Returns the number with the lowest value (minimum from the list).
 * **max(x,y,z,...,n):** Returns the number with the highest value (maximum from the list).
 * **random():** Returns a random number between 0 and 1.
