@@ -987,6 +987,23 @@ IF( AND(fieldname1 == 10, fieldname2 == 100), 1, 0)
 
 and then in the dependencies section of the calculated field, select the rule: If value is equal to, enter the number 1 in the input box, and select the fieldname3 as the field to be displayed.
 
+= Q: How to populate the form fields with URL parameters? =
+
+A: I will explain the implementation through an example. I will assume that the URL parameters are 'productid' and 'productname'. So, I will insert two single text fields in the form, for the product's id, and the product's name, respectively. I will assign a class name to each field for identify the fields in the equations: productidclss, and productnameclss respectively (the class names are assigned to the fields through the attribute: "Add Css Layout Keywords")
+
+Finally, insert a calculated field in the form with the following equation:
+
+	(function(){	
+		function urlParam(name){	
+			var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);	
+			return decodeURI(results[1]) || 0;	
+		}	
+		jQuery('.productidclss input').val(urlParam('productid'));	
+		jQuery('.productnameclss input').val(urlParam('productname'));	
+	})()	
+
+The calculated field in this case is an auxiliary field that is not relevant in the form's interface, so I will check the option "Hide Field From Public Page" for the calculated field.
+
 = Q: How integrate the forms with the WooCommerce products? = 
 
 A: The forms should be created as usual, but if you want calculate the price of products through the form, you should select the calculated field in the "Request cost" attribute in the form settings. 
