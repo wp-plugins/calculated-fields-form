@@ -78,20 +78,20 @@
 						var me  = this,
 							opt = {
 								range: me.range,
-								min:   me.min,
-								max:   me.max,
-								step:  me.step
+								min  : me.min,
+								max  : me.max,
+								step : me.step
 							};
 						if( me.range ) opt[ 'values' ] = [ me.predefinedMin, me.predefinedMax ];
 						else opt[ 'value' ] = me.predefined;
-
-						opt[ 'slide' ] = opt[ 'change' ] = ( function( e ){
-																return function( event, ui ) 
-																	{
-																		e.set_values();
-																	}
-															} )( me );
-															
+						opt[ 'slide' ] = opt[ 'stop' ] = ( function( e ){
+															return function( event, ui ) 
+																{
+																	if( typeof ui.value != 'undefined' ) $(this).slider('value', ui.value);
+																	if( typeof ui.values != 'undefined' ) $(this).slider('values', ui.values);
+																	e.set_values();
+																}
+														} )( me );
 						$( '#'+this.name+'_slider' ).slider( opt );
 						me.set_values();
 					},

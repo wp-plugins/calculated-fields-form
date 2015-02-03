@@ -4,7 +4,7 @@ Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout
 Requires at least: 3.0.5
 Tested up to: 4.1
-Stable tag: 1.0.8
+Stable tag: 1.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -1322,7 +1322,15 @@ Note: If you want calculate the price of products through the form, will be requ
 = 1.0.8 =
 * Improves the behavior, and correct and issue with the following controls: date, checkbox, radio button group, and drop-down
 
+= 1.0.9 =
+* Corrects some issues with the slider control, and enables the drag and drop feature of the slider in the mobile devices.
+
 == Upgrade Notice ==
+
+= 1.0.9 =
+* Corrects some issues with the slider control, and enables the drag and drop feature of the slider in the mobile devices.
+
+Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
 = 1.0.8 =
 * Improves the behavior, and correct and issue with the following controls: date, checkbox, radio button group, and drop-down
