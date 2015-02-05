@@ -18,6 +18,7 @@
 				predefinedClick:false,
 				size:"small",
 				thousandSeparator:",",
+				centSeparator:".",
 				min:0,
 				max:100,
 				step:1,
@@ -76,6 +77,11 @@
 								e.data.obj.thousandSeparator = $(this).val();
 								$.fbuilder.reloadItems();
 							});
+						$("#sCentSeparator").bind("change keyup", {obj: this}, function(e) 
+							{
+								e.data.obj.centSeparator = $(this).val();
+								$.fbuilder.reloadItems();
+							});
 						$.fbuilder.controls[ 'ffields' ].prototype.editItemEvents.call(this);
 					},
 				showRequired: function(){ return ''; },	
@@ -85,6 +91,6 @@
 					},
 				showRangeIntance: function() 
 					{
-						return '<div><div class="column" style="width:30%;"><label>Min</label><br /><input name="sMin" id="sMin" value="'+this.min+'" placeholder="0 by default" style="width:95%;"></div><div class="column" style="width:30%;"><label>Max</label><br /><input name="sMax" id="sMax" value="'+this.max+'" placeholder="100 by default" style="width:95%;"></div><div class="column" style="width:30%;"><label>Step</label><br /><input name="sStep" id="sStep" value="'+this.step+'" placeholder="1 by default" style="width:95%;"></div><div class="clearer"></div></div><div><input type="checkbox" name="sRange" id="sRange" '+( ( this.range ) ? 'CHECKED' : '' )+' /> Range slider </div><div><label>Field Caption</label><br /><input class="large" type="text" name="sCaption" id="sCaption" value="'+$.fbuilder.htmlEncode( this.caption )+'"></div><div><label>Symbol for grouping thousands in the field\'s caption(Ex: 3,000,000)</label><input type="text" name="sThousandSeparator" id="sThousandSeparator" class="large" value="'+$.fbuilder.htmlEncode( this.thousandSeparator )+'" /></div>';
+						return '<div><div class="column" style="width:30%;"><label>Min</label><br /><input name="sMin" id="sMin" value="'+this.min+'" placeholder="0 by default" style="width:95%;"></div><div class="column" style="width:30%;"><label>Max</label><br /><input name="sMax" id="sMax" value="'+this.max+'" placeholder="100 by default" style="width:95%;"></div><div class="column" style="width:30%;"><label>Step</label><br /><input name="sStep" id="sStep" value="'+this.step+'" placeholder="1 by default" style="width:95%;"></div><div class="clearer"></div></div><div><input type="checkbox" name="sRange" id="sRange" '+( ( this.range ) ? 'CHECKED' : '' )+' /> Range slider </div><div><label>Field Caption</label><br /><input class="large" type="text" name="sCaption" id="sCaption" value="'+$.fbuilder.htmlEncode( this.caption )+'"></div><div><label>Symbol for grouping thousands in the field\'s caption(Ex: 3,000,000)</label><input type="text" name="sThousandSeparator" id="sThousandSeparator" class="large" value="'+$.fbuilder.htmlEncode( this.thousandSeparator )+'" /></div><div><label>Decimals separator symbol (Ex: 25.20)</label><input type="text" name="sCentSeparator" id="sCentSeparator" class="large" value="'+$.fbuilder.htmlEncode( this.centSeparator )+'" /></div>';
 					}
 		});

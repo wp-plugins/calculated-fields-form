@@ -11,6 +11,7 @@
 				predefinedClick:false,
 				size:"small",
 				thousandSeparator:",",
+				centSeparator:".",
 				min:0,
 				max:100,
 				step:1,
@@ -18,16 +19,17 @@
 				caption:"{0}",
 				init:function()
 					{
-						this.min  = ( /^\s*$/.test( this.min ) ) ? 0   : parseInt( $.trim( this.min  ) );
-						this.max  = ( /^\s*$/.test( this.max ) ) ? 100 : parseInt( $.trim( this.max  ) );
-						this.step = ( /^\s*$/.test( this.step )) ? 1   : parseInt( $.trim( this.step ) );
+						this.min  = ( /^\s*$/.test( this.min ) ) ? 0   : parseFloat( $.trim( this.min  ) );
+						this.max  = ( /^\s*$/.test( this.max ) ) ? 100 : parseFloat( $.trim( this.max  ) );
+						this.step = ( /^\s*$/.test( this.step )) ? 1   : parseFloat( $.trim( this.step ) );
+						this.centSeparator 	   = ( /^\s*$/.test( this.centSeparator )) ? '.' : $.trim( this.centSeparator );
 						this.thousandSeparator = $.trim( this.thousandSeparator );
 						
-						this.predefinedMin = ( /^\s*$/.test( this.predefinedMin ) )? this.min : Math.min( Math.max( parseInt( $.trim( this.predefinedMin ) ), this.min ), this.max );
+						this.predefinedMin = ( /^\s*$/.test( this.predefinedMin ) )? this.min : Math.min( Math.max( parseFloat( $.trim( this.predefinedMin ) ), this.min ), this.max );
 						
-						this.predefinedMax = ( /^\s*$/.test( this.predefinedMax ) )? this.max : Math.min( Math.max( parseInt( $.trim( this.predefinedMax ) ), this.min ), this.max );
+						this.predefinedMax = ( /^\s*$/.test( this.predefinedMax ) )? this.max : Math.min( Math.max( parseFloat( $.trim( this.predefinedMax ) ), this.min ), this.max );
 						
-						this.predefined = ( /^\s*$/.test( this.predefined ) ) ? this.min : parseInt( $.trim( this.predefined ) );
+						this.predefined = ( /^\s*$/.test( this.predefined ) ) ? this.min : parseFloat( $.trim( this.predefined ) );
 					},
 				show:function()
 					{
@@ -38,18 +40,36 @@
 						var me = this;
 						function setThousandsSeparator( v )
 						{
-							var c = 0,
-								s = '';
-					
-							v = new String( v );	
-							for( var i = v.length-1; i >= 0; i--){
-								c++;
-								s = v[i] + s;
-								if( c%3 == 0 && i != 0 ) s = me.thousandSeparator + s;
+							v = $.fbuilder.parseVal( v, me.thousandSeparator, me.centSeparator );	 
+							if( !isNaN( v ) )
+							{
+								v = v.toString();
+								var parts = v.toString().split("."),
+									counter = 0,
+									str = '';
+								
+								if( !/^\s*$/.test( me.thousandSeparator ) )
+								{
+									for( var i = parts[0].length-1; i >= 0; i--)
+									{
+										counter++;
+										str = parts[0][i] + str;
+										if( counter%3 == 0 && i != 0 ) str = me.thousandSeparator + str;
 
+									}
+									parts[0] = str;
+								}
+								if( typeof parts[ 1 ] != 'undefined' && parts[ 1 ].length == 1 )
+								{
+									parts[ 1 ] += '0';
+								}
+						
+								return parts.join( me.centSeparator );
 							}
-
-							return s;
+							else 
+							{
+								return v;
+							}
 						};
 						
 						if( me.range )
@@ -82,6 +102,7 @@
 								max  : me.max,
 								step : me.step
 							};
+							
 						if( me.range ) opt[ 'values' ] = [ me.predefinedMin, me.predefinedMax ];
 						else opt[ 'value' ] = me.predefined;
 						opt[ 'slide' ] = opt[ 'stop' ] = ( function( e ){
