@@ -3,7 +3,7 @@
 Plugin Name: Calculated Fields Form
 Plugin URI: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Description: Create forms with field values calculated based in other form field values.
-Version: 1.0.10
+Version: 1.0.11
 Author: CodePeople.net
 Author URI: http://codepeople.net
 License: GPL
@@ -441,7 +441,7 @@ function cp_calculatedfieldsf_get_public_form($id) {
     if ( !defined('CP_AUTH_INCLUDE') ) define('CP_AUTH_INCLUDE', true); 
     
     if ($id != '')
-        $myrows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE." WHERE id=".$id );
+        $myrows = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM ".$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE." WHERE id=%d",$id ) );
     else
         $myrows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE );
     
@@ -494,7 +494,7 @@ function cp_calculatedfieldsf_get_public_form($id) {
         wp_enqueue_script( "jquery-ui-datepicker" );        
 		wp_enqueue_script( "jquery-ui-slider" );
     }   
-    $codes = $wpdb->get_results( 'SELECT * FROM '.CP_CALCULATEDFIELDSF_DISCOUNT_CODES_TABLE_NAME.' WHERE `form_id`='.$id);
+    $codes = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM '.CP_CALCULATEDFIELDSF_DISCOUNT_CODES_TABLE_NAME.' WHERE `form_id`=%d', $id ) );
     @include dirname( __FILE__ ) . '/cp_calculatedfieldsf_public_int.inc.php';
     if (!CP_CALCULATEDFIELDSF_DEFAULT_DEFER_SCRIPTS_LOADING)
     {              
@@ -727,7 +727,13 @@ function cp_calculatedfieldsf_save_options()
                   'cv_border' => $_POST['cv_border'],
                   'cv_text_enter_valid_captcha' => $_POST['cv_text_enter_valid_captcha']
     );
-    $wpdb->update ( $wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE, $data, array( 'id' => CP_CALCULATEDFIELDSF_ID ));        
+    $wpdb->update ( 
+		$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE, 
+		$data, 
+		array( 'id' => CP_CALCULATEDFIELDSF_ID ),
+		array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s' ),
+		array( '%d' )
+	);
 }
 
 
@@ -758,7 +764,7 @@ function cp_calculatedfieldsf_get_option ($field, $default_value, $id = '')
         $value = $cp_calculatedfieldsf_option_buffered_item->$field;
     else
     {
-       $myrows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE." WHERE id=".$id );
+       $myrows = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM ".$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE." WHERE id=%d", $id ) );
        $value = $myrows[0]->$field;       
        $cp_calculatedfieldsf_option_buffered_item = $myrows[0];
        $cp_calculatedfieldsf_option_buffered_id  = $id;

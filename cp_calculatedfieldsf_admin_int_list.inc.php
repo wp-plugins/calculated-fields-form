@@ -6,6 +6,10 @@ if ( !is_admin() )
     exit;
 }
 
+$_GET['u'] = intval(@$_GET['u']);
+$_GET['c'] = intval(@$_GET['c']);
+$_GET['d'] = intval(@$_GET['d']);
+
 global $wpdb;
 $message = "";
 if (isset($_GET['a']) && $_GET['a'] == '1')
@@ -59,23 +63,24 @@ if (isset($_GET['a']) && $_GET['a'] == '1')
                                       'cv_background' => cp_calculatedfieldsf_get_option('cv_background', CP_CALCULATEDFIELDSF_DEFAULT_cv_background),
                                       'cv_border' => cp_calculatedfieldsf_get_option('cv_border', CP_CALCULATEDFIELDSF_DEFAULT_cv_border),
                                       'cv_text_enter_valid_captcha' => cp_calculatedfieldsf_get_option('cv_text_enter_valid_captcha', CP_CALCULATEDFIELDSF_DEFAULT_cv_text_enter_valid_captcha)
-                                     )
+                                     ),
+									 array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s' )
                       );   
     
     $message = "Item added";
 } 
 else if (isset($_GET['u']) && $_GET['u'] != '')
 {
-    $wpdb->query('UPDATE `'.$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE.'` SET form_name="'.esc_sql($_GET["name"]).'" WHERE id='.$_GET['u']);           
+    $wpdb->query( $wpdb->prepare( 'UPDATE `'.$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE.'` SET form_name=%s WHERE id=%d' ), $_GET["name"], $_GET['u'] );           
     $message = "Item updated";        
 }
 else if (isset($_GET['d']) && $_GET['d'] != '')
 {
-    $wpdb->query('DELETE FROM `'.$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE.'` WHERE id='.$_GET['d']);       
+    $wpdb->query( $wpdb->prepare( 'DELETE FROM `'.$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE.'` WHERE id=%d', $_GET['d'] ) );       
     $message = "Item deleted";
 } else if (isset($_GET['c']) && $_GET['c'] != '')
 {
-    $myrows = $wpdb->get_row( "SELECT * FROM ".$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE." WHERE id=".$_GET['c'], ARRAY_A);    
+    $myrows = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM ".$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE." WHERE id=%d", $_GET['c'] ), ARRAY_A );    
     unset($myrows["id"]);
     $myrows["form_name"] = 'Cloned: '.$myrows["form_name"];
     $wpdb->insert( $wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE, $myrows);

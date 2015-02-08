@@ -263,6 +263,7 @@
 							if( field )
 							{
 								v = field.val();
+								if( $.isNumeric( v ) ) v = '('+v+')';
 							}
 							eq = eq.replace( _match[0], v+''+_match[2] ); // Replace the variable name by value
 						}
