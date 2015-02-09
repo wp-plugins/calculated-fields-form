@@ -289,6 +289,11 @@ A: The developer version of the plugin includes a module solely for financial op
           },        
         ...         
         ]               
+
+* PRESENTVALUE: Returns the present value of an investment. The present value is the total amount that a series of future payments is worth now. Three parameters: The interest rate per period, the total number of payment periods in an annuity, the payment made each period and cannot change over the life of the annuity.
+
+		PRESENTVALUE(0.08,5,100)		
+		Result: 399.27		
         
 * NUMBERFORMAT: Format a Number. The number of parameters of this operation can vary, and the result will depend of parameters passed to the operation.
     
