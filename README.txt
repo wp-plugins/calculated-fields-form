@@ -587,6 +587,12 @@ A: In the "throubleshoot area" (located below the list of forms in the settings 
 
 A: Use the "Page Break" field on the form builder to indicate the new pages on the form.
 
+= Q: How to display the selected values in the slider control? =
+
+A: The values selected in the slider control are displayed in the caption attribute of the field. In the caption attribute should be entered a text with the format {0}, that will be replaced by the selected value. 
+
+Pay attention, the slider can be configured for selecting a range of values, with left and right edges, in this case the special text {0} should be inserted twice in the caption attribute, to display both values selected in the range. For example, if the slider control is used for selecting a range of prices, enter a text in the caption with the format: ${0} - ${0}
+
 = Q: How to display a summary of entered data in the form? =
 
 A: Insert a summary control and select the fields to be displayed on summary.
