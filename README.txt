@@ -1037,7 +1037,7 @@ This section contains mainly notes about the form builder features that are too 
 
 The form fields can be shown or hidden depending of the selection made on checkboxes, radio-buttons and select/drop-down fields. 
 
-When editing checkboxes, radio-buttons or select/drop-down fields in the form builder (click a field to select it and edit it details) you will see a link labeled "Show Dependencies".  When clicked, a new option will appear below each field's option, labeled "If selected show: ...". The field selected into that settings option will be displayed only of that option is selected into the parent checkbox, radio-button or select/drop-down field.
+When editing checkboxes, radio-buttons or select/drop-down fields in the form builder you will see a link labeled "Show Dependencies".  When clicked, a new option will appear below each field's option, labeled "If selected show: ...". The field selected into that settings option will be displayed only of that option is selected into the parent checkbox, radio-button or select/drop-down field.
 
 Conditional rules are useful for showing information to the used based on the previous selection or just to make the form friendlier: easier to read and understand.
 
