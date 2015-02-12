@@ -1041,6 +1041,8 @@ When editing checkboxes, radio-buttons or select/drop-down fields in the form bu
 
 Conditional rules are useful for showing information to the used based on the previous selection or just to make the form friendlier: easier to read and understand.
 
+There are other conditional rules that are applied to the calculated fields and depend of the equation results, to display a field, or fields, if the result is equal to, greater than, less than,.... a number.
+
 = The "Equal to" validation rules = 
 
 This rule can be used to make the user enter the same value in two or more fields, usually as a confirmation field.
