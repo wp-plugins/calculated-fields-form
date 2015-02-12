@@ -94,7 +94,7 @@ The form processing and payment processing aren't included in this version. Ther
 * New validations, fields types and features in the form builder
 * Calculated fields can be hidden fields.
 
-== Other Notes ==
+= Other Notes =
 
 This section contains mainly notes about the form builder features that are too long to explain in the main description page.
 
