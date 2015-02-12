@@ -94,7 +94,263 @@ The form processing and payment processing aren't included in this version. Ther
 * New validations, fields types and features in the form builder
 * Calculated fields can be hidden fields.
 
+== Other Notes ==
 
+This section contains mainly notes about the form builder features that are too long to explain in the main description page.
+
+= Conditional Rules = 
+
+The form fields can be shown or hidden depending of the selection made on checkboxes, radio-buttons and select/drop-down fields. 
+
+When editing checkboxes, radio-buttons or select/drop-down fields in the form builder (click a field to select it and edit it details) you will see a link labeled "Show Dependencies".  When clicked, a new option will appear below each field's option, labeled "If selected show: ...". The field selected into that settings option will be displayed only of that option is selected into the parent checkbox, radio-button or select/drop-down field.
+
+Conditional rules are useful for showing information to the used based on the previous selection or just to make the form friendlier: easier to read and understand.
+
+There are other conditional rules that are applied to the calculated fields and depend of the equation results, to display a field, or fields, if the result is equal to, greater than, less than,.... a number.
+
+= The "Equal to" validation rules = 
+
+This rule can be used to make the user enter the same value in two or more fields, usually as a confirmation field.
+
+The "Single Line Text", "Email" and "Password" fields have a validation option labeled "Equal to: ...". The field selected in "Equal to: ..." will be validated against the field that contains the rule.
+
+This feature is frequently used to ask the user enter the email address twice to be sure that it is correct or to enter a password twice to avoid mistakes.
+
+= Predefined value =
+
+The fields can have "predefined" or "prefilled" values. There are two possible uses for this:
+
+1- Can be used for pre-filling the form with common values and save time to the end user.
+
+2- Can be used for showing a sample of the data that should be entered in the field. In this case you may want to mark also the checkbox "Hide predefined value on click", this way the value will disappear once the user starts using the field without having to manually delete the placeholder value.
+
+
+= The "Instructions for User" option =
+
+Each field has a settings value labeled "Instructions for User". Use that settings value to put instructions to the end user about filling that field. The instructions will appear in a smaller text immediately below the field in the public website.
+
+= Add Css Layout Keywords = 
+
+This is also explained in the FAQ. The "Add Css Layout Keywords" is a way to apply CSS styles separately for each field. This settings field is available for each form builder field in the admin area. Into that field you can put the name of a CSS class that will be applied to the field.
+
+Important: Put only the name of the CSS class into the "Add Css Layout Keywords"; don't put the css styles rules directly there.
+
+There are some pre-defined CSS classes to use align two, three or four fields into the same line. The CSS classes are named:
+
+    column2
+    column3
+    column4
+
+For example if you want to put two fields into the same line then specify for both fields the class name "column2". The above is valid for both the classic fields and the calculated fields.
+
+The CSS classes/rules can be placed into the file "wp-content\plugins\calculated-fields-form\css\stylepublic.css" or into your theme CSS files.
+
+
+= Multi Page Forms = 
+
+For adding a new page to create multi-page forms just insert the field named "Page Break". Each form's page will be validated separately before going to the next form, however note that the calculations are applied to the whole form every time a field is modified, so a calculated field in other page may be modified even if that page isn't visible.
+
+
+= Calculated "hidden" Fields = 
+
+The calculated fields can be "hidden" fields. This way the calculated values of those "hidden" fields won't be displayed in the form. This is useful for using intermediate calculated values or for showing the calculated values only into the email (pro version).
+
+
+= Equations / formulas Format for Calculated Fields =
+
+Here are some sample formulas that can be used as base:
+
+* With simple mathematical operations:
+
+    
+    `fieldname1 + fieldname2`
+    
+    `fieldname1 * fieldname2`
+    
+    `fieldname1 / fieldname2`
+    
+    `fieldname1 - fieldname2`
+    
+    
+
+* With multiple fields and fields grouping included:
+
+    
+    `fieldname1 * ( fieldname2 + fieldname3 )`
+    
+
+
+* Rounded to two decimal digits:
+
+    
+    `prec( fieldname2 / fieldname3 , 2)`
+    
+
+
+* There is a huge number of equations that can't be recreated with simple mathematical operators, or the operations listed above, requiring "IF" conditions, here is a sample of the formula that can be used in that case:
+
+    ```
+    (function(){       
+            if(fieldname3 > 100) return fieldname1+fieldname2;       
+            if(fieldname3 <= 100) return fieldname1*fieldname2;        
+    })();
+    ```
+    
+
+* For complex equations where is required to define blocks of JavaScript code, you should use the following format:
+    
+    `
+    (function(){`  
+        `    var calculatedValue = 0;`    
+        `    //Your code here`        
+        `    return calculatedValue;`        
+    `})();`
+    
+
+.... and note that the **return** value of that function will be the value assigned to the calculated field.
+
+
+= Functions that can be used for the formulas = 
+
+In addition to the JavaScript functions, the following functions can be used directly into the formulas:
+
+* **prec(A,B):** Return the A number with B decimal digits
+* **round(A):** Rounds A to the nearest integer. In most cases "prec(A, B)" is more useful for indicating the digits precision.
+* **cdate(A,format):** Returns the number A formatted like a Date, the second parameter defines the output date ('mm/dd/yyyy', 'dd/mm/yyyy'). The number represents the number of days from Jan 1, 1970. For example, if fieldname1 is a date field, and its value is 3/11/2013: cdate(fieldname1+10) would be 13/11/2013.
+* **min(x,y,z,...,n):** Returns the number with the lowest value (minimum from the list).
+* **max(x,y,z,...,n):** Returns the number with the highest value (maximum from the list).
+* **random():** Returns a random number between 0 and 1.
+* **Other mathematical operations:**  abs(x) , acos(x) , asin(x) , atan(x) , atan2(x,y) , ceil(x) , cos(x) , exp(x) , floor(x) , log(x) , pow(x,y) , sin(x) , sqrt(x) , tan(x)
+
+In addition to the above, the following operations that are available in the **Developer** version of plugin:
+
+**Date Time module**
+
+* **DATEOBJ(x,y):** Get the date object from an string representation of date. DATEOBJ( date_string, format )
+* **YEAR(x,y):** Get the year from an string representation of date. YEAR( date_string, format )
+* **MONTH(x,y):** Get the month from an string representation of date. MONTH( date_string, format )
+* **DAY(x,y):**	Get the days from an string representation of date. DAY( date_string, format )
+* **WEEKDAY(x,y):** Get the week day from an string representation of date. WEEKDAY( date_string, format )
+* **WEEKNUM(x,y):** Get the week number from an string representation of date, a year has 53 weeks.WEEKNUM( date_string, format )
+* **HOURS(x,y):** Get hours from an string representation of datetime. HOURS( datetime_string, format )
+* **MINUTES(x,y):** Get minutes from an string representation of datetime. MINUTES( datetime_string, format )
+* **SECONDS(x,y):** Get seconds from an string representation of datetime. SECONDS( datetime_string, format )
+* **NOW():** Get a date object with the current day-time information. NOW()
+* **TODAY():**	Get a date object with the current day information, without the time part.TODAY()	
+* **DATEDIFF(date_one, date_two, date_format, return):** Get the difference between two dates strings representation
+
+The function return an object, whose value depends of argument 'return'
+
+Possible values of return argument:
+d - return the number of days between two dates
+m - return the number of months between two dates, and remaining days
+y - return the number of years between two dates, remaining months, and remaining days
+
+* **DATETIMESUM(date_string, format, number, to_increase):** Increases the date-time string representation in the number of seconds, minutes, hours, days, months, or years, passed as parameter.
+* **GETDATETIMESTRING(datetime_object, format): ** Returns the string representation of a date object
+
+** Financial Module**
+
+* **CALCULATEPAYMENT(x,y,z):**	Calculate the Financed Payment Amount. Three parameters: amount, months, interest rate (percent)
+* **CALCULATEAMOUNT(x,y,z): ** Calculate the Financed Amount. Three parameters: months, interest rate (percent), payment
+* **CALCULATEMONTHS(x,y,z):** Calculate the Months Financed. Three parameters: amount, interest rate (percent), payment
+* **CALCULATEINTEREST(x,y,z):** Calculate the Financed Interest Rate. Three parameters: amount, months, payment
+* **CALCULATEACCRUEDINTEREST(x,y,z):** Calculate the Accrued Interest. If your money is in a bank account accruing interest, how much does it earn over x months? Three parameters: principle amount, months, interest rate (percent)
+* **CALCULATEAMORTIZATION(x,y,z,date):** Create Amortization Schedule. The result should be an array the length the number of months. Each entry is an object. Four parameters: principle amount, months, interest rate (percent), start date (optional Date object)
+
+* **Format a Number**
+
+One parameters: number
+Ex:NUMBERFORMAT(-2530023420269.123456)
+Result: -2,530,023,420,269
+
+Ex: NUMBERFORMAT(25000.123456, {precision:2})
+Result: 25,000.12
+
+* **Format Currency**
+
+Format a number to a certain currency. Two parameters: number, settings (optional). If settings option is a string it is treated as a currency name. If it is an object it is used as currency settings.
+Ex: NUMBERFORMAT(25000.123456, 'USD')
+Result: $25,000.12
+
+Settings can be format, and then override with options.
+Ex: NUMBERFORMAT(-25000.123456, 'GBP', { negative: '()', precision: 3, thousand: '' })
+Result: £(25000.123)
+
+* **Format a Percent**
+
+Format a number with a certain precision. Two parameters: number, settings ("percent" is a format)
+Ex: NUMBERFORMAT(25000.123456, 'percent')
+Result: 25,000%
+
+* **Create a Currency**
+
+You may create a currency. The library comes with "USD", "GBP", and "EUR" currency formats and "number" and "percent" numeric formats. Two parameters: key, settings
+Ex: ADDFORMAT('Dollars', { before: '', after: ' Dollars', precision: 0, thousand: ',', group: 3, decimal: '.', negative: '-' })
+Result: true
+
+Ex: NUMBERFORMAT(25000.123456, 'Dollars')
+Result: 25,000 Dollars
+
+* **REMOVEFORMAT(x):** Remove a Currency. To remove a currency. One parameter: key
+
+Into the plugin interface you will find additional help for these functions.
+
+
+= Fields available in the Calculated Fields Form's form builder = 
+
+The following fields are available:
+
+* Single Line Text: A classic input field for a one-line text.
+* Number: A classic input field with validation rules for numeric values.
+* Currency: A classic input field for currency values, that allows separator for thousands, and currency symbols.
+* Hidden: A hidden field.
+* Email: A classic input field with validation rules for email addresses.
+* Date: A date field. It can be used directly in calculations without a previous conversion or processing.
+* Text Area: A multi-line text field.
+* Checkboxes: Checkboxes for selecting one or more options into the same field.
+* Radio Buttons: Radiobuttons for selecting one option between the options available for the field.
+* Drop-down: A select / drop down list for selecting one of the values listed.
+* Upload File: An upload field. Not frequently used in calculations.
+* Password: A classic password / input field that shows **** when something is typed.
+* Phone field: A very configurable sequence of input fields for entering phone numbers, serial numbers or a sequence of values with limited size.
+* Instruct. Text: Use this area for adding instructions to the end user.
+* Section Break: A line / separator for sections into the same page.
+* Page Break: A separator for pages on multi page forms.
+* Summary: Displays a summary of form fields with the values entered.
+* Calculated field: .. and of course, the calculated field that accepts formulas, functions and many related settings.
+
+The form builder includes some container controls. The container controls allow to insert another controls in them:
+
+* Fieldset Container: Allows insert a fieldset control in the form, with a legend.
+* Div Container: Inserts a container very useful for grouping related controls, and not modifies the appearance of the form.
+
+In addition to the above, the following fields are available only in the **Developer** version of plugin:
+
+* Line Text DS: An input field that gets its default values from one of following datasources - Database, Posts information, Taxonomies information or Users information
+* Email DS: An input field for Email address that gets its default values from one of following datasources - Database or Users information
+* Text Area DS: A text area field that gets its default values from one of following datasources - Database, Posts information
+* Checkboxes DS: Checkboxes for selecting one or more options into the same field that gets its options from one of following datasources - Database, CSV, Posts information, Taxonomies information or Users information
+* Radio Btns DS: Radiobuttons for selecting one option between the options available for the field that gets its options from one of following datasources - Database, CSV, Posts information, Taxonomies information or Users information
+* Drop-down DS:  A select / drop down list for selecting one of the values listed that gets its options from one of following datasources - Database, CSV, Posts information, Taxonomies information or Users information
+* Hidden DS: A hidden field that gets its value from one of following datasources - Database, Posts information, Taxonomies information, or Users information
+
+New fields may be added at any time, so check the latest version of the plugin since it may have new options.
+
+= Tips for calculating prices = 
+
+One of the most frequent uses is for calculating prices. When displaying prices a good you may want to divide the form in two pages, the first one for asking the information needed to calculate the price and in a second page display the calculated field with the price and using the "Instruct. Text" fields for adding the terms, conditions and valid time for the price. 
+
+Note that you can make the "Instruct. Text" fields dependent from the calculated value, that way you can change the text shown to the user depending of the number shown in the calculated price, since frequently the terms, conditions or offers vary according to the price amount.
+
+= WooCommerce add-on (Beta Version) - Only available in the Developer version of the plugin =
+
+The developer version of the plugin includes the WooCommerce add-on, to integrate the forms created by the "Calculated Fields Form" with the WooCommerce products. The add-on inserts an additional metabox in the WooCommerce products, with two settings fields:
+
+* Enter the ID of the form: Allows select the form that will be associated to the product.
+* Calculate the product price through the form: Allows calculate the price of the products through the form.
+
+Note: If you want calculate the price of products through the form, will be required that you select the field of the price in the attribute: "Request cost" in the form's settings.
 
 == Installation ==
 
@@ -1028,264 +1284,6 @@ After create the form, is time to edit the product, the addon for WooCommerce in
 3. Define a minimum price for products, to avoid selling the products to a lower price than allowed.
 
 The data submitted through the form are available from the Orders section of WooCommerce.
-
-== Other Notes ==
-
-This section contains mainly notes about the form builder features that are too long to explain in the main description page.
-
-= Conditional Rules = 
-
-The form fields can be shown or hidden depending of the selection made on checkboxes, radio-buttons and select/drop-down fields. 
-
-When editing checkboxes, radio-buttons or select/drop-down fields in the form builder you will see a link labeled "Show Dependencies".  When clicked, a new option will appear below each field's option, labeled "If selected show: ...". The field selected into that settings option will be displayed only of that option is selected into the parent checkbox, radio-button or select/drop-down field.
-
-Conditional rules are useful for showing information to the used based on the previous selection or just to make the form friendlier: easier to read and understand.
-
-There are other conditional rules that are applied to the calculated fields and depend of the equation results, to display a field, or fields, if the result is equal to, greater than, less than,.... a number.
-
-= The "Equal to" validation rules = 
-
-This rule can be used to make the user enter the same value in two or more fields, usually as a confirmation field.
-
-The "Single Line Text", "Email" and "Password" fields have a validation option labeled "Equal to: ...". The field selected in "Equal to: ..." will be validated against the field that contains the rule.
-
-This feature is frequently used to ask the user enter the email address twice to be sure that it is correct or to enter a password twice to avoid mistakes.
-
-= Predefined value =
-
-The fields can have "predefined" or "prefilled" values. There are two possible uses for this:
-
-1- Can be used for pre-filling the form with common values and save time to the end user.
-
-2- Can be used for showing a sample of the data that should be entered in the field. In this case you may want to mark also the checkbox "Hide predefined value on click", this way the value will disappear once the user starts using the field without having to manually delete the placeholder value.
-
-
-= The "Instructions for User" option =
-
-Each field has a settings value labeled "Instructions for User". Use that settings value to put instructions to the end user about filling that field. The instructions will appear in a smaller text immediately below the field in the public website.
-
-= Add Css Layout Keywords = 
-
-This is also explained in the FAQ. The "Add Css Layout Keywords" is a way to apply CSS styles separately for each field. This settings field is available for each form builder field in the admin area. Into that field you can put the name of a CSS class that will be applied to the field.
-
-Important: Put only the name of the CSS class into the "Add Css Layout Keywords"; don't put the css styles rules directly there.
-
-There are some pre-defined CSS classes to use align two, three or four fields into the same line. The CSS classes are named:
-
-    column2
-    column3
-    column4
-
-For example if you want to put two fields into the same line then specify for both fields the class name "column2". The above is valid for both the classic fields and the calculated fields.
-
-The CSS classes/rules can be placed into the file "wp-content\plugins\calculated-fields-form\css\stylepublic.css" or into your theme CSS files.
-
-
-= Multi Page Forms = 
-
-For adding a new page to create multi-page forms just insert the field named "Page Break". Each form's page will be validated separately before going to the next form, however note that the calculations are applied to the whole form every time a field is modified, so a calculated field in other page may be modified even if that page isn't visible.
-
-
-= Calculated "hidden" Fields = 
-
-The calculated fields can be "hidden" fields. This way the calculated values of those "hidden" fields won't be displayed in the form. This is useful for using intermediate calculated values or for showing the calculated values only into the email (pro version).
-
-
-= Equations / formulas Format for Calculated Fields =
-
-Here are some sample formulas that can be used as base:
-
-* With simple mathematical operations:
-
-    
-    `fieldname1 + fieldname2`
-    
-    `fieldname1 * fieldname2`
-    
-    `fieldname1 / fieldname2`
-    
-    `fieldname1 - fieldname2`
-    
-    
-
-* With multiple fields and fields grouping included:
-
-    
-    `fieldname1 * ( fieldname2 + fieldname3 )`
-    
-
-
-* Rounded to two decimal digits:
-
-    
-    `prec( fieldname2 / fieldname3 , 2)`
-    
-
-
-* There is a huge number of equations that can't be recreated with simple mathematical operators, or the operations listed above, requiring "IF" conditions, here is a sample of the formula that can be used in that case:
-
-    ```
-    (function(){       
-            if(fieldname3 > 100) return fieldname1+fieldname2;       
-            if(fieldname3 <= 100) return fieldname1*fieldname2;        
-    })();
-    ```
-    
-
-* For complex equations where is required to define blocks of JavaScript code, you should use the following format:
-    
-    `
-    (function(){`  
-        `    var calculatedValue = 0;`    
-        `    //Your code here`        
-        `    return calculatedValue;`        
-    `})();`
-    
-
-.... and note that the **return** value of that function will be the value assigned to the calculated field.
-
-
-= Functions that can be used for the formulas = 
-
-In addition to the JavaScript functions, the following functions can be used directly into the formulas:
-
-* **prec(A,B):** Return the A number with B decimal digits
-* **round(A):** Rounds A to the nearest integer. In most cases "prec(A, B)" is more useful for indicating the digits precision.
-* **cdate(A,format):** Returns the number A formatted like a Date, the second parameter defines the output date ('mm/dd/yyyy', 'dd/mm/yyyy'). The number represents the number of days from Jan 1, 1970. For example, if fieldname1 is a date field, and its value is 3/11/2013: cdate(fieldname1+10) would be 13/11/2013.
-* **min(x,y,z,...,n):** Returns the number with the lowest value (minimum from the list).
-* **max(x,y,z,...,n):** Returns the number with the highest value (maximum from the list).
-* **random():** Returns a random number between 0 and 1.
-* **Other mathematical operations:**  abs(x) , acos(x) , asin(x) , atan(x) , atan2(x,y) , ceil(x) , cos(x) , exp(x) , floor(x) , log(x) , pow(x,y) , sin(x) , sqrt(x) , tan(x)
-
-In addition to the above, the following operations that are available in the **Developer** version of plugin:
-
-**Date Time module**
-
-* **DATEOBJ(x,y):** Get the date object from an string representation of date. DATEOBJ( date_string, format )
-* **YEAR(x,y):** Get the year from an string representation of date. YEAR( date_string, format )
-* **MONTH(x,y):** Get the month from an string representation of date. MONTH( date_string, format )
-* **DAY(x,y):**	Get the days from an string representation of date. DAY( date_string, format )
-* **WEEKDAY(x,y):** Get the week day from an string representation of date. WEEKDAY( date_string, format )
-* **WEEKNUM(x,y):** Get the week number from an string representation of date, a year has 53 weeks.WEEKNUM( date_string, format )
-* **HOURS(x,y):** Get hours from an string representation of datetime. HOURS( datetime_string, format )
-* **MINUTES(x,y):** Get minutes from an string representation of datetime. MINUTES( datetime_string, format )
-* **SECONDS(x,y):** Get seconds from an string representation of datetime. SECONDS( datetime_string, format )
-* **NOW():** Get a date object with the current day-time information. NOW()
-* **TODAY():**	Get a date object with the current day information, without the time part.TODAY()	
-* **DATEDIFF(date_one, date_two, date_format, return):** Get the difference between two dates strings representation
-
-The function return an object, whose value depends of argument 'return'
-
-Possible values of return argument:
-d - return the number of days between two dates
-m - return the number of months between two dates, and remaining days
-y - return the number of years between two dates, remaining months, and remaining days
-
-* **DATETIMESUM(date_string, format, number, to_increase):** Increases the date-time string representation in the number of seconds, minutes, hours, days, months, or years, passed as parameter.
-* **GETDATETIMESTRING(datetime_object, format): ** Returns the string representation of a date object
-
-** Financial Module**
-
-* **CALCULATEPAYMENT(x,y,z):**	Calculate the Financed Payment Amount. Three parameters: amount, months, interest rate (percent)
-* **CALCULATEAMOUNT(x,y,z): ** Calculate the Financed Amount. Three parameters: months, interest rate (percent), payment
-* **CALCULATEMONTHS(x,y,z):** Calculate the Months Financed. Three parameters: amount, interest rate (percent), payment
-* **CALCULATEINTEREST(x,y,z):** Calculate the Financed Interest Rate. Three parameters: amount, months, payment
-* **CALCULATEACCRUEDINTEREST(x,y,z):** Calculate the Accrued Interest. If your money is in a bank account accruing interest, how much does it earn over x months? Three parameters: principle amount, months, interest rate (percent)
-* **CALCULATEAMORTIZATION(x,y,z,date):** Create Amortization Schedule. The result should be an array the length the number of months. Each entry is an object. Four parameters: principle amount, months, interest rate (percent), start date (optional Date object)
-
-* **Format a Number**
-
-One parameters: number
-Ex:NUMBERFORMAT(-2530023420269.123456)
-Result: -2,530,023,420,269
-
-Ex: NUMBERFORMAT(25000.123456, {precision:2})
-Result: 25,000.12
-
-* **Format Currency**
-
-Format a number to a certain currency. Two parameters: number, settings (optional). If settings option is a string it is treated as a currency name. If it is an object it is used as currency settings.
-Ex: NUMBERFORMAT(25000.123456, 'USD')
-Result: $25,000.12
-
-Settings can be format, and then override with options.
-Ex: NUMBERFORMAT(-25000.123456, 'GBP', { negative: '()', precision: 3, thousand: '' })
-Result: £(25000.123)
-
-* **Format a Percent**
-
-Format a number with a certain precision. Two parameters: number, settings ("percent" is a format)
-Ex: NUMBERFORMAT(25000.123456, 'percent')
-Result: 25,000%
-
-* **Create a Currency**
-
-You may create a currency. The library comes with "USD", "GBP", and "EUR" currency formats and "number" and "percent" numeric formats. Two parameters: key, settings
-Ex: ADDFORMAT('Dollars', { before: '', after: ' Dollars', precision: 0, thousand: ',', group: 3, decimal: '.', negative: '-' })
-Result: true
-
-Ex: NUMBERFORMAT(25000.123456, 'Dollars')
-Result: 25,000 Dollars
-
-* **REMOVEFORMAT(x):** Remove a Currency. To remove a currency. One parameter: key
-
-Into the plugin interface you will find additional help for these functions.
-
-
-= Fields available in the Calculated Fields Form's form builder = 
-
-The following fields are available:
-
-* Single Line Text: A classic input field for a one-line text.
-* Number: A classic input field with validation rules for numeric values.
-* Currency: A classic input field for currency values, that allows separator for thousands, and currency symbols.
-* Hidden: A hidden field.
-* Email: A classic input field with validation rules for email addresses.
-* Date: A date field. It can be used directly in calculations without a previous conversion or processing.
-* Text Area: A multi-line text field.
-* Checkboxes: Checkboxes for selecting one or more options into the same field.
-* Radio Buttons: Radiobuttons for selecting one option between the options available for the field.
-* Drop-down: A select / drop down list for selecting one of the values listed.
-* Upload File: An upload field. Not frequently used in calculations.
-* Password: A classic password / input field that shows **** when something is typed.
-* Phone field: A very configurable sequence of input fields for entering phone numbers, serial numbers or a sequence of values with limited size.
-* Instruct. Text: Use this area for adding instructions to the end user.
-* Section Break: A line / separator for sections into the same page.
-* Page Break: A separator for pages on multi page forms.
-* Summary: Displays a summary of form fields with the values entered.
-* Calculated field: .. and of course, the calculated field that accepts formulas, functions and many related settings.
-
-The form builder includes some container controls. The container controls allow to insert another controls in them:
-
-* Fieldset Container: Allows insert a fieldset control in the form, with a legend.
-* Div Container: Inserts a container very useful for grouping related controls, and not modifies the appearance of the form.
-
-In addition to the above, the following fields are available only in the **Developer** version of plugin:
-
-* Line Text DS: An input field that gets its default values from one of following datasources - Database, Posts information, Taxonomies information or Users information
-* Email DS: An input field for Email address that gets its default values from one of following datasources - Database or Users information
-* Text Area DS: A text area field that gets its default values from one of following datasources - Database, Posts information
-* Checkboxes DS: Checkboxes for selecting one or more options into the same field that gets its options from one of following datasources - Database, CSV, Posts information, Taxonomies information or Users information
-* Radio Btns DS: Radiobuttons for selecting one option between the options available for the field that gets its options from one of following datasources - Database, CSV, Posts information, Taxonomies information or Users information
-* Drop-down DS:  A select / drop down list for selecting one of the values listed that gets its options from one of following datasources - Database, CSV, Posts information, Taxonomies information or Users information
-* Hidden DS: A hidden field that gets its value from one of following datasources - Database, Posts information, Taxonomies information, or Users information
-
-New fields may be added at any time, so check the latest version of the plugin since it may have new options.
-
-= Tips for calculating prices = 
-
-One of the most frequent uses is for calculating prices. When displaying prices a good you may want to divide the form in two pages, the first one for asking the information needed to calculate the price and in a second page display the calculated field with the price and using the "Instruct. Text" fields for adding the terms, conditions and valid time for the price. 
-
-Note that you can make the "Instruct. Text" fields dependent from the calculated value, that way you can change the text shown to the user depending of the number shown in the calculated price, since frequently the terms, conditions or offers vary according to the price amount.
-
-= WooCommerce add-on (Beta Version) - Only available in the Developer version of the plugin =
-
-The developer version of the plugin includes the WooCommerce add-on, to integrate the forms created by the "Calculated Fields Form" with the WooCommerce products. The add-on inserts an additional metabox in the WooCommerce products, with two settings fields:
-
-* Enter the ID of the form: Allows select the form that will be associated to the product.
-* Calculate the product price through the form: Allows calculate the price of the products through the form.
-
-Note: If you want calculate the price of products through the form, will be required that you select the field of the price in the attribute: "Request cost" in the form's settings.
 
 == Screenshots ==
 
