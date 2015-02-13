@@ -380,7 +380,6 @@ A: The Calculated Fields Form's page contains detailed information about each fi
 
 http://wordpress.dwbooster.com/forms/calculated-fields-form
 
-
 = Q: Where can I publish a calculated fields form? =
 
 A: You can publish the forms into pages and posts. The shortcode can be also placed into the template. Other versions of the plugin also allow publishing it as a widget.
@@ -399,13 +398,9 @@ A: The form processing isn't available in the version listed on this directory. 
 
 A: In addition to the basic and most common operations (+,-,*,/) the following functions are also available: ABS (absolute value), CEIL (rounds up to the nearest integer), FLOOR (rounds a downwards to the nearest integer), ROUND (integer round), PREC (round with decimal precision), LOG (logarithm), POW (x to the power of y), SQRT (square root), MAX (maximum value between two numbers), MIN (minimum value between two numbers) and CDATE (convert a value to display it as a date). For advanced users, the JavaScript ternary operator (condition ? value_if_true : value_if_false) is also supported.
 
-The plugin includes other operations that are very important in multiple situations: the Logical Operators.
+The plugin includes other operations that are very important in multiple situations: the Logical Operators. IF(logical_test, value_if_true, value_if_false), AND(logical1,logical2,...), OR(logical1,logical2,...), NOT(logical), IN(term, string/array).
 
-* IF: Checks whether a condition is met, and returns one value if true, and another if false. IF(logical_test, value_if_true, value_if_false)
-* AND: Checks whether all arguments are true, and return true if all values are true. AND(logical1,logical2,...)
-* OR: Checks whether any of arguments are true. Returns false only if all arguments are false. OR(logical1,logical2,...)
-* NOT: Changes false to true, or true to false. NOT(logical)
-* IN: Checks whether the term is included in the second argument, the second argument may be a string or strings array. IN(term, string/array)
+Additional information in the following link: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q216](http://wordpress.dwbooster.com/faq/calculated-fields-form#q216 "Which operations are included?")
 
 = Q: How can I round the calculated result to 2 decimal digits? =
 
@@ -415,338 +410,27 @@ A: Use the "PREC" function/operator for that purpose, example:
 
 The above sample rounds the result of fieldname4*fieldname5 to two decimal digits.
 
-= Q: Does the plugin operations to calculate dates? =
+= Q: Which are the operations with date values that the plugin allows? =
 
 A: The free and pro versions of the plugin allow obtain the number of days between two date fields, or add a number of days to a date and get the result as a date string through the operation CDATE. CDATE( number, format ), but the developer version of the plugin includes a module dedicated solely for dates operations.
 
-The operations included in the date module are:
+The operations included in the date module are: DATEOBJ, YEAR, MONTH, DAY, WEEKDAY, WEEKNUM, HOURS, MINUTES, SECONDS, NOW, TODAY, DATEDIFF, DATETIMESUM, and GETDATETIMESTRING.      
 
-* DATEOBJ: Get the date object from an string representation of date. DATEOBJ( date_string, format ). 
-
-    DATEOBJ('2013-05-21', 'yyyy-mm-dd')     
-    Result: date object     
-
-* YEAR: Get the year from an string representation of date. YEAR( date_string, format )
-
-    YEAR('2013-05-21', 'yyyy-mm-dd')    
-    Result: 2013        
-
-* MONTH: Get the month from an string representation of date. MONTH( date_string, format )
-
-    MONTH('2013-05-21', 'yyyy-mm-dd')   
-    Result: 5       
-
-* DAY: Get the days from an string representation of date. DAY( date_string, format )
-
-    DAY('2013-05-21', 'yyyy-mm-dd')     
-    Result: 21      
+For a detailed description about the Date/Time operations, visits the following link: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q217](http://wordpress.dwbooster.com/faq/calculated-fields-form#q217 "Which are the operations with date values that the plugin allows?")
     
-* WEEKDAY: Get the week day from an string representation of date. WEEKDAY( date_string, format )
-
-    WEEKDAY('2013-10-27', 'yyyy-mm-dd')     
-    Result: 1 Sunday is the day number one      
-    
-* WEEKNUM: Get the week number from an string representation of date, a year has 53 weeks. WEEKNUM( date_string, format )
-
-    WEEKNUM('2013-10-27', 'yyyy-mm-dd')     
-    Result: 43      
-    
-* HOURS: Get hours from an string representation of datetime. HOURS( datetime_string, format )
-
-    HOURS('2013-10-27 01:21', 'yyyy-mm-dd hh:ii')       
-    Result: 1       
-    
-* MINUTES: Get minutes from an string representation of datetime. MINUTES( datetime_string, format )
-
-    MINUTES('2013-10-27 01:22', 'yyyy-mm-dd hh:ii')     
-    Result: 22      
-    
-* SECONDS: Get seconds from an string representation of datetime. SECONDS( datetime_string, format )
-
-    SECONDS('2013-10-27 01:22:56', 'yyyy-mm-dd hh:ii:ss')       
-    Result: 56          
-    
-* NOW: Get a date object with the current day-time information. NOW()
-
-    NOW()       
-    Result: 2013-10-27 01:42:19     
-    
-* TODAY: Get a date object with the current day information, without the time part. TODAY()    
-* DATEDIFF: Get the difference between two dates strings representation. DATEDIFF(date_one, date_two, date_format, return)   
-
-The function return an object, whose value depends of argument 'return'
-Possible values of return argument:
-d - return the number of days between two dates
-m - return the number of months between two dates, and remaining days
-y - return the number of years between two dates, remaining months, and remaining days
-
-    DATEDIFF('2013-10-27', '2012-06-22', 'yyyy-mm-dd', 'y')['months']       
-    Result: 5       
-
-* DATETIMESUM: Increases the date-time string representation in the number of seconds, minutes, hours, days, months, or years, passed as parameter. DATETIMESUM( date_string, format, number, to_increase )
-
-    DATETIMESUM('2013-10-27', 'yyyy-mm-dd', 5, 'd')     
-    Result: The date object representation of 2013/11/01        
-    
-* GETDATETIMESTRING: Returns the string representation of a date object. GETDATETIMESTRING( datetime_object, format )
-
-    GETDATETIMESTRING(TODAY(), 'yyyy-mm-dd')        
-    Result: 2013-10-27      
-    
-= Q: Does the plugin includes financial operations? =
+= Q: Are there financial operations included in the plugin? =
 
 A: The developer version of the plugin includes a module solely for financial operations. See the complete operations list below:
 
-* CALCULATEPAYMENT: Calculate the Financed Payment Amount. The operation requires three parameters: amount, months, interest rate (percent)
+CALCULATEPAYMENT, CALCULATEAMOUNT, CALCULATEMONTHS, CALCULATEINTEREST, CALCULATEACCRUEDINTEREST, CALCULATEAMORTIZATION, PRESENTVALUE, NUMBERFORMAT, ADDFORMAT, and REMOVEFORMAT 
 
-        CALCULATEPAYMENT(25000, 60, 5.25)       
-        Result: 474.65      
-    
-* CALCULATEAMOUNT: Calculate the Financed Amount. The operation accepts three parameters: months, interest rate (percent), payment
+For a detailed description about the financial operations, visits the following link: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q218](http://wordpress.dwbooster.com/faq/calculated-fields-form#q218 "Are there financial operations included in the plugin?")   
 
-        CALCULATEAMOUNT(60, 5.25, 474.65)       
-        Result: 25000.02        
-    
-* CALCULATEMONTHS: Calculate the Months Financed. The operation accepts three parameters: amount, interest rate (percent), payment
+= Q: How calculate an amortization? =
 
-        CALCULATEMONTHS(25000, 5.25, 474.65)        
-        Result: 60      
+A: The CALCULATEAMORTIZATION  is the operation with most complexity in the "Calculated Fields Form" and requires its own section. Please, visit the following link to read a detailed description about the use of CALCULATEAMORTIZATION operation:
 
-* CALCULATEINTEREST: Calculate the Financed Interest Rate. The operation accepts three parameters: amount, months, payment
-
-        CALCULATEINTEREST(25000, 60, 474.65)        
-        Result: 5.25        
-
-* CALCULATEACCRUEDINTEREST: Calculate the Accrued Interest. If your money is in a bank account accruing interest, how much does it earn over x months?. The operation accepts three parameters: principle amount, months, interest rate (percent)
-
-        CALCULATEACCRUEDINTEREST(25000, 60, 5.25)       
-        Result: 7485.806648756854       
-
-* CALCULATEAMORTIZATION: Create Amortization Schedule. This operation is very particular, and its result should be an array the length the number of months. Each entry is an object. Four parameters: principle amount, months, interest rate (percent), start date (optional Date object).
-
-        CALCULATEAMORTIZATION(25000, 60, 5.25, new Date(2011,11,20) )       
-        Result:         
-        [       
-          {         
-            principle: 24634.725        
-            interest: 109.375       
-            payment: 474.65         
-            paymentToPrinciple: 365.275         
-            paymentToInterest: 109.375      
-            date: Tue Dec 20 2011 00:00:00 GMT+0100 (Romance Daylight Time)         
-          },        
-          {         
-            principle: 24267.851921874997       
-            interest: 217.151921875         
-            payment: 474.65         
-            paymentToPrinciple: 366.873078125       
-            paymentToInterest: 107.776921875        
-            date: Fri Jan 20 2012 00:00:00 GMT+0100 (Romance Daylight Time)         
-          },        
-        ...         
-        ]               
-
-* PRESENTVALUE: Returns the present value of an investment. The present value is the total amount that a series of future payments is worth now. Three parameters: The interest rate per period, the total number of payment periods in an annuity, the payment made each period and cannot change over the life of the annuity.
-
-		PRESENTVALUE(0.08,5,100)		
-		Result: 399.27		
-        
-* NUMBERFORMAT: Format a Number. The number of parameters of this operation can vary, and the result will depend of parameters passed to the operation.
-    
-One parameters: number
-
-        NUMBERFORMAT(-2530023420269.123456)     
-        Result: -2,530,023,420,269
-
-        NUMBERFORMAT(25000.123456, {precision:2})       
-        Result: 25,000.12
-
-Format Currency
-
-Format a number to a certain currency. Two parameters: number, settings (optional). If settings option is a string it is treated as a currency name. If it is an object it is used as currency settings.
-
-        NUMBERFORMAT(25000.123456, 'USD')       
-        Result: $25,000.12      
-
-Settings can be format, and then override with options.
-
-        NUMBERFORMAT(-25000.123456, 'GBP', { negative: '()', precision: 3, thousand: '' })      
-        Result: £(25000.123)
-
-Format a Percent
-
-Format a number with a certain precision. Two parameters: number, settings ("percent" is a format)
-
-        NUMBERFORMAT(25000.123456, 'percent')       
-        Result: 25,000%     
-
-* ADDFORMAT: Create a Currency. You may create a currency. The library comes with "USD", "GBP", and "EUR" currency formats and "number" and "percent" numeric formats. Two parameters: key, settings
-
-        ADDFORMAT('Dollars', { before: '', after: ' Dollars', precision: 0, thousand: ',', group: 3, decimal: '.', negative: '-' })     
-        Result: true        
-        NUMBERFORMAT(25000.123456, 'Dollars')       
-        Result: 25,000 Dollars        
-
-* REMOVEFORMAT: Remove a Currency. To remove a currency. One parameter: key
-
-        REMOVEFORMAT('Dollars')     
-        Result: true        
-
-= Q: How calculate the amortization? =
-
-A: The CALCULATEAMORTIZATION  is the operation with most complexity in the "Calculated Fields Form" and requires its own section. 
-
-The CALCULATEAMORTIZATION operation returns a list of objects. For example:
-
-        CALCULATEAMORTIZATION(25000, 60, 5.25, new Date(2011,11,20) )       
-        Result:         
-        [       
-          {         
-            principle: 24634.725        
-            interest: 109.375       
-            payment: 474.65         
-            paymentToPrinciple: 365.275         
-            paymentToInterest: 109.375      
-            date: Tue Dec 20 2011 00:00:00 GMT+0100 (Romance Daylight Time)         
-          },        
-          {         
-            principle: 24267.851921874997       
-            interest: 217.151921875         
-            payment: 474.65         
-            paymentToPrinciple: 366.873078125       
-            paymentToInterest: 107.776921875        
-            date: Fri Jan 20 2012 00:00:00 GMT+0100 (Romance Daylight Time)         
-          },        
-        ...         
-        ]           
-
-* principle: how much remains for paying.
-* interest: is the accumulated of interest paid until this date.
-* payment: is the monthly payment (payment of interests and payment of principle).
-* paymentToPrinciple: is the part of payment that is considered as payment of principle.
-* paymentToInterest: is the part of payment that is considered as payment of interest.
-* date: is the date of payment.
-
-In the example, followed to explain the use of the CALCULATEAMORTIZATION operation: the fieldname1 represents the principle amount, fieldname3 the number of months, and the fieldname2 the interest rate.
-
-So, the value returned by CALCULATEAMORTIZATION(fieldname1,fieldname3,fieldname2) cannot by assigned directly to the calculated field, or will be displayed a text like: [object],[object],...... So, will be needed create a formatted string, with HTML tags, to display the CALCULATEAMORTIZATION results in an understandable  format.
-
-        (function(){    
-            var r = CALCULATEAMORTIZATION(fieldname1,fieldname3,fieldname2),    
-            str = '';   
-            
-            if(r.length)    
-            {   
-                str = '<table cellpadding=" 10" >';     
-                str += '<tr>';      
-                str += '<td>Date</td>';     
-                str += '<td>Interest</td>';     
-                str += '<td>Payment</td>';      
-                str += '<td>Payment to Interest</td>';      
-                str += '<td>Payment to Principle</td>';     
-                str += '<td>Principle</td>';        
-                str += '</tr>';     
-                for(var i = 0, h = r.length; i < h; i++)        
-                {       
-                    str += '<tr>';      
-                    str += '<td>'+GETDATETIMESTRING( new Date(r[i]['date']), 'yyyy-mm-dd')+'</td>';     
-                    str += '<td>'+PREC(r[i]['interest'],2)+'</td>';     
-                    str += '<td>'+PREC(r[i]['payment'],2)+'</td>';      
-                    str += '<td>'+PREC(r[i]['paymentToInterest'],2)+'</td>';        
-                    str += '<td>'+PREC(r[i]['paymentToPrinciple'],2)+'</td>';       
-                    str += '<td>'+PREC(r[i]['principle'],2)+'</td>';        
-                    str += '</tr>';     
-                }       
-                str += '</table>';      
-            }       
-            jQuery('.comment_area .uh').html( str );        
-        })()        
-
-The first step will be store the list of objects returned by the CALCULATEAMORTIZATION operation, in a local variable, and create another variable to store the amortization data, but with an HTML format:
- 
-        var r = CALCULATEAMORTIZATION(fieldname1,fieldname3,fieldname2),        
-        str = '';       
-
-The equation validates if the previous operation returns a value, because if the CALCULATEAMORTIZATION was called with wrong values can return an empty array:
-    
-        if(r.length)        
-        {       
-        ....        
-        }       
-
-I've decided display the results of CALCULATEAMORTIZATION operation in a tabular format because is easier to understand. The first element in the result is the tag to open the table: &lt;table&gt;, and the row with the column names:
-    
-        str = '<table cellpadding=" 10" >';     
-        str += '<tr>';      
-        str += '<td>Date</td>';     
-        str += '<td>Interest</td>';     
-        str += '<td>Payment</td>';      
-        str += '<td>Payment to Interest</td>';      
-        str += '<td>Payment to Principle</td>';     
-        str += '<td>Principle</td>';        
-        str += '</tr>';     
-
-Now, is the moment to traverse the list to create each row of the table with the values of monthly amortization.
-
-        for(var i = 0, h = r.length; i < h; i++)        
-        {       
-            str += '<tr>';      
-            str += '<td>'+GETDATETIMESTRING( new Date(r[i]['date']), 'yyyy-mm-dd')+'</td>';     
-            str += '<td>'+PREC(r[i]['interest'],2)+'</td>';     
-            str += '<td>'+PREC(r[i]['payment'],2)+'</td>';      
-            str += '<td>'+PREC(r[i]['paymentToInterest'],2)+'</td>';        
-            str += '<td>'+PREC(r[i]['paymentToPrinciple'],2)+'</td>';       
-            str += '<td>'+PREC(r[i]['principle'],2)+'</td>';        
-            str += '</tr>';     
-        }       
-
-The previous code has its particularities. By default the dates returned by the CALCULATEAMORTIZATION operation have the complete format including hours and seconds, In this form the information about hours and seconds is not relevant, so, is preferred to use a short date format: yyyy-mm-dd. The date string will be formatted with the GETDATETIMESTRING operation, included in the Date module of developers version of the plugin (the second parameter is the format to use):
-
-        str += '<td>'+GETDATETIMESTRING( new Date(r[i]['date']), 'yyyy-mm-dd')+'</td>';     
-    
-Another particularity is the use of the PREC operation. By default the CALCULATEAMORTIZATION returns the numeric values with all its decimals digits, for example: 366.873078125, but for humans is common to identify the money representation with two decimal digits. So, I've used the PREC operation with the number 2 as the second parameter.
-    
-        str += '<td>'+PREC(r[i]['interest'],2)+'</td>';     
-    
-After create all table rows, is the moment to close the table, and print the results:
-
-        str += '</table>';      
-    
-If you display the result directly in the calculated field, you will see a weird text (or very hard to understand) because the input fields in HTML are not able to display tables, in this case I've preferred show the result in an "Instruct Text" field. I've inserted an "Instruct Text" field in the form, this type of field uses the class name "comment_are", and includes an &lt;span&gt; tag with the class "uh". Then, using jQuery to select the correct field, I've inserted the formatted result of the CALCULATEAMORTIZATION in the &lt;span&gt; tag included in the "Instruct Text" field:
-
-        jQuery('.comment_area .uh').html( str );        
-    
-The complete equation is:    
-        (function(){        
-            var r = CALCULATEAMORTIZATION(fieldname1,fieldname3,fieldname2),        
-            str = '';       
-                    
-            if(r.length)        
-            {       
-                str = '<table cellpadding=" 10" >';     
-                str += '<tr>';      
-                str += '<td>Date</td>';     
-                str += '<td>Interest</td>';     
-                str += '<td>Payment</td>';      
-                str += '<td>Payment to Interest</td>';      
-                str += '<td>Payment to Principle</td>';     
-                str += '<td>Principle</td>';        
-                str += '</tr>';     
-                for(var i = 0, h = r.length; i < h; i++)        
-                {       
-                    str += '<tr>';      
-                    str += '<td>'+GETDATETIMESTRING( new Date(r[i]['date']), 'yyyy-mm-dd')+'</td>';     
-                    str += '<td>'+PREC(r[i]['interest'],2)+'</td>';     
-                    str += '<td>'+PREC(r[i]['payment'],2)+'</td>';      
-                    str += '<td>'+PREC(r[i]['paymentToInterest'],2)+'</td>';        
-                    str += '<td>'+PREC(r[i]['paymentToPrinciple'],2)+'</td>';       
-                    str += '<td>'+PREC(r[i]['principle'],2)+'</td>';        
-                    str += '</tr>';     
-                }       
-                str += '</table>';      
-            }       
-            jQuery('.comment_area .uh').html( str );        
-        })()        
+[http://wordpress.dwbooster.com/faq/calculated-fields-form#q219](http://wordpress.dwbooster.com/faq/calculated-fields-form#q219 "How calculate an amortization?")    
  
 = Q: How to define an initial date in a date field? =
  
@@ -762,32 +446,9 @@ String: A smart text indicating a relative date. Relative dates must contain a p
 
 = Q: How to change the language on datepicker? = 
 
-A: The following steps describe how to use the French language in the datepicker, but it is possible translate the months and days names to another language:
+A: To use a different language on datepickers will be needed create an additional file and touch some code. Please, visit the following link to read the instructions:  
 
-* Creates a new file in the text editor your choice.
-* Paste the following code in the file.
-
-        jQuery(function($){     
-                $.datepicker.regional['fr'] = {         
-                        closeText: 'Fermer',        
-                        prevText: '&#x3c;Préc',         
-                        nextText: 'Suiv&#x3e;',         
-                        currentText: 'Courant',         
-                        monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin', 'Juillet','Août','Septembre','Octobre','Novembre','Décembre'],      
-                        monthNamesShort: ['Jan','Fév','Mar','Avr','Mai','Jun', 'Jul','Aoû','Sep','Oct','Nov','Déc'],        
-                        dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],      
-                        dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],         
-                        dayNamesMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],      
-                        weekHeader: 'Sm',       
-                        dateFormat: 'dd/mm/yy',         
-                        firstDay: 1,        
-                        isRTL: false,       
-                        showMonthAfterYear: false,      
-                        yearSuffix: ''};        
-                $.datepicker.setDefaults($.datepicker.regional['fr']);      
-        });         
-
-* Finally, store the new file in the "/wp-content/plugins/calculated-fields-form/js/fields-public", with the name you prefer, but with "js" as the file's extension, for example: datepicker_fr.js
+[http://wordpress.dwbooster.com/faq/calculated-fields-form#q221](http://wordpress.dwbooster.com/faq/calculated-fields-form#q221 "How to change the language on datepicker?")
         
 = Q: Is there a way to format the form in a table structure (various fields in the same line) ? =
 
@@ -868,47 +529,7 @@ A: The thank you page can be associated to the form through the attribute: "Than
 
 [CP_CALCULATED_FIELDS_RESULT]
 
-= Q: Could you show only a subset of submitted fields in the summary inserted in the thank you page? =
-
-A: The shortcode to display the summary of submitted fields in the thank you page, accepts the attribute: fields, to select the list of fields to display in the summary, separated by the comma symbol. So, if you want insert in the summary only the fields: fieldname1, and fieldname4, the shortcode should be inserted like follow:
-
-[CP_CALCULATED_FIELDS_RESULT fields="fieldname1,fieldname4"]
-
-Note: You can insert in a thank you page as many summary shortcodes as you need. For example, if you want format the thank you page with a summary that includes some of fields, a text, and another summary with the rest of fields, the content might be like follows:
-
-[CP_CALCULATED_FIELDS_RESULT fields="fieldname1,fieldname2"]
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vestibulum blandit mi vitae bibendum. Aliquam convallis feugiat eros. Nulla sit amet erat lacus. Ut faucibus felis enim, aliquam tincidunt lectus viverra eget. Sed ornare dapibus felis, vitae tempor tellus condimentum vitae. Curabitur id lorem vel urna condimentum hendrerit. Pellentesque sit amet diam tincidunt, facilisis erat non, tempus lacus. Integer bibendum ultricies molestie.
-
-[CP_CALCULATED_FIELDS_RESULT fields="fieldname3,fieldname4"]
-
-= Q: Is possible formatting  the thank you page? =
-
-A: The thank you page can be formatted like the notification emails, using exactly the same tags, but the shortcode should be inserted as:
-
-[CP_CALCULATED_FIELDS_RESULT]
-....
-[/CP_CALCULATED_FIELDS_RESULT]
-
-with the content in middle.
-
-For example, if the fieldname1 is used to get the user name, you could insert:
-
-[CP_CALCULATED_FIELDS_RESULT]
-&lt;p&gt;&lt;%fieldname1%&gt;&lt;/p&gt;
-[/CP_CALCULATED_FIELDS_RESULT]
-
-or maybe
-
-[CP_CALCULATED_FIELDS_RESULT]
-&lt;p&gt;&lt;strong&gt;Your name is:&lt;/strong&gt; &lt;%fieldname1_value%&gt;&lt;/p&gt;
-[/CP_CALCULATED_FIELDS_RESULT]
-
-or
-
-[CP_CALCULATED_FIELDS_RESULT]
-&lt;p&gt;&lt;strong&gt;&lt;%fieldname1_label%&gt;:&lt;/strong&gt; &lt;%fieldname1_value%&gt;&lt;/p&gt;
-[/CP_CALCULATED_FIELDS_RESULT]
+The shortcode allows the use of the "fields" attribute, and a complex format to get a complete control about the thank you page. To get a complete description about the thank you page, and the shortcode, visit the following link: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q230](http://wordpress.dwbooster.com/faq/calculated-fields-form#q230 "Could be displayed a summary of submitted fields in the thank you page?")
 
 = Q: How can I apply CSS styles to the form fields? =
 
@@ -1033,55 +654,9 @@ Examples: Add a class named "specialclass" into the setting "Add CSS Layout Keyw
 
 = Q: What files can be uploaded through the form? =
 
-A: The File control includes an attribute for entering the file extensions that can be uploaded. But, Can be entered any file extension? The answer is NO. The last decision is taken by WordPress. WordPress for security reasons, accepts a specific list of files extensions, but with the file control it is possible restrict this list even more.
+A: The File control includes an attribute for entering the file extensions that can be uploaded. But, Can be entered any file extension? The answer is NO. The last decision is taken by WordPress. WordPress for security reasons, accepts a specific list of files extensions, but with the file control it is possible restrict this list even more. Furthermore to the files extensions supported by WordPress, it is possible add new types of files. To get the complete list of files supported by default, and how to add new types of files, visit the following link:
 
-The files accepted in WordPress by default are: 
-
-* Images
-
-    .jpg
-    .jpeg
-    .png
-    .gif
-
-* Documents
-
-    .pdf (Portable Document Format; Adobe Acrobat)
-    .doc, .docx (Microsoft Word Document)
-    .ppt, .pptx, .pps, .ppsx (Microsoft PowerPoint Presentation)
-    .odt (OpenDocument Text Document)
-    .xls, .xlsx (Microsoft Excel Document)
-
-* Audio
-
-    .mp3
-    .m4a
-    .ogg
-    .wav
-
-* Video
-
-    .mp4, .m4v
-    .mov
-    .wmv
-    .avi
-    .mpg
-    .ogv (Ogg)
-    .3gp (3GPP)
-    .3g2 (3GPP2)
-
-= Q: How can be modified the files allowed to be uploaded in WordPress? =
-
-A: You need to add a new plugin hook. In your theme's functions.php file, add this line:
-
-        add_filter('upload_mimes', 'cpcff_custom_upload_mimes');        
-        function cpcff_custom_upload_mimes ( $existing_mimes=array() ) {        
-            // add your ext => mime to the array ($existing_mimes['extension'] = 'mime/type';). For example to add files ai      
-            $existing_mimes['ai'] = 'application/postscript';     
-            // add as many as you like      
-            // and return the new full result       
-            return $existing_mimes;     
-        }       
+[http://wordpress.dwbooster.com/faq/calculated-fields-form#q235](http://wordpress.dwbooster.com/faq/calculated-fields-form#q235 "What files can be uploaded through the form?")
 
 = Q: How can I include the link to the uploaded file into the email message? =
 
@@ -1158,33 +733,9 @@ A: To disable the dynamic evaluation of the equations in the form, you only shou
 
 = Q: How to send specific fields in the notification emails, and not all form fields? =
 
-A: There are special tags that can be used in the notification emails to display the forms information:
+A: The  notification emails can include all fields submitted by the form (&lt;%INFO%&gt;) or specific files (&lt;%fieldname#%&gt;), furthermore, some other special tags. Please, visit the following link to get the complete list of tags to include in the email:
 
-&lt;%INFO%&gt;, the tag &lt;%INFO%&gt; is replaced by the labels and values of fields that are submitted from the form, all of them.
-
-To insert only specific fields, use the format &lt;%fieldname#%&gt;, for example, if you want include the fieldname1 and fieldname3 in the notification email, use the tags &lt;%fieldname1%&gt;, and &lt;%fieldname3%&gt;, the tag will be replace by the pair: label-value of field.
-
-To insert only the field's label, use the format &lt;%fieldname#_label%&gt;, for example &lt;%fieldname1_label%&gt;
-
-To insert only the field's value, use the format &lt;%fieldname#_value%&gt;, for example &lt;%fieldname3_value%&gt;
-
-To display all previous tags only if the fields have been filled by the users, you should use the attribute if_not_empty in the tags:
-
-&lt;%INFO if_not_empty%&gt;
-
-&lt;%fieldname# if_not_empty%&gt;
-
-&lt;%fieldname#_label if_not_empty%&gt;
-
-&lt;%fieldname#_value if_not_empty%&gt;
-
-To display the final price, after apply the discount if was defined, use the tag &lt;%final_price%&gt;
-
-To display the coupon/discount applied, if was applied a discount, uses the tag &lt;%coupon%&gt;
-
-To display the payment option selected, in case that PayPal has been set as optional, use the tag &lt;%payment_option%&gt;
-
-For sending to the user an unique ID that identify the submission, use the tag &lt;%itemnumber%&gt;
+[http://wordpress.dwbooster.com/faq/calculated-fields-form#q244](http://wordpress.dwbooster.com/faq/calculated-fields-form#q244 "How to send specific fields in the notification emails, and not all form fields?")
 
 = Q: How to include my own javascript files to implement my own operations? =
 
@@ -1212,24 +763,9 @@ A: In my explanation I'll assume that the fieldname1 field is a textarea. The eq
 
 = Q: How to assign a value to a field that is not a calculated field from an equation? =
 
-A: To assign a value to a field that is not a calculated field, from an equation, you should follow the steps below:
+A: To enter a value programmatically to a field, that is not a calculated field, will require to assign custom class names to the fields, and edit any of the equations in your form. Please, visit the following link:
 
-1. Assign a class name to the field that you want populate from the equation, to identify the field from the equation's code, for example: myclass.
-
-Note: You cannot use the fieldnameX in this case, because in the equations the texts with the format fieldnameX, are replaced by the values of fields that represent.
-
-2. Uses the following code as part of the equation:
-
-jQuery( '.myclass input').val( Y );
-
-The Y in the previous code would be the value to be assigned to the field.
-
-Note: The previous code is applied to those fields that include an input field, for example: the number fields, the single texts, the calculated fields, etc. In the case of text areas the code would be a little different: jQuery( '.myclass textarea').val( Y );
-
-For the "Instruct. Text" fields the code varies a little more. In the "Instruct. Text" field the value can be assigned to the label or to the description, with the codes below:
-
-jQuery( '.myclass label').html( Y );
-jQuery( '.myclass .uh').html( Y );
+[http://wordpress.dwbooster.com/faq/calculated-fields-form#q248](http://wordpress.dwbooster.com/faq/calculated-fields-form#q248 "How to assign a value to a field that is not a calculated field from an equation?")
 
 = Q: How to insert a link in the form? =
 
@@ -1239,20 +775,9 @@ A: The form builder does not include a field to insert links explicitly in the f
 
 = Q: How can be created dependencies with  multiple fields? =
 
-A: To insert a field dependent of multiple fields, you should show/hide the field through the equations, and not directly in the fields settings. The following is a particular example that includes all points to create the dependencies.
+A: To create dependencies that depend of values of multiple fields, will be needed validate the dependencies rules, and display or hide the fields through an equation. Please, visit the following link:
 
-In this example there are three fields: fieldname1, fieldname2, and fieldname3. If the value of fieldname1 is equal to 10, and the value of the fieldname2 is equal to 100, the form should display the fieldname3 field, or hide the field in other cases. First, you should assign a class name to the fieldname3 to identify the field from the equations(for example enter the value: myclass through the attribute: "Add Css Layout Keywords" of the fieldname3 field). Finally, you should  use the following snippet of code as part of your equation:
-
-		if(fieldname1 == 10 && fieldname2 == 100 ) jQuery('.myclass').show().children( '.field' ).removeClass( 'ignore' );		
-		else jQuery('.myclass').hide().children( '.field' ).addClass( 'ignore' );		
-
-The fields names and values have been selected randomly, only for the explanation, use the fields names, and values, corresponding to your project.
-
-There is another solution to your problem, that simplifies the equation, but the dependencies are associated to the calculated field. For example, with the same conditions of the previous situation, inserts in your form a calculated field, and enter  the following equation:
-
-IF( AND(fieldname1 == 10, fieldname2 == 100), 1, 0)
-
-and then in the dependencies section of the calculated field, select the rule: If value is equal to, enter the number 1 in the input box, and select the fieldname3 as the field to be displayed.
+[http://wordpress.dwbooster.com/faq/calculated-fields-form#q250](http://wordpress.dwbooster.com/faq/calculated-fields-form#q250 "How can be created dependencies with  multiple fields?")
 
 = Q: How to populate the form fields with URL parameters? =
 
