@@ -73,3 +73,5 @@
 #fbuilder input[type="radio"]{-webkit-appearance:radio!important;}
 
 #fbuilder  .cff-summary-title:after{ content: ': '; }
+
+#fbuilder  .hide{ display:none; }

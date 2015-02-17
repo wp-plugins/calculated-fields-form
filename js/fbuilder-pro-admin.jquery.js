@@ -597,7 +597,7 @@
 		},
 		showName: function( v ) 
 		{
-			return '<div><label>Field tag for the message (optional):</label><input readonly="readonly" class="large" name="sNametag" id="sNametag" value="&lt;%'+v+'%&gt;" />'+
+			return '<div><label>Field name, tag for the message:</label><input readonly="readonly" class="large" name="sNametag" id="sNametag" value="&lt;%'+v+'%&gt;" />'+
 				   '<input style="display:none" readonly="readonly" class="large" name="sName" id="sName" value="'+v+'" /></div>';
 		},
 		showPredefined: function(v,c) 

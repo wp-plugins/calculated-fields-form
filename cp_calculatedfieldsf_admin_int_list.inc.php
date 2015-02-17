@@ -14,6 +14,7 @@ global $wpdb;
 $message = "";
 if (isset($_GET['a']) && $_GET['a'] == '1')
 {
+	check_admin_referer( 'session_id_'.session_id(), '_cpcff_nonce' );
     define('CP_CALCULATEDFIELDSF_DEFAULT_fp_from_email', get_the_author_meta('user_email', get_current_user_id()) );
     define('CP_CALCULATEDFIELDSF_DEFAULT_fp_destination_emails', CP_CALCULATEDFIELDSF_DEFAULT_fp_from_email);
         
@@ -71,15 +72,18 @@ if (isset($_GET['a']) && $_GET['a'] == '1')
 } 
 else if (isset($_GET['u']) && $_GET['u'] != '')
 {
-    $wpdb->query( $wpdb->prepare( 'UPDATE `'.$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE.'` SET form_name=%s WHERE id=%d' ), $_GET["name"], $_GET['u'] );           
+	check_admin_referer( 'session_id_'.session_id(), '_cpcff_nonce' );
+	$wpdb->query( $wpdb->prepare( 'UPDATE `'.$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE.'` SET form_name=%s WHERE id=%d', $_GET["name"], $_GET['u'] ) );
     $message = "Item updated";        
 }
 else if (isset($_GET['d']) && $_GET['d'] != '')
 {
+	check_admin_referer( 'session_id_'.session_id(), '_cpcff_nonce' );
     $wpdb->query( $wpdb->prepare( 'DELETE FROM `'.$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE.'` WHERE id=%d', $_GET['d'] ) );       
     $message = "Item deleted";
 } else if (isset($_GET['c']) && $_GET['c'] != '')
 {
+	check_admin_referer( 'session_id_'.session_id(), '_cpcff_nonce' );
     $myrows = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM ".$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE." WHERE id=%d", $_GET['c'] ), ARRAY_A );    
     unset($myrows["id"]);
     $myrows["form_name"] = 'Cloned: '.$myrows["form_name"];
@@ -87,6 +91,7 @@ else if (isset($_GET['d']) && $_GET['d'] != '')
     $message = "Item duplicated/cloned";
 } else if (isset($_GET['ac']) && $_GET['ac'] == 'st')
 {
+	check_admin_referer( 'session_id_'.session_id(), '_cpcff_nonce' );
     update_option( 'CP_CFF_LOAD_SCRIPTS', ($_GET["scr"]=="1"?"0":"1") );
     if ($_GET["chs"] != '')
     {
@@ -120,7 +125,7 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
  function cp_addItem()
  {
     var calname = document.getElementById("cp_itemname").value;
-    document.location = 'options-general.php?page=cp_calculated_fields_form&a=1&r='+Math.random()+'&name='+encodeURIComponent(calname);       
+    document.location = 'options-general.php?page=cp_calculated_fields_form&a=1&r='+Math.random()+'&name='+encodeURIComponent(calname)+'&_cpcff_nonce=<?php echo wp_create_nonce( 'session_id_'.session_id() ); ?>';       
  }
  
  function cp_addItem_keyup( e )
@@ -128,24 +133,24 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
     e.which = e.which || e.keyCode;
     if(e.which == 13) {
         var calname = document.getElementById("cp_itemname").value;
-        document.location = 'options-general.php?page=cp_calculated_fields_form&a=1&r='+Math.random()+'&name='+encodeURIComponent(calname);       
+        document.location = 'options-general.php?page=cp_calculated_fields_form&a=1&r='+Math.random()+'&name='+encodeURIComponent(calname)+'&_cpcff_nonce=<?php echo wp_create_nonce( 'session_id_'.session_id() ); ?>';       
     }
  }
  
  function cp_updateItem(id)
  {
     var calname = document.getElementById("calname_"+id).value;    
-    document.location = 'options-general.php?page=cp_calculated_fields_form&u='+id+'&r='+Math.random()+'&name='+encodeURIComponent(calname);    
+    document.location = 'options-general.php?page=cp_calculated_fields_form&u='+id+'&r='+Math.random()+'&name='+encodeURIComponent(calname)+'&_cpcff_nonce=<?php echo wp_create_nonce( 'session_id_'.session_id() ); ?>';    
  }
  
  function cp_cloneItem(id)
  {
-    document.location = 'options-general.php?page=cp_calculated_fields_form&c='+id+'&r='+Math.random();  
+    document.location = 'options-general.php?page=cp_calculated_fields_form&c='+id+'&r='+Math.random()+'&_cpcff_nonce=<?php echo wp_create_nonce( 'session_id_'.session_id() ); ?>';  
  }  
  
  function cp_manageSettings(id)
  {
-    document.location = 'options-general.php?page=cp_calculated_fields_form&cal='+id+'&r='+Math.random();
+    document.location = 'options-general.php?page=cp_calculated_fields_form&cal='+id+'&r='+Math.random()+'&_cpcff_nonce=<?php echo wp_create_nonce( 'session_id_'.session_id() ); ?>';
  }
  
  function cp_viewMessages(id)
@@ -162,7 +167,7 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
  {
     if (confirm('Are you sure that you want to delete this item?'))
     {        
-        document.location = 'options-general.php?page=cp_calculated_fields_form&d='+id+'&r='+Math.random();
+        document.location = 'options-general.php?page=cp_calculated_fields_form&d='+id+'&r='+Math.random()+'&_cpcff_nonce=<?php echo wp_create_nonce( 'session_id_'.session_id() ); ?>';
     }
  }
  
@@ -172,7 +177,7 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
     {        
         var scr = document.getElementById("ccscriptload").value;    
         var chs = document.getElementById("cccharsets").value;    
-        document.location = 'options-general.php?page=cp_calculated_fields_form&ac=st&scr='+scr+'&chs='+chs+'&r='+Math.random();
+        document.location = 'options-general.php?page=cp_calculated_fields_form&ac=st&scr='+scr+'&chs='+chs+'&r='+Math.random()+'&_cpcff_nonce=<?php echo wp_create_nonce( 'session_id_'.session_id() ); ?>';
     }    
  }
  

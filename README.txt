@@ -4,7 +4,7 @@ Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout
 Requires at least: 3.0.5
 Tested up to: 4.1
-Stable tag: 1.0.11
+Stable tag: 1.0.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -868,7 +868,17 @@ The data submitted through the form are available from the Orders section of Woo
 * Modifies the replacement of numbers in the equations to avoid invalid operations.
 * Modifies the database queries to avoid some potential vulnerabilities.
 
+= 1.0.12 =
+* Increases the plugin's security, using the WordPress Nonces mechanism.
+* Allows the installation of the plugin in a WordPress Multisite.
+
 == Upgrade Notice ==
+
+= 1.0.12 =
+* Increases the plugin's security, using the WordPress Nonces mechanism.
+* Allows the installation of the plugin in a WordPress Multisite.
+
+Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
 = 1.0.11 =
 * Modifies the replacement of numbers in the equations to avoid invalid operations.

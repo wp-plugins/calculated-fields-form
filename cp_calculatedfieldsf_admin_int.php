@@ -6,6 +6,7 @@ if ( !is_admin() )
     exit;
 }
 
+check_admin_referer( 'session_id_'.session_id(), '_cpcff_nonce' );
 wp_enqueue_media();
 
 if (!defined('CP_CALCULATEDFIELDSF_ID'))
@@ -35,6 +36,7 @@ $cpcff_texts_array = array_replace_recursive(
 <br /><br />
 
 <form method="post" action="" name="cpformconf"> 
+<input type="hidden" name="_cpcff_nonce" value="<?php echo wp_create_nonce( 'session_id_'.session_id() ); ?>" />
 <input name="cp_calculatedfieldsf_post_options" type="hidden" id="1" />
 <input name="cp_calculatedfieldsf_id" type="hidden" value="<?php echo CP_CALCULATEDFIELDSF_ID; ?>" />
 
@@ -68,7 +70,7 @@ $cpcff_texts_array = array_replace_recursive(
 	   }
        if ( typeof $fbuilderloadedflag == 'undefined' )
        {
-         document.write ("<"+"script type='text/javascript' src='<?php echo get_site_url( get_current_blog_id() ).'?cp_cff_resources=admin'; ?>'></"+"script>");
+         document.write ("<"+"script type='text/javascript' src='<?php echo cp_calculatedfieldsf_get_site_url( true ).'/?cp_cff_resources=admin'; ?>'></"+"script>");
        } 
      </script>         
         

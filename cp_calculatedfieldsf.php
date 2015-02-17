@@ -3,7 +3,7 @@
 Plugin Name: Calculated Fields Form
 Plugin URI: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Description: Create forms with field values calculated based in other form field values.
-Version: 1.0.11
+Version: 1.0.12
 Author: CodePeople.net
 Author URI: http://codepeople.net
 License: GPL
@@ -12,6 +12,13 @@ License: GPL
 
 /* initialization / install / uninstall functions */
 
+function cp_calculatedfieldsf_get_site_url( $admin = false )
+{
+	$blog = get_current_blog_id();
+	if( $admin ) $url = get_admin_url( $blog );		
+	else $url = get_home_url( $blog );		
+	return rtrim( $url, '/' );
+}
 
 // Calculated Fields Form constants
 
@@ -31,7 +38,7 @@ define('CP_CALCULATEDFIELDSF_DEFAULT_form_structure5', '[[{"name":"fieldname2","
 
 define('CP_CALCULATEDFIELDSF_DEFAULT_fp_subject', 'Contact from the blog...');
 define('CP_CALCULATEDFIELDSF_DEFAULT_fp_inc_additional_info', 'true');
-define('CP_CALCULATEDFIELDSF_DEFAULT_fp_return_page', get_site_url());
+define('CP_CALCULATEDFIELDSF_DEFAULT_fp_return_page', cp_calculatedfieldsf_get_site_url().'/' );
 define('CP_CALCULATEDFIELDSF_DEFAULT_fp_message', "The following contact message has been sent:\n\n<%INFO%>\n\n");
 
 define('CP_CALCULATEDFIELDSF_DEFAULT_cu_enable_copy_to_user', 'true');
@@ -150,6 +157,7 @@ function cp_calculated_fields_form_load_resources()
 add_action( 'init', 'cp_calculated_fields_form_check_posted_data', 11 );
     
 if ( is_admin() ) {
+	if( session_id() == "" ) @session_start();
     add_action('media_buttons', 'set_cp_calculatedfieldsf_insert_button', 100);
     add_action('admin_enqueue_scripts', 'set_cp_calculatedfieldsf_insert_adminScripts', 1);
     add_action('admin_menu', 'cp_calculatedfieldsf_admin_menu');    
@@ -468,7 +476,7 @@ function cp_calculatedfieldsf_get_public_form($id) {
         wp_register_script('cp_calculatedfieldsf_validate_script', plugins_url('/js/jquery.validate.js', __FILE__));
         
         wp_enqueue_script( 'cp_calculatedfieldsf_buikder_script', 
-        rtrim( get_site_url( get_current_blog_id() ), '/' ).'/?cp_cff_resources=public',array("jquery","jquery-ui-core","jquery-ui-button","jquery-ui-datepicker","jquery-ui-widget","jquery-ui-position","jquery-ui-tooltip","query-stringify","cp_calculatedfieldsf_validate_script", "jquery-ui-slider"), false, true );    
+        cp_calculatedfieldsf_get_site_url().'/?cp_cff_resources=public',array("jquery","jquery-ui-core","jquery-ui-button","jquery-ui-datepicker","jquery-ui-widget","jquery-ui-position","jquery-ui-tooltip","query-stringify","cp_calculatedfieldsf_validate_script", "jquery-ui-slider"), false, true );    
         
         if ($id == '') $id = $myrows[0]->id;
         wp_localize_script('cp_calculatedfieldsf_buikder_script', 'cp_calculatedfieldsf_fbuilder_config'.$CP_CFF_global_form_count, array('obj'  	=>
@@ -525,7 +533,7 @@ function cp_calculatedfieldsf_get_public_form($id) {
      var cp_calculatedfieldsf_fbuilder_config<?php echo $CP_CFF_global_form_count; ?> = {"obj":"{\"pub\":true,\"identifier\":\"<?php echo $CP_CFF_global_form_count; ?>\",\"messages\": {\n    \t                \t\"required\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_is_required', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_required,$id));?>\",\n    \t                \t\"email\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_is_email', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_email,$id));?>\",\n    \t                \t\"datemmddyyyy\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_datemmddyyyy', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_datemmddyyyy,$id));?>\",\n    \t                \t\"dateddmmyyyy\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_dateddmmyyyy', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_dateddmmyyyy,$id));?>\",\n    \t                \t\"number\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_number', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_number,$id));?>\",\n    \t                \t\"digits\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_digits', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_digits,$id));?>\",\n    \t                \t\"max\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_max', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_max,$id));?>\",\n    \t                \t\"min\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_min', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_min,$id));?>\",\"previous\": \"<?php echo str_replace(array('"'),array('\\"'),$previous_label); ?>\",\"next\": \"<?php echo str_replace(array('"'),array('\\"'),$next_label); ?>\",\"pageof\": \"<?php echo str_replace(array('"'),array('\\"'),$page_of_label); ?>\"\n    \t                }}"};
      /* ]]> */
      </script>     
-     <script type='text/javascript' src='<?php echo rtrim( get_site_url( get_current_blog_id() ), '/' ).'/?cp_cff_resources=public'; ?>'></script>
+     <script type='text/javascript' src='<?php echo cp_calculatedfieldsf_get_site_url().'/?cp_cff_resources=public'; ?>'></script>
 <?php
     }    
 }
@@ -582,7 +590,7 @@ function set_cp_calculatedfieldsf_insert_adminScripts($hook) {
 		wp_enqueue_script( "jquery-ui-datepicker" );
 		wp_enqueue_script( "query-stringify" );
 
-        wp_enqueue_script( 'cp_calculatedfieldsf_buikder_script', rtrim( get_site_url( get_current_blog_id() ), '/' ).'/?cp_cff_resources=admin', array("jquery","jquery-ui-core","jquery-ui-sortable","jquery-ui-tabs","jquery-ui-droppable","jquery-ui-button","jquery-ui-datepicker","query-stringify") );
+        wp_enqueue_script( 'cp_calculatedfieldsf_buikder_script', cp_calculatedfieldsf_get_site_url( true ).'/?cp_cff_resources=admin', array("jquery","jquery-ui-core","jquery-ui-sortable","jquery-ui-tabs","jquery-ui-droppable","jquery-ui-button","jquery-ui-datepicker","query-stringify") );
 
 		wp_enqueue_script( 'cp_calculatedfieldsf_buikder_script_caret', plugins_url('/js/jquery.caret.js', __FILE__),array("jquery"));
         wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
@@ -591,23 +599,6 @@ function set_cp_calculatedfieldsf_insert_adminScripts($hook) {
     if( 'post.php' != $hook  && 'post-new.php' != $hook )
         return;
     wp_enqueue_script( 'cp_calculatedfieldsf_script', plugins_url('/cp_calculatedfieldsf_scripts.js', __FILE__) );
-}
-
-
-function cp_calculatedfieldsf_get_site_url()
-{
-    $url = parse_url(get_site_url());
-    $url = rtrim($url["path"],"/");    
-    return $url;
-}
-
-
-function cp_calculatedfieldsf_get_FULL_site_url()
-{
-    $pos = strpos(cp_calculatedfieldsf_get_site_url(), "://");    
-    if ($pos === false)
-        $url = 'http://'.$_SERVER["HTTP_HOST"].$url;
-    return $url;
 }
 
 
@@ -643,6 +634,7 @@ function cp_calculated_fields_form_check_posted_data() {
 
 function cp_calculatedfieldsf_save_options() 
 {
+	check_admin_referer( 'session_id_'.session_id(), '_cpcff_nonce' );
     global $wpdb;
     if (!defined('CP_CALCULATEDFIELDSF_ID'))
         define ('CP_CALCULATEDFIELDSF_ID',$_POST["cp_calculatedfieldsf_id"]);    
