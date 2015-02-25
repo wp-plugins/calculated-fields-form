@@ -32,6 +32,7 @@
 #fbuilder .left_aligned .fields .dfield{float:left;width:65%;}
 #fbuilder .right_aligned .fields label{float:left;width:31%;text-align:right;padding:3px 3px 0px 0px;}
 #fbuilder .right_aligned .fields .dfield{float:left;width:65%;}
+#fbuilder .right_aligned .fields .dfield label{text-align:left;}
 
 #fbuilder .one_column label,
 #fbuilder .two_column label,
@@ -75,3 +76,4 @@
 #fbuilder  .cff-summary-title:after{ content: ': '; }
 
 #fbuilder  .hide{ display:none; }
+#fbuilder  .clear{ clear:both; }
