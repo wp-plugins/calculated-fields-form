@@ -78,6 +78,6 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'default' ] = {
 	
 	'validator'	: function( v )
 		{
-			return isFinite( v ) || /\d{2}[\/\-\.]\d{2}[\/\-\.]\d{4}/.test( v );
+			return ( typeof v != 'undefined' );
 		}
 };
