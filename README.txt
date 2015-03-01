@@ -560,6 +560,8 @@ For the other fields, you should use a custom class name. All fields include the
 
 .myclass{ display:none; }
 
+If you are using the latest version of the plugin, please enter in the "Add Css Layout Keywords" attribute, the class name: hide, included in the plugin's distribution.
+
 = Q: How assign multiple class names to a field? =
 
 A: The class names are assigned to the fields through the attribute: "Add Css Layout Keywords". If you need assign multiple class names to a field, you only should enter the class names separated by space characters. For example: myclass1 myclass2
