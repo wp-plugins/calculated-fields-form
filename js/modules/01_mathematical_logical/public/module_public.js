@@ -78,6 +78,6 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'default' ] = {
 	
 	'validator'	: function( v )
 		{
-			return ( typeof v != 'undefined' );
+			return ( typeof v == 'number' ) ? ( !isNaN( v ) && isFinite( v ) ) : ( typeof v != 'undefined' );
 		}
 };
