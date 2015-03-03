@@ -562,6 +562,10 @@ For the other fields, you should use a custom class name. All fields include the
 
 If you are using the latest version of the plugin, please enter in the "Add Css Layout Keywords" attribute, the class name: hide, included in the plugin's distribution.
 
+= Q: Why after assign some of class names: column2, column3, or column4, to a group of fields, the field that follow the group is displayed displaced at right? =
+
+A: If that occur, I recommend to insert a DIV field, immediately after the group of fields, and assign the class name: clear, to the DIV field. The "clear" class is included in the plugin, to clear the fields before and after the DIV field.
+
 = Q: How assign multiple class names to a field? =
 
 A: The class names are assigned to the fields through the attribute: "Add Css Layout Keywords". If you need assign multiple class names to a field, you only should enter the class names separated by space characters. For example: myclass1 myclass2
