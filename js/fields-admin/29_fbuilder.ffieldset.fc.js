@@ -13,6 +13,7 @@
 			title:"Untitled",
 			ftype:"ffieldset",
 			fields:[],
+			columns:1,
 			display:function()
 				{
 					return '<div class="fields '+this.name+'" id="field'+this.form_identifier+'-'+this.index+'"><div class="arrow ui-icon ui-icon-play "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div class="dfield"><FIELDSET class="fcontainer">'+( ( !/^\s*$/.test( this.title ) ) ? '<LEGEND>'+this.title+'</LEGEND>' : '' )+'</FIELDSET></div><div class="clearer"></div></div>';

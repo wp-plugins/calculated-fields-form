@@ -13,6 +13,7 @@
 			title: 'div', 
 			ftype:"fdiv",
 			fields:[],
+			columns:1,
 			display:function()
 				{
 					return '<div class="fields '+this.name+'" id="field'+this.form_identifier+'-'+this.index+'"><div class="arrow ui-icon ui-icon-play "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div class="dfield"><div class="fcontainer"></div></div><div class="clearer"></div></div>';

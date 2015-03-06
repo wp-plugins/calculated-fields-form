@@ -1,12 +1,19 @@
 	$.fbuilder.controls[ 'fcontainer' ] = function(){};
 	$.fbuilder.controls[ 'fcontainer' ].prototype = {
 		fields:[],
+		columns:1,
 		after_show: function()
 			{
-				var e  = $( '#'+this.name );
+				var e  = $( '#'+this.name ), f;
                 for( var i = 0, h = this.fields.length; i < h; i++ )
 				{
-					$( '#'+this.fields[ i ]+this.form_identifier ).closest( '.fields' ).detach().appendTo( e );
+					f = $( '#'+this.fields[ i ]+this.form_identifier ).closest( '.fields' ).detach();
+					if( this.columns > 1 )
+					{
+						f.addClass( 'column'+this.columns );
+						if( i%this.columns == 0 ) f.css( 'clear', 'left' );
+					}	
+					f.appendTo( e );
 				}					
 			},
 		showHideDep:function( toShow, toHide )
