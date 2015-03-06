@@ -22,7 +22,7 @@
 						cStr = '';
 					for( var i = 0, h = columns.length; i < h; i++ )
 					{	
-						cStr += '<option value="'+columns[ i ]+'" '+( ( this.columns == columns[ i ] ) ? 'SELECTED' : '' )+'>'+columns[ i ]+' column(s)</option>';
+						cStr += '<option value="'+columns[ i ]+'" '+( ( this.columns == columns[ i ] ) ? 'SELECTED' : '' )+'>'+columns[ i ]+' column'+( ( i ) ? 's' : '' )+'</option>';
 					}	
 					return '<div><label>Columns</label><br /><select name="sColumns" id="sColumns">' + cStr + '</select><div class="clearer"><span class="uh">Shown in columns the fields into the container.</span></div></div>';
 				},
