@@ -804,6 +804,10 @@ Finally, insert a calculated field in the form with the following equation:
 
 The calculated field in this case is an auxiliary field that is not relevant in the form's interface, so I will check the option "Hide Field From Public Page" for the calculated field.
 
+= Q: How to prevent users vary the values of fields, for paying less than the calculated price? = 
+
+A: The form settings include the attribute "Base amount" to define the minimum price allowed. So, if an user manipulates the calculated field for paying less, will be applied the number entered in the "Base amount" attribute.
+
 = Q: How integrate the forms with the WooCommerce products? = 
 
 A: The forms should be created as usual, but if you want calculate the price of products through the form, you should select the calculated field in the "Request cost" attribute in the form settings. 
