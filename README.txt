@@ -4,7 +4,7 @@ Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,maths
 Requires at least: 3.0.5
 Tested up to: 4.1
-Stable tag: 1.0.17
+Stable tag: 1.0.18
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -901,7 +901,15 @@ The data submitted through the form are available from the Orders section of Woo
 * Improves the detection of the homepage's URL, for loading the resources.
 * In the paid versions of the plugin, if WordPress uses SMTP for sending emails, then prevents to use the "phpmailer_init" actions.
 
+= 1.0.18 =
+* Corrects a PHP notice, for a non initialized variable.
+
 == Upgrade Notice ==
+
+= 1.0.18 =
+* Corrects a PHP notice, for a non initialized variable.
+
+Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
 = 1.0.17 =
 * Includes the "column" attribute in the container fields (DIV and FIELDSET) to display in columns the fields into the container.

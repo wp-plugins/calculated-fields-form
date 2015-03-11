@@ -3,7 +3,7 @@
 Plugin Name: Calculated Fields Form
 Plugin URI: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Description: Create forms with field values calculated based in other form field values.
-Version: 1.0.17
+Version: 1.0.18
 Author: CodePeople.net
 Author URI: http://codepeople.net
 License: GPL
@@ -747,18 +747,21 @@ $cp_calculatedfieldsf_option_buffered_id = -1;
 
 function cp_calculatedfieldsf_get_option ($field, $default_value, $id = '')
 {
+	$value = '';
     if (!defined("CP_CALCULATEDFIELDSF_ID"))
         define ("CP_CALCULATEDFIELDSF_ID", 1);
     if ($id == '') 
         $id = CP_CALCULATEDFIELDSF_ID;         
     global $wpdb, $cp_calculatedfieldsf_option_buffered_item, $cp_calculatedfieldsf_option_buffered_id;
     if ($cp_calculatedfieldsf_option_buffered_id == $id)
-        $value = $cp_calculatedfieldsf_option_buffered_item->$field;
+	{	
+        if( property_exists( $cp_calculatedfieldsf_option_buffered_item, $field ) ) $value = @$cp_calculatedfieldsf_option_buffered_item->$field;
+	}	
     else
     {
        $myrows = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM ".$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE." WHERE id=%d", $id ) );
-       $value = $myrows[0]->$field;       
-       $cp_calculatedfieldsf_option_buffered_item = $myrows[0];
+       if( property_exists( $myrows[0], $field ) ) $value = @$myrows[0]->$field;       
+	   $cp_calculatedfieldsf_option_buffered_item = $myrows[0];
        $cp_calculatedfieldsf_option_buffered_id  = $id;
     }
     
