@@ -822,6 +822,10 @@ After create the form, is time to edit the product, the addon for WooCommerce in
 
 The data submitted through the form are available from the Orders section of WooCommerce.
 
+= Q: Why the WooCommerce product is not displaying the "Add to Cart" button? =
+
+A: If you have created the form correctly, and associated it to the product, even if you have configured the product to calculate the price with the form, you will need to assign a price to the product, through the attribute: "Regular Price", or WooCommerce won't display the "Add to Cart" button.
+
 == Screenshots ==
 
 1. Calculated forms list
