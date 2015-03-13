@@ -76,6 +76,7 @@ The plugin has two additional (commercial) versions: **Premium** and **Developer
 * Includes operations for date times management
 * Includes a script for saving the submitted data in an external database
 * Includes an add-on to integrate the forms with the WooCommerce products (Beta Version).
+* Includes an add-on to integrate the forms with the SalesForce service(Beta Version).
 
 You can either "**clone**" those calculated forms to complete your own form or create a new calculated form from scratch for your application.
 
@@ -343,6 +344,10 @@ One of the most frequent uses is for calculating prices. When displaying prices 
 
 Note that you can make the "Instruct. Text" fields dependent from the calculated value, that way you can change the text shown to the user depending of the number shown in the calculated price, since frequently the terms, conditions or offers vary according to the price amount.
 
+= Add-Ons - Only available in the Developer version of the plugin =
+
+The list of add-ons available in the plugin, appear in the "Add-ons area" of settings page of the plugin. For enabling the add-ons, simply should tick the corresponding checkboxes, and press the "Activate/Deactivate Addons" button.
+
 = WooCommerce add-on (Beta Version) - Only available in the Developer version of the plugin =
 
 The developer version of the plugin includes the WooCommerce add-on, to integrate the forms created by the "Calculated Fields Form" with the WooCommerce products. The add-on inserts an additional metabox in the WooCommerce products, with two settings fields:
@@ -351,6 +356,19 @@ The developer version of the plugin includes the WooCommerce add-on, to integrat
 * Calculate the product price through the form: Allows calculate the price of the products through the form.
 
 Note: If you want calculate the price of products through the form, will be required that you select the field of the price in the attribute: "Request cost" in the form's settings.
+
+= SalesForce add-on (Beta Version) - Only available in the Developer version of the plugin =
+
+The add-on allows create new leads in the SalesForce account with the data submitted by the forms. 
+
+To create new leads in SalesForce with the data submitted by a form, be sure that the SalesForce account has enabled the Web-to-lead option, and then go to the form's settings:
+
+* Enter the OID (Organization ID)
+* For debugging the lead creation, tick the "Enabling debug" option, and enter the email address where receive the information. For production, untick the debugging option.
+* Press the "Add attribute" button, select the Lead attribute, and enter a fixed text, or the name of the field in the form (fieldname#)
+
+Note: The Add-on includes the list of predefined attributes of Leads, but it is possible to enter custom attributes too.
+
 
 == Installation ==
 
