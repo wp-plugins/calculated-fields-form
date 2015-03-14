@@ -853,7 +853,9 @@ A: If you have created the form correctly, and associated it to the product, eve
 5. Calculator Form builder
 6. Editing general fields
 7. Available designs
-7. WooCommerce add-on
+8. Add-ons section
+9. WooCommerce add-on
+10. SalesForce add-on
 
 == Changelog ==
 
