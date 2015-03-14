@@ -844,6 +844,12 @@ The data submitted through the form are available from the Orders section of Woo
 
 A: If you have created the form correctly, and associated it to the product, even if you have configured the product to calculate the price with the form, you will need to assign a price to the product, through the attribute: "Regular Price", or WooCommerce won't display the "Add to Cart" button.
 
+= Q: What is SalesForce, and how to create new leads from my forms? =
+
+A: To get a complete guide about the integration of forms created with the plugin and the SalesForce service, please visit the following link
+
+[http://blog.net-factor.com/what-is-salesforce-and-how-to-create-new-leads-from-my-forms/](http://blog.net-factor.com/what-is-salesforce-and-how-to-create-new-leads-from-my-forms/ "What is SalesForce, and how to create new leads from my forms?")
+
 == Screenshots ==
 
 1. Calculated forms list
