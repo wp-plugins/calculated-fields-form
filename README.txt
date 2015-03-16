@@ -1,7 +1,7 @@
 === Calculated Fields Form ===
 Contributors: codepeople
 Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
-Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,maths
+Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout
 Requires at least: 3.0.5
 Tested up to: 4.1
 Stable tag: 1.0.18
@@ -48,6 +48,15 @@ Calculated Fields Form can be used for creating both single and complex calculat
 * Intuitive and interactive form builder interface
 * Predefined forms templates
 
+= Latest Features Added =
+
+* Dependent fields: Fields can be shown/hidden based on other checkboxes, radiobuttons or drop-down selections
+* Dependent fields from calculated values: Fields can be shown/hidden based on the value of a calculated field
+* Throubleshoot area to automatically fix conflicts with other scripts on themes or third party plugins and also for special characters support
+* Multi page calculated forms
+* New validations, fields types and features in the form builder
+* Calculated fields can be hidden fields.
+
 There are five samples already included with the installation:
 
 1. Simple Calculator Operations
@@ -57,6 +66,12 @@ There are five samples already included with the installation:
 5. Lease Calculator
 
 You can either "**clone**" those calculated forms to complete your own form or create a new calculated form from scratch for your application.
+
+You can **mix text and numbers** into a field. If a field contains a number it will be automatically identified and used for the calculations. In addition to that, the checkboxes, radio buttons and drop-down fields can have separately a visual "text" and a hidden "value" linked to each test: the value will be the one used for the calculation.
+
+The dates are also automatically identified and you can apply operations between them, for example, you can calculate the **number of days between two dates** with a simple operation like "date2-date1" or add some number of days or weeks to a date. To display the result as a date again you can use the CDate operator included in the calculator. The samples #2 and #4 are practical samples.
+
+The form processing and payment processing aren't included in this version. There are other versions with form processing included and additional features. See the FAQ for more information.
 
 The plugin has two additional (commercial) versions: **Premium** and **Developer**, each of them with its own features:
 
@@ -80,22 +95,12 @@ The plugin has two additional (commercial) versions: **Premium** and **Developer
 * Includes an add-on to integrate the forms with the WooCommerce products (Beta Version).
 * Includes an add-on to integrate the forms with the SalesForce service(Beta Version).
 
-You can **mix text and numbers** into a field. If a field contains a number it will be automatically identified and used for the calculations. In addition to that, the checkboxes, radio buttons and drop-down fields can have separately a visual "text" and a hidden "value" linked to each test: the value will be the one used for the calculation.
+To know the last updates, and tips about the use of the plugin, please visit our blog, press like in our Facebook page, or follow our Twitter:
+Blog: [http://blog.net-factor.com](http://blog.net-factor.com "Technical blog")
+Facebook: [https://www.facebook.com/netfactorsl](https://www.facebook.com/netfactorsl "Facebook page")
+Twitter: [https://twitter.com/netfactorsl](https://twitter.com/netfactorsl "Twitter account")
 
-The dates are also automatically identified and you can apply operations between them, for example, you can calculate the **number of days between two dates** with a simple operation like "date2-date1" or add some number of days or weeks to a date. To display the result as a date again you can use the CDate operator included in the calculator. The samples #2 and #4 are practical samples.
-
-The form processing and payment processing aren't included in this version. There are other versions with form processing included and additional features. See the FAQ for more information.
-
-= Latest Features Added =
-
-* Dependent fields: Fields can be shown/hidden based on other checkboxes, radiobuttons or drop-down selections
-* Dependent fields from calculated values: Fields can be shown/hidden based on the value of a calculated field
-* Throubleshoot area to automatically fix conflicts with other scripts on themes or third party plugins and also for special characters support
-* Multi page calculated forms
-* New validations, fields types and features in the form builder
-* Calculated fields can be hidden fields.
-
-= Other Notes =
+== Other Notes ==
 
 This section contains mainly notes about the form builder features that are too long to explain in the main description page.
 
