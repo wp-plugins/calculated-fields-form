@@ -56,9 +56,11 @@ There are five samples already included with the installation:
 4. Pregnancy Calculator
 5. Lease Calculator
 
+You can either "**clone**" those calculated forms to complete your own form or create a new calculated form from scratch for your application.
+
 The plugin has two additional (commercial) versions: **Premium** and **Developer**, each of them with its own features:
 
-=Features in Premium version=
+= Features in Premium version: =
 
 * All features of free version of plugin
 * Submits the form data, and stores the data on database, for future revisions
@@ -68,7 +70,7 @@ The plugin has two additional (commercial) versions: **Premium** and **Developer
 * Allows to display the submitted data in the thanks page
 * Includes a dashboard widget to display the submissions of the last week
 
-=Features in Developer version=
+= Features in Developer version: =
 
 * All features of free and premium version of plugin
 * Includes new controls that get its information from different datasources (database, CSV file, Post, Taxonomies, and users data)
@@ -77,8 +79,6 @@ The plugin has two additional (commercial) versions: **Premium** and **Developer
 * Includes a script for saving the submitted data in an external database
 * Includes an add-on to integrate the forms with the WooCommerce products (Beta Version).
 * Includes an add-on to integrate the forms with the SalesForce service(Beta Version).
-
-You can either "**clone**" those calculated forms to complete your own form or create a new calculated form from scratch for your application.
 
 You can **mix text and numbers** into a field. If a field contains a number it will be automatically identified and used for the calculations. In addition to that, the checkboxes, radio buttons and drop-down fields can have separately a visual "text" and a hidden "value" linked to each test: the value will be the one used for the calculation.
 
