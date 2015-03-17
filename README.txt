@@ -96,8 +96,11 @@ The plugin has two additional (commercial) versions: **Premium** and **Developer
 * Includes an add-on to integrate the forms with the SalesForce service(Beta Version).
 
 To know the last updates, and tips about the use of the plugin, please visit our blog, press like in our Facebook page, or follow our Twitter:
+
 Blog: [http://blog.net-factor.com](http://blog.net-factor.com "Technical blog")
+
 Facebook: [https://www.facebook.com/netfactorsl](https://www.facebook.com/netfactorsl "Facebook page")
+
 Twitter: [https://twitter.com/netfactorsl](https://twitter.com/netfactorsl "Twitter account")
 
 == Other Notes ==
@@ -830,6 +833,13 @@ The calculated field in this case is an auxiliary field that is not relevant in 
 = Q: How to prevent users vary the values of fields, for paying less than the calculated price? = 
 
 A: The form settings include the attribute "Base amount" to define the minimum price allowed. So, if an user manipulates the calculated field for paying less, will be applied the number entered in the "Base amount" attribute.
+
+= Q: How to use the data submitted by a form in another one? =
+
+A: Please, read the instructions in the our technical blog.
+
+[http://blog.net-factor.com/how-to-use-the-data-submitted-by-a-form-in-another-one/](http://blog.net-factor.com/how-to-use-the-data-submitted-by-a-form-in-another-one/ "How to use the data submitted by a form in another one?")
+
 
 = Q: How integrate the forms with the WooCommerce products? = 
 
