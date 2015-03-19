@@ -504,6 +504,10 @@ A: If you want send an image in the notification emails, like a header, you shou
 
 &lt;IMG src="http://..." &gt;
 
+= Q: How to replace the image displayed in a Media Field, in function of choice selected in a radio buttons field? = 
+
+A: Please, read the instructions in the following link: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q266](http://wordpress.dwbooster.com/faq/calculated-fields-form#q266 "How to replace the image displayed in a Media Field, in function of choice selected in a radio buttons field?") 
+
 = Q: How to insert changes of lines in the notification emails, when the HTML format is selected? =
 
 A: If you are using the HTML format in the notification emails, you should insert the BR tags for the changes of lines in the emails content:
