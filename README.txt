@@ -4,7 +4,7 @@ Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout
 Requires at least: 3.0.5
 Tested up to: 4.1
-Stable tag: 1.0.18
+Stable tag: 1.0.19
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -258,7 +258,7 @@ y - return the number of years between two dates, remaining months, and remainin
 * **DATETIMESUM(date_string, format, number, to_increase):** Increases the date-time string representation in the number of seconds, minutes, hours, days, months, or years, passed as parameter.
 * **GETDATETIMESTRING(datetime_object, format): ** Returns the string representation of a date object
 
-** Financial Module**
+**Financial Module**
 
 * **CALCULATEPAYMENT(x,y,z):**	Calculate the Financed Payment Amount. Three parameters: amount, months, interest rate (percent)
 * **CALCULATEAMOUNT(x,y,z): ** Calculate the Financed Amount. Three parameters: months, interest rate (percent), payment
@@ -345,6 +345,18 @@ In addition to the above, the following fields are available only in the **Devel
 * Hidden DS: A hidden field that gets its value from one of following datasources - Database, Posts information, Taxonomies information, or Users information
 
 New fields may be added at any time, so check the latest version of the plugin since it may have new options.
+
+= Create JavaScript variables to be used in the equations, from GET, or POST parameters, SESSION variables, or COOKIES =
+
+The icon with the "X" symbol, that appears when editing the contents of pages or posts, inserts a shortcode in the content with the structure:
+
+[CP_CALCULATED_FIELDS_VAR name="..."]
+
+The ... symbol should be replaced by the parameter or variable name, and will be the same name of the javascript variable. For example: [CP_CALCULATED_FIELDS_VAR name="varname"]
+
+To restrict the source of variable, define the attribute "from" in the shortcode with any of following values: get, post, session, or cookie. For example, to create the javascript variable: varname, only if exist a session variable with the same name, insert the  shortcode: [CP_CALCULATED_FIELDS_VAR name="varname" from="session"]
+
+After insert the shortcode to create the javascript variable, a valid equation would be: fieldname1*varname
 
 = Tips for calculating prices = 
 
@@ -953,7 +965,15 @@ A: To get a complete guide about the integration of forms created with the plugi
 = 1.0.18 =
 * Corrects a PHP notice, for a non initialized variable.
 
+= 1.0.19 =
+* Implements a new icon to insert a shortcode in the contents of pages and posts, to create JavaScript variables from GET, or POST parameters, SESSION variables, or COOKIES.
+
 == Upgrade Notice ==
+
+= 1.0.19 =
+* Implements a new icon to insert a shortcode in the contents of pages and posts, to create JavaScript variables from GET, or POST parameters, SESSION variables, or COOKIES.
+
+Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
 = 1.0.18 =
 * Corrects a PHP notice, for a non initialized variable.

@@ -3,7 +3,7 @@
 Plugin Name: Calculated Fields Form
 Plugin URI: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Description: Create forms with field values calculated based in other form field values.
-Version: 1.0.18
+Version: 1.0.19
 Author: CodePeople.net
 Author URI: http://codepeople.net
 License: GPL
@@ -171,7 +171,8 @@ if ( is_admin() ) {
 		add_options_page('Calculated Fields Form Options', 'Calculated Fields Form', 'manage_options', 'cp_calculated_fields_form', 'cp_calculatedfieldsf_html_post_page' );
 	}
 } else { // if not admin
-    add_shortcode( 'CP_CALCULATED_FIELDS', 'cp_calculatedfieldsf_filter_content' );        
+    add_shortcode( 'CP_CALCULATED_FIELDS', 	   'cp_calculatedfieldsf_filter_content' );        
+    add_shortcode( 'CP_CALCULATED_FIELDS_VAR', 'cp_calculatedfieldsf_create_var'     );        
 }
 
 
@@ -385,8 +386,43 @@ function _cp_calculatedfieldsf_install() {
     }    
 }
 
+/**
+ * Create a javascript variable, from: Post, Get, Session or Cookie 
+ */
+function cp_calculatedfieldsf_create_var( $atts ) {
+	if( isset( $atts[ 'name' ] ) )
+	{
+		$var = trim( $atts[ 'name' ] );
+		if( !empty( $var ) )
+		{
+			$from = '_';
+			if( session_id() == "" ) @session_start();	
+			if( isset( $atts[ 'from' ] ) ) $from .= strtoupper( trim( $atts[ 'from' ] ) );
+			if( in_array( $from, array( '_POST', '_GET', '_SESSION', '_COOKIE' ) ) )
+			{
+				if( isset( $GLOBALS[ $from ][ $var ] ) ) $value = $GLOBALS[ $from ][ $var ];
+			}
+			else
+			{	
+				if( isset( $_POST[ $var ] ) ) 			$value = $_POST[ $var ];
+				elseif( isset( $_GET[ $var ] ) ) 		$value = $_GET[ $var ];
+				elseif( isset( $_SESSION[ $var ] ) )	$value = $_SESSION[ $var ];
+				elseif( isset( $_COOKIE[ $var ] ) )		$value = $_COOKIE[ $var ];
+			}
+			
+			if( isset( $value ) )
+			{
+				return '
+				<script>
+					var '.$var.'='.json_encode( $value ).';
+				</script>
+				';
+			}	
+		}	
+	}	
+} // End cp_calculatedfieldsf_create_var
 
-function cp_calculatedfieldsf_filter_content($atts) {
+function cp_calculatedfieldsf_filter_content( $atts ) {
     global $wpdb;	
     if( empty( $atts[ 'id' ] ) )
 	{
@@ -561,7 +597,9 @@ function cp_calculatedfieldsf_customAdjustmentsLink($links) {
 
 
 function set_cp_calculatedfieldsf_insert_button() {
-    print '<a href="javascript:cp_calculatedfieldsf_insertForm();" title="'.__('Insert Calculated Fields Form').'"><img hspace="5" src="'.plugins_url('/images/cp_form.gif', __FILE__).'" alt="'.__('Insert Calculated Fields Form').'" /></a>';
+    print '<a href="javascript:cp_calculatedfieldsf_insertForm();" title="'.__('Insert Calculated Fields Form').'"><img src="'.plugins_url('/images/cp_form.gif', __FILE__).'" alt="'.__('Insert Calculated Fields Form').'" /></a>';
+	
+	print '<a href="javascript:cp_calculatedfieldsf_insertVar();" title="'.__('Create a JavaScript var from POST, GET, SESSION, or COOKIE var').'"><img src="'.plugins_url('/images/cp_var.gif', __FILE__).'" alt="'.__('Create a JavaScript var from POST, GET, SESSION, or COOKIE var').'" /></a>';
 }
 
 
