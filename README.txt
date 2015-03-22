@@ -850,6 +850,11 @@ The calculated field in this case is an auxiliary field that is not relevant in 
 
 A: The form settings include the attribute "Base amount" to define the minimum price allowed. So, if an user manipulates the calculated field for paying less, will be applied the number entered in the "Base amount" attribute.
 
+= Q: How to use a session variable in the equations? =
+
+A: Please, read the answer in the FAQ entry: 
+[http://wordpress.dwbooster.com/faq/calculated-fields-form#q268](http://wordpress.dwbooster.com/faq/calculated-fields-form#q268 "How to use a session variable in the equations?")
+
 = Q: How to use the data submitted by a form in another one? =
 
 A: Please, read the instructions in the our technical blog.
