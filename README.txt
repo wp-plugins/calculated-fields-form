@@ -1,7 +1,7 @@
 === Calculated Fields Form ===
 Contributors: codepeople
 Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
-Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session
+Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post
 Requires at least: 3.0.5
 Tested up to: 4.1
 Stable tag: 1.0.19
@@ -849,6 +849,11 @@ The calculated field in this case is an auxiliary field that is not relevant in 
 = Q: How to prevent users vary the values of fields, for paying less than the calculated price? = 
 
 A: The form settings include the attribute "Base amount" to define the minimum price allowed. So, if an user manipulates the calculated field for paying less, will be applied the number entered in the "Base amount" attribute.
+
+= Q: How to allow to the users decide the frequency of payments for recurring payments? =
+
+A: Please, read the instructions in the our technical blog.
+[http://blog.net-factor.com/published-the-calculated-fields-form-pro-v5-0-21-dev-v5-0-22/](http://blog.net-factor.com/published-the-calculated-fields-form-pro-v5-0-21-dev-v5-0-22/ "How to allow to the users decide the frequency of payments for recurring payments?")
 
 = Q: How to use a session variable in the equations? =
 
