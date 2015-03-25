@@ -1,7 +1,7 @@
 === Calculated Fields Form ===
 Contributors: codepeople
 Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
-Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post
+Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie
 Requires at least: 3.0.5
 Tested up to: 4.1
 Stable tag: 1.0.19
@@ -859,6 +859,11 @@ A: Please, read the instructions in the our technical blog.
 
 A: Please, read the answer in the FAQ entry: 
 [http://wordpress.dwbooster.com/faq/calculated-fields-form#q268](http://wordpress.dwbooster.com/faq/calculated-fields-form#q268 "How to use a session variable in the equations?")
+
+= Q: How to use cookie variables in the equations? =
+
+A: Please, read the answer in the FAQ entry: 
+[http://wordpress.dwbooster.com/faq/calculated-fields-form#q269](http://wordpress.dwbooster.com/faq/calculated-fields-form#q269 "How to use cookie variables in the equations?")
 
 = Q: How to use the data submitted by a form in another one? =
 
