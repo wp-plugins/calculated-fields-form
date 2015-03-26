@@ -865,6 +865,11 @@ A: Please, read the answer in the FAQ entry:
 A: Please, read the answer in the FAQ entry: 
 [http://wordpress.dwbooster.com/faq/calculated-fields-form#q269](http://wordpress.dwbooster.com/faq/calculated-fields-form#q269 "How to use cookie variables in the equations?")
 
+= Q: How to use a parameter passed by post in the equations? =
+
+A: Please, read the answer in the FAQ entry: 
+[http://wordpress.dwbooster.com/faq/calculated-fields-form#q270](http://wordpress.dwbooster.com/faq/calculated-fields-form#q270 "How to use a parameter passed by post in the equations?")
+
 = Q: How to use the data submitted by a form in another one? =
 
 A: Please, read the instructions in the our technical blog.
