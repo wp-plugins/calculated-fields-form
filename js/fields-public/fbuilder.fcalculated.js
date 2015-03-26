@@ -375,9 +375,7 @@
 								}
 							}
 							
-                            if( typeof recalculate == 'undefined' || recalculate ) this.defaultCalc( form_identifier, false );
-                            
-							var _match = /(_\d+)$/.exec( form_identifier );
+                            var _match = /(_\d+)$/.exec( form_identifier );
 							if( dep && _match != null )
 							{
 								$.fbuilder.showHideDep( 
@@ -387,6 +385,7 @@
 									}
 								);
 							}
+							if( typeof recalculate == 'undefined' || recalculate ) this.defaultCalc( form_identifier, false );
                             $( form ).trigger( 'cpcff_default_calc' );
 						},
 

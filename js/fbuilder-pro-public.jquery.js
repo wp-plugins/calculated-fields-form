@@ -85,7 +85,7 @@
                         }
 						if (items[i].userhelpTooltip)
 						{
-							var uh = $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).parents(".dfield");
+							var uh = $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).closest(".fields");
 							uh.find(".uh").css("display","none");
 							if (uh.find(".uh").text()!="")
 							{
@@ -139,6 +139,10 @@
 								catch(e){}
 							}	
 						}
+						else
+						{
+							$(this).parents("form").validate().focusInvalid();
+						}	
 						return false;
 					});
                 }
@@ -189,8 +193,7 @@
 					{
 						$( "#fbuilder"+opt.identifier ).tooltip({show: false,hide:false,tooltipClass:"uh-tooltip",position: { my: "left top", at: "left bottom+5", collision: "none"  },items: "[uh]",content: function (){return $(this).attr("uh");} });
 					} catch(e){}
-
-				}
+                }
                 $("#fieldlist"+opt.identifier+" .pbreak:not(.pb0)").find(".field").addClass("ignorepb");
             };
 			
@@ -254,6 +257,11 @@
 							   reloadItemsPublic();
 						   }
 						}
+
+						if( typeof window[ 'cpcff_load_defaults' ] != 'undefined' )
+                        {
+                            window[ 'cpcff_load_defaults' ]();
+                        }
 					}
 			};
 
