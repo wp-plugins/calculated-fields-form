@@ -1,7 +1,7 @@
 === Calculated Fields Form ===
 Contributors: codepeople
 Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
-Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie
+Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get
 Requires at least: 3.0.5
 Tested up to: 4.1
 Stable tag: 1.0.20
@@ -869,6 +869,11 @@ A: Please, read the answer in the FAQ entry:
 
 A: Please, read the answer in the FAQ entry: 
 [http://wordpress.dwbooster.com/faq/calculated-fields-form#q270](http://wordpress.dwbooster.com/faq/calculated-fields-form#q270 "How to use a parameter passed by post in the equations?")
+
+= Q: How to use a parameter passed by get in the equations? =
+
+A: Please, read the answer in the FAQ entry: 
+[http://wordpress.dwbooster.com/faq/calculated-fields-form#q271](http://wordpress.dwbooster.com/faq/calculated-fields-form#q271 "How to use a parameter passed by get in the equations?")
 
 = Q: How to use the data submitted by a form in another one? =
 
