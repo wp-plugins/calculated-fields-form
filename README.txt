@@ -1,7 +1,7 @@
 === Calculated Fields Form ===
 Contributors: codepeople
 Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
-Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get
+Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook
 Requires at least: 3.0.5
 Tested up to: 4.1
 Stable tag: 1.0.20
@@ -94,6 +94,7 @@ The plugin has two additional (commercial) versions: **Premium** and **Developer
 * Includes a script for saving the submitted data in an external database
 * Includes an add-on to integrate the forms with the WooCommerce products (Beta Version).
 * Includes an add-on to integrate the forms with the SalesForce service(Beta Version).
+* Includes an add-on to post the submitted information by the forms to webHooks URLs, allowing integrate the forms with services like Zapier. The Zapier service connects services as important and popular as Zoho CRM, Dropbox, Mailchimp, Evernote, Google Drive, Facebook, Twitter, and more than 300 services(Beta Version).
 
 To know the last updates, and tips about the use of the plugin, please visit our blog, press like in our Facebook page, or follow our Twitter:
 
@@ -389,6 +390,13 @@ To create new leads in SalesForce with the data submitted by a form, be sure tha
 
 Note: The Add-on includes the list of predefined attributes of Leads, but it is possible to enter custom attributes too.
 
+= WebHook add-on (Beta Version) - Only available in the Developer version of the plugin =
+
+The add-on allows posting the submitted information by the forms to webHooks URLs. With the WebHook add-on it is possible integrate the forms created by the plugin with services like Zapier. The Zapier connects services as important and popular as Zoho CRM, Dropbox, Mailchimp, Evernote, Google Drive, Facebook, Twitter, and more than 300 services([https://zapier.com/zapbook/apps/](https://zapier.com/zapbook/apps/ "Zapier"))
+
+Use this add-on is as simple as entering the WebHooks URLs, through the CFF-WebHook section in the forms settings. To associate a form with multiple WebHooks, simply press the "Add new url" button, to add a new input field.
+
+Note: About Zapier service, select Webhook as the Trigger app, and "Catch Hook" as the trigger for this app.
 
 == Installation ==
 
@@ -918,6 +926,7 @@ A: To get a complete guide about the integration of forms created with the plugi
 8. Add-ons section
 9. WooCommerce add-on
 10. SalesForce add-on
+11. WebHook add-on, and its integration with Zapier
 
 == Changelog ==
 
