@@ -4,7 +4,7 @@ Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook
 Requires at least: 3.0.5
 Tested up to: 4.1
-Stable tag: 1.0.20
+Stable tag: 1.0.21
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -1006,7 +1006,15 @@ A: To get a complete guide about the integration of forms created with the plugi
 * Corrects an issue with the dependencies in the calculated fields, and where calculated fields are the dependent fields too.
 * Sets the focus in the first invalid field, when the validation rules fail.
 
+= 1.0.21 =
+* Corrects an issue loading the templates.
+
 == Upgrade Notice ==
+
+= 1.0.21 =
+* Corrects an issue loading the templates.
+
+Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
 = 1.0.20 =
 * Corrects an issue with the dependencies in the calculated fields, and where calculated fields are the dependent fields too.

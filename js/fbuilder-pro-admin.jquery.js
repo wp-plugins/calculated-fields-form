@@ -393,6 +393,7 @@
 
 					for ( var i in $.fbuilder.showSettings.formTemplateDic )
 					{
+						if( /^\s*$/.test( i ) ) break;
 						selected = '';
 						if( $.fbuilder.showSettings.formTemplateDic[i].prefix==this.formtemplate )
 						{
