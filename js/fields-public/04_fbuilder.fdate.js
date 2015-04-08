@@ -104,7 +104,7 @@
 					if( this.showTimepicker )
 					{
 						var h = $( '#'+this.name+'_hours' ).val();
-						str += ' '+( ( this.tformat == 12 && $( '#'+this.name+'_ampm' ).val() == 'pm' ) ? ( h + 12 ) % 24 : h )+':'+$( '#'+this.name+'_minutes' ).val();
+						str += ' '+( ( this.tformat == 12 && $( '#'+this.name+'_ampm' ).val() == 'pm' ) ? ( h*1 + 12 ) % 24 : h )+':'+$( '#'+this.name+'_minutes' ).val();
 					}
 					$( '#'+this.name ).val( str ).change();
 				},
