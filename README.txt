@@ -1,7 +1,7 @@
 === Calculated Fields Form ===
 Contributors: codepeople
 Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
-Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox
+Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf
 Requires at least: 3.0.5
 Tested up to: 4.1
 Stable tag: 1.0.21
@@ -919,6 +919,12 @@ A: To get a complete guide about the integration of forms created with the plugi
 A: Please, visits the following link to get a tutorial to integrate the form with the Dropbox service.
 
 [http://wordpress.dwbooster.com/faq/calculated-fields-form#q272](http://wordpress.dwbooster.com/faq/calculated-fields-form#q272 "How to export the submitted files to DropBox?")
+
+= Q: How to generate a PDF file with the submitted information, and send it as attachment to the user? =
+
+A: Please, visits the following link to get a tutorial:
+
+[http://wordpress.dwbooster.com/faq/calculated-fields-form#q273](http://wordpress.dwbooster.com/faq/calculated-fields-form#q273 "How to generate a PDF file with the submitted information, and send it as attachment to the user?")
 
 == Screenshots ==
 
