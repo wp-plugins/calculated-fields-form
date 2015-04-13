@@ -412,13 +412,7 @@ To install Calculated Fields Form, follow these steps:
 
 = Q: Is the "Calculated Fields Form" plugin compatible with "Autoptimize"? =
 
-A: Yes, both plugins are compatible, but you should configure the plugins, following the steps below:
-
-1. In the settings page of the "Calculated Fields Form" plugin, select the option: "Classic (Recommended)", for the attribute: "Script load method:".
-
-2. Now, in the settings of the "Autoptimize" plugin, press the button: "Show advanced settings", and enter the files names: jquery.js,jquery.validate.js, in the attribute: "Exclude scripts from Autoptimize:".
-
-3. Finally, press the "Save Changes and Empty Cache" button.
+A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q214](http://wordpress.dwbooster.com/faq/calculated-fields-form#q214 "Yes, both plugins are compatible...")
 
 = Q: What means each field in the Calculated Fields Form settings area? =
 
@@ -432,9 +426,7 @@ A: You can publish the forms into pages and posts. The shortcode can be also pla
 
 = Q: Can I create global variables to be used in the equations? =
 
-A: Yes, it is possible create global variables in javascript through the shortcode of the plugin. For example, in the following shortcode [CP_CALCULATED_FIELDS id=1 myvar=4], the id=1 identifies the form to be loaded, and myvar=4 will be a global variable in javascript with value 4, that may be used in the equations.
-
-If your form includes the numeric field: "fieldname1", and a calculated field. The equation for the calculated field could be fieldname1*myvar
+A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q199](http://wordpress.dwbooster.com/faq/calculated-fields-form#q199 "Yes, it is possible create global variables in javascript through the shortcode of the plugin")
 
 = Q: Is the form processing an option, for example, to email the form data and calculated results? =
 
@@ -442,11 +434,7 @@ A: The form processing isn't available in the version listed on this directory. 
 
 = Q: Which calculation operations are included? =
 
-A: In addition to the basic and most common operations (+,-,*,/) the following functions are also available: ABS (absolute value), CEIL (rounds up to the nearest integer), FLOOR (rounds a downwards to the nearest integer), ROUND (integer round), PREC (round with decimal precision), LOG (logarithm), POW (x to the power of y), SQRT (square root), MAX (maximum value between two numbers), MIN (minimum value between two numbers) and CDATE (convert a value to display it as a date). For advanced users, the JavaScript ternary operator (condition ? value_if_true : value_if_false) is also supported.
-
-The plugin includes other operations that are very important in multiple situations: the Logical Operators. IF(logical_test, value_if_true, value_if_false), AND(logical1,logical2,...), OR(logical1,logical2,...), NOT(logical), IN(term, string/array).
-
-Additional information in the following link: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q216](http://wordpress.dwbooster.com/faq/calculated-fields-form#q216 "Which operations are included?")
+A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q216](http://wordpress.dwbooster.com/faq/calculated-fields-form#q216 "Mathematical operations, logical operands and more")
 
 = Q: How can I round the calculated result to 2 decimal digits? =
 
@@ -458,37 +446,21 @@ The above sample rounds the result of fieldname4*fieldname5 to two decimal digit
 
 = Q: Which are the operations with date values that the plugin allows? =
 
-A: The free and pro versions of the plugin allow obtain the number of days between two date fields, or add a number of days to a date and get the result as a date string through the operation CDATE. CDATE( number, format ), but the developer version of the plugin includes a module dedicated solely for dates operations.
-
-The operations included in the date module are: DATEOBJ, YEAR, MONTH, DAY, WEEKDAY, WEEKNUM, HOURS, MINUTES, SECONDS, NOW, TODAY, DATEDIFF, DATETIMESUM, and GETDATETIMESTRING.      
-
-For a detailed description about the Date/Time operations, visits the following link: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q217](http://wordpress.dwbooster.com/faq/calculated-fields-form#q217 "Which are the operations with date values that the plugin allows?")
+A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q217](http://wordpress.dwbooster.com/faq/calculated-fields-form#q217 "List and description of date/time operations")
     
 = Q: Are there financial operations included in the plugin? =
 
-A: The developer version of the plugin includes a module solely for financial operations. See the complete operations list below:
-
-CALCULATEPAYMENT, CALCULATEAMOUNT, CALCULATEMONTHS, CALCULATEINTEREST, CALCULATEACCRUEDINTEREST, CALCULATEAMORTIZATION, PRESENTVALUE, NUMBERFORMAT, ADDFORMAT, and REMOVEFORMAT 
-
-For a detailed description about the financial operations, visits the following link: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q218](http://wordpress.dwbooster.com/faq/calculated-fields-form#q218 "Are there financial operations included in the plugin?")   
+A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q218](http://wordpress.dwbooster.com/faq/calculated-fields-form#q218 "List and description of financial operations")
 
 = Q: How calculate an amortization? =
 
 A: The CALCULATEAMORTIZATION  is the operation with most complexity in the "Calculated Fields Form" and requires its own section. Please, visit the following link to read a detailed description about the use of CALCULATEAMORTIZATION operation:
 
-[http://wordpress.dwbooster.com/faq/calculated-fields-form#q219](http://wordpress.dwbooster.com/faq/calculated-fields-form#q219 "How calculate an amortization?")    
+[http://wordpress.dwbooster.com/faq/calculated-fields-form#q219](http://wordpress.dwbooster.com/faq/calculated-fields-form#q219 "How calculate an amortization?")
  
 = Q: How to define an initial date in a date field? =
  
-A: The Date control allows to define two types of initial dates, a static date, for example 03/24/2015, or a relative date depending of the current date, for example 3 days after today.
-
-The static dates are very easy to define: select the date field in the form, and type the date string in any of the attributes: "Predefined Value", or "Default Date",for the static dates, any of attributes can be used interchangeably.
-
-The case of relative dates is a little more restrictive, the rules must be typed in the "Default date" attribute, and should comply any of formats:
-
-Number: will be considered a number of days from today. For example, the number 2 represent two days from today, and the number -1 represent yesterday.
-
-String: A smart text indicating a relative date. Relative dates must contain a pair of value(number) and period; valid periods are "y" representing years, "m" representing months, "w"  represents weeks, and "d" represents days. For example "+1m +7d" indicates one month and seven days from today.
+A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q220](http://wordpress.dwbooster.com/faq/calculated-fields-form#q220 "Initializing date/time fields")
 
 = Q: How to change the language on datepicker? = 
 
@@ -498,35 +470,19 @@ A: To use a different language on datepickers will be needed create an additiona
         
 = Q: Is there a way to format the form in a table structure (various fields in the same line) ? =
 
-A: Into the calculated form editor click a field and into its settings there is one field named "Add Css Layout Keywords". Into that field you can put the name of a CSS class that will be applied to the field.
-
-There are some pre-defined CSS classes to use align two, three or four fields into the same line. The CSS classes are named:
-
-    column2
-    column3
-    column4
-
-For example if you want to put two fields into the same line then specify for both fields the class name "column2". The above is valid for both the classic fields and the calculated fields.
-
-There is another way to display multiple fields in a row. Insert a container field in the form: DIV or FIELDSET, and select the number of columns through the attribute: "Columns". In this case all fields inserted into the container are displayed distributed in columns.
-
-But, what happen if you want create 6, 8, 12 or 14 columns? The answer is simple, use the container controls ( the DIV field ). If you want create 6 columns, a way to do it would be insert two DIV container, and assign to each of them the class name: column2, finally you should insert three fields in each of containers and assign to all of them the class name column3. You will have inserted 6 columns. Following this method you can create as many columns as you want.
+A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q66](http://wordpress.dwbooster.com/faq/calculated-fields-form#q66 "Formatting a form with table structure")
 
 = Q: How to display an image in a checkbox or radio button? =
 
-A: The choices of the Radio Buttons, and Checkboxes controls, are formed by two input fields, the input field for choice value, and the input field for the text. In the input field for the choice text, should be entered an IMG tag, with an absolute URL in the src attribute:
-
-&lt;IMG src="http://..." &gt;
+A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q222](http://wordpress.dwbooster.com/faq/calculated-fields-form#q222 "Displaying images in checkboxes and radio buttons")
 
 = Q: How to insert an image in the notification emails? =
 
-A: If you want send an image in the notification emails, like a header, you should insert an IMG tag in the "Message" attribute of form settings, with an absolute URL in the SRC attribute of IMG tag:
-
-&lt;IMG src="http://..." &gt;
+A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q223](http://wordpress.dwbooster.com/faq/calculated-fields-form#q223 "Inserting images in the notification emails")
 
 = Q: How to replace the image displayed in a Media Field, in function of choice selected in a radio buttons field? = 
 
-A: Please, read the instructions in the following link: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q266](http://wordpress.dwbooster.com/faq/calculated-fields-form#q266 "How to replace the image displayed in a Media Field, in function of choice selected in a radio buttons field?") 
+A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q266](http://wordpress.dwbooster.com/faq/calculated-fields-form#q266 "How to replace the image displayed in a Media Field, in function of choice selected in a radio buttons field?") 
 
 = Q: How to insert changes of lines in the notification emails, when the HTML format is selected? =
 
@@ -536,9 +492,7 @@ A: If you are using the HTML format in the notification emails, you should inser
 
 = Q: In which order are "calculated" the fields? =
 
-A: Each time a field value changes (including the calculated fields) an event is fired to re-calculate all the fields, so the order isn't relevant, just avoid creating an endless cycle between calculated fields.
-
-The value of a calculated field will appear automatically once all the fields used in the calculations become available with a valid number or date. The calculation is instant in all cases.
+A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q79](http://wordpress.dwbooster.com/faq/calculated-fields-form#q79 "Evaluating the equations")
 
 = Q: Can I link the calculated amount to a PayPal payment form? =
 
@@ -546,7 +500,7 @@ A: That feature is available in the pro version that can be acquired at this pag
 
 = Q: Non-latin characters aren't being displayed in the calculator form. There is a workaround? =
 
-A: New: Use the "throubleshoot area" to change the character encoding. If you want to do that manually then please change the encoding of the database table "wp_cp_calculated_fields_form_settings" to utf-8. You can do that from the PHPMyAdmin or the tool that you are using to access the database. After changing the encoding, edit again the calculator form to re-enter the characters that aren't being correctly displayed.
+A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q225](http://wordpress.dwbooster.com/faq/calculated-fields-form#q225 "utf-8")
 
 = Q: The calculated form doesn't appear in the public website. Solution? =
 
@@ -558,9 +512,7 @@ A: Use the "Page Break" field on the form builder to indicate the new pages on t
 
 = Q: How to display the selected values in the slider control? =
 
-A: The values selected in the slider control are displayed in the caption attribute of the field. In the caption attribute should be entered a text with the format {0}, that will be replaced by the selected value. 
-
-Pay attention, the slider can be configured for selecting a range of values, with left and right edges, in this case the special text {0} should be inserted twice in the caption attribute, to display both values selected in the range. For example, if the slider control is used for selecting a range of prices, enter a text in the caption with the format: ${0} - ${0}
+A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q228](http://wordpress.dwbooster.com/faq/calculated-fields-form#q228 "Displaying selected values in slider control")
 
 = Q: How to display a summary of entered data in the form? =
 
@@ -568,51 +520,23 @@ A: Insert a summary control and select the fields to be displayed on summary.
 
 = Q: How to highlight the fields in the summary control? =
 
-A: The summary uses two specific class names: cff-summary-title, and cff-summary-value, for the fields labels, and fields values respectively; you only should define both classes in any of css files loaded by your website:
-
-.cff-summary-title{}
-.and cff-summary-value{}
-
-These styles will be applied to all summary fields in your form, but what to do if you want change the styles for only one summary field? The summary field includes two attributes: "Classname for fields titles", and "Classname for fields values", you can enter, through these attributes, the class names you want applied to the labels and values of the fields displayed in a specific summary field, using particular class names for each summary control,  allows show summary fields with different designs.
+A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q229](http://wordpress.dwbooster.com/faq/calculated-fields-form#q229 "Highlighting fields in summary controls")
 
 = Q: Could be displayed a summary of submitted fields in the thank you page? =
 
-A: The thank you page can be associated to the form through the attribute: "Thank you page (after sending the message)", in this page is possible publish a text of thanks to the form's users, but you can also insert a shortcode to display a summary of submitted fields, like follow:
-
-[CP_CALCULATED_FIELDS_RESULT]
-
-The shortcode allows the use of the "fields" attribute, and a complex format to get a complete control about the thank you page. To get a complete description about the thank you page, and the shortcode, visit the following link: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q230](http://wordpress.dwbooster.com/faq/calculated-fields-form#q230 "Could be displayed a summary of submitted fields in the thank you page?")
+A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q230](http://wordpress.dwbooster.com/faq/calculated-fields-form#q230 "Displaying the submitted in formation in the thank you page")
 
 = Q: How can I apply CSS styles to the form fields? =
 
-A: Into the calculated form editor, click a field to edit its details, there is a setting there named "Add CSS Layout Keywords". You can add the class name into that field, so the style specified into the CSS class will be applied to that field.
-
-Note: Don't add style rules directly there but the the name of a CSS class.
-
-You can place the CSS class either into the CSS file of your template or into the file "cp-calculated-fields-form\css\stylepublic.css" located int o the plugin's folder.
+A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q234](http://wordpress.dwbooster.com/faq/calculated-fields-form#q234 "Applying CSS styles to the form fields")
 
 = Q: Is possible modify any of predefined templates included with the plugin? =
 
-A: The plugin includes multiple templates that can be assigned to the Forms to display a predefined design: Default template, Letter template, Professional, Natural, Elegant, Decorative and Clean Design.
-
-Each template is stored in its own directory, in the "templates" folder ( "/wp-content/plugins/calculated-fields-form/templates"). Basically the templates are formed by a CSS file ( style.css ). If you want change the appearance of a predefined template, you simply should modify the style.css file corresponding to the template. The directories of each template are:
-
-* Letter Template: templates/01 directory.
-* Professional Template: templates/02 directory.
-* Natural Template: templates/03 directory.
-* Elegant Template: templates/04 directory.
-* Decorative Template: templates/05 directory.
-* Clean Design Template: templates/06 directory.
+A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q231](http://wordpress.dwbooster.com/faq/calculated-fields-form#q231 "Modifying the predefined templates")
 
 = Q: How to hide the fields on forms? =
 
-A: In the case of Calculated Fields, the action is very simple, you only should check the option "Hide Field From Public Page", in this case the field use the type="hidden", instead of type="text" (used by default). 
-
-For the other fields, you should use a custom class name. All fields include the attribute "Add Css Layout Keywords", you only should enter through this attribute a custom class name (the class name you prefer), for example myclass, and then define the new class in a css file of your website, that could be the "wp-content/plugins/cp-calculated-fields-form/css/stylepublic.css" file, like follow:
-
-.myclass{ display:none; }
-
-If you are using the latest version of the plugin, please enter in the "Add Css Layout Keywords" attribute, the class name: hide, included in the plugin's distribution.
+A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q232](http://wordpress.dwbooster.com/faq/calculated-fields-form#q232 "Hiding the fields in form")
 
 = Q: Why after assign some of class names: column2, column3, or column4, to a group of fields, the field that follow the group is displayed displaced at right? =
 
@@ -621,94 +545,6 @@ A: If that occur, I recommend to insert a DIV field, immediately after the group
 = Q: How assign multiple class names to a field? =
 
 A: The class names are assigned to the fields through the attribute: "Add Css Layout Keywords". If you need assign multiple class names to a field, you only should enter the class names separated by space characters. For example: myclass1 myclass2
-
-= Q: How can I apply CSS styles to the form fields? =
-
-A: To modify the whole styles of the form fields and labels, edit the styles file "wp-content/plugins/cp-calculated-fields-form/css/stylepublic.css" and add these rules at the end of that file:
-
-* Change all the labels:
-
-        #fbuilder, #fbuilder label, #fbuilder span {    
-            color: #00f;    
-        }    
-        
-* Change all the input, textarea and select fields:
-    
-        #fbuilder input[type=text], #fbuilder textarea, #fbuilder select {    
-            border: 2px solid #00f;    
-        }    
-    
-* Change the submit button:
-    
-        #fbuilder .pbSubmit {    
-            color: #00f;    
-            font-weight: bold;    
-        }     
-    
-* Change the "Section Break" field:
-    
-        #fbuilder .section_breaks .section_break { border:0px; }    
-        #fbuilder .section_breaks label { font-size:18px; }    
-        #fbuilder .section_breaks span { font-size:14px; }    
-    
-* Change the "Instructions Text" field:
-    
-        #fbuilder .comment_area label { font-size:18px; }    
-        #fbuilder .comment_area span { font-size:14px; }    
-    
-* Change the "next" and "previous" buttons:
-    
-        #fbuilder .pbNext,#fbuilder .pbPrevious {    
-            color: #00f;    
-            font-weight: bold;    
-        }    
-    
-* Change the "form title" and "header description":
-    
-        #fbuilder .fform h1 {font-size:32px;}    
-        #fbuilder .fform span {font-size:16px;}    
-    
-* Change the "asterisk" in required fields:
-    
-        #fbuilder label .r {color:#f00;}
-    
-* Hide the ### ### #### in the phone field:
-    
-        .uh_phone .l {display:none;}
-    
-* Hide the Date Format label in the date field:
-    
-        #fbuilder .dformat {display:none;}
-    
-* On the other hand to modify only a specific field into the form:
-
-Step #1: Into the form editor, click a field to edit its details, there is a setting there named "Add CSS Layout Keywords".
-
-Step #2: You can add a class name into that field, so the style specified into the CSS class will be applied to that field.
-
-Step #3 (Note): Don't add style rules directly there but the the name of a CSS class.
-
-Step #4: You can place the CSS class either into the CSS file of your template or into the file "wp-content/plugins/cp-calculated-fields-form/css/stylepublic.css" located into the plugin's folder.
-
-Examples: Add a class named "specialclass" into the setting "Add CSS Layout Keywords" and add one of these CSS rules into the mentioned file: 
-
-* Change the field label:
-    
-        .specialclass label {        
-            color: #00f;        
-        }        
-    
-* Change the input, textarea or select of the field:
-    
-        .specialclass input[type=text],.specialclass textarea,.specialclass select {        
-            border: 2px solid #00f;        
-        }        
-
-* Change the input box in the calculated fields:
-    
-        #fbuilder .codepeoplecalculatedfield{        
-            background: #00ff00;        
-        }        
 
 = Q: What files can be uploaded through the form? =
 
