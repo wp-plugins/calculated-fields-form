@@ -254,7 +254,7 @@
 							_match,
 							field_regexp = new RegExp( '(fieldname\\d+'+suffix+')([\\D\\b])');
 						
-						eq = '(' + eq + ')';	
+						eq = '(' + eq + ')';
 						
 						while ( _match = field_regexp.exec( eq ) )
 						{
