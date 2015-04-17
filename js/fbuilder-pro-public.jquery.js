@@ -12,7 +12,12 @@
 	{
 		return value.replace(/([\^\$\-\.\,\[\]\(\)\/\\\*\?\+\!\{\}])/g, "\\$1");
 	};
-				
+	
+	$.fbuilder[ 'parseValStr' ] = function( value )
+	{
+		return '"' + value.replace(/'/g, "\\'").replace( /\$/g, '') + '"';
+	};
+	
 	$.fbuilder[ 'parseVal' ] = function( value, thousandSeparator, decimalSymbol )
 	{
 		if( value == '' ) return 0;
@@ -24,7 +29,7 @@
 		var t = value.replace( thousandSeparator, '' ).replace( decimalSymbol, '.' ).replace( /\s/g, '' ),
 			p = /[+-]?((\d+(\.\d+)?)|(\.\d+))/.exec( t );
 			
-		return ( p ) ? p[0]*1 : '"' + value.replace(/'/g, "\\'").replace( /\$/g, '') + '"';
+		return ( p ) ? p[0]*1 : $.fbuilder[ 'parseValStr' ]( value );
 	};
 				
 	
@@ -159,7 +164,9 @@
 					}	
 				}
 							
-                
+                // Set Captcha Event
+				$( document ).on( 'click', '#fbuilder .captcha img', function(){ var e = $( this ); e.attr( 'src', e.attr( 'src' ).replace( /&\d+$/, '' ) + '&' + Math.floor( Math.random()*1000 ) ); } );
+				
 				$( '#fieldlist'+opt.identifier).find(".pbSubmit").bind("click", { 'identifier' : opt.identifier }, function( evt ) 
 					{
                         $(this).closest("form").submit();

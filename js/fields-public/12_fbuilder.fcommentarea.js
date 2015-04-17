@@ -9,6 +9,6 @@
 			show:function()
 				{
 						return '<div class="fields '+this.csslayout+' comment_area" id="field'+this.form_identifier+'-'+this.index+'"><label id="'+this.name+'">'+this.title+'</label><span class="uh">'+this.userhelp+'</span><div class="clearer"></div></div>';
-				}
+				}	
 		}
 	);
