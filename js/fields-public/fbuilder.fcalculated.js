@@ -19,7 +19,9 @@
 			hidefield:false,
 			show:function()
 				{
-					return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'" '+( ( this.hidefield ) ? 'style="display:none;padding:0;"' : '' )+'>'+( ( !this.hidefield ) ? '<label>'+this.title+''+( ( this.required ) ? '<span class="r">*</span>' : '' )+'</label>' : '' )+'<div class="dfield"><input id="'+this.name+'" name="'+this.name+'" '+((this.readonly) ? ' readonly ' : '')+' class="codepeoplecalculatedfield field '+this.size+((this.required)?" required":"")+'" type="'+( ( this.hidefield ) ? 'hidden' : 'text' )+'" value="'+this.predefined+'"/>'+( ( !this.hidefield ) ? '<span class="uh">'+this.userhelp+'</span>' : '' )+'</div><div class="clearer"></div></div>';
+					var c = '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'"><label>'+this.title+''+( ( this.required ) ? '<span class="r">*</span>' : '' )+'</label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" '+((this.readonly) ? ' readonly ' : '')+' class="codepeoplecalculatedfield field '+this.size+((this.required)?" required":"")+'" type="'+( ( this.hidefield ) ? 'hidden' : 'text' )+'" value="'+this.predefined+'"/>'+( ( !this.hidefield ) ? '<span class="uh">'+this.userhelp+'</span>' : '' )+'</div><div class="clearer"></div></div>';
+					
+					return ( this.hidefield ) ? '<div style="display:none;">'+c+'</div>' : c;
 				},
             after_show:function()
 				{

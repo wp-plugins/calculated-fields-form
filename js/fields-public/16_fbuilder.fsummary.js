@@ -46,9 +46,9 @@
                                 $( document ).on( 'change', '#' + p[ i ] + me.form_identifier, function(){ me.update(); } );
                             }	
                         }
-                        $( document ).one( 'showHideDepEvent', function( evt, form_identifier )
+                        $( document ).on( 'showHideDepEvent', function( evt, form_identifier )
                         {
-                            me.update();
+						    me.update();
                         });
                         
                         $( '#cp_calculatedfieldsf_pform'+me.form_identifier ).bind( 'reset', function(){ setTimeout( function(){ me.update(); }, 10 ); } );
