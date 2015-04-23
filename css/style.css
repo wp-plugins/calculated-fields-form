@@ -27,21 +27,33 @@
 .choicesSet .t{margin-left:18px;width:115px;float:left}
 .addComplexRule{cursor:pointer;}
 .cf_dependence_rule{width:230px;}
-.choicesEdit .choice_down{position:absolute;top:5px;left:255px;cursor:pointer;}
-.choicesEdit .choice_up{position:absolute;top:5px;left:266px;cursor:pointer;}
+
+.choicesEdit .choice_down,
+.choicesEdit .choice_up,
 .addDep,
-.choicesEdit .choice_add{position:absolute;top:5px;left:278px;cursor:pointer;}
+.choicesEdit .choice_add,
 .removeDep,
-.choicesEdit .choice_remove{position:absolute;top:5px;left:293px;cursor:pointer;}
-.choicesEditDep .choice_addDep{position:absolute;top:5px;left:278px;cursor:pointer;}
-.choicesEditDep .choice_removeDep{position:absolute;top:5px;left:293px;cursor:pointer;}
+.choicesEdit .choice_remove,
+.choicesEditDep .choice_addDep,
+.choicesEditDep .choice_removeDep{top:5px;cursor:pointer;position:absolute;}
+
+.removeDep,
+.choicesEdit .choice_remove,
+.choicesEditDep .choice_removeDep{right:0px;}
+
+.addDep,
+.choicesEdit .choice_add,
+.choicesEditDep .choice_addDep{right:16px;}
+
+.choicesEdit .choice_down{right:30px;}
+.choicesEdit .choice_up{right:38px;}
+
 .calc_dependent{width:150px;}
 .choicesEditDep select{width:170px;}
 .addDep,
 .ui-widget-content .choice_addDep.ui-icon {background-image: url(cupertino/images/ui-icons_2e83ff_256x240.png); }
 .removeDep,
 .ui-widget-content .choice_removeDep.ui-icon {background-image: url(cupertino/images/ui-icons_2e83ff_256x240.png); }
-.addDep, .removeDep{float:right;}
 .cf_dependence_field{width:150px;}
 .showHideDependencies,.dep{float:right}
 .choicesSet.hide {display:block !important;visibility: visible !important;}
@@ -101,3 +113,4 @@ a.helpfbuilder{font-size:80%;text-decoration:underline;color:#00f;cursor:pointer
 }
 
 .form-builder-error-messages .error-text{ color: #FF0000; border: 1px solid #FF0000; margin-bottom: 10px; padding:5px; }
+.form-builder #tabs label{ font-size:12px !important; }
