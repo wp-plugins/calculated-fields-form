@@ -282,6 +282,7 @@ $.extend($.validator, {
 		creditcard: "Please enter a valid credit card number.",
 		equalTo: "Please enter the same value again.",
 		accept: "Please enter a value with a valid extension.",
+		upload_size: $.validator.format("The file you've chosen is too big, maximum is {0} kB."),
 		maxlength: $.validator.format("Please enter no more than {0} characters."),
 		minlength: $.validator.format("Please enter at least {0} characters."),
 		rangelength: $.validator.format("Please enter a value between {0} and {1} characters long."),
