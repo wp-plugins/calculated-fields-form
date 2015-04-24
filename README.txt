@@ -667,6 +667,12 @@ A: The form builder does not include a field to insert links explicitly in the f
 
 &lt;a href="http://wordpress.dwbooster.com"&gt;Visit the website&lt;/a&gt;
 
+= Q: How to define dependencies between fields in the form? =
+
+A: Visit the following link with a tutorial about the use of dependencies between fields in the form,
+
+[http://blog.net-factor.com/how-to-use-dependencies-between-fields-in-the-form/](http://blog.net-factor.com/how-to-use-dependencies-between-fields-in-the-form/ "How to use dependencies between fields in the form?")
+
 = Q: How can be created dependencies with  multiple fields? =
 
 A: To create dependencies that depend of values of multiple fields, will be needed validate the dependencies rules, and display or hide the fields through an equation. Please, visit the following link:
