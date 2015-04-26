@@ -768,6 +768,12 @@ A: Please, visits the following link to get a tutorial:
 
 [http://wordpress.dwbooster.com/faq/calculated-fields-form#q273](http://wordpress.dwbooster.com/faq/calculated-fields-form#q273 "How to generate a PDF file with the submitted information, and send it as attachment to the user?")
 
+= Q: How to use a file field with multiple selection from Zapier? =
+
+A: Please, visits the following link to get the answer to your question:
+
+[http://wordpress.dwbooster.com/faq/calculated-fields-form#q274](http://wordpress.dwbooster.com/faq/calculated-fields-form#q274 "How to use a file field with multiple selection from Zapier?")
+
 == Screenshots ==
 
 1. Calculated forms list
