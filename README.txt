@@ -731,6 +731,11 @@ A: Please, read the instructions in the our technical blog.
 
 [http://blog.net-factor.com/how-to-use-the-data-submitted-by-a-form-in-another-one/](http://blog.net-factor.com/how-to-use-the-data-submitted-by-a-form-in-another-one/ "How to use the data submitted by a form in another one?")
 
+= Q: How to store the data sent on a different database? = 
+
+A: Please, read the instructions in the our technical blog.
+
+[http://blog.net-factor.com/how-store-data-sent-different-database/](http://blog.net-factor.com/how-store-data-sent-different-database/ "How to store the data sent on a different database?")
 
 = Q: How integrate the forms with the WooCommerce products? = 
 
