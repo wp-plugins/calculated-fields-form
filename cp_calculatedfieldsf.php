@@ -3,7 +3,7 @@
 Plugin Name: Calculated Fields Form
 Plugin URI: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Description: Create forms with field values calculated based in other form field values.
-Version: 1.0.24
+Version: 1.0.25
 Author: CodePeople.net
 Author URI: http://codepeople.net
 License: GPL
@@ -311,58 +311,58 @@ function _cp_calculatedfieldsf_install() {
 
     $count = $wpdb->get_var(  "SELECT COUNT(id) FROM ".$table_name  );
     if (!$count)
-    {                
-        $values = array( 'fp_from_email' => cp_calculatedfieldsf_get_option('fp_from_email', CP_CALCULATEDFIELDSF_DEFAULT_fp_from_email),
-                         'fp_destination_emails' => cp_calculatedfieldsf_get_option('fp_destination_emails', CP_CALCULATEDFIELDSF_DEFAULT_fp_destination_emails),
-                         'fp_subject' => cp_calculatedfieldsf_get_option('fp_subject', CP_CALCULATEDFIELDSF_DEFAULT_fp_subject),
-                         'fp_inc_additional_info' => cp_calculatedfieldsf_get_option('fp_inc_additional_info', CP_CALCULATEDFIELDSF_DEFAULT_fp_inc_additional_info),
-                         'fp_return_page' => cp_calculatedfieldsf_get_option('fp_return_page', CP_CALCULATEDFIELDSF_DEFAULT_fp_return_page),
-                         'fp_message' => cp_calculatedfieldsf_get_option('fp_message', CP_CALCULATEDFIELDSF_DEFAULT_fp_message),
-                         'fp_emailformat' => cp_calculatedfieldsf_get_option('fp_emailformat', CP_CALCULATEDFIELDSF_DEFAULT_email_format),
+    {   
+		$values = array( 'fp_from_email' => CP_CALCULATEDFIELDSF_DEFAULT_fp_from_email,
+                         'fp_destination_emails' => CP_CALCULATEDFIELDSF_DEFAULT_fp_destination_emails,
+                         'fp_subject' => CP_CALCULATEDFIELDSF_DEFAULT_fp_subject,
+                         'fp_inc_additional_info' => CP_CALCULATEDFIELDSF_DEFAULT_fp_inc_additional_info,
+                         'fp_return_page' => CP_CALCULATEDFIELDSF_DEFAULT_fp_return_page,
+                         'fp_message' => CP_CALCULATEDFIELDSF_DEFAULT_fp_message,
+                         'fp_emailformat' => CP_CALCULATEDFIELDSF_DEFAULT_email_format,
 
-                         'cu_enable_copy_to_user' => cp_calculatedfieldsf_get_option('cu_enable_copy_to_user', CP_CALCULATEDFIELDSF_DEFAULT_cu_enable_copy_to_user),
-                         'cu_user_email_field' => cp_calculatedfieldsf_get_option('cu_user_email_field', CP_CALCULATEDFIELDSF_DEFAULT_cu_user_email_field),
-                         'cu_subject' => cp_calculatedfieldsf_get_option('cu_subject', CP_CALCULATEDFIELDSF_DEFAULT_cu_subject),
-                         'cu_message' => cp_calculatedfieldsf_get_option('cu_message', CP_CALCULATEDFIELDSF_DEFAULT_cu_message),
-                         'cu_emailformat' => cp_calculatedfieldsf_get_option('cp_emailformat', CP_CALCULATEDFIELDSF_DEFAULT_email_format),
+                         'cu_enable_copy_to_user' => CP_CALCULATEDFIELDSF_DEFAULT_cu_enable_copy_to_user,
+                         'cu_user_email_field' => CP_CALCULATEDFIELDSF_DEFAULT_cu_user_email_field,
+                         'cu_subject' => CP_CALCULATEDFIELDSF_DEFAULT_cu_subject,
+                         'cu_message' => CP_CALCULATEDFIELDSF_DEFAULT_cu_message,
+                         'cu_emailformat' => CP_CALCULATEDFIELDSF_DEFAULT_email_format,
 
-                         'vs_use_validation' => cp_calculatedfieldsf_get_option('vs_use_validation', CP_CALCULATEDFIELDSF_DEFAULT_vs_use_validation),
-                         'vs_text_is_required' => cp_calculatedfieldsf_get_option('vs_text_is_required', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_required),
-                         'vs_text_is_email' => cp_calculatedfieldsf_get_option('vs_text_is_email', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_email),
-                         'vs_text_datemmddyyyy' => cp_calculatedfieldsf_get_option('vs_text_datemmddyyyy', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_datemmddyyyy),
-                         'vs_text_dateddmmyyyy' => cp_calculatedfieldsf_get_option('vs_text_dateddmmyyyy', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_dateddmmyyyy),
-                         'vs_text_number' => cp_calculatedfieldsf_get_option('vs_text_number', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_number),
-                         'vs_text_digits' => cp_calculatedfieldsf_get_option('vs_text_digits', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_digits),
-                         'vs_text_max' => cp_calculatedfieldsf_get_option('vs_text_max', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_max),
-                         'vs_text_min' => cp_calculatedfieldsf_get_option('vs_text_min', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_min),
-                         'vs_text_submitbtn' => cp_calculatedfieldsf_get_option('vs_text_submitbtn', 'Submit'),
-                         'vs_text_previousbtn' => cp_calculatedfieldsf_get_option('vs_text_previousbtn', 'Previous'),
-                         'vs_text_nextbtn' => cp_calculatedfieldsf_get_option('vs_text_nextbtn', 'Next'),                         
+                         'vs_use_validation' => CP_CALCULATEDFIELDSF_DEFAULT_vs_use_validation,
+                         'vs_text_is_required' => CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_required,
+                         'vs_text_is_email' => CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_email,
+                         'vs_text_datemmddyyyy' => CP_CALCULATEDFIELDSF_DEFAULT_vs_text_datemmddyyyy,
+                         'vs_text_dateddmmyyyy' => CP_CALCULATEDFIELDSF_DEFAULT_vs_text_dateddmmyyyy,
+                         'vs_text_number' => CP_CALCULATEDFIELDSF_DEFAULT_vs_text_number,
+                         'vs_text_digits' => CP_CALCULATEDFIELDSF_DEFAULT_vs_text_digits,
+                         'vs_text_max' => CP_CALCULATEDFIELDSF_DEFAULT_vs_text_max,
+                         'vs_text_min' => CP_CALCULATEDFIELDSF_DEFAULT_vs_text_min,
+                         'vs_text_submitbtn' => 'Submit',
+                         'vs_text_previousbtn' => 'Previous',
+                         'vs_text_nextbtn' => 'Next',                         
                          
-                         'enable_paypal' => cp_calculatedfieldsf_get_option('enable_paypal', CP_CALCULATEDFIELDSF_DEFAULT_ENABLE_PAYPAL),
-                         'paypal_email' => cp_calculatedfieldsf_get_option('paypal_email', CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_EMAIL),
-                         'request_cost' => cp_calculatedfieldsf_get_option('request_cost', CP_CALCULATEDFIELDSF_DEFAULT_COST),
-                         'paypal_product_name' => cp_calculatedfieldsf_get_option('paypal_product_name', CP_CALCULATEDFIELDSF_DEFAULT_PRODUCT_NAME),
-                         'currency' => cp_calculatedfieldsf_get_option('currency', CP_CALCULATEDFIELDSF_DEFAULT_CURRENCY),
-                         'paypal_language' => cp_calculatedfieldsf_get_option('paypal_language', CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_LANGUAGE),                                      
-                         'paypal_mode' => cp_calculatedfieldsf_get_option('paypal_mode', CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_MODE),
-                         'paypal_recurrent' => cp_calculatedfieldsf_get_option('paypal_recurrent', CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_RECURRENT),
-                         'paypal_identify_prices' => cp_calculatedfieldsf_get_option('paypal_identify_prices', CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_IDENTIFY_PRICES),
-                         'paypal_zero_payment' => cp_calculatedfieldsf_get_option('paypal_zero_payment', CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_ZERO_PAYMENT),
+                         'enable_paypal' => CP_CALCULATEDFIELDSF_DEFAULT_ENABLE_PAYPAL,
+                         'paypal_email' => CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_EMAIL,
+                         'request_cost' => CP_CALCULATEDFIELDSF_DEFAULT_COST,
+                         'paypal_product_name' => CP_CALCULATEDFIELDSF_DEFAULT_PRODUCT_NAME,
+                         'currency' => CP_CALCULATEDFIELDSF_DEFAULT_CURRENCY,
+                         'paypal_language' => CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_LANGUAGE,                                      
+                         'paypal_mode' => CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_MODE,
+                         'paypal_recurrent' => CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_RECURRENT,
+                         'paypal_identify_prices' => CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_IDENTIFY_PRICES,
+                         'paypal_zero_payment' => CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_ZERO_PAYMENT,
 
-                         'cv_enable_captcha' => cp_calculatedfieldsf_get_option('cv_enable_captcha', CP_CALCULATEDFIELDSF_DEFAULT_cv_enable_captcha),
-                         'cv_width' => cp_calculatedfieldsf_get_option('cv_width', CP_CALCULATEDFIELDSF_DEFAULT_cv_width),
-                         'cv_height' => cp_calculatedfieldsf_get_option('cv_height', CP_CALCULATEDFIELDSF_DEFAULT_cv_height),
-                         'cv_chars' => cp_calculatedfieldsf_get_option('cv_chars', CP_CALCULATEDFIELDSF_DEFAULT_cv_chars),
-                         'cv_font' => cp_calculatedfieldsf_get_option('cv_font', CP_CALCULATEDFIELDSF_DEFAULT_cv_font),
-                         'cv_min_font_size' => cp_calculatedfieldsf_get_option('cv_min_font_size', CP_CALCULATEDFIELDSF_DEFAULT_cv_min_font_size),
-                         'cv_max_font_size' => cp_calculatedfieldsf_get_option('cv_max_font_size', CP_CALCULATEDFIELDSF_DEFAULT_cv_max_font_size),
-                         'cv_noise' => cp_calculatedfieldsf_get_option('cv_noise', CP_CALCULATEDFIELDSF_DEFAULT_cv_noise),
-                         'cv_noise_length' => cp_calculatedfieldsf_get_option('cv_noise_length', CP_CALCULATEDFIELDSF_DEFAULT_cv_noise_length),
-                         'cv_background' => cp_calculatedfieldsf_get_option('cv_background', CP_CALCULATEDFIELDSF_DEFAULT_cv_background),
-                         'cv_border' => cp_calculatedfieldsf_get_option('cv_border', CP_CALCULATEDFIELDSF_DEFAULT_cv_border),
-                         'cv_text_enter_valid_captcha' => cp_calculatedfieldsf_get_option('cv_text_enter_valid_captcha', CP_CALCULATEDFIELDSF_DEFAULT_cv_text_enter_valid_captcha)
-                         );     
+                         'cv_enable_captcha' => CP_CALCULATEDFIELDSF_DEFAULT_cv_enable_captcha,
+                         'cv_width' => CP_CALCULATEDFIELDSF_DEFAULT_cv_width,
+                         'cv_height' => CP_CALCULATEDFIELDSF_DEFAULT_cv_height,
+                         'cv_chars' => CP_CALCULATEDFIELDSF_DEFAULT_cv_chars,
+                         'cv_font' => CP_CALCULATEDFIELDSF_DEFAULT_cv_font,
+                         'cv_min_font_size' => CP_CALCULATEDFIELDSF_DEFAULT_cv_min_font_size,
+                         'cv_max_font_size' => CP_CALCULATEDFIELDSF_DEFAULT_cv_max_font_size,
+                         'cv_noise' => CP_CALCULATEDFIELDSF_DEFAULT_cv_noise,
+                         'cv_noise_length' => CP_CALCULATEDFIELDSF_DEFAULT_cv_noise_length,
+                         'cv_background' => CP_CALCULATEDFIELDSF_DEFAULT_cv_background,
+                         'cv_border' => CP_CALCULATEDFIELDSF_DEFAULT_cv_border,
+                         'cv_text_enter_valid_captcha' => CP_CALCULATEDFIELDSF_DEFAULT_cv_text_enter_valid_captcha
+                        );
         $values['id'] = 1;
         $values['form_name'] = 'Simple Operations';
         $values['form_structure'] = CP_CALCULATEDFIELDSF_DEFAULT_form_structure1;
@@ -797,10 +797,24 @@ function cp_calculatedfieldsf_get_option ($field, $default_value, $id = '')
 	}	
     else
     {
-       $myrows = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM ".$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE." WHERE id=%d", $id ) );
-       if( property_exists( $myrows[0], $field ) ) $value = @$myrows[0]->$field;       
-	   $cp_calculatedfieldsf_option_buffered_item = $myrows[0];
-       $cp_calculatedfieldsf_option_buffered_id  = $id;
+		$myrows = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM ".$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE." WHERE id=%d", $id ) );
+		if( !empty( $myrows ) )
+		{ 
+			if( property_exists( $myrows[0], $field ) )
+			{	
+				$value = @$myrows[0]->$field;
+			}	
+			else
+			{
+				$value = $default_value;
+			}	
+			$cp_calculatedfieldsf_option_buffered_item = $myrows[0];
+			$cp_calculatedfieldsf_option_buffered_id  = $id;
+		}
+		else
+		{
+			$value = $default_value;
+		}	
     }
     
     if ( ( $field == 'vs_all_texts' && empty( $value ) ) || ( $value == '' && $cp_calculatedfieldsf_option_buffered_item->form_structure == '' ) )
