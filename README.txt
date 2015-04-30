@@ -534,6 +534,10 @@ A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q234](http://wordp
 
 A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q231](http://wordpress.dwbooster.com/faq/calculated-fields-form#q231 "Modifying the predefined templates")
 
+= Q: How to create a new template to use with my forms? = 
+
+A: [http://blog.net-factor.com/how-to-create-a-new-template-to-use-with-my-forms/](http://blog.net-factor.com/how-to-create-a-new-template-to-use-with-my-forms/ "How to create a new template to use with my forms?")
+
 = Q: How to hide the fields on forms? =
 
 A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q232](http://wordpress.dwbooster.com/faq/calculated-fields-form#q232 "Hiding the fields in form")
