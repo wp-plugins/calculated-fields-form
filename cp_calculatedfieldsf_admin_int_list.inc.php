@@ -251,7 +251,6 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
         <option value="1" <?php if (get_option('CP_CFF_LOAD_SCRIPTS',"1") != "1") echo 'selected'; ?>>Direct</option>
        </select><br />
        <em>* Change the script load method if the form doesn't appear in the public website.</em>
-      
       <br /><br />
       Character encoding:<br />
        <select id="cccharsets" name="cccharsets">
@@ -267,27 +266,7 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
 
   </div>    
  </div> 
-
-
-
-  
 </div> 
-
-
 [<a href="http://wordpress.dwbooster.com/contact-us" target="_blank">Request Custom Modifications</a>] | [<a href="http://wordpress.dwbooster.com/forms/calculated-fields-form" target="_blank">Help</a>]
 </form>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

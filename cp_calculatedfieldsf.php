@@ -822,6 +822,4 @@ function cp_calculatedfieldsf_get_option ($field, $default_value, $id = '')
         
     return $value;
 }
-
-
 ?>
