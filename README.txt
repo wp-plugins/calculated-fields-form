@@ -799,9 +799,87 @@ A: Please, visits the following link to get the answer to your question:
 
 == Changelog ==
 
-= 1.0 =
-* First version released.
-* Improved jQuery form builder published
+= 1.0.25 =
+* Modifies the insertion queries.
+
+= 1.0.24 =
+* Includes a validation text, for files bigger than size limit defined.
+
+= 1.0.23 =
+* Modifies the fields: summary, hidden, and calculated.
+
+= 1.0.22 =
+* Modifies the File fields for accepting multiple files in a same file tag.
+* Includes new features in the Pro and Dev versions of plugin (http://blog.net-factor.com/xK6dJ)
+
+= 1.0.21 =
+* Corrects an issue loading the templates.
+
+= 1.0.20 =
+* Corrects an issue with the dependencies in the calculated fields, and where calculated fields are the dependent fields too.
+* Sets the focus in the first invalid field, when the validation rules fail.
+
+= 1.0.19 =
+* Implements a new icon to insert a shortcode in the contents of pages and posts, to create JavaScript variables from GET, or POST parameters, SESSION variables, or COOKIES.
+
+= 1.0.18 =
+* Corrects a PHP notice, for a non initialized variable.
+
+= 1.0.17 =
+* Includes the "column" attribute in the container fields (DIV and FIELDSET) to display in columns the fields into the container.
+* Improves the detection of the homepage's URL, for loading the resources.
+* In the paid versions of the plugin, if WordPress uses SMTP for sending emails, then prevents to use the "phpmailer_init" actions.
+
+= 1.0.16 =
+* Modifies the validation rules for limiting infinite or NaN values, in numeric results.
+
+= 1.0.15 =
+* Modifies the validation rules for accepting textual values in the calculated fields.
+
+= 1.0.14 =
+* Hides the labels and the help for users, in the calculated fields configured as hidden from the public page, to prevent these fields are displayed if the calculated fields are dependent of a radio button, checkbox, or dropdown field, and the choice is selected.
+
+= 1.0.13 =
+* Modifies the styles associated to the forms.
+
+= 1.0.12 =
+* Increases the plugin's security, using the WordPress Nonces mechanism.
+* Allows the installation of the plugin in a WordPress Multisite.
+
+= 1.0.11 =
+* Modifies the replacement of numbers in the equations to avoid invalid operations.
+* Modifies the database queries to avoid some potential vulnerabilities.
+
+= 1.0.10 =
+* Modifies the slider control for accepting decimal numbers.
+
+= 1.0.9 =
+* Corrects some issues with the slider control, and enables the drag and drop feature of the slider in the mobile devices.
+
+= 1.0.8 =
+* Improves the behavior, and correct and issue with the following controls: date, checkbox, radio button group, and drop-down
+
+= 1.0.7 =
+* The current update add the slider control.
+
+= 1.0.6 =
+* The current update allows to define the time control as 12 or 24 hours.
+
+= 1.0.5 =
+* The fields defined as small or medium, are displayed large in small screens.
+* Corrects a conflict with others of our plugins that use the form builder, when both plugins are inserted in the same page.
+
+= 1.0.4 =
+* Modifies the media control to insert multiple images in the same form.
+
+= 1.0.3 =
+* Modifies the loading process of the javascript files.
+* Modifies some styles applied to the forms to improve the appearance of the forms in small screens, like mobiles and tablets.
+
+= 1.0.2 =
+* Corrects an issue with the placeholder attribute in the date/time fields
+* The reset button clears the fields values in the summary fields
+* Improves the performance of the calculated fields
 
 = 1.0.1 =
 * Compatibility issues fixed, faster loading
@@ -809,87 +887,9 @@ A: Please, visits the following link to get the answer to your question:
 * Compatible with all the latest WP versions
 * Fixed tags in WP directory
 
-= 1.0.2 =
-* Corrects an issue with the placeholder attribute in the date/time fields
-* The reset button clears the fields values in the summary fields
-* Improves the performance of the calculated fields
-
-= 1.0.3 =
-* Modifies the loading process of the javascript files.
-* Modifies some styles applied to the forms to improve the appearance of the forms in small screens, like mobiles and tablets.
-
-= 1.0.4 =
-* Modifies the media control to insert multiple images in the same form.
-
-= 1.0.5 =
-* The fields defined as small or medium, are displayed large in small screens.
-* Corrects a conflict with others of our plugins that use the form builder, when both plugins are inserted in the same page.
-
-= 1.0.6 =
-* The current update allows to define the time control as 12 or 24 hours.
-
-= 1.0.7 =
-* The current update add the slider control.
-
-= 1.0.8 =
-* Improves the behavior, and correct and issue with the following controls: date, checkbox, radio button group, and drop-down
-
-= 1.0.9 =
-* Corrects some issues with the slider control, and enables the drag and drop feature of the slider in the mobile devices.
-
-= 1.0.10 =
-* Modifies the slider control for accepting decimal numbers.
-
-= 1.0.11 =
-* Modifies the replacement of numbers in the equations to avoid invalid operations.
-* Modifies the database queries to avoid some potential vulnerabilities.
-
-= 1.0.12 =
-* Increases the plugin's security, using the WordPress Nonces mechanism.
-* Allows the installation of the plugin in a WordPress Multisite.
-
-= 1.0.13 =
-* Modifies the styles associated to the forms.
-
-= 1.0.14 =
-* Hides the labels and the help for users, in the calculated fields configured as hidden from the public page, to prevent these fields are displayed if the calculated fields are dependent of a radio button, checkbox, or dropdown field, and the choice is selected.
-
-= 1.0.15 =
-* Modifies the validation rules for accepting textual values in the calculated fields.
-
-= 1.0.16 =
-* Modifies the validation rules for limiting infinite or NaN values, in numeric results.
-
-= 1.0.17 =
-* Includes the "column" attribute in the container fields (DIV and FIELDSET) to display in columns the fields into the container.
-* Improves the detection of the homepage's URL, for loading the resources.
-* In the paid versions of the plugin, if WordPress uses SMTP for sending emails, then prevents to use the "phpmailer_init" actions.
-
-= 1.0.18 =
-* Corrects a PHP notice, for a non initialized variable.
-
-= 1.0.19 =
-* Implements a new icon to insert a shortcode in the contents of pages and posts, to create JavaScript variables from GET, or POST parameters, SESSION variables, or COOKIES.
-
-= 1.0.20 =
-* Corrects an issue with the dependencies in the calculated fields, and where calculated fields are the dependent fields too.
-* Sets the focus in the first invalid field, when the validation rules fail.
-
-= 1.0.21 =
-* Corrects an issue loading the templates.
-
-= 1.0.22 =
-* Modifies the File fields for accepting multiple files in a same file tag.
-* Includes new features in the Pro and Dev versions of plugin (http://blog.net-factor.com/xK6dJ)
-
-= 1.0.23 =
-* Modifies the fields: summary, hidden, and calculated.
-
-= 1.0.24 =
-* Includes a validation text, for files bigger than size limit defined.
-
-= 1.0.25 =
-* Modifies the insertion queries.
+= 1.0 =
+* First version released.
+* Improved jQuery form builder published
 
 == Upgrade Notice ==
 
