@@ -3,7 +3,7 @@
 Plugin Name: Calculated Fields Form
 Plugin URI: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Description: Create forms with field values calculated based in other form field values.
-Version: 1.0.25
+Version: 1.0.26
 Author: CodePeople.net
 Author URI: http://codepeople.net
 License: GPL
@@ -215,8 +215,8 @@ function cp_calculatedfieldsf_install($networkwide)  {
 function _cp_calculatedfieldsf_install() {
     global $wpdb;
     
-    define('CP_CALCULATEDFIELDSF_DEFAULT_fp_from_email', get_the_author_meta('user_email', get_current_user_id()) );
-    define('CP_CALCULATEDFIELDSF_DEFAULT_fp_destination_emails', CP_CALCULATEDFIELDSF_DEFAULT_fp_from_email);
+	if( !defined( 'CP_CALCULATEDFIELDSF_DEFAULT_fp_from_email' ) ) define('CP_CALCULATEDFIELDSF_DEFAULT_fp_from_email', get_the_author_meta('user_email', get_current_user_id()) );
+    if( !defined( 'CP_CALCULATEDFIELDSF_DEFAULT_fp_destination_emails' ) ) define('CP_CALCULATEDFIELDSF_DEFAULT_fp_destination_emails', CP_CALCULATEDFIELDSF_DEFAULT_fp_from_email);
 
     $table_name = $wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE;
 
@@ -465,6 +465,7 @@ function cp_calculatedfieldsf_available_templates(){
 				if( ( $ini_array = parse_ini_file( $tpls_dir->path.'/'.$entry.'/config.ini' ) ) !== false )
 				{
 					if( !empty( $ini_array[ 'file' ] ) ) $ini_array[ 'file' ] = plugins_url( 'templates/'.$entry.'/'.$ini_array[ 'file' ], __FILE__ );
+					if( !empty( $ini_array[ 'js' ] ) ) $ini_array[ 'js' ] = plugins_url( 'templates/'.$entry.'/'.$ini_array[ 'js' ], __FILE__ );					
 					if( !empty( $ini_array[ 'thumbnail' ] ) ) $ini_array[ 'thumbnail' ] = plugins_url( 'templates/'.$entry.'/'.$ini_array[ 'thumbnail' ], __FILE__ );
 					$CP_CFF_global_templates[ $ini_array[ 'prefix' ] ] = $ini_array;
 				}

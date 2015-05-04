@@ -12,8 +12,14 @@ if( is_null( $form_data ) ){
 if( !is_null( $form_data ) && isset( $form_data[ 1 ] ) && isset( $form_data[ 1 ][ 0 ] ) && isset( $form_data[ 1 ][ 0 ]->formtemplate ) )	
 {
 	$templatelist = cp_calculatedfieldsf_available_templates();
-	if( isset( $templatelist[ $form_data[ 1 ][ 0 ]->formtemplate ] ) );
-	print '<link href="'.esc_attr( esc_url( $templatelist[ $form_data[ 1 ][ 0 ]->formtemplate ][ 'file' ] ) ).'" type="text/css" rel="stylesheet" />';
+	if( isset( $templatelist[ $form_data[ 1 ][ 0 ]->formtemplate ] ) )
+	{
+		print '<link href="'.esc_attr( esc_url( $templatelist[ $form_data[ 1 ][ 0 ]->formtemplate ][ 'file' ] ) ).'" type="text/css" rel="stylesheet" />';
+		if( isset( $templatelist[ $form_data[ 1 ][ 0 ]->formtemplate ][ 'js' ] ) )
+		{
+			print '<script src="'.esc_attr( esc_url( $templatelist[ $form_data[ 1 ][ 0 ]->formtemplate ][ 'js' ] ) ).'"></script>';    
+		}           
+	}
 }
 
 $raw_form_str = str_replace('"','&quot;',esc_attr($raw_form_str));
