@@ -8,7 +8,7 @@
 #fbuilder .medium{width:50% !important;padding-left:0;padding-right:0;}
 #fbuilder .large{width:100% !important;padding-left:0;padding-right:0;}
 
-@media screen and (min-width: 740px){
+@media screen and (min-width: 740px),print{
     #fbuilder .fields.column2{float:left;width:49.9%;}
     #fbuilder .fields.column3{float:left;width:33.3%;}
     #fbuilder .fields.column4{float:left;width:24.9%;}
@@ -67,6 +67,7 @@
 #fbuilder fieldset{border:1px solid #ccc;padding:10px;}
 #fbuilder legend{border:1px solid #ccc;padding:5px 10px;}
 #fbuilder .cpcaptchalayer,.cp_subbtn{display:none;}
+#fbuilder .captcha img{ cursor:pointer; }
 
 #fbuilder input[type='radio'],#fbuilder input[type='checkbox']{width:auto;}
 .ui-tooltip.uh-tooltip{width:250px;font-size:10px;font-weight:normal;padding:5px;}
@@ -77,3 +78,15 @@
 
 #fbuilder  .hide{ display:none; }
 #fbuilder  .clear{ clear:both; }
+
+@media print{
+	#fbuilder input[type="button"],
+	#fbuilder input[type="reset"],
+	#fbuilder .pbNext,
+	#fbuilder .pbPrevious,
+	#fbuilder .pbSubmit,
+	#fbuilder .captcha{
+		display: none !important;
+	}
+	#fbuilder .pbreak{display: block;}
+}
