@@ -4,7 +4,7 @@ Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf
 Requires at least: 3.0.5
 Tested up to: 4.2
-Stable tag: 1.0.28
+Stable tag: 1.0.29
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -799,6 +799,9 @@ A: Please, visits the following link to get the answer to your question:
 
 == Changelog ==
 
+= 1.0.29 =
+* The current update modifies the module for parsing numeric values, using the "." symbol as decimals separator in numbers, if the user leaves empty this attribute.
+
 = 1.0.28 =
 * Improves the design of the forms for printing.
 
@@ -902,6 +905,11 @@ A: Please, visits the following link to get the answer to your question:
 
 == Upgrade Notice ==
 
+= 1.0.29 =
+* The current update modifies the module for parsing numeric values, using the "." symbol as decimals separator in numbers, if the user leaves empty this attribute.
+
+Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
+
 = 1.0.28 =
 * Improves the design of the forms for printing.
 
@@ -910,138 +918,86 @@ Important note: If you are using the Professional version don't update via the W
 = 1.0.27 =
 * Corrects an issue with the hidden fields, that are displaying their labels when are inserted into a container field.
 
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
-
 = 1.0.26 =
 * Includes a new template.
-
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
 = 1.0.25 =
 * Modifies the insertion queries.
 
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
-
 = 1.0.24 =
 * Includes a validation text, for files bigger than size limit defined.
 
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
-
 = 1.0.23 =
 * Modifies the fields: summary, hidden, and calculated.
-
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
 = 1.0.22 =
 * Modifies the File fields for accepting multiple files in a same file tag.
 * Includes new features in the Pro and Dev versions of plugin (http://blog.net-factor.com/xK6dJ)
 
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
-
 = 1.0.21 =
 * Corrects an issue loading the templates.
-
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
 = 1.0.20 =
 * Corrects an issue with the dependencies in the calculated fields, and where calculated fields are the dependent fields too.
 * Sets the focus in the first invalid field, when the validation rules fail.
 
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
-
 = 1.0.19 =
 * Implements a new icon to insert a shortcode in the contents of pages and posts, to create JavaScript variables from GET, or POST parameters, SESSION variables, or COOKIES.
 
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
-
 = 1.0.18 =
 * Corrects a PHP notice, for a non initialized variable.
-
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
 = 1.0.17 =
 * Includes the "column" attribute in the container fields (DIV and FIELDSET) to display in columns the fields into the container.
 * Improves the detection of the homepage's URL, for loading the resources.
 * In the paid versions of the plugin, if WordPress uses SMTP for sending emails, then prevents to use the "phpmailer_init" actions.
 
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
-
 = 1.0.16 =
 * Modifies the validation rules for limiting infinite or NaN values, in numeric results.
-
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
 = 1.0.15 =
 * Modifies the validation rules for accepting textual values in the calculated fields.
 
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
-
 = 1.0.14 =
 * Hides the labels and the help for users, in the calculated fields configured as hidden from the public page, to prevent these fields are displayed if the calculated fields are dependent of a radio button, checkbox, or dropdown field, and the choice is selected.
 
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
-
 = 1.0.13 =
 * Modifies the styles associated to the forms.
-
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
 = 1.0.12 =
 * Increases the plugin's security, using the WordPress Nonces mechanism.
 * Allows the installation of the plugin in a WordPress Multisite.
 
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
-
 = 1.0.11 =
 * Modifies the replacement of numbers in the equations to avoid invalid operations.
 * Modifies the database queries to avoid some potential vulnerabilities.
 
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
-
 = 1.0.10 =
 * Modifies the slider control for accepting decimal numbers.
-
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
 = 1.0.9 =
 * Corrects some issues with the slider control, and enables the drag and drop feature of the slider in the mobile devices.
 
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
-
 = 1.0.8 =
 * Improves the behavior, and correct and issue with the following controls: date, checkbox, radio button group, and drop-down
-
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
 = 1.0.7 =
 * Add the slider control
 
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
-
 = 1.0.6 =
 * Improves the date/time control
-
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
 = 1.0.5 =
 * Improved plugin features
 
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
-
 = 1.0.4 =
 * Improved plugin features
-
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
 = 1.0.3 =
 * Improved plugin features
 
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
-
 = 1.0.2 =
 * Improved plugin features
-
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
 = 1.0.1 =
 * Stable version released.
