@@ -46,7 +46,6 @@
     background: transparent;
     border: none;
     border-bottom: 1px dashed #83A4C5;
-    width: 275px;
     outline: none;
     padding: 0px 0px 5px 0px;
     font-style: italic;
@@ -59,7 +58,6 @@
     outline: none;
     border: none;
     border-bottom: 1px dashed #83A4C5;
-    width: 275px;
     overflow: hidden;
     resize:none;
     height:20px;

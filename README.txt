@@ -4,7 +4,7 @@ Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf
 Requires at least: 3.0.5
 Tested up to: 4.2
-Stable tag: 1.0.30
+Stable tag: 1.0.31
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -799,6 +799,9 @@ A: Please, visits the following link to get the answer to your question:
 
 == Changelog ==
 
+= 1.0.31 =
+* Includes a new predefined Layout.
+
 = 1.0.30 =
 * Includes a new predefined Layout.
 
@@ -908,15 +911,16 @@ A: Please, visits the following link to get the answer to your question:
 
 == Upgrade Notice ==
 
-= 1.0.30 =
+= 1.0.31 =
 * Includes a new predefined Layout.
 
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
+= 1.0.30 =
+* Includes a new predefined Layout.
+
 = 1.0.29 =
 * The current update modifies the module for parsing numeric values, using the "." symbol as decimals separator in numbers, if the user leaves empty this attribute.
-
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
 = 1.0.28 =
 * Improves the design of the forms for printing.
