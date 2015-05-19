@@ -267,6 +267,8 @@ y - return the number of years between two dates, remaining months, and remainin
 * **CALCULATEINTEREST(x,y,z):** Calculate the Financed Interest Rate. Three parameters: amount, months, payment
 * **CALCULATEACCRUEDINTEREST(x,y,z):** Calculate the Accrued Interest. If your money is in a bank account accruing interest, how much does it earn over x months? Three parameters: principle amount, months, interest rate (percent)
 * **CALCULATEAMORTIZATION(x,y,z,date):** Create Amortization Schedule. The result should be an array the length the number of months. Each entry is an object. Four parameters: principle amount, months, interest rate (percent), start date (optional Date object)
+* **PRESENTVALUE(x,y,z):** The present value is the total amount that a series of future payments is worth now. Three parameters:  The interest rate per period, the total number of payment periods in an annuity, the payment made each period and cannot change over the life of the annuity.
+* **FUTUREVALUE(v,w,x,y,z):** The future value of an investment based on an interest rate and a constant payment schedule. Five parameters:  The interest rate for the investment, the number of payments for the annuity, the  amount of the payment made each period, the present value of the payments (if this parameter is omitted, it assumes to be 0),  parameter that indicates when the payments are due (if this parameter is omitted, it assumes to be 0. The possible values are: 0 - Payments are due at the end of the period, 1 - Payments are due at the beginning of the period)
 
 * **Format a Number**
 
