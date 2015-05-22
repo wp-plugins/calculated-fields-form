@@ -19,3 +19,14 @@
 .cp_cff_elegant #fbuilder .pbPrevious,
 .cp_cff_elegant #fbuilder .pbNext{color:#fff;font-variant:small-caps;font-size:14px;font-weight:bold;background:rgb(115, 185, 214);-webkit-border-top-right-radius: 10px;-webkit-border-bottom-left-radius: 10px;-moz-border-radius-topright: 10px;-moz-border-radius-bottomleft: 10px;border-top-right-radius: 10px;border-bottom-left-radius: 10px;}
 .cp_cff_elegant #fbuilder .r{color:rgb(115, 185, 214);}
+
+.cp_cff_elegant #fbuilder  .dfield.slider-container{padding-left: 10px !important; padding-right: 10px !important;padding-top:5px;}
+
+.cp_cff_elegant #fbuilder .slider{background: rgb(164, 147, 132) !important; border-radius: 0;border:0;height: .3em;}
+.cp_cff_elegant #fbuilder .ui-slider-handle{
+    height: .8em;
+    border-radius: 0;
+    width: .8em;
+    background: #FFF;
+    border: 1px solid rgb(148, 132, 116);
+}

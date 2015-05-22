@@ -82,7 +82,7 @@ cp_cff_minimalist #fbuilder legend{border: 1px solid #ddd;}
 
 .cp_cff_minimalist #fbuilder .wizard-progressbar{width: 100%;height: 5px;background-color: #ddd;}
 .cp_cff_minimalist #fbuilder .wizard-progressbar-value{display: block;background-color: #27A0A0; height: 5px;}
-
+.cp_cff_minimalist #fbuilder  .dfield.slider-container{padding-left: 10px !important; padding-right: 10px !important;padding-top:5px;}
 .cp_cff_minimalist #fbuilder .slider{background: #ddd !important; border-radius: 0;border:0;height: .3em;}
 .cp_cff_minimalist #fbuilder .ui-slider-handle{
     height: .8em;

@@ -21,3 +21,14 @@
 .cp_cff_decorative #fbuilder .r{color:rgb(0,0,0);}
 .cp_cff_decorative #fbuilder .r:before{content:" (";}
 .cp_cff_decorative #fbuilder .r:after{content:")";}
+
+.cp_cff_decorative #fbuilder  .dfield.slider-container{padding-left: 10px !important; padding-right: 10px !important;padding-top:5px;}
+
+.cp_cff_decorative #fbuilder .slider{background: rgb(223, 221, 193) !important; border-radius: 0;border:0;height: .3em;}
+.cp_cff_decorative #fbuilder .ui-slider-handle{
+    height: .8em;
+    border-radius: 0;
+    width: .8em;
+    background: #cc3333;
+    border: 1px solid #cc3333;
+}

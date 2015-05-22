@@ -140,7 +140,7 @@ background: #394D61;
 }
 
 .cp_cff_dark_notebook #fbuilder .fields.section_breaks .section_break{border:0;}
-
+.cp_cff_dark_notebook #fbuilder  .dfield.slider-container{padding-left: 10px !important; padding-right: 10px !important; padding-top:5px;}
 .cp_cff_dark_notebook #fbuilder .slider{background: #53687E !important; border-radius: 0;border:0;height: .3em;}
 .cp_cff_dark_notebook #fbuilder .ui-slider-handle{
     height: .8em;

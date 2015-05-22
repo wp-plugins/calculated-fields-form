@@ -34,3 +34,5 @@ width: -moz-calc( 100% - 10px ) !important;
 .cp_cff_clean #fbuilder .pbPrevious,
 .cp_cff_clean #fbuilder .pbNext{color:#fff;font-size:14px;background: #0093DA;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;margin:0 10px 0 0;}
 .cp_cff_clean #fbuilder .r{color:rgb(255,0,0);}
+
+.cp_cff_clean #fbuilder  .dfield.slider-container{padding-left: 10px !important; padding-right: 10px !important;padding-top:5px;}

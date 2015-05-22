@@ -14,3 +14,11 @@
 .cp_cff_natural #fbuilder .pbSubmit,
 .cp_cff_natural #fbuilder .pbPrevious,
 .cp_cff_natural #fbuilder .pbNext{color:#fff;font-variant:small-caps;font-size:14px;font-weight:bold;background:url("top_bg.png");-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;}
+
+.cp_cff_natural #fbuilder  .dfield.slider-container{padding-left: 10px !important; padding-right: 10px !important;padding-top:5px;}
+
+.cp_cff_natural #fbuilder .slider{ border: 1px solid rgb(150, 150, 150);}
+.cp_cff_natural #fbuilder .ui-slider-handle{
+    background: #99C878;
+    border: 1px solid #99C878;
+}
