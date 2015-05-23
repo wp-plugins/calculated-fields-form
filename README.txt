@@ -711,6 +711,11 @@ A: The form settings include the attribute "Base amount" to define the minimum p
 A: Please, read the instructions in the our technical blog.
 [http://blog.net-factor.com/published-the-calculated-fields-form-pro-v5-0-21-dev-v5-0-22/](http://blog.net-factor.com/published-the-calculated-fields-form-pro-v5-0-21-dev-v5-0-22/ "How to allow to the users decide the frequency of payments for recurring payments?")
 
+= Q: How to select a choice in a DropDown field, or Radio Button, based on calculated value? =
+
+A: Please, read the answer in the our technical blog: 
+[http://blog.net-factor.com/how-to-select-a-choice-in-a-dropdown-field-or-radio-button-based-on-calculated-value/](http://blog.net-factor.com/how-to-select-a-choice-in-a-dropdown-field-or-radio-button-based-on-calculated-value/ "How to select a choice in a DropDown field, or Radio Button, based on calculated value?")
+
 = Q: How to use a session variable in the equations? =
 
 A: Please, read the answer in the FAQ entry: 
