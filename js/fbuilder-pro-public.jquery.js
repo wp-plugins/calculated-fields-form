@@ -90,7 +90,12 @@
                         }
 						if (items[i].userhelpTooltip)
 						{
-							var uh = $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).closest(".fields");
+							var uh = $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).closest(".dfield");
+							if( uh.length == 0 )
+							{
+								uh = $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).closest(".fields");
+							}
+							
 							uh.find(".uh").css("display","none");
 							if (uh.find(".uh").text()!="")
 							{
