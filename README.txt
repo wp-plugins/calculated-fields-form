@@ -478,6 +478,11 @@ A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q66](http://wordpr
 
 A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q222](http://wordpress.dwbooster.com/faq/calculated-fields-form#q222 "Displaying images in checkboxes and radio buttons")
 
+Additionally, to hide the checkboxes and radio buttons, and use only the images for choices selection, open the "/wp-content/plugins/calculated-fields-form/css/stylepublic.css" file in the text editor your choice, and paste the following styles definition at the end of file's content:
+
+#fbuilder input[type="radio"],
+#fbuilder input[type="checkbox"]{display:none !important;}
+
 = Q: How to insert an image in the notification emails? =
 
 A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q223](http://wordpress.dwbooster.com/faq/calculated-fields-form#q223 "Inserting images in the notification emails")
