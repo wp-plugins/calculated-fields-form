@@ -78,7 +78,7 @@ The plugin has two additional (commercial) versions: **Premium** and **Developer
 = Features in Premium version: =
 
 * All features of free version of plugin
-* Submits the form data, and stores the data on database, for future revisions
+* Submits the form data, and stores the data on database, for future review
 * Allows send notification emails with the data submitted, to the form editor and users
 * Allows charge the calculated field directly through PayPal
 * Allows export and import your forms between different WordPress
