@@ -5,7 +5,7 @@
 .cp_cff_natural #fbuilder select,
 .cp_cff_natural #fbuilder textarea,
 .cp_cff_natural #fbuilder input[type=text],
-.cp_cff_natural #fbuilder input[type=file]{border:1px solid rgb(150, 150, 150);padding:5px 0;font-size:14px;background:#FFF;color:#000;}
+.cp_cff_natural #fbuilder input[type=file]{border:1px solid rgb(150, 150, 150);padding-bottom:5px;padding-top:5px;font-size:14px;background:#FFF;color:#000;}
 .cp_cff_natural #fbuilder{color:rgb(64, 63, 61);}
 .cp_cff_natural #fbuilder .uh{color:rgb(112, 140, 0);}
 
