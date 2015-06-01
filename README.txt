@@ -711,6 +711,10 @@ The calculated field in this case is an auxiliary field that is not relevant in 
 
 A: The form settings include the attribute "Base amount" to define the minimum price allowed. So, if an user manipulates the calculated field for paying less, will be applied the number entered in the "Base amount" attribute.
 
+= Q: How to use the value of a field in the form, as the name of product submitted to PayPal? =
+
+A: Through the attribute: "Paypal product name" in the form's settings, is defined the name of the product to be submitted to PayPal. It is possible to use a fixed text, or the value of a field in the form (for example, suppose that you have a DropDown field, or radio buttons field, to select the product's name), each field has associated a name with the format: fieldname#. For example to use the value of the fieldname1 field, as the product's name, should be entered the text &lt;fiedname1&gt; in the "Paypal product name" attribute.
+
 = Q: How to allow to the users decide the frequency of payments for recurring payments? =
 
 A: Please, read the instructions in the our technical blog.
