@@ -63,13 +63,6 @@
 					}
 					else{
                         this.eq_factored = '(' + this.eq_factored + ')';
-                        var tmp = this.eq_factored.replace( /fieldname\d+/g, 1 );
-                        try{
-                            eval( tmp );
-                        }catch( er )
-                        {
-                            this.eq_factored = "";
-                        }
                         if ( !this.readonly || /^\s*$/.test( this.eq_factored ) )
                         {
                             return this.name;

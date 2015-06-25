@@ -46,12 +46,21 @@
 								}
 							}
 						});
-
+					
 					if( typeof this.optimizeEq == 'undefined' || !this.optimizeEq || /^\s*$/.test( this.eq_factored ) )
 					{
 						this.eq_factored = this.eq;
 					}
-					
+					else
+					{
+						var tmp = this.eq_factored.replace( /fieldname\d+/g, 1 );
+                        try{
+                            eval( tmp );
+                        }catch( er )
+                        {
+                            this.eq_factored = this.eq;
+                        }
+					}	
 					var eq = this.eq_factored;
 					eq = eq.replace(/\n/g, ' ').replace(/fieldname(\d+)/g, "fieldname$1"+this.form_identifier).replace( /;\s*\)/g, ')').replace(/;\s*$/, '');
                     
@@ -427,7 +436,7 @@
 						{
                             if( !/^\s*$/.test( value ) )
                             {
-                                if( $.isNumeric( value ) ) // If is a number set the separators symbols for thousands and decimals
+                                if( $.isNumeric( value )  && !/[+\-]?(?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)/.test( value ) )
                                 {
                                     
                                     var symbol = ( value < 0 ) ? '-' : '',
@@ -485,15 +494,18 @@
 										v = v.replace( new RegExp( escape_symbol( c.suffix ) + "$" ), '' );
 									}
 									
-									if( c.groupingsymbol && !/^\s*$/.test( c.groupingsymbol ) )
+									if( !/[+\-]?(?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)/.test( v ) )
 									{
-										v = v.replace( new RegExp( escape_symbol( c.groupingsymbol ), 'g' ), '' );
-									}
+										if( c.groupingsymbol && !/^\s*$/.test( c.groupingsymbol ) )
+										{
+											v = v.replace( new RegExp( escape_symbol( c.groupingsymbol ), 'g' ), '' );
+										}
 									
-									if( c.decimalsymbol && !/^\s*$/.test( c.decimalsymbol ) )
-									{
-										v = v.replace( new RegExp( escape_symbol( c.decimalsymbol ), 'g' ), '.' );
-									}	
+										if( c.decimalsymbol && !/^\s*$/.test( c.decimalsymbol ) )
+										{
+											v = v.replace( new RegExp( escape_symbol( c.decimalsymbol ), 'g' ), '.' );
+										}	
+									}
 								}
 							}
 							return v;
@@ -557,5 +569,3 @@
                 return obj; // Return the public object
             }
         )();
-		
-		
