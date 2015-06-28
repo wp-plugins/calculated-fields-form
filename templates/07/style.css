@@ -1,0 +1,95 @@
+@import url('http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');
+
+.cp_cff_minimalist #fbuilder{
+	font-family: 'Open Sans Condensed', arial, sans;
+    padding: 30px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    -webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
+}
+.cp_cff_minimalist #fbuilder .fform{
+	background: #4D4D4D;
+    text-transform: uppercase;
+    font-family: 'Open Sans Condensed', sans-serif;
+    color: #797979;
+    font-size: 18px;
+    font-weight: 100;
+    padding: 20px;
+    margin: -30px -30px 30px -30px;
+}
+
+
+.cp_cff_minimalist #fbuilder input[type="text"],
+.cp_cff_minimalist #fbuilder input[type="password"],
+.cp_cff_minimalist #fbuilder textarea,
+.cp_cff_minimalist #fbuilder select 
+{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    outline: none;
+    padding: 7px 0;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    background: transparent;
+    margin-bottom: 10px;
+    font: 16px Arial, Helvetica, sans-serif;
+    height: 45px;
+}
+
+.cp_cff_minimalist #fbuilder .fields>label{font-size: 1.3em; }
+.cp_cff_minimalist #fbuilder .pbSubmit,
+.cp_cff_minimalist #fbuilder .pbreak .pbPrevious,
+.cp_cff_minimalist #fbuilder .pbreak .pbNext,
+.cp_cff_minimalist #fbuilder input[type="button"],
+.cp_cff_minimalist #fbuilder input[type="submit"]{
+    -moz-box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    background-color: #2CBBBB;
+    border: 1px solid #27A0A0;
+    display: inline-block;
+    cursor: pointer;
+    color: #FFFFFF;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 14px;
+    padding: 8px 18px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.cp_cff_minimalist #fbuilder .pbSubmit:hover,
+.cp_cff_minimalist #fbuilder .pbreak .pbPrevious:hover,
+.cp_cff_minimalist #fbuilder .pbreak .pbNext:hover,
+.cp_cff_minimalist #fbuilder input[type="button"]:hover, 
+.cp_cff_minimalist #fbuilder input[type="submit"]:hover {
+    background:linear-gradient(to bottom, #34CACA 5%, #30C9C9 100%);
+    background-color:#34CACA;
+}
+.cp_cff_minimalist #fbuilder .pbEnd .pbNext,
+.cp_cff_minimalist #fbuilder .pb0 .pbPrevious{display:none;}
+.cp_cff_minimalist #fbuilder fieldset,
+cp_cff_minimalist #fbuilder legend{border: 1px solid #ddd;}
+
+.cp_cff_minimalist #fbuilder .fields.section_breaks .section_break,
+.cp_cff_minimalist #fbuilder .pbreak>fieldset{border:0;}
+.cp_cff_minimalist #fbuilder .pbreak>fieldset>legend{display: none;}
+.cp_cff_minimalist #fbuilder .fields.section_breaks{border-bottom: 1px solid #ddd;}
+.cp_cff_minimalist #fbuilder .fields.section_breaks label{font-weight: bold;}
+
+.cp_cff_minimalist #fbuilder .r{color:#27A0A0;}
+
+.cp_cff_minimalist #fbuilder .wizard-progressbar{width: 100%;height: 5px;background-color: #ddd;}
+.cp_cff_minimalist #fbuilder .wizard-progressbar-value{display: block;background-color: #27A0A0; height: 5px;}
+.cp_cff_minimalist #fbuilder  .dfield.slider-container{padding-left: 10px !important; padding-right: 10px !important;padding-top:5px;}
+.cp_cff_minimalist #fbuilder .slider{background: #ddd !important; border-radius: 0;border:0;height: .3em;}
+.cp_cff_minimalist #fbuilder .ui-slider-handle{
+    height: .8em;
+    border-radius: 0;
+    width: .8em;
+    -moz-box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    background: #2CBBBB;
+    border: 1px solid #27A0A0;
+}
