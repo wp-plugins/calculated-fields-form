@@ -474,6 +474,10 @@ A: To use a different language on datepickers will be needed create an additiona
 
 A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q66](http://wordpress.dwbooster.com/faq/calculated-fields-form#q66 "Formatting a form with table structure")
 
+= Q: How to convert a common button in a submit button? =
+
+A: To convert a common button in a submit button, simply assigns the special class name: pbSubmit to the common button through the field's attribute: "Add Css Layout Keywords" ( this option is only compatible with the pro and developer versions of the plugin)
+
 = Q: How to display an image in a checkbox or radio button? =
 
 A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q222](http://wordpress.dwbooster.com/faq/calculated-fields-form#q222 "Displaying images in checkboxes and radio buttons")
