@@ -476,7 +476,11 @@ A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q66](http://wordpr
 
 = Q: How to convert a common button in a submit button? =
 
-A: To convert a common button in a submit button, simply assigns the special class name: pbSubmit to the common button through the field's attribute: "Add Css Layout Keywords" ( this option is only compatible with the pro and developer versions of the plugin)
+A: To convert a common button in a submit button, simply assigns, as part of the onclick event, the snippet of code:
+
+		jQuery(this).closest('form').submit();		
+		
+ Note: this option is only compatible with the pro and developer versions of the plugin
 
 = Q: How to display an image in a checkbox or radio button? =
 
