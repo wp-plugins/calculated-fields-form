@@ -644,6 +644,10 @@ A: To print only the form, but not the rest of page, you should insert a button 
 
 A: To disable the dynamic evaluation of the equations in the form, you only should uncheck the option: "Eval dynamically the equations associated to the calculated fields", from the "Form Settings" tab, of form builder. But, should be inserted a button with "calculate" type, to evaluate the equations with an direct action of users.
 
+= Q: I've implemented complex equations, but are not working. What can I do? =
+
+A: The plugin tries to optimize the equations to improves forms performance, and reduce the sequence of equations, but if the equations are not working, I suggest to select any of the calculated field in the form, and untick the option: "Optimize Form Equations"
+
 = Q: How to send specific fields in the notification emails, and not all form fields? =
 
 A: The  notification emails can include all fields submitted by the form (&lt;%INFO%&gt;) or specific files (&lt;%fieldname#%&gt;), furthermore, some other special tags. Please, visit the following link to get the complete list of tags to include in the email:
