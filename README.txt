@@ -488,8 +488,8 @@ A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q222](http://wordp
 
 Additionally, to hide the checkboxes and radio buttons, and use only the images for choices selection, open the "/wp-content/plugins/calculated-fields-form/css/stylepublic.css" file in the text editor your choice, and paste the following styles definition at the end of file's content:
 
-#fbuilder input[type="radio"],
-#fbuilder input[type="checkbox"]{display:none !important;}
+		#fbuilder input[type="radio"],		
+		#fbuilder input[type="checkbox"]{display:none !important;}		
 
 = Q: How to insert an image in the notification emails? =
 
