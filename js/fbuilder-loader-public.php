@@ -62,9 +62,10 @@ fbuilderjQuery(function(){
 ?>
         var fcount = 1;
         var fnum = "_"+fcount;
-        while (eval("typeof cp_calculatedfieldsf_fbuilder_config"+fnum+" != 'undefined'"))
+		
+        while (eval("typeof cp_calculatedfieldsf_fbuilder_config"+fnum+" != 'undefined'") || fcount < 10 )
         {
-            try {
+			try {
             var cp_calculatedfieldsf_fbuilder_config = eval("cp_calculatedfieldsf_fbuilder_config"+fnum);
             var f = $("#fbuilder"+fnum).fbuilder($.parseJSON(cp_calculatedfieldsf_fbuilder_config.obj));
 			f.fBuild.loadData("form_structure"+fnum);
