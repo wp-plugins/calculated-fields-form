@@ -93,6 +93,8 @@ else if (isset($_GET['d']) && $_GET['d'] != '')
 {
 	check_admin_referer( 'session_id_'.session_id(), '_cpcff_nonce' );
     update_option( 'CP_CFF_LOAD_SCRIPTS', ($_GET["scr"]=="1"?"0":"1") );
+	update_option( 'CP_CALCULATEDFIELDSF_USE_CACHE', ($_GET["jsc"]=="1" ? 1 : 0)  );
+	
     if ($_GET["chs"] != '')
     {
         $target_charset = $_GET["chs"];
@@ -177,7 +179,8 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
     {        
         var scr = document.getElementById("ccscriptload").value;    
         var chs = document.getElementById("cccharsets").value;    
-        document.location = 'options-general.php?page=cp_calculated_fields_form&ac=st&scr='+scr+'&chs='+chs+'&r='+Math.random()+'&_cpcff_nonce=<?php echo wp_create_nonce( 'session_id_'.session_id() ); ?>';
+		var jsc = (document.getElementById("ccjscache").checked) ? 1 : 0;
+        document.location = 'options-general.php?page=cp_calculated_fields_form&ac=st&scr='+scr+'&chs='+chs+'&jsc='+jsc+'&r='+Math.random()+'&_cpcff_nonce=<?php echo wp_create_nonce( 'session_id_'.session_id() ); ?>';
     }    
  }
  
@@ -251,8 +254,10 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
         <option value="1" <?php if (get_option('CP_CFF_LOAD_SCRIPTS',"1") != "1") echo 'selected'; ?>>Direct</option>
        </select><br />
        <em>* Change the script load method if the form doesn't appear in the public website.</em>
-      <br /><br />
-      Character encoding:<br />
+       <br /><br />
+	   Activate Javascript Cache: <input type="checkbox" name="ccjscache" id="ccjscache" <?php echo ( get_option( 'CP_CALCULATEDFIELDSF_USE_CACHE', CP_CALCULATEDFIELDSF_USE_CACHE ) ) ? 'CHECKED' : ''; ?> />
+       <br /><br />
+       Character encoding:<br />
        <select id="cccharsets" name="cccharsets">
         <option value="">Keep current charset (Recommended)</option>
         <option value="utf8_general_ci">UTF-8 (try this first)</option>

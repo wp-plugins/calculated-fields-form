@@ -1,4 +1,7 @@
-<?php header('Content-Type: application/x-javascript; charset=UTF-8'); ?>
+<?php 
+	header('Content-Type: application/x-javascript; charset=UTF-8'); 
+	ob_start(); // Turn on output buffering
+?>
 fbuilderjQuery = (typeof fbuilderjQuery != 'undefined' ) ? fbuilderjQuery : jQuery;
 fbuilderjQuery(function(){
 (function($) {
@@ -89,3 +92,23 @@ fbuilderjQuery(function(){
 	    }
 })(fbuilderjQuery);
 });
+<?php
+
+	$buffered_contents = ob_get_contents();
+	ob_end_clean(); // Clean the output buffer and turn off output buffering
+	if( !empty( $_REQUEST[ 'min' ] ) )
+	{
+		if( !class_exists( 'JSMin' ) )
+		{
+			require_once rtrim( dirname( __FILE__ ), '/' ).'/JSMin.php';
+		}	
+		
+		try{
+			$buffered_contents = JSMin::minify( $buffered_contents );
+			$all_js_path = rtrim( dirname( __FILE__ ), '/' ).'/cache/all.js';
+			file_put_contents( $all_js_path, $buffered_contents );
+		}catch( Exception $err){}	
+	}	
+    print $buffered_contents;
+	
+?>
