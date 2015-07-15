@@ -94,6 +94,16 @@ else if (isset($_GET['d']) && $_GET['d'] != '')
 	check_admin_referer( 'session_id_'.session_id(), '_cpcff_nonce' );
     update_option( 'CP_CFF_LOAD_SCRIPTS', ($_GET["scr"]=="1"?"0":"1") );
 	update_option( 'CP_CALCULATEDFIELDSF_USE_CACHE', ($_GET["jsc"]=="1" ? 1 : 0)  );
+	if( get_option( 'CP_CALCULATEDFIELDSF_USE_CACHE', CP_CALCULATEDFIELDSF_USE_CACHE ) == false )
+	{
+		try{
+			$public_js_path = rtrim( dirname( __FILE__ ), '/' ).'/js/cache/all.js';
+			if( file_exists( $public_js_path ) )
+			{
+				unlink( $public_js_path );
+			}	
+		}catch( Exception $err ){}
+	}	
 	
     if ($_GET["chs"] != '')
     {
