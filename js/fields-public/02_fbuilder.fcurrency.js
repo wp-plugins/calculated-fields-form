@@ -62,40 +62,63 @@
 				},	
 			show:function()
 				{
-					if( this.formatDynamically )
-					{
-
-						var me = this;
-						$( document ).on( 'change', '[name="' + this.name + '"]', function(){
-							this.value = me.getFormattedValue( this.value );
-						} );
-					}
-
 					return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'"><label for="'+this.name+'">'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><input '+(( this.readonly )? 'READONLY' : '' )+' id="'+this.name+'" name="'+this.name+'" class="field '+this.dformat+' '+this.size+((this.required)?" required":"")+'" type="text" value="'+$.fbuilder.htmlEncode( this.getFormattedValue( this.predefined ) )+'" '+( ( !/^\s*$/.test( this.min) ) ? 'min="'+$.fbuilder.parseVal( this.min, this.thousandSeparator, this.centSeparator )+'" ' : '' )+( ( !/^\s*$/.test( this.max) ) ? ' max="'+$.fbuilder.parseVal( this.max, this.thousandSeparator, this.centSeparator )+'" ' : '' )+' /><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 			after_show:function()
 				{
+					if( this.formatDynamically )
+					{
+
+						var me = this;
+						$( document ).on( 'change', '[name="' + me.name + '"]', function(){
+							this.value = me.getFormattedValue( this.value );
+						} );
+					}
+
 					if( typeof $[ 'validator' ] != 'undefined' )
 					{
 						$.validator.addMethod( 'min', function( value, element, param ) 
                                         {
-                                            var sf = element.id.match( /_\d+$/)[ 0 ],
-                                                e = $.fbuilder[ 'forms' ][ element.id.match( /_\d+$/)[ 0 ] ].getItem( element.name ),
-                                                thousandSeparator = ( typeof e.thousandSeparator != 'undefined' ) ? e.thousandSeparator : '',
+                                            var e = element;
+                                            if( element.id.match( /_\d+$/) )
+                                            {
+                                                e = $.fbuilder[ 'forms' ][ element.id.match( /_\d+$/)[ 0 ] ].getItem( element.name )
+                                            }
+											else if( 
+												typeof $.fbuilder[ 'forms' ] != 'undefined' && 
+												typeof $.fbuilder[ 'forms' ][ '' ] != 'undefined' 
+											)
+											{
+												e = $.fbuilder[ 'forms' ][ '' ].getItem( element.name )
+											}	
+                                            
+                                            var thousandSeparator = ( typeof e.thousandSeparator != 'undefined' ) ? e.thousandSeparator : '',
                                                 centSymbol = ( typeof e.centSeparator != 'undefined' && $.trim( e.centSeparator ) ) ? e.centSeparator : '.';
                                                 
-											return this.optional(element) || $.fbuilder.parseVal( value, thousandSeparator, centSymbol ) >= param;
+                                            return this.optional(element) || $.fbuilder.parseVal( value, thousandSeparator, centSymbol ) >= param;
                                         }
 						);
 
 						$.validator.addMethod( 'max', function( value, element, param ) 
                                         {
-                                            var sf = element.id.match( /_\d+$/)[ 0 ],
-                                                e = $.fbuilder[ 'forms' ][ element.id.match( /_\d+$/)[ 0 ] ].getItem( element.name ),
-                                                thousandSeparator = ( typeof e.thousandSeparator != 'undefined' ) ? e.thousandSeparator : '',
+                                            var e = element;
+                                            if( element.id.match( /_\d+$/) )
+                                            {
+                                                e = $.fbuilder[ 'forms' ][ element.id.match( /_\d+$/)[ 0 ] ].getItem( element.name )
+                                            }
+                                            else if( 
+												typeof $.fbuilder[ 'forms' ] != 'undefined' && 
+												typeof $.fbuilder[ 'forms' ][ '' ] != 'undefined' 
+											)
+											{
+												e = $.fbuilder[ 'forms' ][ '' ].getItem( element.name )
+											}	
+                                            
+											
+                                            var thousandSeparator = ( typeof e.thousandSeparator != 'undefined' ) ? e.thousandSeparator : '',
                                                 centSymbol = ( typeof e.centSeparator != 'undefined' && $.trim( e.centSeparator ) ) ? e.centSeparator : '.';
                                                 
-											return this.optional(element) || $.fbuilder.parseVal( value, thousandSeparator, centSymbol ) <= param;
+                                            return this.optional(element) || $.fbuilder.parseVal( value, thousandSeparator, centSymbol ) <= param;
                                         }
 						);
 						

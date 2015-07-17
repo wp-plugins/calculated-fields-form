@@ -172,20 +172,28 @@
                         try
                         {
                             var p           = e.name.replace( '_date', '' ).split( '_' ),
-                                item        = $.fbuilder[ 'forms' ][ '_'+p[ 1 ] ].getItem( p[ 0 ]+'_'+p[ 1 ] ),
+							    _index		= ( p.length > 1 ) ? '_'+p[ 1 ] : '',
+                                item        = ( 
+												typeof $.fbuilder[ 'forms' ] != 'undefined' && 
+												typeof $.fbuilder[ 'forms' ][ _index ] != 'undefined'  
+											  ) ? $.fbuilder[ 'forms' ][ _index ].getItem( p[ 0 ]+'_'+p[ 1 ] ) : null,
                                 inst        = $.datepicker._getInst( e ),
                                 minDate     = $.datepicker._determineDate( inst, $.datepicker._get( inst, 'minDate'), null),
                                 maxDate     = $.datepicker._determineDate(inst, $.datepicker._get(inst, 'maxDate'), null),
                                 dateFormat  = $.datepicker._get(inst, 'dateFormat'),
                                 date        = $.datepicker.parseDate(dateFormat, v, $.datepicker._getFormatConfig(inst));
 
-                            return 	this.optional( e ) || 
-									( 
-										( minDate == null || date >= minDate  ) && 
-										( maxDate == null || date <= maxDate ) && 
-										validateDate( $( e ).datepicker( 'getDate' ), item.working_dates, item.invalidDates )[ 0 ] &&
-										validateTime( e, item )
-									);
+                            if( item != null )
+							{	
+								return 	this.optional( e ) || 
+										( 
+											( minDate == null || date >= minDate  ) && 
+											( maxDate == null || date <= maxDate ) && 
+											validateDate( $( e ).datepicker( 'getDate' ), item.working_dates, item.invalidDates )[ 0 ] &&
+											validateTime( e, item )
+										);
+							}
+							return true;	
                         }
                         catch( er )
                         {
