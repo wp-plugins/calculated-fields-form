@@ -1,4 +1,5 @@
 <?php 
+	error_reporting( E_ERROR | E_PARSE );
 	header('Content-Type: application/x-javascript; charset=UTF-8'); 
 	ob_start(); // Turn on output buffering
 ?>
@@ -106,7 +107,7 @@ fbuilderjQuery(function(){
 		try{
 			$buffered_contents = JSMin::minify( $buffered_contents );
 			$all_js_path = rtrim( dirname( __FILE__ ), '/' ).'/cache/all.js';
-			file_put_contents( $all_js_path, $buffered_contents );
+			@file_put_contents( $all_js_path, $buffered_contents );
 		}catch( Exception $err){}	
 	}	
     print $buffered_contents;
