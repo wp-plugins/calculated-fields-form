@@ -28,7 +28,7 @@
 						configuration = { "suffix" : me.suffix, "prefix" : me.prefix, "groupingsymbol" : me.groupingsymbol, "decimalsymbol" : me.decimalsymbol },
 						dependencies = [];
 
-					$.each( this.dependencies, function( i, d )
+					$.each( me.dependencies, function( i, d )
 						{
 							d.rule = d.rule.replace( /^\s+/, '').replace( /\s+$/, '');
 							if( d.rule != '' && d.fields.length ){
@@ -46,38 +46,40 @@
 								}
 							}
 						});
+						
+					me.dependencies = dependencies;
 					
-					if( typeof this.optimizeEq == 'undefined' || !this.optimizeEq || /^\s*$/.test( this.eq_factored ) )
+					if( typeof me.optimizeEq == 'undefined' || !me.optimizeEq || /^\s*$/.test( me.eq_factored ) )
 					{
-						this.eq_factored = this.eq;
+						me.eq_factored = me.eq;
 					}
 					else
 					{
-						var tmp = this.eq_factored.replace( /fieldname\d+/g, 1 );
+						var tmp = me.eq_factored.replace( /fieldname\d+/g, 1 );
                         try{
                             eval( tmp );
                         }catch( er )
                         {
-                            this.eq_factored = this.eq;
+                            me.eq_factored = me.eq;
                         }
 					}	
-					var eq = this.eq_factored;
-					eq = eq.replace(/\n/g, ' ').replace(/fieldname(\d+)/g, "fieldname$1"+this.form_identifier).replace( /;\s*\)/g, ')').replace(/;\s*$/, '');
+					var eq = me.eq_factored;
+					eq = eq.replace(/\n/g, ' ').replace(/fieldname(\d+)/g, "fieldname$1"+me.form_identifier).replace( /;\s*\)/g, ')').replace(/;\s*$/, '');
                     
-					if( !/^\s*$/.test(this.eq) )
+					if( !/^\s*$/.test(me.eq) )
                     {
-                        $.fbuilder.calculator.addEquation( this.name, eq, configuration, dependencies, this.form_identifier );
+                        $.fbuilder.calculator.addEquation( me.name, eq, configuration, dependencies, me.form_identifier );
                     }
                     
                     // Events
-			        var e = $( '[id="'+this.name+'"]' );
+			        var e = $( '[id="'+me.name+'"]' );
                     e.bind( 
                         'calcualtedfield_change',
-                        {obj: this},
+                        {obj: me},
                         function( evt ){
-                            if( $.fbuilder[ 'calculator' ].getDepList( evt.data.obj.name, evt.data.obj.val(), evt.data.obj.dependencies ) )
+							if( $.fbuilder[ 'calculator' ].getDepList( evt.data.obj.name, evt.data.obj.val(), evt.data.obj.dependencies ) )
                             {
-                                $.fbuilder.showHideDep( 
+								$.fbuilder.showHideDep( 
                                                 {
                                                     'formIdentifier' : evt.data.obj.form_identifier, 
                                                     'throwEvent' 	 : false 
@@ -85,14 +87,8 @@
                                             );
                             }
                         } 
-                    ).bind(
-                        'change',
-                        function( evt )
-                        {
-                            $( evt.target ).trigger( 'calcualtedfield_change' );
-                        }
                     );
-                },
+				},
 			showHideDep: function( toShow, toHide )
 				{
 					var item = $( '#'+this.name ),
@@ -317,7 +313,6 @@
 						{
 							var list    = [], // Fields that comply the rules
 								list_h  = []; // Fields that don't comply the rules
-
 							// The value is correct and the field has dependencies
 							if( value !== false && dependencies.length )
 							{
@@ -327,7 +322,6 @@
 									{
 										// Get the rule and evaluate
 										var rule = dependencies[i].rule.replace( /value/gi, value );
-																	
 										if( eval( rule ) )
 										{
 											$.each( dependencies[i].fields, function( j, e )
@@ -370,31 +364,22 @@
 							if( form.length && ( typeof form[0].equations != 'undefined' ) )
 							{
 								var equation_object = form[0].equations;
-
 								for( var i in equation_object )
 								{
 									var calculated_field = $( '[id="' + equation_object[i].result+'"]' );
 									if( calculated_field.length )
 									{
 										var result = _calculate( form[0], equation_object[i].equation,  equation_object[i].identifier );
-										// Check the dependent fields after evaluate the equations
-										dep = this.getDepList( equation_object[i].result, result, equation_object[i].dep ) || dep;
-										calculated_field.val(( ( result !== false ) ? this.format( result, equation_object[i].conf) : '' ));
+										calculated_field.val( ( result !== false ) ? this.format( result, equation_object[i].conf) : '' );
+										$.when( calculated_field.change() )
+										 .done( 
+											( function( e ){ 
+												e.trigger( 'calcualtedfield_change' ); 
+											} )( calculated_field ) 
+										 ); // Throw the change event to evaluate other equations
 									}
 								}
 							}
-							
-                            var _match = /(_\d+)$/.exec( form_identifier );
-							if( dep && _match != null )
-							{
-								$.fbuilder.showHideDep( 
-									{
-										'formIdentifier' : _match[ 0 ], 
-										'throwEvent' 	 : false 
-									}
-								);
-							}
-							if( typeof recalculate == 'undefined' || recalculate ) this.defaultCalc( form_identifier, false );
                             $( form ).trigger( 'cpcff_default_calc' );
 						},
 
@@ -409,7 +394,6 @@
 							{
 								return;
 							}
-
 							if( form && typeof form.equations != 'undefined' )
 							{
 								var equations = form.equations,
@@ -425,7 +409,7 @@
 										{
 											var result = _calculate( form, equations[i].equation, equations[i].identifier );
 											calculated_field.val( ( ( result !== false ) ? this.format( result, equations[i].conf ) : '' ) );
-											calculated_field.change(); // Throw the change event to evaluate other equations
+											$.when( calculated_field.change() ).done( ( function( e ){ e.trigger( 'calcualtedfield_change' ); } )( calculated_field ) ); // Throw the change event to evaluate other equations
 										}
 									}
 								}
@@ -518,8 +502,14 @@
                 $( document ).bind('keyup change blur', function(evt)
 					{
                         // If evalequations = 0 the equations shouldn't be evaluated dynamically
-                        var evalequations = $( evt.target ).closest( 'form' ).attr( 'data-evalequations' );
-                        if( typeof evalequations != 'undefined' && evalequations*1 == 0 )
+                        var evalequations = $( evt.target ).closest( 'form' ).attr( 'data-evalequations' ),
+							t = $( evt.target );
+							
+                        if( 
+							typeof evalequations != 'undefined' && 
+							evalequations*1 == 0 && 
+							!( t.hasClass( 'codepeoplecalculatedfield' ) && evt.type == 'change' )
+						)
                         {
                             return;
                         }
@@ -531,8 +521,8 @@
 							{
 								return;
 							}
-							
-							if( $.inArray( evt.target, $.fbuilder[ 'calculator' ][ 'enqueue_fields' ] ) == -1 )
+
+							if( $.inArray( t[0], $.fbuilder[ 'calculator' ][ 'enqueue_fields' ] ) == -1 )
 							{
 								setTimeout( (function( t )
 											{
@@ -542,17 +532,16 @@
                                                         $( t ).trigger( 'calcualtedfield_change' );
 														obj.Calculate( t );
 													};
-											})( evt.target ), 500 );
+											})( t[0] ), 500 );
 							}
 						}
 						else
 						{
-							var t = $( evt.target );
 							if( t.hasClass( 'depItem' ) || ( t.prop( 'tagName' ) == 'INPUT' && t.attr( 'type' ).toLowerCase() == 'text' && evt.type != 'change' ) )
 							{
 								return;
 							}
-							obj.Calculate(evt.target);
+							obj.Calculate( t[0] );
 						}
 					});
 				
