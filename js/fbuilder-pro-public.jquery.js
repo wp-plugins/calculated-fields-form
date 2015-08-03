@@ -23,12 +23,20 @@
 		if( value == '' ) return 0;
 		value += '';
 		
-		thousandSeparator = new RegExp( $.fbuilder.escape_symbol( ( typeof thousandSeparator == 'undefined' ) ? ',' : thousandSeparator ), 'g' );
-		decimalSymbol = new RegExp( $.fbuilder.escape_symbol( ( typeof decimalSymbol == 'undefined' || /^\s*$/.test( decimalSymbol ) ) ? '.' : decimalSymbol ), 'g' );
 		
-		var t = value.replace( thousandSeparator, '' ).replace( decimalSymbol, '.' ).replace( /\s/g, '' ),
+		thousandSeparator = $.fbuilder.escape_symbol( ( typeof thousandSeparator == 'undefined' ) ? ',' : thousandSeparator );
+		decimalSymbol = ( typeof decimalSymbol == 'undefined' || /^\s*$/.test( decimalSymbol ) ) ? '.' : decimalSymbol;
+		var correction = new RegExp( thousandSeparator+('\(\\d{1,2}\)$') ),
+			correctionReplacement = decimalSymbol+'$1';
+		
+		thousandSeparator = new RegExp( thousandSeparator, 'g' );
+		decimalSymbol = new RegExp( $.fbuilder.escape_symbol( decimalSymbol ), 'g' );
+		
+		
+
+		var t = value.replace( correction, correctionReplacement ).replace( thousandSeparator, '' ).replace( decimalSymbol, '.' ).replace( /\s/g, '' ),
 			p = /[+\-]?((\d+(\.\d+)?)|(\.\d+))(?:[eE][+\-]?\d+)?/.exec( t );
-			
+
 		return ( p ) ? p[0]*1 : $.fbuilder[ 'parseValStr' ]( value );
 	};
 				
