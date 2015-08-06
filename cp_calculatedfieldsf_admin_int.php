@@ -60,10 +60,10 @@ $cpcff_texts_array = array_replace_recursive(
        try{$calculatedfieldsfQuery = jQuery.noConflict();window.jQuery = window.$ = jQuery;} catch (e) {}
        if (typeof $calculatedfieldsfQuery == 'undefined')
        {
-			document.write ("<"+"script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></"+"script>");
+			document.write ("<"+"script type='text/javascript' src='<?php print CP_SCHEME; ?>ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></"+"script>");
 			$calculatedfieldsfQuery = jQuery.noConflict();
 			window.jQuery = window.$ = jQuery;
-			document.write ("<"+"script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.20/jquery-ui.min.js'></"+"script>");
+			document.write ("<"+"script type='text/javascript' src='<?php print CP_SCHEME; ?>ajax.googleapis.com/ajax/libs/jqueryui/1.8.20/jquery-ui.min.js'></"+"script>");
 			document.write ("<"+"script type='text/javascript' src='<?php echo plugins_url('js/jQuery.stringify.js', __FILE__); ?>'></"+"script>");
 			document.write ("<"+"script type='text/javascript' src='<?php echo plugins_url('js/jquery.validate.js', __FILE__); ?>'></"+"script>");         
 			document.write ("<"+"script type='text/javascript' src='<?php echo plugins_url('/js/jquery.caret.js', __FILE__); ?>'></"+"script>");

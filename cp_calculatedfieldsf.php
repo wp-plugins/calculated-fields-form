@@ -3,7 +3,7 @@
 Plugin Name: Calculated Fields Form
 Plugin URI: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Description: Create forms with field values calculated based in other form field values.
-Version: 1.0.44
+Version: 1.0.45
 Author: CodePeople.net
 Author URI: http://codepeople.net
 License: GPL
@@ -21,7 +21,7 @@ function cp_calculatedfieldsf_get_site_url( $admin = false )
 }
 
 // Calculated Fields Form constants
-
+define('CP_SCHEME', ( is_ssl() ) ? 'https://' : 'http://' );
 define('CP_CALCULATEDFIELDSF_DEFAULT_DEFER_SCRIPTS_LOADING', (get_option('CP_CFF_LOAD_SCRIPTS',"1") == "1"?true:false) );
 define('CP_CALCULATEDFIELDSF_USE_CACHE', 1 );
 
@@ -635,7 +635,7 @@ function set_cp_calculatedfieldsf_insert_adminScripts($hook) {
         wp_enqueue_script( 'cp_calculatedfieldsf_buikder_script', cp_calculatedfieldsf_get_site_url( true ).'/?cp_cff_resources=admin', array("jquery","jquery-ui-core","jquery-ui-sortable","jquery-ui-tabs","jquery-ui-droppable","jquery-ui-button","jquery-ui-datepicker","query-stringify") );
 
 		wp_enqueue_script( 'cp_calculatedfieldsf_buikder_script_caret', plugins_url('/js/jquery.caret.js', __FILE__),array("jquery"));
-        wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
+        wp_enqueue_style('jquery-style', CP_SCHEME.'ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
     }    
 
     if( 'post.php' != $hook  && 'post-new.php' != $hook )
