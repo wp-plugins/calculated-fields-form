@@ -67,7 +67,7 @@ input [readonly] {background-color: #f00;}
 #fbuilder .fields.fmark,
 #fbuilder .fields.ui-over{border:1px dashed #888;}
 
-#fbuilder .fform{border:1px solid transparent;padding:10px 10px 20px 10px;margin:5px 0px;display:block;position:relative}
+#fbuilder .fform{border:1px solid transparent;padding:10px;margin:5px 0px;display:block;position:relative}
 #fbuilder .fform .arrow{position:absolute;left:-15px;top:20px;display:none}
 #fbuilder .fform.ui-selected{background-color:#E7FFCF;border:1px solid #C2EF95}
 #fbuilder .fform.ui-selected .arrow{display:inline}
@@ -114,3 +114,5 @@ a.helpfbuilder{font-size:80%;text-decoration:underline;color:#00f;cursor:pointer
 
 .form-builder-error-messages .error-text{ color: #FF0000; border: 1px solid #FF0000; margin-bottom: 10px; padding:5px; }
 .form-builder #tabs label{ font-size:12px !important; }
+
+.ui-state-highlight { height: 65px; line-height: 65px; }

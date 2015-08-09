@@ -52,15 +52,8 @@
 	};
 	
     // fbuilder plugin
-	$.fn.fbuilder = function(options){
-		var opt = $.extend({},
-				{
-	   				pub:false,
-					identifier:"",
-					title:""
-				},
-				options, true),
-			typeList = 	$.fbuilder.typeList,
+	$.fn.fbuilder = function(){
+		var typeList = 	$.fbuilder.typeList,
 			categoryList = $.fbuilder.categoryList;
 			
 		$.fbuilder[ 'getNameByIdFromType' ] = function( id )
@@ -144,19 +137,13 @@
 		$.fbuilder[ 'duplicateItem' ] = function( index ) 
 			{
 				var n = 0;
-				for ( var i=0, h = items.length; i<h; i++ )
-				{
-				   n1 = parseInt( items[i].name.replace( /fieldname/g,"" ) );
-				   if (n1>n)
-					   n = n1;
-				}
-				
-				if( $( '#field-' + items[ index ].index ).parents( '.fields' ).length )
-				{
-					var i = $( '#field-' + items[ index ].index ).parents( '.fields' ).attr( 'id' ).replace( 'field-', '' );
-					if( typeof items[ i ][ 'duplicateItem' ] != 'undefined' ) items[ i ][ 'duplicateItem' ]( items[ index ].name, 'fieldname'+( n + 1 ) );
-				}
-				
+				for ( var i in fieldsIndex ) n = Math.max( parseInt( i.replace( /fieldname/g,"" ) ), n );
+				if( 
+					typeof items[ index ][ 'parent' ] != 'undefined' && 
+					typeof items[ fieldsIndex[ items[ index ][ 'parent' ] ] ] != 'undefined' &&
+					typeof items[ fieldsIndex[ items[ index ][ 'parent' ] ] ][ 'duplicateItem' ] != 'undefined'
+				)
+				items[ fieldsIndex[ items[ index ][ 'parent' ] ] ][ 'duplicateItem' ]( items[ index ].name, 'fieldname'+( n + 1 ) );
 				items.splice( index*1+1, 0, $.extend( true, {}, items[index], { name:"fieldname"+(n+1) } ) );
 				for ( var i=index*1+1, h = items.length; i<h; i++ )
 				{
@@ -165,7 +152,7 @@
 				
 				$('#tabs').tabs("option", "active", 0);
 				$.fbuilder.reloadItems();
-			}
+			};
 		
 		$.fbuilder[ 'editForm' ] = function() 
 			{
@@ -231,11 +218,11 @@
                 
 				for ( var i=0, h = $.fbuilder.showSettings.formlayoutList.length; i < h; i++ )
 				{
-					$("#fieldlist"+opt.identifier).removeClass( $.fbuilder.showSettings.formlayoutList[i].id );
+					$("#fieldlist").removeClass( $.fbuilder.showSettings.formlayoutList[i].id );
 				}	
-				$("#fieldlist"+opt.identifier).addClass(theForm.formlayout);
-				$("#formheader"+opt.identifier).html(theForm.display());
-				$("#fieldlist"+opt.identifier).html("");
+				$("#fieldlist").addClass(theForm.formlayout);
+				$("#formheader").html(theForm.display());
+				$("#fieldlist").html("");
 				if ( parseInt( selected ) == -1 )
 				{
 					$(".fform").addClass("ui-selected");
@@ -255,10 +242,10 @@
                     {
                         calculatedFields[ items[i].name ] = i;
                     }
-					$("#fieldlist"+opt.identifier).append(items[i].display());
+					$("#fieldlist").append(items[i].display());
 					if ( i == selected )
 					{
-						$("#field"+opt.identifier+"-"+i).addClass("ui-selected");
+						$("#field-"+i).addClass("ui-selected");
                         if( $('#tabs').tabs("option", "active") != 1 )
                         {
                             $.fbuilder[ 'editItem' ]( i );
@@ -266,16 +253,16 @@
 					}	
 					else
 					{
-						$("#field"+opt.identifier+"-"+i).removeClass("ui-selected");
+						$("#field-"+i).removeClass("ui-selected");
 					}	
-					$("#field"+opt.identifier+"-"+i+" .remove").click(function()
+					$("#field-"+i+" .remove").click(function()
 						{
-							$.fbuilder[ 'removeItem' ]($(this).parent().attr("id").replace("field"+opt.identifier+"-",""));
+							$.fbuilder[ 'removeItem' ]($(this).parent().attr("id").replace("field-",""));
 						});
 						
-					$("#field"+opt.identifier+"-"+i+" .copy").click(function()
+					$("#field-"+i+" .copy").click(function()
 						{
-							$.fbuilder[ 'duplicateItem' ]($(this).parent().attr("id").replace("field"+opt.identifier+"-",""));
+							$.fbuilder[ 'duplicateItem' ]($(this).parent().attr("id").replace("field-",""));
 						});
 						
 				}
@@ -298,7 +285,7 @@
 						.click(function( evt )
 						{
 							evt.stopPropagation();
-                            $.fbuilder[ 'editItem' ]($(this).attr("id").replace("field"+opt.identifier+"-",""));
+                            $.fbuilder[ 'editItem' ]($(this).attr("id").replace("field-",""));
 							$( '#fieldlist .ui-selected' ).removeClass("ui-selected");
 							$(this).addClass("ui-selected");
 							$('#tabs').tabs("option", "active", 1);
@@ -427,10 +414,13 @@
                 $('#tabs').tabs("option", "active", 0);
             } 
         );
-        $("#fieldlist"+opt.identifier).sortable(
+        $("#fieldlist").sortable(
 			{
 				'connectWith': '.ui-sortable',
 				'items': '.fields',
+				'placeholder': 'ui-state-highlight',
+				'tolerance': 'pointer',
+				'cursorAt': { 'top': 5, 'left': 5 },
 				'update': function( event, ui )
 				{
 					var i, h = items.length;
@@ -442,9 +432,9 @@
 					if( ui.item.parent().attr( 'id' ) == 'fieldlist' )
 					{
 						// receive or change order in fieldlist
-						var end_pos = parseInt( ui.item.index() );
-						items.splice( end_pos, 0,  items.splice( i, 1 )[ 0 ] );
+						items.splice( parseInt( ui.item.index() ), 0,  items.splice( i, 1 )[ 0 ] );
 						$.fbuilder.reloadItems();
+						$( '.'+/fieldname\d+/.exec( ui.item.attr( 'class' ) )[ 0 ] ).click();
 					}
 					else
 					{
@@ -501,14 +491,7 @@
 					n = 0;
 
 				obj.init();
-			    for (var i=0, h = items.length; i < h; i++)
-			    {
-		 		    n1 = parseInt(items[i].name.replace(/fieldname/g,""));
-	 			    if (n1>n)
-					{
-					   n = n1;
-					}   
- 			    }
+				for ( var i in fieldsIndex ) n = Math.max( parseInt( i.replace( /fieldname/g,"" ) ), n );
 				n++;
 				obj.fBuild = fBuild;
 			    $.extend(obj,{name:"fieldname"+n});
@@ -518,10 +501,21 @@
                     items.splice( (selected)*1+1, 0, obj );
                     if( typeof items[ selected ][ 'addItem' ] != 'undefined' )
                     {
+						obj.name[ 'parent' ] = items[ selected ][ 'name' ];
                         items[ selected ][ 'addItem' ]( obj.name );
                     }
                     else
                     {
+						// get the parent
+						if( 
+							typeof items[ selected ][ 'parent' ] != 'undefined' &&
+							typeof items[ fieldsIndex[ items[ selected ][ 'parent' ] ] ] != 'undefined' &&
+							typeof items[ fieldsIndex[ items[ selected ][ 'parent' ] ] ][ 'addItem' ] != 'undefined'
+						)
+						{
+							items[ fieldsIndex[ items[ selected ][ 'parent' ] ] ][ 'addItem' ]( obj.name, items[ selected ][ 'name' ]);
+						}
+						
                         selected++;
                     }
                 }
@@ -555,8 +549,6 @@
 						{
 						   var obj = eval("new $.fbuilder.controls['"+structure[0][i].ftype+"']();");
 						   obj = $.extend( true, {}, obj, structure[0][i] );
-						   obj.name = obj.name+opt.identifier;
-						   obj.form_identifier = opt.identifier;
 						   obj.fBuild = fBuild;
 						   items[items.length] = obj;
 						}

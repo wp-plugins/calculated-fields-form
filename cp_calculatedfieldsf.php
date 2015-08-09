@@ -3,7 +3,7 @@
 Plugin Name: Calculated Fields Form
 Plugin URI: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Description: Create forms with field values calculated based in other form field values.
-Version: 1.0.45
+Version: 1.0.46
 Author: CodePeople.net
 Author URI: http://codepeople.net
 License: GPL

@@ -30,7 +30,7 @@ $cpcff_texts_array = array_replace_recursive(
 
 ?>
 <div class="wrap">
-<h2>Calculated Fields Form</h2>
+<h1>Calculated Fields Form</h1>
 
 <input type="button" name="backbtn" value="Back to items list..." onclick="document.location='options-general.php?page=cp_calculated_fields_form';">
 <br /><br />

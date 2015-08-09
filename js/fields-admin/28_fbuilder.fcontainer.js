@@ -44,24 +44,43 @@
 						}
 					}
 				},
-			addItem: function( newField )
+			addItem: function( newField, afterField )
 				{
+					if( typeof afterField != 'undefined' )
+					{
+						for( var i = 0, h = this.fields.length; i < h; i++ )
+						{
+							if( this.fields[ i ] == afterField )
+							{
+								this.fields.splice( i+1, 0, newField );
+								return;
+							}
+						}
+					}	
 					this.fields.push( newField );
 				},
 			after_show:function()
 				{
 					var me  = this,
 						e   = $( '#field' + me.form_identifier + '-' + me.index + ' .fcontainer' ),
-						tmp = [];
+						tmp = [],
+						items = me.fBuild.getItems(),
+						fieldsIndex = me.fBuild.getFieldsIndex();
 
 					for( var i = 0, h = me.fields.length; i < h; i++ )
 					{
-						var f 	= $( '.' + me.fields[ i ] );
-						if( f.length )
+						if( typeof fieldsIndex[ me.fields[ i ] ] != 'undefined' )
 						{
-							f.detach().appendTo( e );
-							tmp.push( me.fields[ i ] );
-						}
+							// Assign the parent
+							items[ fieldsIndex[ me.fields[ i ] ] ][ 'parent' ] = me.name;
+							
+							var f 	= $( '.' + me.fields[ i ] );
+							if( f.length )
+							{
+								f.detach().appendTo( e );
+								tmp.push( me.fields[ i ] );
+							}
+						}	
 					}
 					me.fields = tmp;
 					
@@ -69,6 +88,9 @@
 						{
 							'connectWith': '.ui-sortable',
 							'items': '.fields',
+							'placeholder': 'ui-state-highlight',
+							'tolerance': 'pointer',
+							'cursorAt': { 'top': 5, 'left': 5 },
 							'update': function( event, ui )
 									{
 										var p = ui.item.parents('.fields');
@@ -82,6 +104,7 @@
 																	me.fields.push( /fieldname\d+/.exec( $(this).attr( 'class' ) )[ 0 ] );
 																} );
 											$.fbuilder.reloadItems();
+											$( '.'+/fieldname\d+/.exec( ui.item.attr( 'class' ) )[ 0 ] ).click();
 										}
 										else
 										{
