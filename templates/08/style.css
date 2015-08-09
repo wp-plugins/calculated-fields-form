@@ -1,0 +1,156 @@
+.cp_cff_dark_notebook #fbuilder{
+    font-size: 16px;
+    background: #495C70;
+    padding: 20px 30px 15px 30px;
+    border: 5px solid #53687E;
+    color:#FFF;
+}
+
+.cp_cff_dark_notebook #fbuilder .fform{
+    color: #FFF;
+}
+
+.cp_cff_dark_notebook #fbuilder .fform h1{
+    margin-top: 0;
+}
+
+.cp_cff_dark_notebook #fbuilder .fform span,
+.cp_cff_dark_notebook #fbuilder span.uh{color:#A8BACE;font-style: italic;}
+
+.cp_cff_dark_notebook #fbuilder .pbSubmit,
+.cp_cff_dark_notebook #fbuilder .pbreak .pbPrevious,
+.cp_cff_dark_notebook #fbuilder .pbreak .pbNext,
+.cp_cff_dark_notebook #fbuilder input[type=submit],
+.cp_cff_dark_notebook #fbuilder input[type=button],
+.cp_cff_dark_notebook #fbuilder input[type=text],
+.cp_cff_dark_notebook #fbuilder input[type=email],
+.cp_cff_dark_notebook #fbuilder input[type=password],
+.cp_cff_dark_notebook #fbuilder select,
+.cp_cff_dark_notebook #fbuilder textarea,
+.cp_cff_dark_notebook #fbuilder label
+{
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 16px;
+    color: #fff;
+
+}
+.cp_cff_dark_notebook #fbuilder select{
+	background-color: #495C70;
+	border: 1px solid #83A4C5;
+}
+.cp_cff_dark_notebook #fbuilder .pbreak>fieldset{
+    padding-left:20px;
+    padding-right:20px;
+}
+.cp_cff_dark_notebook #fbuilder .r{color:#53687E;}
+.cp_cff_dark_notebook #fbuilder input[type=text],
+.cp_cff_dark_notebook #fbuilder input[type=email],
+.cp_cff_dark_notebook #fbuilder input[type=password] 
+{
+    background: transparent;
+    border: none;
+    border-bottom: 1px dashed #83A4C5;
+    outline: none;
+    padding: 0px 0px 5px 0px;
+    font-style: italic;
+}
+
+.cp_cff_dark_notebook #fbuilder textarea{
+    font-style: italic;
+    padding: 0px 0px 5px 0px;
+    background: transparent;
+    outline: none;
+    border: none;
+    border-bottom: 1px dashed #83A4C5;
+    overflow: hidden;
+    resize:none;
+    height:20px;
+}
+
+.cp_cff_dark_notebook #fbuilder textarea:focus, 
+.cp_cff_dark_notebook #fbuilder input[type=text]:focus,
+.cp_cff_dark_notebook #fbuilder input[type=email]:focus,
+.cp_cff_dark_notebook #fbuilder input[type=password] :focus
+{
+    border-bottom: 1px dashed #D9FFA9;
+}
+
+.cp_cff_dark_notebook #fbuilder .pbSubmit,
+.cp_cff_dark_notebook #fbuilder .pbreak .pbPrevious,
+.cp_cff_dark_notebook #fbuilder .pbreak .pbNext,
+.cp_cff_dark_notebook #fbuilder input[type=submit],
+.cp_cff_dark_notebook #fbuilder input[type=reset],
+.cp_cff_dark_notebook #fbuilder input[type=button]{
+    background: #576E86;
+    border: none;
+    padding: 8px 10px 8px 10px;
+    border-radius: 5px;
+    color: #A8BACE;
+}
+
+.cp_cff_dark_notebook #fbuilder .pbSubmit,
+.cp_cff_dark_notebook #fbuilder .pbreak .pbPrevious,
+.cp_cff_dark_notebook #fbuilder .pbreak .pbNext,
+.cp_cff_dark_notebook #fbuilder input[type=submit]:hover,
+.cp_cff_dark_notebook #fbuilder input[type=reset]:hover,
+.cp_cff_dark_notebook #fbuilder input[type=button]:hover{
+background: #394D61;
+}
+
+.cp_cff_dark_notebook #fbuilder input[type=radio],
+.cp_cff_dark_notebook #fbuilder input[type=checkbox]{
+    display: none;
+}
+
+.cp_cff_dark_notebook #fbuilder .cp_cff_dark_notebook_radio,
+.cp_cff_dark_notebook #fbuilder .cp_cff_dark_notebook_checkbox{
+    width:16px;
+    height: 16px;
+    display: inline-block;
+    background-image: url('check_radio.png');
+}
+
+.cp_cff_dark_notebook #fbuilder .cp_cff_dark_notebook_radio{
+    background-position: 0 16px;
+}
+.cp_cff_dark_notebook #fbuilder .cp_cff_dark_notebook_checkbox.active{
+    background-position: 16px 0;
+}
+.cp_cff_dark_notebook #fbuilder .cp_cff_dark_notebook_radio.active{
+    background-position: 16px 16px;
+}
+
+.cp_cff_dark_notebook #fbuilder .pbEnd .pbNext,
+.cp_cff_dark_notebook #fbuilder .pb0 .pbPrevious{display:none;}
+
+
+.cp_cff_dark_notebook #fbuilder fieldset legend,
+.cp_cff_dark_notebook #fbuilder .fields.section_breaks{
+    background: #394D61;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    color: #A8BACE !important;   
+}
+.cp_cff_dark_notebook #fbuilder .fields.section_breaks label{
+    color: #A8BACE !important;    
+}
+.cp_cff_dark_notebook #fbuilder fieldset,
+.cp_cff_dark_notebook #fbuilder fieldset legend{
+    border: 3px solid #53687E;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;   
+}
+
+.cp_cff_dark_notebook #fbuilder .fields.section_breaks .section_break{border:0;}
+.cp_cff_dark_notebook #fbuilder  .dfield.slider-container{padding-left: 10px !important; padding-right: 10px !important; padding-top:5px;}
+.cp_cff_dark_notebook #fbuilder .slider{background: #53687E !important; border-radius: 0;border:0;height: .3em;}
+.cp_cff_dark_notebook #fbuilder .ui-slider-range{background: #394D61;}
+.cp_cff_dark_notebook #fbuilder .ui-slider-handle{
+    height: .8em;
+    border-radius: 0;
+    width: .8em;
+    background: #A8BACE;
+    border: 1px solid #394D61;
+}
