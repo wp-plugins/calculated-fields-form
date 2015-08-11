@@ -137,7 +137,7 @@
 		$.fbuilder[ 'duplicateItem' ] = function( index ) 
 			{
 				var n = 0;
-				for ( var i in fieldsIndex ) n = Math.max( parseInt( i.replace( /fieldname/g,"" ) ), n );
+				for ( var i in fieldsIndex ) if( /fieldname/.test( i ) ) n = Math.max( parseInt( i.replace( /fieldname/g,"" ) ), n );
 				if( 
 					typeof items[ index ][ 'parent' ] != 'undefined' && 
 					typeof items[ fieldsIndex[ items[ index ][ 'parent' ] ] ] != 'undefined' &&
@@ -491,7 +491,7 @@
 					n = 0;
 
 				obj.init();
-				for ( var i in fieldsIndex ) n = Math.max( parseInt( i.replace( /fieldname/g,"" ) ), n );
+				for ( var i in fieldsIndex ) if( /fieldname/.test( i ) ) n = Math.max( parseInt( i.replace( /fieldname/g,"" ) ), n );
 				n++;
 				obj.fBuild = fBuild;
 			    $.extend(obj,{name:"fieldname"+n});
