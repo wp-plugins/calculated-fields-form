@@ -55,7 +55,7 @@
 #fbuilder .right_aligned .section_breaks.fields label,
 #fbuilder .right_aligned .comment_area.fields label{width:100%;clear:both;}
 
-#fbuilder .cpefb_error{border1:1px solid red;}
+#fbuilder .cpefb_error{border:1px solid red;color:red !important;}
 #fbuilder .top_aligned .fields label.cpefb_error,.left_aligned .fields label.cpefb_error,.right_aligned .fields label.cpefb_error{display:block;border:0px;color:#f00;float:none;}
 
 #fbuilder div.cpefb_error{background:#FDF9E5;border:1px solid #f00;opacity:0.9;margin-top:7px;position:relative;padding:0px 5px;z-index:1000;}

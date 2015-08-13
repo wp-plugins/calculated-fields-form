@@ -499,25 +499,32 @@
                 if( selected >= 0 )
                 {
                     items.splice( (selected)*1+1, 0, obj );
-                    if( typeof items[ selected ][ 'addItem' ] != 'undefined' )
-                    {
-						obj.name[ 'parent' ] = items[ selected ][ 'name' ];
-                        items[ selected ][ 'addItem' ]( obj.name );
-                    }
-                    else
-                    {
-						// get the parent
-						if( 
-							typeof items[ selected ][ 'parent' ] != 'undefined' &&
-							typeof items[ fieldsIndex[ items[ selected ][ 'parent' ] ] ] != 'undefined' &&
-							typeof items[ fieldsIndex[ items[ selected ][ 'parent' ] ] ][ 'addItem' ] != 'undefined'
-						)
+					if( id != 'fPageBreak' )
+					{	
+						if( typeof items[ selected ][ 'addItem' ] != 'undefined' )
 						{
-							items[ fieldsIndex[ items[ selected ][ 'parent' ] ] ][ 'addItem' ]( obj.name, items[ selected ][ 'name' ]);
+							obj.name[ 'parent' ] = items[ selected ][ 'name' ];
+							items[ selected ][ 'addItem' ]( obj.name );
 						}
-						
-                        selected++;
-                    }
+						else
+						{
+							// get the parent
+							if( 
+								typeof items[ selected ][ 'parent' ] != 'undefined' &&
+								typeof items[ fieldsIndex[ items[ selected ][ 'parent' ] ] ] != 'undefined' &&
+								typeof items[ fieldsIndex[ items[ selected ][ 'parent' ] ] ][ 'addItem' ] != 'undefined'
+							)
+							{
+								items[ fieldsIndex[ items[ selected ][ 'parent' ] ] ][ 'addItem' ]( obj.name, items[ selected ][ 'name' ]);
+							}
+							
+							selected++;
+						}
+					}
+					else
+					{
+						selected++;
+					}	
                 }
                 else
                 {
