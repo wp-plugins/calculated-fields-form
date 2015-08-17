@@ -545,6 +545,8 @@ A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q230](http://wordp
 
 A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q234](http://wordpress.dwbooster.com/faq/calculated-fields-form#q234 "Applying CSS styles to the form fields")
 
+[http://blog.net-factor.com/tips-and-tricks-using-instruct-text-as-auxiliary-fields-to-modify-the-forms-appearance/](http://blog.net-factor.com/tips-and-tricks-using-instruct-text-as-auxiliary-fields-to-modify-the-forms-appearance/ "Tips and Tricks: Using “Instruct. Text” as auxiliary fields to modify the form’s appearance")
+
 = Q: Is possible modify any of predefined templates included with the plugin? =
 
 A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q231](http://wordpress.dwbooster.com/faq/calculated-fields-form#q231 "Modifying the predefined templates")
