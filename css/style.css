@@ -19,6 +19,7 @@
 #fbuilder .fields .copy{position:absolute;bottom:0;right:20px;display:none;background-color:#fff;cursor:pointer}
 #fbuilder legend{ border:1px solid rgba(222,222,222,.75); background:#FFF; margin-left:5px; padding: 0 5px; }
 #fbuilder .fcontainer{ border:1px solid rgba(222,222,222,.75); min-height:67px; }
+#fbuilder .fhtml {border:1px dashed rgba(222,222,222,.75);min-height:16px;}
 .groupBox,
 .dependenciesBox,
 .choicesSet{border:1px dashed #888;margin:10px 0px;padding:5px}
@@ -99,6 +100,7 @@ textarea {resize: none}
 
 .eq_btn{min-width:45px;}
 .cf_dependence_value{ width:20%; }
+#sContent,
 #sEq{resize:vertical; min-height:70px;}
 #fCalculated{
     background: url("cupertino/images/ui-bg_glass_80_eebd4d_1x400.png") repeat-x scroll 50% 50% #EEBD4D;

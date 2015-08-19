@@ -4,7 +4,7 @@ Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf
 Requires at least: 3.0.5
 Tested up to: 4.3
-Stable tag: 1.0.48
+Stable tag: 1.0.49
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -327,6 +327,7 @@ The following fields are available:
 * Password: A classic password / input field that shows **** when something is typed.
 * Phone field: A very configurable sequence of input fields for entering phone numbers, serial numbers or a sequence of values with limited size.
 * Instruct. Text: Use this area for adding instructions to the end user.
+* HTML Content: Use this field for inserting HTML tags directly on form.
 * Section Break: A line / separator for sections into the same page.
 * Page Break: A separator for pages on multi page forms.
 * Summary: Displays a summary of form fields with the values entered.
@@ -688,7 +689,7 @@ A: To enter a value programmatically to a field, that is not a calculated field,
 
 = Q: How to insert a link in the form? =
 
-A: The form builder does not include a field to insert links explicitly in the form, but you can insert a link through an "Instruct. Text" field. Simply insert an "Instruct. Text" field in the form, and then, enter the tag of the link in any of the field's attributes: "Field Label", or "Instructions for User". For example, to insert a link to our website, you should enter the following tag:
+A: The latest version of plugin includes the "HTML Content" field to insert HTML tags directly on it. Simply insert an "HTML Content" field in the form, and then, enter the tag of the link in the content's attributes. For example, to insert a link to our website, you should enter the following tag:
 
 &lt;a href="http://wordpress.dwbooster.com"&gt;Visit the website&lt;/a&gt;
 
@@ -828,6 +829,9 @@ A: Please, visits the following link to get the answer to your question:
 11. WebHook add-on, and its integration with Zapier
 
 == Changelog ==
+
+= 1.0.49 =
+* Adds the new control: HTML Content, to add html tags, and javascript code, directly on form.
 
 = 1.0.48 =
 * Prevents the insertion of "Page Break" fields into containers fields.
@@ -996,8 +1000,7 @@ A: Please, visits the following link to get the answer to your question:
 
 == Upgrade Notice ==
 
-= 1.0.48 =
-* Prevents the insertion of "Page Break" fields into containers fields.
-* Defines the text colors in the errors messages.
+= 1.0.49 =
+* Adds the new control: HTML Content, to add html tags, and javascript code, directly on form.
 
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
