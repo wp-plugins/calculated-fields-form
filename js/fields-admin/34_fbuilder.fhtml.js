@@ -14,7 +14,7 @@
 			fcontent: "",
 			display:function()
 				{
-					return '<div class="fields '+this.name+' fhtml" id="field'+this.form_identifier+'-'+this.index+'"><div class="arrow ui-icon ui-icon-play "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div>'+$( '<div/>' ).html( this.fcontent ).find( 'script' ).remove().end().html()+'<div class="clearer"></div></div>';
+					return '<div class="fields '+this.name+' fhtml" id="field'+this.form_identifier+'-'+this.index+'"><div class="arrow ui-icon ui-icon-play "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div>'+$( '<div/>' ).html( this.fcontent ).find( 'script,style' ).remove().end().html()+'<div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{

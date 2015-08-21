@@ -4,7 +4,7 @@ Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf
 Requires at least: 3.0.5
 Tested up to: 4.3
-Stable tag: 1.0.49
+Stable tag: 1.0.50
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -830,6 +830,12 @@ A: Please, visits the following link to get the answer to your question:
 
 == Changelog ==
 
+= 1.0.50 =
+* Corrects the type of input fields used by the "Number" controls. If the format of control is "digits", or if the thousands separator is empty and the decimal symbol is the dot symbol, the input field will use the attribute: type="number", and type="text" in other cases. In input fields with type="number", the mobiles devices activate their numeric keyboards.
+* Modifies the "HTML Content" control, to removes the tags: <style> and <script> from the tags editor of the form's builder, to prevent these tags modify the appearance of the editor page. The tags are included in the public website.
+* Modifies the "Button" control to allow the implementation of complex functions in the onclick event, and inserts the button disabled in the controls editor.
+* Inserts the "File" control disabled in the controls editor.
+
 = 1.0.49 =
 * Adds the new control: HTML Content, to add html tags, and javascript code, directly on form.
 
@@ -1000,7 +1006,10 @@ A: Please, visits the following link to get the answer to your question:
 
 == Upgrade Notice ==
 
-= 1.0.49 =
-* Adds the new control: HTML Content, to add html tags, and javascript code, directly on form.
+= 1.0.50 =
+* Corrects the type of input fields used by the "Number" controls. If the format of control is "digits", or if the thousands separator is empty and the decimal symbol is the dot symbol, the input field will use the attribute: type="number", and type="text" in other cases. In input fields with type="number", the mobiles devices activate their numeric keyboards.
+* Modifies the "HTML Content" control, to removes the tags: <style> and <script> from the tags editor of the form's builder, to prevent these tags modify the appearance of the editor page. The tags are included in the public website.
+* Modifies the "Button" control to allow the implementation of complex functions in the onclick event, and inserts the button disabled in the controls editor.
+* Inserts the "File" control disabled in the controls editor.
 
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support

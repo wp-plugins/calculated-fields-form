@@ -10,7 +10,7 @@
 			userhelp:"A description of the section goes here.",
 			show:function()
 				{
-                    var esc  = $.fbuilder.htmlEncode,
+                    var esc  = function( v ){ v = v.replace( /&lt/g, '&amp;').replace(/"/g, "&quot;").replace( /\n+/g, ' ' ); return v;},
                         type = this.sType,
                         clss = '';
                         

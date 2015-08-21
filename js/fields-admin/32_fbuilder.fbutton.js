@@ -17,7 +17,7 @@
 			userhelp:"A description of the section goes here.",
 			display:function()
 				{
-					return '<div class="fields '+this.name+'" id="field'+this.form_identifier+'-'+this.index+'"><div class="arrow ui-icon ui-icon-play "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><input type="button" value="'+this.sValue+'"><span class="uh">'+this.userhelp+'</span><div class="clearer"></div></div>';
+					return '<div class="fields '+this.name+'" id="field'+this.form_identifier+'-'+this.index+'"><div class="arrow ui-icon ui-icon-play "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><input type="button" disabled value="'+this.sValue+'"><span class="uh">'+this.userhelp+'</span><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{ 				    
