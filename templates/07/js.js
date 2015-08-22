@@ -1,39 +1,41 @@
 window[ 'cp_cff_minimalist' ] = function(){
-	if( typeof jQuery == 'undefined' )
+	if( typeof fbuilderjQuery == 'undefined' )
 	{
 		setTimeout( cp_cff_minimalist, 500 );
 		return;
 	}
 
-	jQuery( document ).one( 'showHideDepEvent', function(){
+	fbuilderjQuery( document ).one( 'showHideDepEvent cp_cff_minimalistEvent', function(){
 		var progressBar = function( e )
 			{
 				var p = (e.find( '.pbreak:visible' ).attr( 'page' ))*1+1,
 					t = e.find( '.pbreak' ).length;
 				e.find( '.wizard-progressbar-value' ).css( 'width',  (p/t*100)+'%' );	
 			};
-		if( jQuery( '.cp_cff_minimalist .pbreak' ).length > 1 )
+		if( fbuilderjQuery( '.cp_cff_minimalist .pbreak' ).length > 1 )
 		{	
-			jQuery( '.cp_cff_minimalist .pbreak:visible' ).each(function(){
-				jQuery(this).parent()
+			fbuilderjQuery( '.cp_cff_minimalist .pbreak:visible' ).each(function(){
+				fbuilderjQuery(this).parent()
 							.prepend( '<div><div class="wizard-progressbar"><div class="wizard-progressbar-value"></div></div></div>' );
-				progressBar( jQuery( this ).closest( '#fbuilder' ) );
+				progressBar( fbuilderjQuery( this ).closest( '#fbuilder' ) );
 			});
 			
-			jQuery( '.cp_cff_minimalist .pbNext' ).click( 
+			fbuilderjQuery( '.cp_cff_minimalist .pbNext' ).click( 
 				(function( f ){
 					return function(){
-						f( jQuery(this).closest( '#fbuilder' ) );
+						f( fbuilderjQuery(this).closest( '#fbuilder' ) );
 					};
 				})( progressBar ) );
 						
-			jQuery( '.cp_cff_minimalist .pbPrevious' ).click( 
+			fbuilderjQuery( '.cp_cff_minimalist .pbPrevious' ).click( 
 				(function( f ){
 					return function(){
-						f( jQuery(this).closest( '#fbuilder' ) );
+						f( fbuilderjQuery(this).closest( '#fbuilder' ) );
 					};
 				})( progressBar ) );	
 		}		
 	});
+	
+	fbuilderjQuery( document ).trigger( 'cp_cff_minimalistEvent' );
 };
 cp_cff_minimalist();
