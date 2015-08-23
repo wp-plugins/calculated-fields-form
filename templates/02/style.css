@@ -18,6 +18,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5e513e', end
 .cp_cff_professional #fbuilder select,
 .cp_cff_professional #fbuilder textarea,
 .cp_cff_professional #fbuilder input[type=text],
+.cp_cff_professional #fbuilder input[type=number],
 .cp_cff_professional #fbuilder input[type=file]{
 border-bottom:1px solid #776D5D;
 border-top:1px solid #252118;

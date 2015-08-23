@@ -21,6 +21,7 @@
 
 
 .cp_cff_minimalist #fbuilder input[type="text"],
+.cp_cff_minimalist #fbuilder input[type="number"],
 .cp_cff_minimalist #fbuilder input[type="password"],
 .cp_cff_minimalist #fbuilder textarea,
 .cp_cff_minimalist #fbuilder select 

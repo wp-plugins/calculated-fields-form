@@ -4,6 +4,7 @@
 .cp_cff_letter #fbuilder select,
 .cp_cff_letter #fbuilder textarea,
 .cp_cff_letter #fbuilder input[type=text],
+.cp_cff_letter #fbuilder input[type=number],
 .cp_cff_letter #fbuilder input[type=file]{border-bottom:1px solid #bbb;border-top:1px solid #999;border-left:1px solid #bbb;border-right:1px solid #bbb;padding-top:5px;padding-bottom:5px;font-size:14px;-webkit-box-shadow:#fdfdfd 0px 1px 1px;color:#888;}
 .cp_cff_letter #fbuilder{text-shadow:0px 1px 0px #fff;}
 .cp_cff_letter #fbuilder legend{background:#FFF; border:1px solid #C4C4C4;}

@@ -7,6 +7,7 @@
 .cp_cff_elegant #fbuilder select,
 .cp_cff_elegant #fbuilder textarea,
 .cp_cff_elegant #fbuilder input[type=text],
+.cp_cff_elegant #fbuilder input[type=number],
 .cp_cff_elegant #fbuilder input[type=file]{border:1px solid  rgb(148, 132, 116);padding-bottom:5px;padding-top:5px;font-size:14px;background:#FFF;color:rgb(81, 62, 43);-webkit-box-shadow:inset 0px 2px 7px 0px rgba(0, 0, 0, 0.09);-moz-box-shadow:inset 0px 2px 7px 0px rgba(0, 0, 0, 0.09);box-shadow:inset 0px 2px 7px 0px rgba(0, 0, 0, 0.09);}
 .cp_cff_elegant #fbuilder .uh{color:rgb(164, 147, 132);}
 

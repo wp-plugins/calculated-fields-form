@@ -78,6 +78,7 @@
 .cp_cff_box #fbuilder .pb0 .pbPrevious{display:none;}
 
 .cp_cff_box #fbuilder input[type=text],
+.cp_cff_box #fbuilder input[type=number],
 .cp_cff_box #fbuilder input[type=email],
 .cp_cff_box #fbuilder input[type=password],
 .cp_cff_box #fbuilder textarea{	border:0;outline:none;}

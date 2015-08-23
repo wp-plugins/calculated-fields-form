@@ -7,6 +7,7 @@
 .cp_cff_decorative #fbuilder select,
 .cp_cff_decorative #fbuilder textarea,
 .cp_cff_decorative #fbuilder input[type=text],
+.cp_cff_decorative #fbuilder input[type=number],
 .cp_cff_decorative #fbuilder input[type=file]{border-bottom: 1px solid rgb(223, 221, 193);border-left:0px;border-right:0px;border-top:0px;padding:5px 0;font-size:14px;background:#FCFAE6;color:rgb(0, 34, 65);}
 .cp_cff_decorative #fbuilder textarea{border: 1px solid rgb(223, 221, 193);}
 .cp_cff_decorative #fbuilder .fields:not(.section_breaks) label{font: bold 11px 'century gothic', Arial, Helvetica, sans-serif;text-transform: uppercase;color: rgb(229, 27, 36);}

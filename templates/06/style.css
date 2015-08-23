@@ -6,6 +6,7 @@
 .cp_cff_clean #fbuilder select,
 .cp_cff_clean #fbuilder textarea,
 .cp_cff_clean #fbuilder input[type=text],
+.cp_cff_clean #fbuilder input[type=number],
 .cp_cff_clean #fbuilder input[type=file]{
 border: solid 1px #D7D9DA;
 background:#FFF;

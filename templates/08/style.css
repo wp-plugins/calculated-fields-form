@@ -23,6 +23,7 @@
 .cp_cff_dark_notebook #fbuilder input[type=submit],
 .cp_cff_dark_notebook #fbuilder input[type=button],
 .cp_cff_dark_notebook #fbuilder input[type=text],
+.cp_cff_dark_notebook #fbuilder input[type=number],
 .cp_cff_dark_notebook #fbuilder input[type=email],
 .cp_cff_dark_notebook #fbuilder input[type=password],
 .cp_cff_dark_notebook #fbuilder select,
@@ -44,6 +45,7 @@
 }
 .cp_cff_dark_notebook #fbuilder .r{color:#53687E;}
 .cp_cff_dark_notebook #fbuilder input[type=text],
+.cp_cff_dark_notebook #fbuilder input[type=number],
 .cp_cff_dark_notebook #fbuilder input[type=email],
 .cp_cff_dark_notebook #fbuilder input[type=password] 
 {
@@ -69,6 +71,7 @@
 
 .cp_cff_dark_notebook #fbuilder textarea:focus, 
 .cp_cff_dark_notebook #fbuilder input[type=text]:focus,
+.cp_cff_dark_notebook #fbuilder input[type=number]:focus,
 .cp_cff_dark_notebook #fbuilder input[type=email]:focus,
 .cp_cff_dark_notebook #fbuilder input[type=password] :focus
 {
