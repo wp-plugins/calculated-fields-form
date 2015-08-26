@@ -760,6 +760,12 @@ A: Please, read the answer in the FAQ entry:
 A: Please, read the answer in the FAQ entry: 
 [http://wordpress.dwbooster.com/faq/calculated-fields-form#q271](http://wordpress.dwbooster.com/faq/calculated-fields-form#q271 "How to use a parameter passed by get in the equations?")
 
+= Q: How to use the URL parameters for filtering the data on "DS" controls? =
+
+A: Please, visit the following article in our technical blog: 
+[http://blog.net-factor.com/filtering-the-information-in-the-ds-controls-with-urls-parameters/](http://blog.net-factor.com/filtering-the-information-in-the-ds-controls-with-urls-parameters/ "Filtering the information in the DS controls, with URL’s parameters")
+
+
 = Q: How to use the data submitted by a form in another one? =
 
 A: Please, read the instructions in the our technical blog.
