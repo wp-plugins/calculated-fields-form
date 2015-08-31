@@ -3,7 +3,7 @@
 Plugin Name: Calculated Fields Form
 Plugin URI: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Description: Create forms with field values calculated based in other form field values.
-Version: 1.0.53
+Version: 1.0.54
 Author: CodePeople.net
 Author URI: http://codepeople.net
 License: GPL
@@ -104,6 +104,10 @@ $cpcff_default_texts_array = array(
                             )
 );
 
+// Global variables to maintain an incremental number to identify the forms on page
+$CP_CFF_global_form_count_number = 0;
+$CP_CFF_global_form_count = "_".$CP_CFF_global_form_count_number;
+
 if( !function_exists( 'array_replace_recursive' ) )
 {
     function array_replace_recursive($array1, $array2)
@@ -157,16 +161,14 @@ function cp_calculated_fields_form_load_resources()
 	
 add_action( 'init', 'cp_calculated_fields_form_check_posted_data', 11 );
     
+if( session_id() == "" ) @session_start();
 if ( is_admin() ) {
-	if( session_id() == "" ) @session_start();
     add_action('media_buttons', 'set_cp_calculatedfieldsf_insert_button', 100);
     add_action('admin_enqueue_scripts', 'set_cp_calculatedfieldsf_insert_adminScripts', 1);
     add_action('admin_menu', 'cp_calculatedfieldsf_admin_menu');    
 
     $plugin = plugin_basename(__FILE__);
-    add_filter("plugin_action_links_".$plugin, 'cp_calculatedfieldsf_customAdjustmentsLink');
-    add_filter("plugin_action_links_".$plugin, 'cp_calculatedfieldsf_settingsLink');
-    add_filter("plugin_action_links_".$plugin, 'cp_calculatedfieldsf_helpLink');
+    add_filter("plugin_action_links_".$plugin, 'cp_calculatedfieldsf_links');
 
     function cp_calculatedfieldsf_admin_menu() {
 		add_options_page('Calculated Fields Form Options', 'Calculated Fields Form', 'manage_options', 'cp_calculated_fields_form', 'cp_calculatedfieldsf_html_post_page' );
@@ -397,7 +399,6 @@ function cp_calculatedfieldsf_create_var( $atts ) {
 		if( !empty( $var ) )
 		{
 			$from = '_';
-			if( session_id() == "" ) @session_start();	
 			if( isset( $atts[ 'from' ] ) ) $from .= strtoupper( trim( $atts[ 'from' ] ) );
 			if( in_array( $from, array( '_POST', '_GET', '_SESSION', '_COOKIE' ) ) )
 			{
@@ -423,6 +424,7 @@ function cp_calculatedfieldsf_create_var( $atts ) {
 	}	
 } // End cp_calculatedfieldsf_create_var
 
+// Used in forms previews
 function cp_calculatedfieldsf_filter_content( $atts ) {
     global $wpdb;	
     if( empty( $atts[ 'id' ] ) )
@@ -447,9 +449,6 @@ function cp_calculatedfieldsf_filter_content( $atts ) {
     ob_end_clean();       
     return $buffered_contents;
 }
-
-$CP_CFF_global_form_count_number = 0;
-$CP_CFF_global_form_count = "_".$CP_CFF_global_form_count_number;
 
 function cp_calculatedfieldsf_available_templates(){	
 	global $CP_CFF_global_templates;
@@ -493,9 +492,9 @@ function cp_calculatedfieldsf_get_public_form($id) {
         $myrows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE );
     
     $previous_label = cp_calculatedfieldsf_get_option('vs_text_previousbtn', 'Previous',$id);
-    $previous_label = ($previous_label==''?'Previous':$previous_label);
+    $previous_label = ( $previous_label=='' ? 'Previous' : $previous_label );
     $next_label = cp_calculatedfieldsf_get_option('vs_text_nextbtn', 'Next',$id);
-    $next_label = ($next_label==''?'Next':$next_label);
+    $next_label = ( $next_label == '' ? 'Next' : $next_label );    
     
     $cpcff_texts_array = cp_calculatedfieldsf_get_option( 'vs_all_texts', $cpcff_default_texts_array, $id );
     $cpcff_texts_array = array_replace_recursive( 
@@ -576,39 +575,44 @@ function cp_calculatedfieldsf_get_public_form($id) {
 		?>	
 		<script type='text/javascript'>     
 			/* <![CDATA[ */
-			var cp_calculatedfieldsf_fbuilder_config<?php echo $CP_CFF_global_form_count; ?> = {"obj":"{\"pub\":true,\"identifier\":\"<?php echo $CP_CFF_global_form_count; ?>\",\"messages\": {\n    \t                \t\"required\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_is_required', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_required,$id));?>\",\n    \t                \t\"email\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_is_email', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_email,$id));?>\",\n    \t                \t\"datemmddyyyy\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_datemmddyyyy', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_datemmddyyyy,$id));?>\",\n    \t                \t\"dateddmmyyyy\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_dateddmmyyyy', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_dateddmmyyyy,$id));?>\",\n    \t                \t\"number\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_number', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_number,$id));?>\",\n    \t                \t\"digits\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_digits', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_digits,$id));?>\",\n    \t                \t\"max\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_max', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_max,$id));?>\",\n    \t                \t\"min\": \"<?php echo str_replace(array('"'),array('\\"'),cp_calculatedfieldsf_get_option('vs_text_min', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_min,$id));?>\",\"previous\": \"<?php echo str_replace(array('"'),array('\\"'),$previous_label); ?>\",\"next\": \"<?php echo str_replace(array('"'),array('\\"'),$next_label); ?>\",\"pageof\": \"<?php echo str_replace(array('"'),array('\\"'),$page_of_label); ?>\"\n    \t                }}"};
+			<?php
+				$fbuilder_config = new stdClass;
+				$fbuilder_config->obj = new stdClass;
+				$fbuilder_config->obj->pub = true;
+				$fbuilder_config->obj->identifier = $CP_CFF_global_form_count;
+				$fbuilder_config->obj->messages = new stdClass;
+				$fbuilder_config->obj->messages->required = cp_calculatedfieldsf_get_option('vs_text_is_required', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_required,$id);
+				$fbuilder_config->obj->messages->email = cp_calculatedfieldsf_get_option('vs_text_is_email', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_email,$id);
+				$fbuilder_config->obj->messages->datemmddyyyy = cp_calculatedfieldsf_get_option('vs_text_datemmddyyyy', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_datemmddyyyy,$id);
+				$fbuilder_config->obj->messages->dateddmmyyyy = cp_calculatedfieldsf_get_option('vs_text_dateddmmyyyy', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_dateddmmyyyy,$id);
+				$fbuilder_config->obj->messages->number = cp_calculatedfieldsf_get_option('vs_text_number', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_number,$id);
+				$fbuilder_config->obj->messages->digits = cp_calculatedfieldsf_get_option('vs_text_digits', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_digits,$id);
+				$fbuilder_config->obj->messages->max = cp_calculatedfieldsf_get_option('vs_text_max', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_max,$id);
+				$fbuilder_config->obj->messages->min = cp_calculatedfieldsf_get_option('vs_text_min', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_min,$id);
+				$fbuilder_config->obj->messages->previous = $previous_label;
+				$fbuilder_config->obj->messages->next = $next_label;
+				$fbuilder_config->obj->messages->pageof = $page_of_label;
+				
+				print 'var cp_calculatedfieldsf_fbuilder_config'.$CP_CFF_global_form_count.'='.json_encode( $fbuilder_config );
+			?>
 			/* ]]> */
 		</script>     
 		<?php
     }    
 }
 
-
-function cp_calculatedfieldsf_settingsLink($links) {
-    $settings_link = '<a href="options-general.php?page=cp_calculated_fields_form">'.__('Settings').'</a>';
-	array_unshift($links, $settings_link);
+function cp_calculatedfieldsf_links($links) {
+	array_unshift(
+		$links, 
+		'<a href="http://wordpress.dwbooster.com/contact-us">'.__('Request custom changes').'</a>',
+		'<a href="options-general.php?page=cp_calculated_fields_form">'.__('Settings').'</a>',
+		'<a href="http://wordpress.dwbooster.com/forms/calculated-fields-form">'.__('Help').'</a>'
+	);
 	return $links;
 }
-
-
-function cp_calculatedfieldsf_helpLink($links) {
-    $help_link = '<a href="http://wordpress.dwbooster.com/forms/calculated-fields-form">'.__('Help').'</a>';
-	array_unshift($links, $help_link);
-	return $links;
-}
-
-
-function cp_calculatedfieldsf_customAdjustmentsLink($links) {
-    $customAdjustments_link = '<a href="http://wordpress.dwbooster.com/contact-us">'.__('Request custom changes').'</a>';
-	array_unshift($links, $customAdjustments_link);
-	return $links;
-}
-
 
 function set_cp_calculatedfieldsf_insert_button() {
-    print '<a href="javascript:cp_calculatedfieldsf_insertForm();" title="'.__('Insert Calculated Fields Form').'"><img src="'.plugins_url('/images/cp_form.gif', __FILE__).'" alt="'.__('Insert Calculated Fields Form').'" /></a>';
-	
-	print '<a href="javascript:cp_calculatedfieldsf_insertVar();" title="'.__('Create a JavaScript var from POST, GET, SESSION, or COOKIE var').'"><img src="'.plugins_url('/images/cp_var.gif', __FILE__).'" alt="'.__('Create a JavaScript var from POST, GET, SESSION, or COOKIE var').'" /></a>';
+    print '<a href="javascript:cp_calculatedfieldsf_insertForm();" title="'.__('Insert Calculated Fields Form').'"><img src="'.plugins_url('/images/cp_form.gif', __FILE__).'" alt="'.__('Insert Calculated Fields Form').'" /></a><a href="javascript:cp_calculatedfieldsf_insertVar();" title="'.__('Create a JavaScript var from POST, GET, SESSION, or COOKIE var').'"><img src="'.plugins_url('/images/cp_var.gif', __FILE__).'" alt="'.__('Create a JavaScript var from POST, GET, SESSION, or COOKIE var').'" /></a>';
 }
 
 
@@ -825,6 +829,17 @@ function cp_calculatedfieldsf_get_option ($field, $default_value, $id = '')
 			$value = $default_value;
 		}	
     }
+	
+	if( $field == 'form_structure'  && !is_array( $value ) )
+	{
+		$raw_form_str = cp_calculatedfieldsf_cleanJSON( $value );
+		$form_data = json_decode( $raw_form_str );
+		if( is_null( $form_data ) ){
+			$json = new JSON;
+			$form_data = $json->unserialize( $raw_form_str );
+		}
+		$value = $cp_calculatedfieldsf_option_buffered_item->form_structure = ( !is_null( $form_data ) ) ? $form_data : '';
+	}
     
     if ( ( $field == 'vs_all_texts' && empty( $value ) ) || ( $value == '' && $cp_calculatedfieldsf_option_buffered_item->form_structure == '' ) )
         $value = $default_value;

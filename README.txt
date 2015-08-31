@@ -4,7 +4,7 @@ Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf
 Requires at least: 3.0.5
 Tested up to: 4.3
-Stable tag: 1.0.53
+Stable tag: 1.0.54
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -760,6 +760,12 @@ A: Please, read the answer in the FAQ entry:
 A: Please, read the answer in the FAQ entry: 
 [http://wordpress.dwbooster.com/faq/calculated-fields-form#q271](http://wordpress.dwbooster.com/faq/calculated-fields-form#q271 "How to use a parameter passed by get in the equations?")
 
+= Q: How to use the URL parameters for filtering the data on "DS" controls? =
+
+A: Please, visit the following article in our technical blog: 
+[http://blog.net-factor.com/filtering-the-information-in-the-ds-controls-with-urls-parameters/](http://blog.net-factor.com/filtering-the-information-in-the-ds-controls-with-urls-parameters/ "Filtering the information in the DS controls, with URL’s parameters")
+
+
 = Q: How to use the data submitted by a form in another one? =
 
 A: Please, read the instructions in the our technical blog.
@@ -829,6 +835,9 @@ A: Please, visits the following link to get the answer to your question:
 11. WebHook add-on, and its integration with Zapier
 
 == Changelog ==
+
+= 1.0.54 =
+* Optimizes the plugin's code, reduces the accesses to database, and submits less information.
 
 = 1.0.53 =
 * New update for all predefined layouts.
@@ -1015,7 +1024,7 @@ A: Please, visits the following link to get the answer to your question:
 
 == Upgrade Notice ==
 
-= 1.0.53 =
-* New update for all predefined layouts.
+= 1.0.54 =
+* Optimizes the plugin's code, reduces the accesses to database, and submits less information.
 
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support

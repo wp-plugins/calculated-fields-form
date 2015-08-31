@@ -251,14 +251,12 @@
 					},
 				loadData:function(f)
 					{
-						var d,
-							e = $("#"+f);
-						
-						this.formId = e.parents( 'form' ).attr( 'id' );
-						if ( d = $.parseJSON( e.val() ))
+						var d =  window[ f ];
+						if ( typeof d != 'undefined' )
 						{
-						   if (d.length==2)
+						   if (d.length == 2)
 						   {
+							   this.formId = d[ 1 ][ 'formid' ];
 							   items = [];
 							   for (var i=0;i<d[0].length;i++)
 							   {
@@ -273,12 +271,8 @@
 							   theForm = $.extend(theForm,d[1][0]);
 							   reloadItemsPublic();
 						   }
+						   $.fbuilder.cpcff_load_defaults(f);
 						}
-
-						if( typeof window[ 'cpcff_load_defaults' ] != 'undefined' )
-                        {
-                            window[ 'cpcff_load_defaults' ]();
-                        }
 					}
 			};
 
@@ -345,4 +339,67 @@
 				}
 			}	
 		}; // End showHideDep	
-		
+
+		// Load default values
+		$.fbuilder[ 'cpcff_load_defaults' ] = function( f )
+		{   
+			var $ = jQuery;
+			function setFieldValue( i, v )
+			{
+				$('[id="' + i + '"]').each(
+					function()
+					{
+						var e    = $( this ),
+							attr = e.attr( 'vt' ),
+							t    = this.tagName;
+
+						if( typeof attr == 'undefined' && t != 'SELECT' )
+						{
+							e.val( v );
+							if( e.hasClass( 'phone' ) )
+							{
+								v = $.trim( v ).replace( /[^\d]/g, ' ').split( ' ' );
+								for( var j = 0, h = v.length; j < h; j++ )
+								{
+									$( '[id="' + i + '_' + j + '"]' ).val( v[ j ] );
+								}
+							}
+							else if( e.hasClass( 'date' ) )
+							{
+								v = $.trim( v ).split( ' ' );
+								$( '[id="' + i + '_date"]' ).val( v[ 0 ] );   
+								if( v.length > 1 )
+								{
+									var time = v[ 1 ].split( ':' ); 
+									$( '[id="' + i + '_hours"]' ).val( time[ 0 ] );   
+									$( '[id="' + i + '_minutes"]' ).val( time[ 1 ] );   
+								}
+							}
+						}
+						else
+						{
+							if( t == 'SELECT' )
+							{
+								e.find( '[vt="' + v + '"]' ).prop( 'selected', true );
+							}
+							else
+							{
+								if( ( typeof v == 'object' && $.inArray( attr, v ) != '-1' ) || attr == v )
+								{
+									e.prop( 'checked', true );
+								}
+							}
+						}
+					}    
+				).change();
+			};
+			if( typeof cpcff_default != 'undefined'  && cpcff_default[ f ] != 'undefined' )
+			{
+				var form_data = cpcff_default[ f ];
+				for( var field_id in form_data )
+				{
+					var v = form_data[ field_id ];
+					setFieldValue( field_id, v );
+				}
+			}
+		};
