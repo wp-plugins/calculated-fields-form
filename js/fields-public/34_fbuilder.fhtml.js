@@ -7,7 +7,7 @@
 			fcontent:"",
 			show:function()
 				{
-						return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'">'+$( '<div/>' ).html( this.fcontent ).html()+'<div class="clearer"></div></div>';
+						return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'"><div id="'+this.name+'" class="dfield">'+$( '<div/>' ).html( this.fcontent ).html()+'</div><div class="clearer"></div></div>';
 				}	
 		}
 	);
