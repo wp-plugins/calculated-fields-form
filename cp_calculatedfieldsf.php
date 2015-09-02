@@ -3,7 +3,7 @@
 Plugin Name: Calculated Fields Form
 Plugin URI: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Description: Create forms with field values calculated based in other form field values.
-Version: 1.0.55
+Version: 1.0.56
 Author: CodePeople.net
 Author URI: http://codepeople.net
 License: GPL
@@ -515,7 +515,7 @@ function cp_calculatedfieldsf_get_public_form($id) {
         wp_deregister_script('cp_calculatedfieldsf_validate_script');
         wp_register_script('cp_calculatedfieldsf_validate_script', plugins_url('/js/jquery.validate.js', __FILE__));
         
-        wp_enqueue_script( 'cp_calculatedfieldsf_buikder_script', $public_js_path, array("jquery","jquery-ui-core","jquery-ui-button","jquery-ui-datepicker","jquery-ui-widget","jquery-ui-position","jquery-ui-tooltip","query-stringify","cp_calculatedfieldsf_validate_script", "jquery-ui-slider"), false, true );    
+        wp_enqueue_script( 'cp_calculatedfieldsf_buikder_script', $public_js_path, array("jquery","jquery-ui-core","jquery-ui-button","jquery-ui-datepicker","jquery-ui-widget","jquery-ui-position","jquery-ui-tooltip","query-stringify","cp_calculatedfieldsf_validate_script", "jquery-ui-slider"), '1.0.56', true );    
         
         if ($id == '') $id = $myrows[0]->id;
         wp_localize_script('cp_calculatedfieldsf_buikder_script', 'cp_calculatedfieldsf_fbuilder_config'.$CP_CFF_global_form_count, array('obj'  	=>
@@ -551,7 +551,7 @@ function cp_calculatedfieldsf_get_public_form($id) {
 			// This code won't be used in most cases. This code is for preventing problems in wrong WP themes and conflicts with third party plugins.
 			$plugin_url = plugins_url('', __FILE__); 
 			$prefix_ui = '';
-			if ( @file_exists( dirname( _FILE_ ).'/../../../wp-includes/js/jquery/ui/jquery.ui.core.min.js' ) )
+			if ( @file_exists( dirname( __FILE__ ).'/../../../wp-includes/js/jquery/ui/jquery.ui.core.min.js' ) )
 			$prefix_ui = 'jquery.ui.';
 		?>
 			<script> if( typeof jQuery != 'undefined' ) var jQueryBK = jQuery.noConflict(); </script>
@@ -569,7 +569,7 @@ function cp_calculatedfieldsf_get_public_form($id) {
 			</script>
 			<script type='text/javascript' src='<?php echo plugins_url('js/jQuery.stringify.js', __FILE__); ?>'></script>
 			<script type='text/javascript' src='<?php echo plugins_url('js/jquery.validate.js', __FILE__); ?>'></script>
-			<script type='text/javascript' src='<?php echo $public_js_path; ?>'></script>
+			<script type='text/javascript' src='<?php echo $public_js_path.(( strpos( $public_js_path, '?' ) == false ) ? '?' : '&' ).'ver=1.0.56'; ?>'></script>
 		<?php
 		}
 		?>	

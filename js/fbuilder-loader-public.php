@@ -71,7 +71,7 @@ fbuilderjQuery(function(){
         {
 			try {
             var cp_calculatedfieldsf_fbuilder_config = eval("cp_calculatedfieldsf_fbuilder_config"+fnum);
-            var f = $("#fbuilder"+fnum).fbuilder($.parseJSON(cp_calculatedfieldsf_fbuilder_config.obj));
+            var f = $("#fbuilder"+fnum).fbuilder(( typeof cp_calculatedfieldsf_fbuilder_config.obj == 'string' ) ?  $.parseJSON(cp_calculatedfieldsf_fbuilder_config.obj) : cp_calculatedfieldsf_fbuilder_config.obj );
 			f.fBuild.loadData("form_structure"+fnum);
 			$("#cp_calculatedfieldsf_pform"+fnum).validate({
                 ignore:".ignore,.ignorepb",
