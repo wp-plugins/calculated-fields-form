@@ -15,8 +15,9 @@ window[ 'cp_cff_minimalist' ] = function(){
 		if( fbuilderjQuery( '.cp_cff_minimalist .pbreak' ).length > 1 )
 		{	
 			fbuilderjQuery( '.cp_cff_minimalist .pbreak:visible' ).each(function(){
-				fbuilderjQuery(this).parent()
-							.prepend( '<div><div class="wizard-progressbar"><div class="wizard-progressbar-value"></div></div></div>' );
+				var p = fbuilderjQuery(this).parent();
+				if( p.find( '.wizard-progressbar' ).length != 0 ) return;
+				p.prepend( '<div><div class="wizard-progressbar"><div class="wizard-progressbar-value"></div></div></div>' );
 				progressBar( fbuilderjQuery( this ).closest( '#fbuilder' ) );
 			});
 			

@@ -173,12 +173,13 @@
 							e.data.obj.choicesDep[$(this).attr("i")][$(this).attr("j")] = $(this).val();
 							$.fbuilder.reloadItems();
 						});
-					var items = this.fBuild.getItems();
+					var me 		= this,
+						items 	= me.fBuild.getItems();
 					$('.dependencies').each(function()
 						{
 							var str = '<option value="" '+(("" == $(this).attr("dvalue"))?"selected":"")+'></option>';
 							for (var i=0;i<items.length;i++)
-								if (items[i].name != $(this).attr("dname"))
+								if (items[i].name != me.name && items[i].ftype != 'fSectionBreak' && items[i].ftype != 'fPageBreak')
 									str += '<option value="'+items[i].name+'" '+((items[i].name == $(this).attr("dvalue"))?"selected":"")+'>'+(items[i].name)+( ( typeof items[ i ].title != 'undefined' ) ? ' (' + items[ i ].title + ')' : '' )  +'</option>';
 							$(this).html(str);
 						});

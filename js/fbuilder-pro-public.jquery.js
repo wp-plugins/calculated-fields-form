@@ -15,7 +15,7 @@
 	
 	$.fbuilder[ 'parseValStr' ] = function( value )
 	{
-		return '"' + value.replace(/'/g, "\\'").replace( /\$/g, '') + '"';
+		return '"' + value.replace(/'/g, "\\'").replace( /\$/g, '\\$') + '"';
 	};
 	
 	$.fbuilder[ 'parseVal' ] = function( value, thousandSeparator, decimalSymbol )
@@ -30,10 +30,8 @@
 		
 		thousandSeparator = new RegExp( thousandSeparator, 'g' );
 		decimalSymbol = new RegExp( $.fbuilder.escape_symbol( decimalSymbol ), 'g' );
-		
 		var t = value.replace( correction, correctionReplacement ).replace( thousandSeparator, '' ).replace( decimalSymbol, '.' ).replace( /\s/g, '' ),
 			p = /[+\-]?((\d+(\.\d+)?)|(\.\d+))(?:[eE][+\-]?\d+)?/.exec( t );
-
 		return ( p ) ? p[0]*1 : $.fbuilder[ 'parseValStr' ]( value );
 	};
 				
@@ -68,74 +66,86 @@
 		
 		$.extend($.validator.messages, opt.messages);
 		
-		var items = [];
-		var reloadItemsPublic = function() 
+		var items = [],
+			reloadItemsPublic = function() 
 			{
-				$("#fieldlist"+opt.identifier).closest( 'form' ).addClass( theForm.formtemplate );
-                $("#fieldlist"+opt.identifier).html("").addClass(theForm.formlayout);
-				$("#formheader"+opt.identifier).html(theForm.show());
-				
-				var page = 0;
-				$("#fieldlist"+opt.identifier).append('<div class="pb'+page+' pbreak" page="'+page+'"></div>');
-				for (var i=0;i<items.length;i++)
-				{
-					items[i].index = i;
-					if (items[i].ftype=="fPageBreak")
+				var form_tag = $("#fieldlist"+opt.identifier).closest( 'form' );
+				form_tag.addClass( theForm.formtemplate );
+				if( !opt.cached )
+				{	
+					$("#fieldlist"+opt.identifier).html("").addClass(theForm.formlayout);
+					$("#formheader"+opt.identifier).html(theForm.show());
+					
+					var page = 0;
+					$("#fieldlist"+opt.identifier).append('<div class="pb'+page+' pbreak" page="'+page+'"></div>');
+					for (var i=0;i<items.length;i++)
 					{
-						page++;
-						$("#fieldlist"+opt.identifier).append('<div class="pb'+page+' pbreak" page="'+page+'"></div>');
-					}
-					else
-					{
-						$("#fieldlist"+opt.identifier+" .pb"+page).append(items[i].show());
-						if (items[i].predefinedClick)
+						items[i].index = i;
+						if (items[i].ftype=="fPageBreak")
 						{
-                            $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).attr("placeholder",items[i].predefined);
-                            $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).attr("value","");
-                        }
-						if (items[i].userhelpTooltip)
+							page++;
+							$("#fieldlist"+opt.identifier).append('<div class="pb'+page+' pbreak" page="'+page+'"></div>');
+						}
+						else
 						{
-							var uh = $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).closest(".dfield");
-							if( uh.length == 0 )
+							$("#fieldlist"+opt.identifier+" .pb"+page).append(items[i].show());
+							if (items[i].predefinedClick)
 							{
-								uh = $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).closest(".fields");
+								$("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).attr("placeholder",items[i].predefined);
+								$("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).attr("value","");
 							}
-							
-							uh.find(".uh").css("display","none");
-							if (uh.find(".uh").text()!="")
+							if (items[i].userhelpTooltip)
 							{
-								uh.attr("uh",uh.find(".uh").text());
-							}	
+								var uh = $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).closest(".dfield");
+								if( uh.length == 0 )
+								{
+									uh = $("#fieldlist"+opt.identifier+" .pb"+page).find("#"+items[i].name).closest(".fields");
+								}
+								
+								uh.find(".uh").css("display","none");
+								if (uh.find(".uh").text()!="")
+								{
+									uh.attr("uh",uh.find(".uh").text());
+								}	
+							}
 						}
 					}
-				}
-                
+                }
+				else
+				{
+					var page = form_tag.find( '.pbreak' ).length,
+						i	 = items.length;
+				}	
+						
 				if (page>0)
 				{
-                
-					$("#fieldlist"+opt.identifier+" .pb"+page).addClass("pbEnd");
-					$("#fieldlist"+opt.identifier+" .pbreak").each(function(index) {
-						var code = $(this).html();
-						var bSubmit = '';
-						
-						if (index == page)
-						{
+					if( !opt.cached ) // Check if the form is cached
+					{
+						$("#fieldlist"+opt.identifier+" .pb"+page).addClass("pbEnd");
+						$("#fieldlist"+opt.identifier+" .pbreak").each(function(index) {
+							var code = $(this).html();
+							var bSubmit = '';
+							
+							if (index == page)
+							{
 
-							if ( $( "#cpcaptchalayer"+opt.identifier ).length && !/^\s*$/.test( $( "#cpcaptchalayer"+opt.identifier ).html() ) )
-							{
-								code += '<div class="captcha">'+$("#cpcaptchalayer"+opt.identifier).html()+'</div><div class="clearer"></div>';
-								$("#cpcaptchalayer"+opt.identifier).html("");
+								if ( $( "#cpcaptchalayer"+opt.identifier ).length && !/^\s*$/.test( $( "#cpcaptchalayer"+opt.identifier ).html() ) )
+								{
+									code += '<div class="captcha">'+$("#cpcaptchalayer"+opt.identifier).html()+'</div><div class="clearer"></div>';
+									$("#cpcaptchalayer"+opt.identifier).html("");
+								}
+								if ($("#cp_subbtn"+opt.identifier).html())
+								{
+									bSubmit = '<div class="pbSubmit">'+$("#cp_subbtn"+opt.identifier).html()+'</div>';
+								}	
 							}
-							if ($("#cp_subbtn"+opt.identifier).html())
-							{
-								bSubmit = '<div class="pbSubmit">'+$("#cp_subbtn"+opt.identifier).html()+'</div>';
-							}	
-						}
-						$(this).html('<fieldset><legend>'+opt.messages.pageof.replace( /\{\s*\d+\s*\}/, (index+1) ).replace( /\{\s*\d+\s*\}/, (page+1) )+'</legend>'+code+'<div class="pbPrevious">'+opt.messages.previous+'</div><div class="pbNext">'+opt.messages.next+'</div>'+bSubmit+'<div class="clearer"></div></fieldset>');
-					});
+							$(this).html('<fieldset><legend>'+opt.messages.pageof.replace( /\{\s*\d+\s*\}/, (index+1) ).replace( /\{\s*\d+\s*\}/, (page+1) )+'</legend>'+code+'<div class="pbPrevious">'+opt.messages.previous+'</div><div class="pbNext">'+opt.messages.next+'</div>'+bSubmit+'<div class="clearer"></div></fieldset>');
+						});
+					}
+					
 					$( '#fieldlist'+opt.identifier).find(".pbPrevious,.pbNext").bind("click", { 'identifier' : opt.identifier }, function( evt ) {
 					    var identifier = evt.data.identifier;
-						if (  ($(this).hasClass("pbPrevious")) || (($(this).hasClass("pbNext")) && $(this).parents("form").valid())  )
+						if (  ($(this).hasClass("pbPrevious")) || (($(this).hasClass("pbNext")) && $(this).closest("form").valid())  )
 						{
 							var page = parseInt($(this).parents(".pbreak").attr("page"));
 							
@@ -156,24 +166,39 @@
 						}
 						else
 						{
-							$(this).parents("form").validate().focusInvalid();
+							$(this).closest("form").validate().focusInvalid();
 						}	
 						return false;
 					});
                 }
 				else
 				{
-					if ( $( "#cpcaptchalayer"+opt.identifier ).length && !/^\s*$/.test( $( "#cpcaptchalayer"+opt.identifier ).html() ) )
-					{
-						$("#fieldlist"+opt.identifier+" .pb"+page).append('<div class="captcha">'+$("#cpcaptchalayer"+opt.identifier).html()+'</div>');
-						$("#cpcaptchalayer"+opt.identifier).html("");
-					}
-					if ($("#cp_subbtn"+opt.identifier).html())
-					{
-						$("#fieldlist"+opt.identifier+" .pb"+page).append('<div class="pbSubmit">'+$("#cp_subbtn"+opt.identifier).html()+'</div>');
+					if( !opt.cached )
+					{	
+						if ( $( "#cpcaptchalayer"+opt.identifier ).length && !/^\s*$/.test( $( "#cpcaptchalayer"+opt.identifier ).html() ) )
+						{
+							$("#fieldlist"+opt.identifier+" .pb"+page).append('<div class="captcha">'+$("#cpcaptchalayer"+opt.identifier).html()+'</div>');
+							$("#cpcaptchalayer"+opt.identifier).html("");
+						}
+						if ($("#cp_subbtn"+opt.identifier).html())
+						{
+							$("#fieldlist"+opt.identifier+" .pb"+page).append('<div class="pbSubmit">'+$("#cp_subbtn"+opt.identifier).html()+'</div>');
+						}	
 					}	
 				}
-							
+				
+				if( !opt.cached && opt.setCache)
+				{
+					// Set Cache
+					var url  = document.location.href,
+						data = {
+							'cffaction' : 'cff_cache',
+							'cache'	 : form_tag.html().replace( /\n+/g, '' ),
+							'form'	 : form_tag.find( '[name="cp_calculatedfieldsf_id"]').val()
+						};
+					$.post( url, data, function( data ){ if(typeof console != 'undefined' )console.log( data ); } );
+				}
+				
                 // Set Captcha Event
 				$( document ).on( 'click', '#fbuilder .captcha img', function(){ var e = $( this ); e.attr( 'src', e.attr( 'src' ).replace( /&\d+$/, '' ) + '&' + Math.floor( Math.random()*1000 ) ); } );
 				
@@ -181,7 +206,7 @@
 					{
                         $(this).closest("form").submit();
 					});
-
+					
 				if (i>0)
 				{
                     theForm.after_show( opt.identifier );
@@ -212,7 +237,7 @@
 					} catch(e){}
                 }
                 $("#fieldlist"+opt.identifier+" .pbreak:not(.pb0)").find(".field").addClass("ignorepb");
-            };
+			};
 			
 		var fform=function(){};
 		$.extend(fform.prototype,
@@ -269,6 +294,10 @@
 							   }
 							   theForm = new fform();
 							   theForm = $.extend(theForm,d[1][0]);
+							   
+							   opt.cached   = (typeof d[ 1 ][ 'cached' ] != 'undefined' && d[ 1 ][ 'cached' ] ) ? true : false;
+							   opt.setCache = (!this.cached && typeof d[ 1 ][ 'setCache' ] != 'undefined' && d[ 1 ][ 'setCache' ]) ? true : false;
+							   
 							   reloadItemsPublic();
 						   }
 						   $.fbuilder.cpcff_load_defaults(f);
@@ -339,7 +368,7 @@
 				}
 			}	
 		}; // End showHideDep	
-
+		
 		// Load default values
 		$.fbuilder[ 'cpcff_load_defaults' ] = function( f )
 		{   

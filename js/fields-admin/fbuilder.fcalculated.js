@@ -305,7 +305,7 @@
 								var opt = '<option value=""></option>';
 								for (var k=0;k<items.length;k++)
 								{
-									if (items[k].name != me.name)
+									if (items[k].name != me.name && items[k].ftype != 'fSectionBreak' && items[k].ftype != 'fPageBreak')
 									{
 										opt += '<option value="'+items[k].name+'" '+( ( items[k].name == v ) ? 'selected="SELECTED"' : '' )+'>'+items[k].name+( ( typeof items[ k ].title != 'undefined' ) ? ' (' + items[ k ].title + ')' : '' ) + '</option>';
 									}

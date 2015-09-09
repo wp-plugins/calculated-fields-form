@@ -39,10 +39,6 @@
     display: block;
     padding: 3px;
     margin: 10px -15px -10px -15px;
-	width: -webkit-calc( 100% + 24px );
-	width: -moz-calc( 100% + 24px );
-	width: -o-calc( 100% + 24px );
-	width: calc( 100% + 24px );
 	-webkit-border-radius-bottom-left: 3px;
 	-webkit-border-radius-bottom-right: 3px;
 	-moz-border-radius-bottom-left: 3px;
@@ -50,6 +46,7 @@
 	border-radius-bottom-left: 3px;
 	border-radius-bottom-right: 3px;
 }
+.cp_cff_box #fbuilder .section_breaks span.uh{margin:0;}
 .cp_cff_box #fbuilder span.uh:empty{ display:none; }
 .cp_cff_box #fbuilder .pbSubmit,
 .cp_cff_box #fbuilder .pbreak .pbPrevious,

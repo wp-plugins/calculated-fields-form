@@ -19,7 +19,7 @@ if( !empty( $form_data ) )
 	}	
 	$form_data[ 1 ][ 'formid' ]="cp_calculatedfieldsf_pform".$CP_CFF_global_form_count;
 ?>
-<form name="<?php echo $form_data[ 1 ][ 'formid' ]; ?>" id="<?php echo $form_data[ 1 ][ 'formid' ]; ?>" action="" method="post" enctype="multipart/form-data"><script>form_structure<?php echo $CP_CFF_global_form_count; ?>=<?php print str_replace( array( "\n", "\r" ), array( " ", " "), json_encode( $form_data ) ); ?></script>
+<form name="<?php echo $form_data[ 1 ][ 'formid' ]; ?>" id="<?php echo $form_data[ 1 ][ 'formid' ]; ?>" action="" method="post" enctype="multipart/form-data"><script>form_structure<?php echo $CP_CFF_global_form_count; ?>=<?php print str_replace( array( "\n", "\r" ), " ", json_encode( $form_data ) ); ?></script>
 <div id="fbuilder">
   <div id="fbuilder<?php echo $CP_CFF_global_form_count; ?>">
       <div id="formheader<?php echo $CP_CFF_global_form_count; ?>"></div>

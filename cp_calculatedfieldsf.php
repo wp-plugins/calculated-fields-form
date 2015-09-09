@@ -3,7 +3,7 @@
 Plugin Name: Calculated Fields Form
 Plugin URI: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Description: Create forms with field values calculated based in other form field values.
-Version: 1.0.56
+Version: 1.0.57
 Author: CodePeople.net
 Author URI: http://codepeople.net
 License: GPL
@@ -312,6 +312,27 @@ function _cp_calculatedfieldsf_install() {
          );";
     $wpdb->query($sql);
 
+	// Correct the tables structures
+	$columns = $wpdb->get_results("SHOW columns FROM `".$table_name."`");    
+	$columns_list = array();
+	foreach( $columns as $column )
+		$columns_list[] = $column->Field;
+    
+	$new_columns = array(
+		'vs_text_previousbtn' 		=> "varchar(250) NOT NULL default ''",
+		'vs_text_nextbtn' 			=> "varchar(250) NOT NULL default ''",
+		'vs_all_texts' 				=> "text NOT NULL default ''"
+	);
+	
+	foreach( $new_columns as $column_name => $column_structure )
+	{
+		if( !in_array( $column_name, $columns_list ) )
+		{	
+			$sql = "ALTER TABLE  `".$table_name."` ADD `".$column_name."` ".$column_structure; 
+			$wpdb->query($sql);
+		}	
+	}
+	
     $count = $wpdb->get_var(  "SELECT COUNT(id) FROM ".$table_name  );
     if (!$count)
     {   
@@ -390,9 +411,28 @@ function _cp_calculatedfieldsf_install() {
 }
 
 /**
+ * Check if the page is visited from crawlers, and the plugin is configured to prevent the shortcodes replacement when the website is visited by crawlers 
+ */ 
+function cp_calculatedfieldsf_is_crawler()
+{
+	if(
+		isset( $_SERVER['HTTP_USER_AGENT'] ) && 
+		preg_match( '/bot|crawl|slurp|spider/i', $_SERVER[ 'HTTP_USER_AGENT' ] ) &&
+		get_option( 'CP_CALCULATEDFIELDSF_EXCLUDE_CRAWLERS', false )
+	)
+	{
+		return true;
+	}
+	return false;
+}// End cp_calculatedfieldsf_is_crawler
+
+/**
  * Create a javascript variable, from: Post, Get, Session or Cookie 
  */
 function cp_calculatedfieldsf_create_var( $atts ) {
+	
+	if( cp_calculatedfieldsf_is_crawler() ) return '';
+		
 	if( isset( $atts[ 'name' ] ) )
 	{
 		$var = trim( $atts[ 'name' ] );
@@ -426,6 +466,9 @@ function cp_calculatedfieldsf_create_var( $atts ) {
 
 // Used in forms previews
 function cp_calculatedfieldsf_filter_content( $atts ) {
+	
+	if( cp_calculatedfieldsf_is_crawler() ) return '';
+		
     global $wpdb;	
     if( empty( $atts[ 'id' ] ) )
 	{
@@ -690,15 +733,6 @@ function cp_calculatedfieldsf_save_options()
     if (!defined('CP_CALCULATEDFIELDSF_ID'))
         define ('CP_CALCULATEDFIELDSF_ID',$_POST["cp_calculatedfieldsf_id"]);    
     
-   /**
-    $sql = "ALTER TABLE  `".$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE."` CHANGE `form_structure` `form_structure` mediumtext"; 
-    $wpdb->query($sql);
-   */
-    cp_calculatedfieldsf_add_field_verify($wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE,'vs_text_previousbtn'," varchar(250) NOT NULL default ''");
-    cp_calculatedfieldsf_add_field_verify($wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE,'vs_text_nextbtn'," varchar(250) NOT NULL default ''");   
-    
-    cp_calculatedfieldsf_add_field_verify($wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE,'vs_all_texts'," text NOT NULL default ''");
-    
     global $cpcff_default_texts_array;
     $cpcff_text_array = '';
         
@@ -777,18 +811,6 @@ function cp_calculatedfieldsf_save_options()
 		array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s' ),
 		array( '%d' )
 	);
-}
-
-
-function cp_calculatedfieldsf_add_field_verify ($table, $field, $type = "text") 
-{
-    global $wpdb;
-    $results = $wpdb->get_results("SHOW columns FROM `".$table."` where field='".$field."'");    
-    if (!count($results))
-    {               
-        $sql = "ALTER TABLE  `".$table."` ADD `".$field."` ".$type; 
-        $wpdb->query($sql);
-    }
 }
 
 

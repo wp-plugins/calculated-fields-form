@@ -4,7 +4,7 @@ Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf
 Requires at least: 3.0.5
 Tested up to: 4.3
-Stable tag: 1.0.56
+Stable tag: 1.0.57
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,6 +56,9 @@ Calculated Fields Form can be used for creating both single and complex calculat
 * Multi page calculated forms
 * New validations, fields types and features in the form builder
 * Calculated fields can be hidden fields.
+* Includes new controls to create more versatile forms.
+* Allows to create a cache of the javascript files to increase the website's performance.
+* Allows to disable the forms when the website is visited by search engine spiders and crawlers, increasing the website's speed.
 
 There are five samples already included with the installation:
 
@@ -84,6 +87,7 @@ The plugin has two additional (commercial) versions: **Premium** and **Developer
 * Allows export and import your forms between different WordPress
 * Allows to display the submitted data in the thanks page
 * Includes a dashboard widget to display the submissions of the last week
+* Allows to store the forms in cache to increase the rendering speed
 
 = Features in Developer version: =
 
@@ -836,6 +840,14 @@ A: Please, visits the following link to get the answer to your question:
 
 == Changelog ==
 
+= 1.0.57 =
+* Improves the behavior of dependencies. Excluding fields like: section breaks and page breaks from dependencies.
+* Modifies the styles in the predefined layouts.
+* Allows to disable the forms when the website is visited by search engine spiders and crawlers, increasing the website's speed.
+* Corrects an issue parsing the text values on fields.
+* The pro and developer versions allows to store the forms in cache to increase the rendering speed. This feature will be included in the free version after be tested completely in the other versions of the plugin.
+* Moves the checking of database's structure to the plugin activation process.
+
 = 1.0.56 =
 * Adds new parameters to the cached files to prevent issues with the browsers cache, after upgrade the plugin.
 
@@ -1032,7 +1044,12 @@ A: Please, visits the following link to get the answer to your question:
 
 == Upgrade Notice ==
 
-= 1.0.56 =
-* Adds new parameters to the cached files to prevent issues with the browsers cache, after upgrade the plugin.
+= 1.0.57 =
+* Improves the behavior of dependencies. Excluding fields like: section breaks and page breaks from dependencies.
+* Modifies the styles in the predefined layouts.
+* Allows to disable the forms when the website is visited by search engine spiders and crawlers, increasing the website's speed.
+* Corrects an issue parsing the text values on fields.
+* The pro and developer versions allows to store the forms in cache to increase the rendering speed. This feature will be included in the free version after be tested completely in the other versions of the plugin.
+* Moves the checking of database's structure to the plugin activation process.
 
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support

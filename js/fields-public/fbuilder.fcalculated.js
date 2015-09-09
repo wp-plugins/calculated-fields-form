@@ -254,7 +254,6 @@
 				// Private function, the variable names in the equations are replaced by its values, return the equation result or false if error
 				_calculate = function( form , eq, suffix )
 					{
-
 						var f = $(form),
 							_match,
 							field_regexp = new RegExp( '(fieldname\\d+'+suffix+')([\\D\\b])');

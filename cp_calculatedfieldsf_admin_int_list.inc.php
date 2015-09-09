@@ -92,8 +92,10 @@ else if (isset($_GET['d']) && $_GET['d'] != '')
 } else if (isset($_GET['ac']) && $_GET['ac'] == 'st')
 {
 	check_admin_referer( 'session_id_'.session_id(), '_cpcff_nonce' );
-    update_option( 'CP_CFF_LOAD_SCRIPTS', ($_GET["scr"]=="1"?"0":"1") );
-	update_option( 'CP_CALCULATEDFIELDSF_USE_CACHE', ($_GET["jsc"]=="1" ? 1 : 0)  );
+    update_option( 'CP_CFF_LOAD_SCRIPTS', 			  		(isset($_GET["scr"]) && $_GET["scr"]=="1"? "0":"1")  );
+    update_option( 'CP_CALCULATEDFIELDSF_USE_CACHE',  		(isset($_GET["jsc"]) && $_GET["jsc"]=="1" ? 1 : 0)  );
+    update_option( 'CP_CALCULATEDFIELDSF_EXCLUDE_CRAWLERS', (isset($_GET["ecr"]) && $_GET["ecr"]=="1" ? 1 : 0)  );
+
 	if( get_option( 'CP_CALCULATEDFIELDSF_USE_CACHE', CP_CALCULATEDFIELDSF_USE_CACHE ) == false )
 	{
 		try{
@@ -190,7 +192,8 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
         var scr = document.getElementById("ccscriptload").value;    
         var chs = document.getElementById("cccharsets").value;    
 		var jsc = (document.getElementById("ccjscache").checked) ? 1 : 0;
-        document.location = 'options-general.php?page=cp_calculated_fields_form&ac=st&scr='+scr+'&chs='+chs+'&jsc='+jsc+'&r='+Math.random()+'&_cpcff_nonce=<?php echo wp_create_nonce( 'session_id_'.session_id() ); ?>';
+		var ecr = (document.getElementById("ccexcludecrawler").checked) ? 1 : 0;
+        document.location = 'options-general.php?page=cp_calculated_fields_form&ecr='+ecr+'&ac=st&scr='+scr+'&chs='+chs+'&jsc='+jsc+'&r='+Math.random()+'&_cpcff_nonce=<?php echo wp_create_nonce( 'session_id_'.session_id() ); ?>';
     }    
  }
  
@@ -266,6 +269,8 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
        <em>* Change the script load method if the form doesn't appear in the public website.</em>
        <br /><br />
 	   Activate Javascript Cache: <input type="checkbox" name="ccjscache" id="ccjscache" <?php echo ( get_option( 'CP_CALCULATEDFIELDSF_USE_CACHE', CP_CALCULATEDFIELDSF_USE_CACHE ) ) ? 'CHECKED' : ''; ?> />
+       <br /><br />
+       Do not loading the forms with crawlers: <input type="checkbox" name="ccexcludecrawler" id="ccexcludecrawler" <?php echo ( get_option( 'CP_CALCULATEDFIELDSF_EXCLUDE_CRAWLERS', false ) ) ? 'CHECKED' : ''; ?> /><br /><i>* The forms are not loaded when website is being indexed by searchers.</i> 
        <br /><br />
        Character encoding:<br />
        <select id="cccharsets" name="cccharsets">
