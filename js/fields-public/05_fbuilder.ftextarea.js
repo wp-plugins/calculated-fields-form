@@ -23,7 +23,7 @@
 						
 					if( e.length )
 					{
-						v = e.val();
+						v = e.val().replace( /[\n\r]+/g, ' ');
 					}
 					
 					return v;	
