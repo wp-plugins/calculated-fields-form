@@ -4,7 +4,7 @@ Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf
 Requires at least: 3.0.5
 Tested up to: 4.3
-Stable tag: 1.0.57
+Stable tag: 1.0.58
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -840,6 +840,9 @@ A: Please, visits the following link to get the answer to your question:
 
 == Changelog ==
 
+= 1.0.58 =
+* Prevents that the script tags in the forms are modified by the wpautop function of WordPress.
+
 = 1.0.57 =
 * Improves the behavior of dependencies. Excluding fields like: section breaks and page breaks from dependencies.
 * Modifies the styles in the predefined layouts.
@@ -1044,12 +1047,7 @@ A: Please, visits the following link to get the answer to your question:
 
 == Upgrade Notice ==
 
-= 1.0.57 =
-* Improves the behavior of dependencies. Excluding fields like: section breaks and page breaks from dependencies.
-* Modifies the styles in the predefined layouts.
-* Allows to disable the forms when the website is visited by search engine spiders and crawlers, increasing the website's speed.
-* Corrects an issue parsing the text values on fields.
-* The pro and developer versions allows to store the forms in cache to increase the rendering speed. This feature will be included in the free version after be tested completely in the other versions of the plugin.
-* Moves the checking of database's structure to the plugin activation process.
+= 1.0.58 =
+* Prevents that the script tags in the forms are modified by the wpautop function of WordPress.
 
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
