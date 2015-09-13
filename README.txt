@@ -4,7 +4,7 @@ Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf
 Requires at least: 3.0.5
 Tested up to: 4.3
-Stable tag: 1.0.58
+Stable tag: 1.0.59
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -95,6 +95,7 @@ The plugin has two additional (commercial) versions: **Premium** and **Developer
 * Includes new controls that get its information from different datasources (database, CSV file, Post, Taxonomies, and users data)
 * Includes financial operations
 * Includes operations for date times management
+* Includes the "distance" operation, that integrates the plugin with "Google Maps" to get the distance between two addresses
 * Includes a script for saving the submitted data in an external database
 * Includes an add-on to integrate the forms with the WooCommerce products (Beta Version).
 * Includes an add-on to integrate the forms with the SalesForce service(Beta Version).
@@ -312,6 +313,9 @@ Result: 25,000 Dollars
 
 Into the plugin interface you will find additional help for these functions.
 
+**Distance Module**
+
+* **DISTANCE(address_a,address_b,unit_system,travel_mode):**	Get the distance between two address. <strong>DISTANCE( Address A, Address B, Unit System, Travel Mode )</strong></p><p>The allowed values for Unit System are: km for kilometters, or mi for miles, km is the value by default.</p><p>The allowed values for Travel Mode are: DRIVING, BICYCLING, TRANSIT, or WALKING, DRIVING is the value by default.
 
 = Fields available in the Calculated Fields Form's form builder = 
 
@@ -840,6 +844,12 @@ A: Please, visits the following link to get the answer to your question:
 
 == Changelog ==
 
+= 1.0.59 =
+* Corrects a conflict with the "Back-Forward Cache" in the Firefox browser.
+* Modifies the values returned by the controls: "Single Line Text", "Radio", and "DropDown", to get more consistent results. In previous versions the plugin extracts the numbers included in the values of fields. In the current version, the values returned are the defined values on fields, or zero if the fields are empties.
+* The add_shortcode functions were moved to the 'init' action.
+* The developer version include the "Distance" module, that integrates the plugin with Google Maps, to get the distance between two addresses.
+
 = 1.0.58 =
 * Prevents that the script tags in the forms are modified by the wpautop function of WordPress.
 
@@ -1047,7 +1057,10 @@ A: Please, visits the following link to get the answer to your question:
 
 == Upgrade Notice ==
 
-= 1.0.58 =
-* Prevents that the script tags in the forms are modified by the wpautop function of WordPress.
+= 1.0.59 =
+* Corrects a conflict with the "Back-Forward Cache" in the Firefox browser.
+* Modifies the values returned by the controls: "Single Line Text", "Radio", and "DropDown", to get more consistent results. In previous versions the plugin extracts the numbers included in the values of fields. In the current version, the values returned are the defined values on fields, or zero if the fields are empties.
+* The add_shortcode functions were moved to the 'init' action.
+* The developer version include the "Distance" module, that integrates the plugin with Google Maps, to get the distance between two addresses.
 
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support

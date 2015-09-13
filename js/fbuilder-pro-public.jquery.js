@@ -15,7 +15,8 @@
 	
 	$.fbuilder[ 'parseValStr' ] = function( value )
 	{
-		return '"' + value.replace(/'/g, "\\'").replace( /\$/g, '\\$') + '"';
+		value = $.trim( value.replace(/'/g, "\\'").replace( /\$/g, '\\$') );
+		return (value == parseFloat(value) ) ? value : '"' + value + '"';
 	};
 	
 	$.fbuilder[ 'parseVal' ] = function( value, thousandSeparator, decimalSymbol )
@@ -279,8 +280,11 @@
 						var d =  window[ f ];
 						if ( typeof d != 'undefined' )
 						{
-						   if (d.length == 2)
-						   {
+							if( typeof d == 'object' && ( typeof d.nodeType !== 'undefined' || d instanceof jQuery ) ){ d = jQuery.parseJSON( jQuery(d).val() ); }
+							else if( typeof d == 'string' ){ d = jQuery.parseJSON( d ); }
+							
+							if (d.length == 2)
+							{
 							   this.formId = d[ 1 ][ 'formid' ];
 							   items = [];
 							   for (var i=0;i<d[0].length;i++)

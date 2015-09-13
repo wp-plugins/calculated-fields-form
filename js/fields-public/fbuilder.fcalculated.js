@@ -257,6 +257,8 @@
 						var f = $(form),
 							_match,
 							field_regexp = new RegExp( '(fieldname\\d+'+suffix+')([\\D\\b])');
+							
+						obj.form_id = f.attr( 'id' );
 						
 						eq = '(' + eq + ')';
 						

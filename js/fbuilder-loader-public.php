@@ -4,6 +4,7 @@
 	ob_start(); // Turn on output buffering
 ?>
 fbuilderjQuery = (typeof fbuilderjQuery != 'undefined' ) ? fbuilderjQuery : jQuery;
+fbuilderjQuery(window).bind( 'pageshow', function( event ){ if( typeof event.originalEvent[ 'persisted' ] != 'undefined' && event.originalEvent[ 'persisted' ] ) location.reload(); } );
 fbuilderjQuery(function(){
 (function($) {
 	// Namespace of fbuilder

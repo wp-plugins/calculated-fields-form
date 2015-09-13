@@ -18,15 +18,8 @@
 				},
 			val:function()
 				{
-					var e = $( '[id="' + this.name + '"]:not(.ignore)' ),
-						v = '';
-						
-					if( e.length )
-					{
-						v = e.val().replace( /[\n\r]+/g, ' ');
-					}
-					
-					return v;	
+					var e = $( '[id="' + this.name + '"]:not(.ignore)' );
+					return ( e.length ) ? e.val().replace( /[\n\r]+/g, ' ') : '';	
 				}	
 		}
 	);
