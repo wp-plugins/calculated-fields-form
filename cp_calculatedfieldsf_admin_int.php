@@ -50,6 +50,13 @@ $cpcff_texts_array = array_replace_recursive(
  <div id="metabox_basic_settings" class="postbox" >
   <h3 class='hndle' style="padding:5px;"><span>Form Builder</span></h3>
   <div class="inside">
+	 <div class="form-builder-error-messages"><?php
+        global $cff_structure_error;
+        if( !empty( $cff_structure_error ) )
+        {
+            echo $cff_structure_error;
+        }
+     ?></div>
      <p style="border:1px solid #F0AD4E;background:#FBE6CA;padding:10px;">If you need also the form to be sent to the server side for processing (for example to deliver emails) then the <a href="http://wordpress.dwbooster.com/forms/calculated-fields-form#download">Professional or Developer versions</a> of the plugin will be required.</p>
      <input type="hidden" name="form_structure" id="form_structure" value="<?php print esc_attr( json_encode( cp_calculatedfieldsf_get_option( 'form_structure', CP_CALCULATEDFIELDSF_DEFAULT_form_structure ) ) ); ?>" />
      <input type="hidden" name="templates" id="templates" value="<?php print esc_attr( json_encode( cp_calculatedfieldsf_available_templates() ) ); ?>" />

@@ -123,7 +123,7 @@
 				},
 			val:function()
 				{
-					var e = $( '[id="' + this.name + '"]:not(.ignore)' ), r = 0;
+					var e = $( '[id="' + this.name + '"]:not(.ignore):checked' ), r = 0;
 					if( e.length ) r = $.fbuilder.parseValStr( e.val() );
 					return ( r != '""' ) ? r : 0;
 				}	

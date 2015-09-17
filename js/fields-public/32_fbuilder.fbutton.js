@@ -19,12 +19,16 @@
                         type = 'button';
                         clss = 'calculate-button';
                     }
+					else if( this.sType == 'reset' )
+					{
+						clss = 'reset-button';
+					}	
                     
                     return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'"><input id="'+this.name+'" type="'+type+'" value="'+esc( this.sValue )+'" class="field '+clss+'" onclick="'+esc( this.sOnclick )+'" /><span class="uh">'+this.userhelp+'</span><div class="clearer"></div></div>';
 				},
             after_show:function()
                 {
-                    $( '#'+this.name ).click(
+					$( '#'+this.name ).click(
                         function()
                             {
                                 var e = $( this );
@@ -42,6 +46,34 @@
                                         }
                                     }    
                                 }
+								if( e.hasClass( 'reset-button' ) )
+								{
+									setTimeout( 
+										function()
+										{ 
+											var identifier = e.closest( 'form' ).attr( 'id' ).replace( /cp_calculatedfieldsf_pform/, '' );
+											$.fbuilder[ 'showHideDep' ]( { 'formIdentifier' : identifier } );
+											
+											var page = parseInt( e.closest( '.pbreak' ).attr( 'page' ) );
+											if( page )
+											{
+												$("#fieldlist"+identifier+" .pbreak").css("display","none");
+												$("#fieldlist"+identifier+" .pbreak").find(".field").addClass("ignorepb");
+												$("#fieldlist"+identifier+" .pb0").css("display","block");
+												if ($("#fieldlist"+identifier+" .pb0").find(".field").length>0)
+												{
+													$("#fieldlist"+identifier+" .pb0").find(".field").removeClass("ignorepb");
+													try 
+													{
+														$("#fieldlist"+identifier+" .pb0").find(".field")[0].focus();
+													} 
+													catch(e){}
+												}	
+											}	
+										}, 
+										50 
+									);
+								}	
                             }
                     );
                 }

@@ -3,7 +3,7 @@
 Plugin Name: Calculated Fields Form
 Plugin URI: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Description: Create forms with field values calculated based in other form field values.
-Version: 1.0.59
+Version: 1.0.61
 Author: CodePeople.net
 Author URI: http://codepeople.net
 License: GPL
@@ -225,7 +225,7 @@ function _cp_calculatedfieldsf_install() {
 
     $table_name = $wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE;
 
-    $sql = "CREATE TABLE ".$wpdb->prefix.CP_CALCULATEDFIELDSF_POSTS_TABLE_NAME_NO_PREFIX." (
+    $sql = "CREATE TABLE IF NOT EXISTS ".$wpdb->prefix.CP_CALCULATEDFIELDSF_POSTS_TABLE_NAME_NO_PREFIX." (
          id mediumint(9) NOT NULL AUTO_INCREMENT,
          formid INT NOT NULL,
          time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
@@ -238,7 +238,7 @@ function _cp_calculatedfieldsf_install() {
          );";
     $wpdb->query($sql);
 
-    $sql = "CREATE TABLE ".$wpdb->prefix.CP_CALCULATEDFIELDSF_DISCOUNT_CODES_TABLE_NAME_NO_PREFIX." (
+    $sql = "CREATE TABLE IF NOT EXISTS ".$wpdb->prefix.CP_CALCULATEDFIELDSF_DISCOUNT_CODES_TABLE_NAME_NO_PREFIX." (
          id mediumint(9) NOT NULL AUTO_INCREMENT,
          form_id mediumint(9) NOT NULL DEFAULT 1,
          code VARCHAR(250) DEFAULT '' NOT NULL,
@@ -251,7 +251,7 @@ function _cp_calculatedfieldsf_install() {
     $wpdb->query($sql); 
 
 
-    $sql = "CREATE TABLE $table_name (
+    $sql = "CREATE TABLE IF NOT EXISTS $table_name (
          id mediumint(9) NOT NULL AUTO_INCREMENT,
 
          form_name VARCHAR(250) DEFAULT '' NOT NULL,
@@ -806,13 +806,18 @@ function cp_calculatedfieldsf_save_options()
                   'cv_border' => $_POST['cv_border'],
                   'cv_text_enter_valid_captcha' => $_POST['cv_text_enter_valid_captcha']
     );
-    $wpdb->update ( 
+    $_update_result = $wpdb->update ( 
 		$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE, 
 		$data, 
 		array( 'id' => CP_CALCULATEDFIELDSF_ID ),
 		array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s' ),
 		array( '%d' )
 	);
+	if( $_update_result === false )
+	{
+		global $cff_structure_error;
+		$cff_structure_error = '<div class="error-text">The data cannot be stored in database because has occurred an error with the database structure. Please, go to the plugins section and Deactivate/Activate the plugin to be sure the structure of database has been checked, and corrected if needed. If the issue persist, please <a href="http://wordpress.dwbooster.com/support">contact us</a></div>';
+	}
 }
 
 
