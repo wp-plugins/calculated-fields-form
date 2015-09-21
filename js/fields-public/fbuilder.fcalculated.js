@@ -49,7 +49,7 @@
 						
 					me.dependencies = dependencies;
 					
-					if( typeof me.optimizeEq == 'undefined' || !me.optimizeEq || /^\s*$/.test( me.eq_factored ) )
+					if( typeof me.optimizeEq == 'undefined' || !me.optimizeEq || /^\s*$/.test( me.eq_factored ) || /distance/i.test(me.eq_factored) )
 					{
 						me.eq_factored = me.eq;
 					}

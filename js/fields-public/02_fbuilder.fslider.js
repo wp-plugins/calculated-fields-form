@@ -115,6 +115,7 @@
 														} )( me );
 						$( '#'+this.name+'_slider' ).slider( opt );
 						me.set_values();
+						$( '#cp_calculatedfieldsf_pform'+me.form_identifier ).bind( 'reset', function(){ $( '#'+me.name+'_slider' ).slider( opt ); me.set_values(); } );
 					},
 				val:function()
 					{

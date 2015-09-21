@@ -87,7 +87,8 @@
 										}
 										else
 										{
-											v.push( e.val() );
+											var c = $( '[id="'+i+'_caption"]' );
+											v.push( ( c.length && !/^\s*$/.test( c.html() ) ) ? c.html() : e.val() );
 										}
 									}	
 								}

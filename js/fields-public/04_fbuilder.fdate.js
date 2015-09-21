@@ -118,108 +118,29 @@
                     
 					return '<div class="fields '+this.csslayout+'" id="field'+this.form_identifier+'-'+this.index+'"><label for="'+this.name+'">'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+' <span class="dformat">('+this.dformat+( ( this.showTimepicker ) ? ' HH:mm': '' )+')</span></label><div class="dfield"><input id="'+this.name+'" name="'+this.name+'" type="hidden" value="'+$.fbuilder.htmlEncode(this.predefined)+'"/><input id="'+this.name+'_date" name="'+this.name+'_date" class="field date'+this.dformat.replace(/\//g,"")+' '+this.size+((this.required)?" required":"")+'" type="text" '+attr+'="'+$.fbuilder.htmlEncode(this.predefined)+'"/>'+( ( this.showTimepicker ) ? ' '+this.get_hours()+this.get_minutes()+' '+this.get_ampm() : '' )+'<span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
-			setEvents : function()
+			setDefaultDate : function()
 				{
-					var me = this;
-					$( document ).on( 'change', '#'+this.name+'_date', 	  function(){ me.set_date_time(); } );
-					$( document ).on( 'change', '#'+this.name+'_hours',   function(){ me.set_date_time(); } );
-					$( document ).on( 'change', '#'+this.name+'_minutes', function(){ me.set_date_time(); } );
-					$( document ).on( 'change', '#'+this.name+'_ampm', 	  function(){ me.set_date_time(); } );
-				},
-			after_show:function()
-				{
-					function setValue( f, v, m )
-					{
-						v = Math.min( v*1, m*1 );
-						v = ( v < 10 ) ? 0+''+v : v; 
-						$( '#' + f + ' [value="' + v + '"]' ).attr( 'selected', true );
-					};
-					
-                    function validateDate( d, w, i )
-                    {
-                        try{
-                            if( d === null ) return [false,""];
-                            if ( !w[ d.getDay()]) return [false,""];
-                            if( i !== null )
-                            {
-                                for( var j = 0, h = i.length; j < h; j++ )
-                                {
-                                    if( d.getDate() == i[ j ].getDate() && d.getMonth() == i[ j ].getMonth() && d.getFullYear() == i[ j ].getFullYear() ) return [false,""];
-                                }
-                            }
-                        }
-                        catch( _err ){}
-                        return [true,""]; 
-                    };
-                    
-					function validateTime( e, i )
-					{
-						if( i.showTimepicker )
-						{
-							var base = e.name.replace( '_date', '' ),
-								h = $('#'+base+'_hours').val(),
-								m = $('#'+base+'_minutes').val();
-								
-							if( i.tformat == 12 && $('#'+base+'_ampm').val() == 'pm' ) h = h*1 + 12;
-							if( h < i.minHour || h > i.maxHour ) return false;
-						}
-						return true;	
-					};
-
-                    function validator( v, e )
-                    {
-												
-                        try
-                        {
-                            var p           = e.name.replace( '_date', '' ).split( '_' ),
-							    _index		= ( p.length > 1 ) ? '_'+p[ 1 ] : '',
-                                item        = ( 
-												typeof $.fbuilder[ 'forms' ] != 'undefined' && 
-												typeof $.fbuilder[ 'forms' ][ _index ] != 'undefined'  
-											  ) ? $.fbuilder[ 'forms' ][ _index ].getItem( p[ 0 ]+'_'+p[ 1 ] ) : null,
-                                inst        = $.datepicker._getInst( e ),
-                                minDate     = $.datepicker._determineDate( inst, $.datepicker._get( inst, 'minDate'), null),
-                                maxDate     = $.datepicker._determineDate(inst, $.datepicker._get(inst, 'maxDate'), null),
-                                dateFormat  = $.datepicker._get(inst, 'dateFormat'),
-                                date        = $.datepicker.parseDate(dateFormat, v, $.datepicker._getFormatConfig(inst));
-
-                            if( item != null )
-							{	
-								return 	this.optional( e ) || 
-										( 
-											( minDate == null || date >= minDate  ) && 
-											( maxDate == null || date <= maxDate ) && 
-											validateDate( $( e ).datepicker( 'getDate' ), item.working_dates, item.invalidDates )[ 0 ] &&
-											validateTime( e, item )
-										);
-							}
-							return true;	
-                        }
-                        catch( er )
-                        {
-                            return false;
-                        }
-                    };
-                    
-					this.setEvents();
-					var p  = { 
-							dateFormat: this.dformat.replace(/yyyy/g,"yy"),
-							minDate: this.minDate,
-							maxDate: this.maxDate
+					var me = this,
+						p  = { 
+							dateFormat: me.dformat.replace(/yyyy/g,"yy"),
+							minDate: me.minDate,
+							maxDate: me.maxDate
 						},
-						dp = $( "#"+this.name+"_date" ),
-						dd = (this.defaultDate != "") ? this.defaultDate : ( ( this.predefined != "" ) ? this.predefined : new Date() );
-
+						dp = $( "#"+me.name+"_date" ),
+						dd = (me.defaultDate != "") ? me.defaultDate : ( ( me.predefined != "" ) ? me.predefined : new Date() );
+						
 					dp.click( function(){ $(document).click(); $(this).focus(); } );	
-					if (this.showDropdown) p = $.extend(p,{changeMonth: true,changeYear: true,yearRange: this.dropdownRange});
-					p = $.extend(p, { beforeShowDay: ( function ( w, i ) { return function( d ){ return validateDate( d, w, i ); }; } )( this.working_dates, this.invalidDates ) } );
+					if (me.showDropdown) p = $.extend(p,{changeMonth: true,changeYear: true,yearRange: me.dropdownRange});
+					p = $.extend(p, { beforeShowDay: ( function ( w, i ) { return function( d ){ return me.validateDate( d, w, i ); }; } )( me.working_dates, me.invalidDates ) } );
 					dp.datepicker(p);
-                    if( !this.predefinedClick ) dp.datepicker( "setDate", dd);
-                    if( !validateDate( dp.datepicker( "getDate"), this.working_dates, this.invalidDates)[ 0 ]  )
+                    if( !me.predefinedClick ) dp.datepicker( "setDate", dd);
+                    if( !me.validateDate( dp.datepicker( "getDate"), me.working_dates, me.invalidDates)[ 0 ]  )
                     {    
                         dp.datepicker( "setDate", '');
                     }
-					
+				},
+			setDefaultTime : function()
+				{
 					if( this.showTimepicker )
 					{
 						var parts, time = {}, tmp = 0;
@@ -235,18 +156,107 @@
 							time[ 'minute' ] = d.getMinutes();
 						}
  
-						setValue( 
+						this.setValue( 
 							this.name+'_hours', 
 							( this.tformat == 12 ) ? ( ( time[ 'hour' ] > 12 ) ? time[ 'hour' ] - 12 : ( ( time[ 'hour' ] == 0 ) ? 12 : time[ 'hour' ] ) ) : time[ 'hour' ], 
 							( this.tformat == 12 ) ? 12 : this.maxHour 
 						);
 
-						setValue( this.name+'_minutes', time[ 'minute' ], this.maxMinute );					  						
+						this.setValue( this.name+'_minutes', time[ 'minute' ], this.maxMinute );					  						
 						$( '#'+this.name+'_ampm'+' [value="' + ( ( time[ 'hour' ] < 12 ) ? 'am' : 'pm' ) + '"]' ).attr( 'selected', true );
 					}
+				},
+			setEvents : function()
+				{
+					var me = this;
+					$( document ).on( 'change', '#'+this.name+'_date', 	  function(){ me.set_date_time(); } );
+					$( document ).on( 'change', '#'+this.name+'_hours',   function(){ me.set_date_time(); } );
+					$( document ).on( 'change', '#'+this.name+'_minutes', function(){ me.set_date_time(); } );
+					$( document ).on( 'change', '#'+this.name+'_ampm', 	  function(){ me.set_date_time(); } );
+					$( '#cp_calculatedfieldsf_pform'+me.form_identifier ).bind( 'reset', function(){ setTimeout( function(){ me.setDefaultDate(); me.setDefaultTime(); me.set_date_time(); }, 500 ); } );
+				},
+			setValue : function( f, v, m )
+				{
+					v = Math.min( v*1, m*1 );
+					v = ( v < 10 ) ? 0+''+v : v; 
+					$( '#' + f + ' [value="' + v + '"]' ).attr( 'selected', true );
+				},
+			validateDate: function( d, w, i )
+				{
+					try{
+						if( d === null ) return [false,""];
+						if ( !w[ d.getDay()]) return [false,""];
+						if( i !== null )
+						{
+							for( var j = 0, h = i.length; j < h; j++ )
+							{
+								if( d.getDate() == i[ j ].getDate() && d.getMonth() == i[ j ].getMonth() && d.getFullYear() == i[ j ].getFullYear() ) return [false,""];
+							}
+						}
+					}
+					catch( _err ){}
+					return [true,""]; 
+				},	
+			validateTime : function( e, i )
+				{
+					if( i.showTimepicker )
+					{
+						var base = e.name.replace( '_date', '' ),
+							h = $('#'+base+'_hours').val(),
+							m = $('#'+base+'_minutes').val();
+						if( i.tformat == 12 )
+						{	
+							if( $('#'+base+'_ampm').val() == 'pm' && h != 12 ) h = h*1 + 12;
+							if( $('#'+base+'_ampm').val() == 'am' && h == 12 ) h = 0;
+						}	
+						if( h < i.minHour || h > i.maxHour ) return false;
+					}
+					return true;	
+				},
+			after_show:function()
+				{
+					var me = this;
 					
+					me.setEvents();
+					me.setDefaultDate();
+					me.setDefaultTime();
 					$( '#'+this.name+'_date' ).change();
                     
+					validator = function( v, e )
+					{
+												
+						try
+						{
+							var p           = e.name.replace( '_date', '' ).split( '_' ),
+								_index		= ( p.length > 1 ) ? '_'+p[ 1 ] : '',
+								item        = ( 
+												typeof $.fbuilder[ 'forms' ] != 'undefined' && 
+												typeof $.fbuilder[ 'forms' ][ _index ] != 'undefined'  
+											  ) ? $.fbuilder[ 'forms' ][ _index ].getItem( p[ 0 ]+'_'+p[ 1 ] ) : null,
+								inst        = $.datepicker._getInst( e ),
+								minDate     = $.datepicker._determineDate( inst, $.datepicker._get( inst, 'minDate'), null),
+								maxDate     = $.datepicker._determineDate(inst, $.datepicker._get(inst, 'maxDate'), null),
+								dateFormat  = $.datepicker._get(inst, 'dateFormat'),
+								date        = $.datepicker.parseDate(dateFormat, v, $.datepicker._getFormatConfig(inst));
+								
+							if( item != null )
+							{	
+								return 	this.optional( e ) || 
+										( 
+											( minDate == null || date >= minDate  ) && 
+											( maxDate == null || date <= maxDate ) && 
+											me.validateDate( $( e ).datepicker( 'getDate' ), item.working_dates, item.invalidDates )[ 0 ] &&
+											me.validateTime( e, item )
+										);
+							}
+							return true;	
+						}
+						catch( er )
+						{
+							return false;
+						}
+					};
+					
                     $.validator.addMethod("dateddmmyyyy", validator );
 					$.validator.addMethod("datemmddyyyy", validator );
 				},
