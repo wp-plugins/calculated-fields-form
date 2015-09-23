@@ -1,4 +1,19 @@
-<?php if ( !defined('CP_AUTH_INCLUDE') ) { echo 'Direct access not allowed.';  exit; } ?>
+<?php 
+if ( !defined('CP_AUTH_INCLUDE') ) { echo 'Direct access not allowed.';  exit; } 
+// Corrects a conflict with W3 Total Cache
+if( function_exists( 'w3_instance' ) )
+{
+	try
+	{
+		$w3_config = w3_instance( 'W3_Config' );
+		$w3_config->set( 'minify.html.enable', false );	
+	}	
+	catch( Exception $err )
+	{
+		
+	}
+}
+?>
 <link href="<?php echo plugins_url('css/stylepublic.css', __FILE__); ?>" type="text/css" rel="stylesheet" />
 <link href="<?php echo plugins_url('css/cupertino/jquery-ui-1.8.20.custom.css', __FILE__); ?>" type="text/css" rel="stylesheet" />
 <?php

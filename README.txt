@@ -4,7 +4,7 @@ Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf
 Requires at least: 3.0.5
 Tested up to: 4.3
-Stable tag: 1.0.62
+Stable tag: 1.0.63
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -844,6 +844,10 @@ A: Please, visits the following link to get the answer to your question:
 
 == Changelog ==
 
+= 1.0.63 =
+* Prevents an issue caused by the Minify options of "W3 Total Cache".
+* Validates the fields in the "onblur" event.
+
 = 1.0.62 =
 * Modifies the summary control to display the caption of Slider controls.
 * Corrects an issue in the reset action of forms with the slider and DateTime controls.
@@ -1068,8 +1072,8 @@ A: Please, visits the following link to get the answer to your question:
 
 == Upgrade Notice ==
 
-= 1.0.62 =
-* Modifies the summary control to display the caption of Slider controls.
-* Corrects an issue in the reset action of forms with the slider and DateTime controls.
+= 1.0.63 =
+* Prevents an issue caused by the Minify options of "W3 Total Cache".
+* Validates the fields in the "onblur" event.
 
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support

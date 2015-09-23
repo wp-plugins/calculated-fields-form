@@ -62,80 +62,129 @@ $cpcff_texts_array = array_replace_recursive(
      <input type="hidden" name="templates" id="templates" value="<?php print esc_attr( json_encode( cp_calculatedfieldsf_available_templates() ) ); ?>" />
      <link href="<?php echo plugins_url('css/style.css', __FILE__); ?>" type="text/css" rel="stylesheet" />   
      <link href="<?php echo plugins_url('css/cupertino/jquery-ui-1.8.20.custom.css', __FILE__); ?>" type="text/css" rel="stylesheet" />   
+	<script type="text/javascript">
+		try
+		{
+			// Flags
+			var calculatedFieldsForm_first   = false,
+				calculatedFieldsForm_counter = 10;
+			
+			function calculatedFieldsFormReady()
+			{
+				var f = $calculatedfieldsfQuery("#fbuilder").fbuilder();
+				f.fBuild.loadData( "form_structure", "templates" );
 
-     <script type="text/javascript">          
-       try{$calculatedfieldsfQuery = jQuery.noConflict();window.jQuery = window.$ = jQuery;} catch (e) {}
-       if (typeof $calculatedfieldsfQuery == 'undefined')
-       {
-			document.write ("<"+"script type='text/javascript' src='<?php print CP_SCHEME; ?>ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></"+"script>");
-			$calculatedfieldsfQuery = jQuery.noConflict();
-			window.jQuery = window.$ = jQuery;
-			document.write ("<"+"script type='text/javascript' src='<?php print CP_SCHEME; ?>ajax.googleapis.com/ajax/libs/jqueryui/1.8.20/jquery-ui.min.js'></"+"script>");
-			document.write ("<"+"script type='text/javascript' src='<?php echo plugins_url('js/jQuery.stringify.js', __FILE__); ?>'></"+"script>");
-			document.write ("<"+"script type='text/javascript' src='<?php echo plugins_url('js/jquery.validate.js', __FILE__); ?>'></"+"script>");         
-			document.write ("<"+"script type='text/javascript' src='<?php echo plugins_url('/js/jquery.caret.js', __FILE__); ?>'></"+"script>");
-	   }
-       if ( typeof $fbuilderloadedflag == 'undefined' )
-       {
-         document.write ("<"+"script type='text/javascript' src='<?php echo cp_calculatedfieldsf_get_site_url( true ).'/?cp_cff_resources=admin'; ?>'></"+"script>");
-       } 
-     </script>         
-        
-     <script type="text/javascript">
-         
-         $calculatedfieldsfQuery(document).ready(function() {
-            var f = $calculatedfieldsfQuery("#fbuilder").fbuilder();
-            f.fBuild.loadData( "form_structure", "templates" );
-            
-            $calculatedfieldsfQuery(".itemForm").click(function() {
-     	       f.fBuild.addItem($calculatedfieldsfQuery(this).attr("id"));
-     	   });  
-          
-           $calculatedfieldsfQuery( ".itemForm" ).draggable({revert1: "invalid",helper: "clone",cursor: "move"});
-     	   $calculatedfieldsfQuery( "#fbuilder" ).droppable({
-     	       accept: ".button",
-     	       drop: function( event, ui ) {
-     	           f.fBuild.addItem(ui.draggable.attr("id"));				
-     	       }
-     	   });
-     	   jQuery("#metabox_basic_settings1").append('<div id="c1" style="position:absolute;top:0px;left:0px;background:#aaa;z-index:99999;"></div>')
-     	   jQuery("#c1").css({ opacity: 0.5 });
-     	   jQuery("#c1").click( function(){
-     	      if(confirm("These features aren't available in this version. Do you want to open the plugin's page to check other versions?"))
-     	          document.location = 'http://wordpress.dwbooster.com/forms/calculated-fields-form';
-     	   } );
-     	   jQuery("#metabox_basic_settings2").append('<div id="c2" style="position:absolute;top:0px;left:0px;background:#aaa;z-index:99999;"></div>')
-     	   jQuery("#c2").css({ opacity: 0.5 });
-     	   jQuery("#c2").click( function(){{
-     	      if(confirm("These features aren't available in this version. Do you want to open the plugin's page to check other versions?"))
-     	          document.location = 'http://wordpress.dwbooster.com/forms/calculated-fields-form';
-     	   } } );
-     	   jQuery("#metabox_basic_settings3").append('<div id="c3" style="position:absolute;top:0px;left:0px;background:#aaa;z-index:99999;"></div>')
-     	   jQuery("#c3").css({ opacity: 0.5 });
-     	   jQuery("#c3").click( function(){{
-     	      if(confirm("These features aren't available in this version. Do you want to open the plugin's page to check other versions?"))
-     	          document.location = 'http://wordpress.dwbooster.com/forms/calculated-fields-form';
-     	   } } );
-     	   jQuery("#metabox_basic_settings4").append('<div id="c4" style="position:absolute;top:0px;left:0px;background:#aaa;z-index:99999;"></div>')
-     	   jQuery("#c4").css({ opacity: 0.5 });
-     	   jQuery("#c4").click( function(){{
-     	      if(confirm("These features aren't available in this version. Do you want to open the plugin's page to check other versions?"))
-     	          document.location = 'http://wordpress.dwbooster.com/forms/calculated-fields-form';
-     	   } } );
-     	   rLayer = function(){
-     	      jQuery("#c1").css("width",jQuery("#metabox_basic_settings1").width()+"px").css("height",jQuery("#metabox_basic_settings1").height()+"px");
-              jQuery("#c2").css("width",jQuery("#metabox_basic_settings2").width()+"px").css("height",jQuery("#metabox_basic_settings2").height()+"px");
-              jQuery("#c3").css("width",jQuery("#metabox_basic_settings3").width()+"px").css("height",jQuery("#metabox_basic_settings3").height()+"px");
-              jQuery("#c4").css("width",jQuery("#metabox_basic_settings4").width()+"px").css("height",jQuery("#metabox_basic_settings4").height()+"px");
-           }  
-     	   rLayer();
-     	   jQuery(window).resize(function() {rLayer()});
-     	   
-         });
-     </script>        
-        
+				$calculatedfieldsfQuery(".itemForm").click(function() {
+				   f.fBuild.addItem($calculatedfieldsfQuery(this).attr("id"));
+				});  
 
-     
+				$calculatedfieldsfQuery( ".itemForm" ).draggable({revert1: "invalid",helper: "clone",cursor: "move"});
+				$calculatedfieldsfQuery( "#fbuilder" ).droppable({
+				   accept: ".button",
+				   drop: function( event, ui ) {
+					   f.fBuild.addItem(ui.draggable.attr("id"));				
+				   }
+				});
+				jQuery("#metabox_basic_settings1").append('<div id="c1" style="position:absolute;top:0px;left:0px;background:#aaa;z-index:99999;"></div>')
+				jQuery("#c1").css({ opacity: 0.5 });
+				jQuery("#c1").click( function(){
+				  if(confirm("These features aren't available in this version. Do you want to open the plugin's page to check other versions?"))
+					  document.location = 'http://wordpress.dwbooster.com/forms/calculated-fields-form';
+				} );
+				jQuery("#metabox_basic_settings2").append('<div id="c2" style="position:absolute;top:0px;left:0px;background:#aaa;z-index:99999;"></div>')
+				jQuery("#c2").css({ opacity: 0.5 });
+				jQuery("#c2").click( function(){{
+				  if(confirm("These features aren't available in this version. Do you want to open the plugin's page to check other versions?"))
+					  document.location = 'http://wordpress.dwbooster.com/forms/calculated-fields-form';
+				} } );
+				jQuery("#metabox_basic_settings3").append('<div id="c3" style="position:absolute;top:0px;left:0px;background:#aaa;z-index:99999;"></div>')
+				jQuery("#c3").css({ opacity: 0.5 });
+				jQuery("#c3").click( function(){{
+				  if(confirm("These features aren't available in this version. Do you want to open the plugin's page to check other versions?"))
+					  document.location = 'http://wordpress.dwbooster.com/forms/calculated-fields-form';
+				} } );
+				jQuery("#metabox_basic_settings4").append('<div id="c4" style="position:absolute;top:0px;left:0px;background:#aaa;z-index:99999;"></div>')
+				jQuery("#c4").css({ opacity: 0.5 });
+				jQuery("#c4").click( function(){{
+				  if(confirm("These features aren't available in this version. Do you want to open the plugin's page to check other versions?"))
+					  document.location = 'http://wordpress.dwbooster.com/forms/calculated-fields-form';
+				} } );
+				rLayer = function(){
+				  jQuery("#c1").css("width",jQuery("#metabox_basic_settings1").width()+"px").css("height",jQuery("#metabox_basic_settings1").height()+"px");
+				  jQuery("#c2").css("width",jQuery("#metabox_basic_settings2").width()+"px").css("height",jQuery("#metabox_basic_settings2").height()+"px");
+				  jQuery("#c3").css("width",jQuery("#metabox_basic_settings3").width()+"px").css("height",jQuery("#metabox_basic_settings3").height()+"px");
+				  jQuery("#c4").css("width",jQuery("#metabox_basic_settings4").width()+"px").css("height",jQuery("#metabox_basic_settings4").height()+"px");
+				}  
+				rLayer();
+				jQuery(window).resize(function() {rLayer()});
+			};
+			
+			function calculatedFieldsFormImport()
+			{
+				if( typeof jQuery == 'undefined' )
+				{
+					if( !calculatedFieldsForm_first )
+					{
+						document.write ("<"+"script type='text/javascript' src='<?php print CP_SCHEME; ?>ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></"+"script>");
+						document.write ("<"+"script type='text/javascript' src='<?php print CP_SCHEME; ?>ajax.googleapis.com/ajax/libs/jqueryui/1.8.20/jquery-ui.min.js'></"+"script>");
+					}
+					if( calculatedFieldsForm_counter )
+					{	
+						calculatedFieldsForm_counter--;
+						setTimeout( calculatedFieldsFormImport, 500 );
+					}	
+				}
+				else
+				{
+					$calculatedfieldsfQuery = jQuery.noConflict();
+					window.jQuery = window.$ = jQuery;
+					var getScript = $calculatedfieldsfQuery.getScript;
+					$calculatedfieldsfQuery.getScript = function( resources, callback ) {
+
+						var // reference declaration & localization
+						length = resources.length,
+						handler = function() { counter++; },
+						deferreds = [],
+						counter = 0,
+						idx = 0;
+
+						for ( ; idx < length; idx++ ) {
+							deferreds.push(
+								getScript( resources[ idx ], handler )
+							);
+						}
+
+						$calculatedfieldsfQuery.when.apply( null, deferreds ).then(function() {
+							callback && callback();
+						});
+					};
+
+					$calculatedfieldsfQuery.getScript(
+						[
+							'<?php echo plugins_url('js/jQuery.stringify.js', __FILE__); ?>',
+							'<?php echo plugins_url('js/jquery.validate.js', __FILE__); ?>',
+							'<?php echo plugins_url('/js/jquery.caret.js', __FILE__); ?>',
+							'<?php echo cp_calculatedfieldsf_get_site_url( true ).'/?cp_cff_resources=admin'; ?>'
+						], 
+						function() 
+						{
+							$calculatedfieldsfQuery(document).ready( calculatedFieldsFormReady ).ready();
+						}
+					);
+				}	
+			};
+		}
+		catch( err ){}
+        try{$calculatedfieldsfQuery = jQuery.noConflict();} catch ( err ) {}
+	    if (typeof $calculatedfieldsfQuery == 'undefined')
+        {
+			calculatedFieldsFormImport();
+	    }
+		else
+		{
+			$calculatedfieldsfQuery(document).ready( calculatedFieldsFormReady );
+		}	
+     </script>	
      <div style="background:#fafafa;" class="form-builder">
      
          <div class="column ctrlsColumn">
@@ -555,27 +604,23 @@ $cpcff_texts_array = array_replace_recursive(
 </form>
 </div>
 <script type="text/javascript">
-        var $j = jQuery.noConflict();      
-        window.jQuery = window.$ = jQuery;
-        
-        function generateCaptcha()
-        {            
-           var d=new Date();
-           var f = document.cpformconf;    
-           var qs = "?width="+f.cv_width.value;
-           qs += "&height="+f.cv_height.value;
-           qs += "&letter_count="+f.cv_chars.value;
-           qs += "&min_size="+f.cv_min_font_size.value;
-           qs += "&max_size="+f.cv_max_font_size.value;
-           qs += "&noise="+f.cv_noise.value;
-           qs += "&noiselength="+f.cv_noise_length.value;
-           qs += "&bcolor="+f.cv_background.value;
-           qs += "&border="+f.cv_border.value;
-           qs += "&font="+f.cv_font.options[f.cv_font.selectedIndex].value;
-           qs += "&rand="+d;
-           
-           document.getElementById("captchaimg").src= "<?php echo plugins_url('/captcha/captcha.php', __FILE__); ?>"+qs;
-        }
-
-     </script>
-<script type="text/javascript">generateCaptcha();</script>
+	function generateCaptcha()
+	{            
+	   var d=new Date();
+	   var f = document.cpformconf;    
+	   var qs = "?width="+f.cv_width.value;
+	   qs += "&height="+f.cv_height.value;
+	   qs += "&letter_count="+f.cv_chars.value;
+	   qs += "&min_size="+f.cv_min_font_size.value;
+	   qs += "&max_size="+f.cv_max_font_size.value;
+	   qs += "&noise="+f.cv_noise.value;
+	   qs += "&noiselength="+f.cv_noise_length.value;
+	   qs += "&bcolor="+f.cv_background.value;
+	   qs += "&border="+f.cv_border.value;
+	   qs += "&font="+f.cv_font.options[f.cv_font.selectedIndex].value;
+	   qs += "&rand="+d;
+	   
+	   document.getElementById("captchaimg").src= "<?php echo plugins_url('/captcha/captcha.php', __FILE__); ?>"+qs;
+	}
+	generateCaptcha();
+</script>

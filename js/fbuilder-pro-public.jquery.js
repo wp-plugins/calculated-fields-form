@@ -254,6 +254,7 @@
 				},
                 after_show:function( id ){
                     $( '#cp_calculatedfieldsf_pform'+id ).attr( 'data-evalequations', this.evalequations ).attr( 'autocomplete', ( ( this.autocomplete ) ? 'on' : 'off' ) );
+					$( '#cp_calculatedfieldsf_pform'+id ).find( 'input,select' ).blur( function(){ try{ $(this).valid(); }catch(e){};} );
                 }
 			});
 		

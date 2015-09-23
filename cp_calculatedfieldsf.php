@@ -3,7 +3,7 @@
 Plugin Name: Calculated Fields Form
 Plugin URI: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Description: Create forms with field values calculated based in other form field values.
-Version: 1.0.62
+Version: 1.0.63
 Author: CodePeople.net
 Author URI: http://codepeople.net
 License: GPL
@@ -560,7 +560,7 @@ function cp_calculatedfieldsf_get_public_form($id) {
         wp_deregister_script('cp_calculatedfieldsf_validate_script');
         wp_register_script('cp_calculatedfieldsf_validate_script', plugins_url('/js/jquery.validate.js', __FILE__));
         
-        wp_enqueue_script( 'cp_calculatedfieldsf_buikder_script', $public_js_path, array("jquery","jquery-ui-core","jquery-ui-button","jquery-ui-datepicker","jquery-ui-widget","jquery-ui-position","jquery-ui-tooltip","query-stringify","cp_calculatedfieldsf_validate_script", "jquery-ui-slider"), '1.0.62', true );    
+        wp_enqueue_script( 'cp_calculatedfieldsf_buikder_script', $public_js_path, array("jquery","jquery-ui-core","jquery-ui-button","jquery-ui-datepicker","jquery-ui-widget","jquery-ui-position","jquery-ui-tooltip","query-stringify","cp_calculatedfieldsf_validate_script", "jquery-ui-slider"), '1.0.63', true );    
         
         if ($id == '') $id = $myrows[0]->id;
         wp_localize_script('cp_calculatedfieldsf_buikder_script', 'cp_calculatedfieldsf_fbuilder_config'.$CP_CFF_global_form_count, array('obj'  	=>
@@ -614,7 +614,7 @@ function cp_calculatedfieldsf_get_public_form($id) {
 			</script>
 			<script type='text/javascript' src='<?php echo plugins_url('js/jQuery.stringify.js', __FILE__); ?>'></script>
 			<script type='text/javascript' src='<?php echo plugins_url('js/jquery.validate.js', __FILE__); ?>'></script>
-			<script type='text/javascript' src='<?php echo $public_js_path.(( strpos( $public_js_path, '?' ) == false ) ? '?' : '&' ).'ver=1.0.62'; ?>'></script>
+			<script type='text/javascript' src='<?php echo $public_js_path.(( strpos( $public_js_path, '?' ) == false ) ? '?' : '&' ).'ver=1.0.63'; ?>'></script>
 		<?php
 		}
 		?>	
@@ -674,9 +674,6 @@ function cp_calculatedfieldsf_html_post_page() {
 function set_cp_calculatedfieldsf_insert_adminScripts($hook) {
     if ( isset($_GET["page"]) && $_GET["page"] == "cp_calculated_fields_form" )
     {        
-        wp_deregister_script('query-stringify');
-        wp_register_script('query-stringify', plugins_url('/js/jQuery.stringify.js', __FILE__));
-		
 		wp_enqueue_script( "jquery" );
 		wp_enqueue_script( "jquery-ui-core" );
 		wp_enqueue_script( "jquery-ui-sortable" );
@@ -684,6 +681,8 @@ function set_cp_calculatedfieldsf_insert_adminScripts($hook) {
 		wp_enqueue_script( "jquery-ui-droppable" );
 		wp_enqueue_script( "jquery-ui-button" );
 		wp_enqueue_script( "jquery-ui-datepicker" );
+        wp_deregister_script('query-stringify');
+        wp_register_script('query-stringify', plugins_url('/js/jQuery.stringify.js', __FILE__));
 		wp_enqueue_script( "query-stringify" );
 
         wp_enqueue_script( 'cp_calculatedfieldsf_buikder_script', cp_calculatedfieldsf_get_site_url( true ).'/?cp_cff_resources=admin', array("jquery","jquery-ui-core","jquery-ui-sortable","jquery-ui-tabs","jquery-ui-droppable","jquery-ui-button","jquery-ui-datepicker","query-stringify") );
