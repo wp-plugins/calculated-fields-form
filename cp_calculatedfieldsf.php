@@ -3,7 +3,7 @@
 Plugin Name: Calculated Fields Form
 Plugin URI: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Description: Create forms with field values calculated based in other form field values.
-Version: 1.0.63
+Version: 1.0.64
 Author: CodePeople.net
 Author URI: http://codepeople.net
 License: GPL
@@ -440,20 +440,28 @@ function cp_calculatedfieldsf_create_var( $atts ) {
 		$var = trim( $atts[ 'name' ] );
 		if( !empty( $var ) )
 		{
-			$from = '_';
-			if( isset( $atts[ 'from' ] ) ) $from .= strtoupper( trim( $atts[ 'from' ] ) );
-			if( in_array( $from, array( '_POST', '_GET', '_SESSION', '_COOKIE' ) ) )
+			if( isset( $atts[ 'value' ] ) )
 			{
-				if( isset( $GLOBALS[ $from ][ $var ] ) ) $value = $GLOBALS[ $from ][ $var ];
+				$value = $atts[ 'value' ];
 			}
 			else
 			{	
-				if( isset( $_POST[ $var ] ) ) 			$value = $_POST[ $var ];
-				elseif( isset( $_GET[ $var ] ) ) 		$value = $_GET[ $var ];
-				elseif( isset( $_SESSION[ $var ] ) )	$value = $_SESSION[ $var ];
-				elseif( isset( $_COOKIE[ $var ] ) )		$value = $_COOKIE[ $var ];
+				$from = '_';
+				if( isset( $atts[ 'from' ] ) ) $from .= strtoupper( trim( $atts[ 'from' ] ) );
+				if( in_array( $from, array( '_POST', '_GET', '_SESSION', '_COOKIE' ) ) )
+				{
+					if( isset( $GLOBALS[ $from ][ $var ] ) ) 	$value = $GLOBALS[ $from ][ $var ];
+					elseif( isset( $atts[ 'default_value' ] ) ) $value = $atts[ 'default_value' ];
+				}
+				else
+				{	
+					if( isset( $_POST[ $var ] ) ) 				$value = $_POST[ $var ];
+					elseif( isset( $_GET[ $var ] ) ) 			$value = $_GET[ $var ];
+					elseif( isset( $_SESSION[ $var ] ) )		$value = $_SESSION[ $var ];
+					elseif( isset( $_COOKIE[ $var ] ) )			$value = $_COOKIE[ $var ];
+					elseif( isset( $atts[ 'default_value' ] ) ) $value = $atts[ 'default_value' ];
+				}
 			}
-			
 			if( isset( $value ) )
 			{
 				return '

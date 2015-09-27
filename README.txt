@@ -4,7 +4,7 @@ Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf
 Requires at least: 3.0.5
 Tested up to: 4.3
-Stable tag: 1.0.63
+Stable tag: 1.0.64
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -367,6 +367,18 @@ The icon with the "X" symbol, that appears when editing the contents of pages or
 The ... symbol should be replaced by the parameter or variable name, and will be the same name of the javascript variable. For example: [CP_CALCULATED_FIELDS_VAR name="varname"]
 
 To restrict the source of variable, define the attribute "from" in the shortcode with any of following values: get, post, session, or cookie. For example, to create the javascript variable: varname, only if exist a session variable with the same name, insert the  shortcode: [CP_CALCULATED_FIELDS_VAR name="varname" from="session"]
+
+The shortcode: [CP_CALCULATED_FIELDS_VAR] accepts two other attributes:
+
+The "default_value" attribute allows to define the value used by default if there is not a parameter with the specified name, or session variable or cookie:
+
+[CP_CALCULATED_FIELDS_VAR name="varname" default_value="mydefault"]
+
+If there is not a parameter, or session variable, or cookie, with the name "varname", the plugin will create a global javascript variable with the name: "varname", and value: "mydefault".
+
+The attribute: "value", allows to create a javascript variable with the name defined as attribute, and the value in the attribute: "value".
+
+[CP_CALCULATED_FIELDS_VAR name="varname" value="myvalue"]
 
 After insert the shortcode to create the javascript variable, a valid equation would be: fieldname1*varname
 
@@ -844,6 +856,10 @@ A: Please, visits the following link to get the answer to your question:
 
 == Changelog ==
 
+= 1.0.64 =
+* Modifies the shortcode: [CP_CALCULATED_FIELDS_VAR]
+* Modifies the mode for loading the CSS files in the public website.
+
 = 1.0.63 =
 * Prevents an issue caused by the Minify options of "W3 Total Cache".
 * Validates the fields in the "onblur" event.
@@ -1072,8 +1088,8 @@ A: Please, visits the following link to get the answer to your question:
 
 == Upgrade Notice ==
 
-= 1.0.63 =
-* Prevents an issue caused by the Minify options of "W3 Total Cache".
-* Validates the fields in the "onblur" event.
+= 1.0.64 =
+* Modifies the shortcode: [CP_CALCULATED_FIELDS_VAR]
+* Modifies the mode for loading the CSS files in the public website.
 
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
