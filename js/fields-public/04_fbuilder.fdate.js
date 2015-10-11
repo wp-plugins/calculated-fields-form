@@ -130,7 +130,11 @@
 						dd = (me.defaultDate != "") ? me.defaultDate : ( ( me.predefined != "" ) ? me.predefined : new Date() );
 						
 					dp.click( function(){ $(document).click(); $(this).focus(); } );	
-					if (me.showDropdown) p = $.extend(p,{changeMonth: true,changeYear: true,yearRange: me.dropdownRange});
+					if (me.showDropdown )
+					{
+						if( me.dropdownRange.indexOf( ':' ) == -1 ) me.dropdownRange = '-10:+10';
+						p = $.extend(p,{changeMonth: true,changeYear: true,yearRange: me.dropdownRange});
+					}	
 					p = $.extend(p, { beforeShowDay: ( function ( w, i ) { return function( d ){ return me.validateDate( d, w, i ); }; } )( me.working_dates, me.invalidDates ) } );
 					dp.datepicker(p);
                     if( !me.predefinedClick ) dp.datepicker( "setDate", dd);

@@ -2,7 +2,7 @@
 
 if ( !is_admin() ) 
 {
-    echo 'Direct access not allowed.';
+    _e( 'Direct access not allowed.', 'calculated-fields-form' );
     exit;
 }
 
@@ -68,19 +68,19 @@ if (isset($_GET['a']) && $_GET['a'] == '1')
 									 array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s' )
                       );   
     
-    $message = "Item added";
+    $message = __( "Item added", 'calculated-fields-form' );
 } 
 else if (isset($_GET['u']) && $_GET['u'] != '')
 {
 	check_admin_referer( 'session_id_'.session_id(), '_cpcff_nonce' );
 	$wpdb->query( $wpdb->prepare( 'UPDATE `'.$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE.'` SET form_name=%s WHERE id=%d', $_GET["name"], $_GET['u'] ) );
-    $message = "Item updated";        
+    $message = __( "Item updated", 'calculated-fields-form' );
 }
 else if (isset($_GET['d']) && $_GET['d'] != '')
 {
 	check_admin_referer( 'session_id_'.session_id(), '_cpcff_nonce' );
     $wpdb->query( $wpdb->prepare( 'DELETE FROM `'.$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE.'` WHERE id=%d', $_GET['d'] ) );       
-    $message = "Item deleted";
+    $message = __( "Item deleted", 'calculated-fields-form' );
 } else if (isset($_GET['c']) && $_GET['c'] != '')
 {
 	check_admin_referer( 'session_id_'.session_id(), '_cpcff_nonce' );
@@ -88,7 +88,7 @@ else if (isset($_GET['d']) && $_GET['d'] != '')
     unset($myrows["id"]);
     $myrows["form_name"] = 'Cloned: '.$myrows["form_name"];
     $wpdb->insert( $wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE, $myrows);
-    $message = "Item duplicated/cloned";
+    $message = __( "Item duplicated/cloned", 'calculated-fields-form' );
 } else if (isset($_GET['ac']) && $_GET['ac'] == 'st')
 {
 	check_admin_referer( 'session_id_'.session_id(), '_cpcff_nonce' );
@@ -125,7 +125,7 @@ else if (isset($_GET['d']) && $_GET['d'] != '')
 	        }
         }
     }
-    $message = "Troubleshoot settings updated";
+    $message = __( "Troubleshoot settings updated", 'calculated-fields-form' );
 }
 
 
@@ -133,7 +133,7 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
 
 ?>
 <div class="wrap">
-<h1>Calculated Fields Form</h1>
+<h1><?php _e( 'Calculated Fields Form', 'calculated-fields-form' ); ?></h1>
 
 <script type="text/javascript">
  function cp_addItem()
@@ -179,7 +179,7 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
  
  function cp_deleteItem(id)
  {
-    if (confirm('Are you sure that you want to delete this item?'))
+    if (confirm('<?php _e( 'Are you sure that you want to delete this item?', 'calculated-fields-form' ); ?>'))
     {        
         document.location = 'options-general.php?page=cp_calculated_fields_form&d='+id+'&r='+Math.random()+'&_cpcff_nonce=<?php echo wp_create_nonce( 'session_id_'.session_id() ); ?>';
     }
@@ -187,7 +187,7 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
  
  function cp_updateConfig()
  {
-    if (confirm('Are you sure that you want to update these settings?'))
+    if (confirm('<?php _e( 'Are you sure that you want to update these settings?', 'calculated-fields-form' ); ?>'))
     {        
         var scr = document.getElementById("ccscriptload").value;    
         var chs = document.getElementById("cccharsets").value;    
@@ -204,13 +204,13 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
 
 
  <div id="metabox_basic_settings" class="postbox" >
-  <h3 class='hndle' style="padding:5px;"><span>Form List / Items List</span></h3>
+  <h3 class='hndle' style="padding:5px;"><span><?php _e( 'Form List / Items List', 'calculated-fields-form' ); ?></span></h3>
   <div class="inside">
   
   
   <table cellspacing="10"> 
    <tr>
-    <th align="left">ID</th><th align="left">Form Name</th><th align="left">&nbsp; &nbsp; Options</th><th align="left">Shortcode</th>
+    <th align="left"><?php _e( 'ID', 'calculated-fields-form' ); ?></th><th align="left"><?php _e( 'Form Name', 'calculated-fields-form' ); ?></th><th align="left">&nbsp; &nbsp; <?php _e( 'Options', 'calculated-fields-form' ); ?></th><th align="left"><?php _e( 'Shortcode', 'calculated-fields-form' ); ?></th>
    </tr> 
 <?php  
 
@@ -223,70 +223,66 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
     <td nowrap><input type="text" name="calname_<?php echo $item->id; ?>" id="calname_<?php echo $item->id; ?>" value="<?php echo esc_attr($item->form_name); ?>" /></td>          
     
     <td nowrap>&nbsp; &nbsp; 
-                             <input type="button" name="calupdate_<?php echo $item->id; ?>" value="Update" onclick="cp_updateItem(<?php echo $item->id; ?>);" /> &nbsp; 
-                             <input type="button" name="calmanage_<?php echo $item->id; ?>" value="Settings" onclick="cp_manageSettings(<?php echo $item->id; ?>);" /> &nbsp;                              
-                             <input type="button" name="calmanage_<?php echo $item->id; ?>" value="Messages" onclick="cp_viewMessages(<?php echo $item->id; ?>);" /> &nbsp;                              
-                             <input type="button" name="calclone_<?php echo $item->id; ?>" value="Clone" onclick="cp_cloneItem(<?php echo $item->id; ?>);" /> &nbsp;
-                             <input type="button" name="caldelete_<?php echo $item->id; ?>" value="Delete" onclick="cp_deleteItem(<?php echo $item->id; ?>);" />                             
+                             <input type="button" name="calupdate_<?php echo $item->id; ?>" value="<?php esc_attr_e( 'Update', 'calculated-fields-form' ); ?>" onclick="cp_updateItem(<?php echo $item->id; ?>);" /> &nbsp; 
+                             <input type="button" name="calmanage_<?php echo $item->id; ?>" value="<?php esc_attr_e( 'Settings', 'calculated-fields-form' ); ?>" onclick="cp_manageSettings(<?php echo $item->id; ?>);" /> &nbsp;                              
+                             <input type="button" name="calmanage_<?php echo $item->id; ?>" value="<?php esc_attr_e( 'Messages', 'calculated-fields-form' ); ?>" onclick="cp_viewMessages(<?php echo $item->id; ?>);" /> &nbsp;                              
+                             <input type="button" name="calclone_<?php echo $item->id; ?>" value="<?php esc_attr_e( 'Clone', 'calculated-fields-form' ); ?>" onclick="cp_cloneItem(<?php echo $item->id; ?>);" /> &nbsp;
+                             <input type="button" name="caldelete_<?php echo $item->id; ?>" value="<?php esc_attr_e( 'Delete', 'calculated-fields-form' ); ?>" onclick="cp_deleteItem(<?php echo $item->id; ?>);" />                             
     </td>
     <td nowrap>[CP_CALCULATED_FIELDS id="<?php echo $item->id; ?>"]</td>          
    </tr>
 <?php  
    } 
 ?>   
-     
   </table> 
-    
-    
-   
   </div>    
  </div> 
  
-
  <div id="metabox_basic_settings" class="postbox" >
-  <h3 class='hndle' style="padding:5px;"><span>New Form</span></h3>
+  <h3 class='hndle' style="padding:5px;"><span><?php _e( 'New Form', 'calculated-fields-form' ); ?></span></h3>
   <div class="inside"> 
    
     <form name="additem">
-      Item Name:<br />
-      <input type="text" name="cp_itemname" id="cp_itemname"  value="" onkeyup="cp_addItem_keyup( event );" /> <input type="button" onclick="cp_addItem();" name="gobtn" value="Add" />
+      <?php _e( 'Item Name', 'calculated-fields-form' ); ?>:<br />
+      <input type="text" name="cp_itemname" id="cp_itemname"  value="" onkeyup="cp_addItem_keyup( event );" /> <input type="button" onclick="cp_addItem();" name="gobtn" value="<?php esc_attr_e( 'Add', 'calculated-fields-form' ); ?>" />
       <br /><br />      
     </form>
-
   </div>    
  </div>
 
  <div id="metabox_basic_settings" class="postbox" >
-  <h3 class='hndle' style="padding:5px;"><span>Troubleshoot Area</span></h3>
+  <h3 class='hndle' style="padding:5px;"><span><?php _e( 'Troubleshoot Area & General Settings', 'calculated-fields-form' ); ?></span></h3>
   <div class="inside"> 
-    <p><strong>Important!</strong>: Use this area <strong>only</strong> if you are experiencing conflicts with third party plugins, with the theme scripts or with the character encoding.</p>
     <form name="updatesettings">
-      Script load method:<br />
-       <select id="ccscriptload" name="ccscriptload">
-        <option value="0" <?php if (get_option('CP_CFF_LOAD_SCRIPTS',"1") == "1") echo 'selected'; ?>>Classic (Recommended)</option>
-        <option value="1" <?php if (get_option('CP_CFF_LOAD_SCRIPTS',"1") != "1") echo 'selected'; ?>>Direct</option>
-       </select><br />
-       <em>* Change the script load method if the form doesn't appear in the public website.</em>
+		<div style="border:1px solid #DADADA; padding:10px;">	
+			<p><?php _e( '<strong>Important!</strong>: Use this area <strong>only</strong> if you are experiencing conflicts with third party plugins, with the theme scripts or with the character encoding.', 'calculated-fields-form' ); ?></p>
+			<?php _e( 'Script load method', 'calculated-fields-form' ); ?>:<br />
+			<select id="ccscriptload" name="ccscriptload">
+			<option value="0" <?php if (get_option('CP_CFF_LOAD_SCRIPTS',"1") == "1") echo 'selected'; ?>><?php _e( 'Classic (Recommended)', 'calculated-fields-form' ); ?></option>
+			<option value="1" <?php if (get_option('CP_CFF_LOAD_SCRIPTS',"1") != "1") echo 'selected'; ?>><?php _e( 'Direct', 'calculated-fields-form' ); ?></option>
+			</select><br />
+			<em><?php _e( '* Change the script load method if the form doesn\'t appear in the public website.', 'calculated-fields-form' ); ?></em>
+			<br /><br />
+			<?php _e( 'Character encoding', 'calculated-fields-form' ); ?>:<br />
+			<select id="cccharsets" name="cccharsets">
+			<option value=""><?php _e( 'Keep current charset (Recommended)', 'calculated-fields-form' ); ?></option>
+			<option value="utf8_general_ci">UTF-8 (<?php _e( 'try this first', 'calculated-fields-form' ); ?>)</option>
+			<option value="latin1_swedish_ci">latin1_swedish_ci</option>
+			</select><br />
+			<em><?php _e( '* Update the charset if you are getting problems displaying special/non-latin characters. After updated you need to edit the special characters again.', 'calculated-fields-form' ); ?></em>
+		</div>
+		<br />
+	   <?php _e( 'Activate Javascript Cache', 'calculated-fields-form' ); ?>: <input type="checkbox" name="ccjscache" id="ccjscache" <?php echo ( get_option( 'CP_CALCULATEDFIELDSF_USE_CACHE', CP_CALCULATEDFIELDSF_USE_CACHE ) ) ? 'CHECKED' : ''; ?> />
        <br /><br />
-	   Activate Javascript Cache: <input type="checkbox" name="ccjscache" id="ccjscache" <?php echo ( get_option( 'CP_CALCULATEDFIELDSF_USE_CACHE', CP_CALCULATEDFIELDSF_USE_CACHE ) ) ? 'CHECKED' : ''; ?> />
+       <?php _e( 'Do not loading the forms with crawlers', 'calculated-fields-form' ); ?>: <input type="checkbox" name="ccexcludecrawler" id="ccexcludecrawler" <?php echo ( get_option( 'CP_CALCULATEDFIELDSF_EXCLUDE_CRAWLERS', false ) ) ? 'CHECKED' : ''; ?> /><br /><i><?php _e( '* The forms are not loaded when website is being indexed by searchers.', 'calculated-fields-form' ); ?></i> 
        <br /><br />
-       Do not loading the forms with crawlers: <input type="checkbox" name="ccexcludecrawler" id="ccexcludecrawler" <?php echo ( get_option( 'CP_CALCULATEDFIELDSF_EXCLUDE_CRAWLERS', false ) ) ? 'CHECKED' : ''; ?> /><br /><i>* The forms are not loaded when website is being indexed by searchers.</i> 
-       <br /><br />
-       Character encoding:<br />
-       <select id="cccharsets" name="cccharsets">
-        <option value="">Keep current charset (Recommended)</option>
-        <option value="utf8_general_ci">UTF-8 (try this first)</option>
-        <option value="latin1_swedish_ci">latin1_swedish_ci</option>
-       </select><br />
-       <em>* Update the charset if you are getting problems displaying special/non-latin characters. After updated you need to edit the special characters again.</em>
+       <input type="button" onclick="cp_updateConfig();" name="gobtn" value="<?php esc_attr_e( 'UPDATE', 'calculated-fields-form' ); ?>" />
        <br />
-       <input type="button" onclick="cp_updateConfig();" name="gobtn" value="UPDATE" />
-      <br /><br />      
     </form>
 
   </div>    
  </div> 
 </div> 
-[<a href="http://wordpress.dwbooster.com/contact-us" target="_blank">Request Custom Modifications</a>] | [<a href="http://wordpress.dwbooster.com/forms/calculated-fields-form" target="_blank">Help</a>]
+[<a href="http://wordpress.dwbooster.com/contact-us" target="_blank"><?php _e( 'Request Custom Modifications', 'calculated-fields-form' ); ?></a>] | [<a href="http://wordpress.dwbooster.com/forms/calculated-fields-form" target="_blank"><?php _e( 'Help', 'calculated-fields-form' ); ?></a>]
 </form>
 </div>

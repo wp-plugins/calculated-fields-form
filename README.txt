@@ -1,10 +1,10 @@
 === Calculated Fields Form ===
 Contributors: codepeople
 Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
-Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf
+Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf,language
 Requires at least: 3.0.5
 Tested up to: 4.3
-Stable tag: 1.0.64
+Stable tag: 1.0.67
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -840,6 +840,18 @@ A: Please, visits the following link to get the answer to your question:
 
 [http://wordpress.dwbooster.com/faq/calculated-fields-form#q274](http://wordpress.dwbooster.com/faq/calculated-fields-form#q274 "How to use a file field with multiple selection from Zapier?")
 
+= Q: How turn off the up/down arrows in the number fields? = 
+
+A: Please, visits the following link to get the answer to your question:
+
+[http://wordpress.dwbooster.com/faq/calculated-fields-form#q312](http://wordpress.dwbooster.com/faq/calculated-fields-form#q312 "How turn off the up/down arrows in the number fields?")
+
+= Q: How to protect the form in front the attacks of the spam bots? =
+
+A: Please, visit the following entry in the FAQ page of the plugin with the instructions to protect the form:
+
+[http://wordpress.dwbooster.com/faq/calculated-fields-form#q313](http://wordpress.dwbooster.com/faq/calculated-fields-form#q313 "How to avoid the attacks of the spam bots?")
+
 == Screenshots ==
 
 1. Calculated forms list
@@ -855,6 +867,15 @@ A: Please, visits the following link to get the answer to your question:
 11. WebHook add-on, and its integration with Zapier
 
 == Changelog ==
+
+= 1.0.67 =
+* Validates the range of years on Date fields to prevent javascript errors.
+
+= 1.0.66 =
+* Allows the use of language files.
+
+= 1.0.65 =
+* Corrects an issue in the form settings.
 
 = 1.0.64 =
 * Modifies the shortcode: [CP_CALCULATED_FIELDS_VAR]
@@ -1088,8 +1109,7 @@ A: Please, visits the following link to get the answer to your question:
 
 == Upgrade Notice ==
 
-= 1.0.64 =
-* Modifies the shortcode: [CP_CALCULATED_FIELDS_VAR]
-* Modifies the mode for loading the CSS files in the public website.
+= 1.0.67 =
+* Validates the range of years on Date fields to prevent javascript errors.
 
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
