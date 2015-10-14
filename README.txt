@@ -534,6 +534,9 @@ A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q79](http://wordpr
 
 A: That feature is available in the pro version that can be acquired at this page http://wordpress.dwbooster.com/forms/calculated-fields-form
 
+Visit the following link to our technical blog with a detailed description about the integration of PayPal and the forms created with CFF:
+[http://blog.net-factor.com/calculated-fields-form-and-paypal/](http://blog.net-factor.com/calculated-fields-form-and-paypal/ "Calculated Fields Form and PayPal")
+
 = Q: Non-latin characters aren't being displayed in the calculator form. There is a workaround? =
 
 A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q225](http://wordpress.dwbooster.com/faq/calculated-fields-form#q225 "utf-8")
