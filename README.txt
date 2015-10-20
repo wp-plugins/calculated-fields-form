@@ -587,6 +587,10 @@ A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q232](http://wordp
 
 A: If that occur, I recommend to insert a DIV field, immediately after the group of fields, and assign the class name: clear, to the DIV field. The "clear" class is included in the plugin, to clear the fields before and after the DIV field.
 
+= Q: How to create a form with a table structure, when the fields are displayed dynamically using dependencies? =
+
+A: [http://blog.net-factor.com/tips-for-displaying-the-forms-created-with-the-calculated-fields-form-plugin-with-table-structure-in-dependent-fields/](http://blog.net-factor.com/tips-for-displaying-the-forms-created-with-the-calculated-fields-form-plugin-with-table-structure-in-dependent-fields/ "Table structure with dependent fields")
+
 = Q: How assign multiple class names to a field? =
 
 A: The class names are assigned to the fields through the attribute: "Add Css Layout Keywords". If you need assign multiple class names to a field, you only should enter the class names separated by space characters. For example: myclass1 myclass2
