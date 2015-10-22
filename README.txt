@@ -295,25 +295,11 @@ The icon with the "X" symbol, that appears when editing the contents of pages or
 
 The ... symbol should be replaced by the parameter or variable name, and will be the same name of the javascript variable. For example: [CP_CALCULATED_FIELDS_VAR name="varname"]
 
-To restrict the source of variable, define the attribute "from" in the shortcode with any of following values: get, post, session, or cookie. For example, to create the javascript variable: varname, only if exist a session variable with the same name, insert the  shortcode: [CP_CALCULATED_FIELDS_VAR name="varname" from="session"]
+[CLICK HERE for additional information ](http://wordpress.dwbooster.com/forms/calculated-fields-form#javascript-vars "Create JavaScript Variables")
 
-The shortcode: [CP_CALCULATED_FIELDS_VAR] accepts two other attributes:
+= Tips for calculating prices =
 
-The "default_value" attribute allows to define the value used by default if there is not a parameter with the specified name, or session variable or cookie:
-
-[CP_CALCULATED_FIELDS_VAR name="varname" default_value="mydefault"]
-
-If there is not a parameter, or session variable, or cookie, with the name "varname", the plugin will create a global javascript variable with the name: "varname", and value: "mydefault".
-
-The attribute: "value", allows to create a javascript variable with the name defined as attribute, and the value in the attribute: "value".
-
-[CP_CALCULATED_FIELDS_VAR name="varname" value="myvalue"]
-
-After insert the shortcode to create the javascript variable, a valid equation would be: fieldname1*varname
-
-= Tips for calculating prices = 
-
-One of the most frequent uses is for calculating prices. When displaying prices a good you may want to divide the form in two pages, the first one for asking the information needed to calculate the price and in a second page display the calculated field with the price and using the "Instruct. Text" fields for adding the terms, conditions and valid time for the price. 
+One of the most frequent uses is for calculating prices. When displaying prices a good you may want to divide the form in two pages, the first one for asking the information needed to calculate the price and in a second page display the calculated field with the price and using the "Instruct. Text" fields for adding the terms, conditions and valid time for the price.
 
 Note that you can make the "Instruct. Text" fields dependent from the calculated value, that way you can change the text shown to the user depending of the number shown in the calculated price, since frequently the terms, conditions or offers vary according to the price amount.
 
@@ -323,37 +309,28 @@ The list of add-ons available in the plugin, appear in the "Add-ons area" of set
 
 = WooCommerce add-on (Beta Version) - Only available in the Developer version of the plugin =
 
-The developer version of the plugin includes the WooCommerce add-on, to integrate the forms created by the "Calculated Fields Form" with the WooCommerce products. The add-on inserts an additional metabox in the WooCommerce products, with two settings fields:
+The developer version of the plugin includes the WooCommerce add-on, to integrate the forms created by the "Calculated Fields Form" with the WooCommerce products.
 
-* Enter the ID of the form: Allows select the form that will be associated to the product.
-* Calculate the product price through the form: Allows calculate the price of the products through the form.
-
-Note: If you want calculate the price of products through the form, will be required that you select the field of the price in the attribute: "Request cost" in the form's settings.
+[CLICK HERE for additional information ](http://wordpress.dwbooster.com/forms/calculated-fields-form#woocommerce-addon "WooCommerce add-on")
 
 = SalesForce add-on (Beta Version) - Only available in the Developer version of the plugin =
 
-The add-on allows create new leads in the SalesForce account with the data submitted by the forms. 
+The add-on allows create new leads in the SalesForce account with the data submitted by the forms.
 
-To create new leads in SalesForce with the data submitted by a form, be sure that the SalesForce account has enabled the Web-to-lead option, and then go to the form's settings:
-
-* Enter the OID (Organization ID)
-* For debugging the lead creation, tick the "Enabling debug" option, and enter the email address where receive the information. For production, untick the debugging option.
-* Press the "Add attribute" button, select the Lead attribute, and enter a fixed text, or the name of the field in the form (fieldname#)
-
-Note: The Add-on includes the list of predefined attributes of Leads, but it is possible to enter custom attributes too.
+[CLICK HERE for additional information ](http://wordpress.dwbooster.com/forms/calculated-fields-form#salesforce-addon "SalesForce add-on")
 
 = WebHook add-on (Beta Version) - Only available in the Developer version of the plugin =
 
 The add-on allows posting the submitted information by the forms to WebHooks URLs. With the WebHook add-on it is possible integrate the forms created by the plugin with services like Zapier. The Zapier connects services as important and popular as Zoho CRM, Dropbox, Mailchimp, Evernote, Google Drive, Facebook, Twitter, and more than 300 services([https://zapier.com/zapbook/apps/](https://zapier.com/zapbook/apps/ "Zapier"))
 
-Use this add-on is as simple as entering the WebHooks URLs, through the CFF-WebHook section in the forms settings. To associate a form with multiple WebHooks, simply press the "Add new url" button, to add a new input field.
-
-Note: About Zapier service, select Webhook as the Trigger app, and "Catch Hook" as the trigger for this app.
+[CLICK HERE for additional information ](http://wordpress.dwbooster.com/forms/calculated-fields-form#webhook-addon "WebHook add-on")
 
 = Users Connection add-on (Beta Version) - Only available in the Developer version of the plugin =
 
 The add-on allows associate the submitted information with the users on website. Furthermore, the plugin allows define rules to restrict the access to the forms to: only registered users, specific roles, or specific users. The add-on adds a new shortcode to the plugin for listing the information submitted by user (it is possible inserting the new shortcode in the user profile), and assign to the users, permissions for editing the submitted information, or delete an entry. With the add-on it is possible limit the number of submissions to only one by form and user.
- 
+
+[CLICK HERE for additional information ](http://wordpress.dwbooster.com/forms/calculated-fields-form#users-addon "Users add-on")
+
 == Installation ==
 
 To install Calculated Fields Form, follow these steps:
