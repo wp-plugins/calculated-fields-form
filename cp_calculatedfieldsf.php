@@ -3,7 +3,7 @@
 Plugin Name: Calculated Fields Form
 Plugin URI: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Description: Create forms with field values calculated based in other form field values.
-Version: 1.0.67
+Version: 1.0.68
 Text Domain: calculated-fields-form 
 Author: CodePeople.net
 Author URI: http://codepeople.net
@@ -485,6 +485,13 @@ function cp_calculatedfieldsf_filter_content( $atts ) {
 	if( cp_calculatedfieldsf_is_crawler() ) return '';
 		
     global $wpdb;	
+	
+	/** 
+	 * Filters applied before generate the form, 
+	 * is passed as parameter an array with the forms attributes, and return the list of attributes
+	 */
+	$atts = apply_filters( 'cpcff_pre_form',  $atts );
+
     if( empty( $atts[ 'id' ] ) )
 	{
         $atts[ 'id' ] = '';
@@ -504,7 +511,15 @@ function cp_calculatedfieldsf_filter_content( $atts ) {
         }
         $buffered_contents .= '</script>';
     }
-    ob_end_clean();       
+    ob_end_clean();
+		
+	/** 
+	 * Filters applied after generate the form, 
+	 * is passed as parameter the HTML code of the form with the corresponding <LINK> and <SCRIPT> tags, 
+	 * and returns the HTML code to includes in the webpage
+	 */
+	$buffered_contents = apply_filters( 'cpcff_the_form', $buffered_contents,  $atts[ 'id' ] );
+	
     return $buffered_contents;
 }
 
@@ -573,7 +588,7 @@ function cp_calculatedfieldsf_get_public_form($id) {
         wp_deregister_script('cp_calculatedfieldsf_validate_script');
         wp_register_script('cp_calculatedfieldsf_validate_script', plugins_url('/js/jquery.validate.js', __FILE__));
         
-        wp_enqueue_script( 'cp_calculatedfieldsf_buikder_script', $public_js_path, array("jquery","jquery-ui-core","jquery-ui-button","jquery-ui-datepicker","jquery-ui-widget","jquery-ui-position","jquery-ui-tooltip","query-stringify","cp_calculatedfieldsf_validate_script", "jquery-ui-slider"), '1.0.67', true );    
+        wp_enqueue_script( 'cp_calculatedfieldsf_buikder_script', $public_js_path, array("jquery","jquery-ui-core","jquery-ui-button","jquery-ui-datepicker","jquery-ui-widget","jquery-ui-position","jquery-ui-tooltip","query-stringify","cp_calculatedfieldsf_validate_script", "jquery-ui-slider"), '1.0.68', true );    
         
         if ($id == '') $id = $myrows[0]->id;
         wp_localize_script('cp_calculatedfieldsf_buikder_script', 'cp_calculatedfieldsf_fbuilder_config'.$CP_CFF_global_form_count, array('obj'  	=>
@@ -627,7 +642,7 @@ function cp_calculatedfieldsf_get_public_form($id) {
 			</script>
 			<script type='text/javascript' src='<?php echo plugins_url('js/jQuery.stringify.js', __FILE__); ?>'></script>
 			<script type='text/javascript' src='<?php echo plugins_url('js/jquery.validate.js', __FILE__); ?>'></script>
-			<script type='text/javascript' src='<?php echo $public_js_path.(( strpos( $public_js_path, '?' ) == false ) ? '?' : '&' ).'ver=1.0.67'; ?>'></script>
+			<script type='text/javascript' src='<?php echo $public_js_path.(( strpos( $public_js_path, '?' ) == false ) ? '?' : '&' ).'ver=1.0.68'; ?>'></script>
 		<?php
 		}
 		?>	
@@ -885,6 +900,13 @@ function cp_calculatedfieldsf_get_option ($field, $default_value, $id = '')
     if ( ( $field == 'vs_all_texts' && empty( $value ) ) || ( $value == '' && $cp_calculatedfieldsf_option_buffered_item->form_structure == '' ) )
         $value = $default_value;
         
+	/** 
+	 * Filters applied before returning a form option, 
+	 * use three parameters: The value of option, the name of option and the form's id 
+	 * returns the new option's value
+	 */
+    $value = apply_filters( 'cpcff_get_option', $value, $field, $id );    
+
     return $value;
 }
 ?>

@@ -4,7 +4,7 @@ Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,recurring payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf,language
 Requires at least: 3.0.5
 Tested up to: 4.3
-Stable tag: 1.0.67
+Stable tag: 1.0.68
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -100,6 +100,7 @@ The plugin has two additional (commercial) versions: **Premium** and **Developer
 * Includes an add-on to integrate the forms with the WooCommerce products (Beta Version).
 * Includes an add-on to integrate the forms with the SalesForce service(Beta Version).
 * Includes an add-on to post the submitted information by the forms to WebHooks URLs, allowing integrate the forms with services like Zapier. The Zapier service connects services as important and popular as Zoho CRM, Dropbox, Mailchimp, Evernote, Google Drive, Facebook, Twitter, and more than 300 services(Beta Version).
+* Includes an add-on to associate the information submitted with the users on website.
 
 To know the last updates, and tips about the use of the plugin, please visit our blog, press like in our Facebook page, or follow our Twitter:
 
@@ -421,6 +422,10 @@ Use this add-on is as simple as entering the WebHooks URLs, through the CFF-WebH
 
 Note: About Zapier service, select Webhook as the Trigger app, and "Catch Hook" as the trigger for this app.
 
+= Users Connection add-on (Beta Version) - Only available in the Developer version of the plugin =
+
+The add-on allows associate the submitted information with the users on website. Furthermore, the plugin allows define rules to restrict the access to the forms to: only registered users, specific roles, or specific users. The add-on adds a new shortcode to the plugin for listing the information submitted by user (it is possible inserting the new shortcode in the user profile), and assign to the users, permissions for editing the submitted information, or delete an entry. With the add-on it is possible limit the number of submissions to only one by form and user.
+ 
 == Installation ==
 
 To install Calculated Fields Form, follow these steps:
@@ -875,6 +880,11 @@ A: Please, visit the following entry in the FAQ page of the plugin with the inst
 
 == Changelog ==
 
+= 1.0.68 =
+* Modifies the code of some controls to make the execution more consistent.
+* Defines some filters and actions to allow the integration with third party plugins.
+* Adds a new add-on in the developer version of the plugin.
+
 = 1.0.67 =
 * Validates the range of years on Date fields to prevent javascript errors.
 
@@ -1116,7 +1126,9 @@ A: Please, visit the following entry in the FAQ page of the plugin with the inst
 
 == Upgrade Notice ==
 
-= 1.0.67 =
-* Validates the range of years on Date fields to prevent javascript errors.
+= 1.0.68 =
+* Modifies the code of some controls to make the execution more consistent.
+* Defines some filters and actions to allow the integration with third party plugins.
+* Adds a new add-on in the developer version of the plugin.
 
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support

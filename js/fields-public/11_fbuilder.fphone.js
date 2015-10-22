@@ -67,6 +67,12 @@
 					var e = $( '[id="' + this.name + '"]:not(.ignore)' );
 					if( e.length ) return $.fbuilder.parseValStr( e.val() );
 					return '';
+				},
+			setVal:function( v )
+				{
+					$( '[name="'+this.name+'"]' ).val( v );
+					v = $.trim( v ).replace( /[^\d]/g, ' ').split( ' ' );
+					for( var i in v ) $( '[id="' + this.name + '_' + i + '"]' ).val( v[ i ] );
 				}	
 		}
 	);

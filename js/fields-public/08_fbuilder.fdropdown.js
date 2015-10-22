@@ -124,6 +124,10 @@
 					var e = $( '[id="' + this.name + '"]:not(.ignore)' ), r = 0;
 					if( e.length ) r = $.fbuilder.parseValStr( e.val() );
 					return ( r != '""' ) ? r : 0;
-				}			
+				},
+			setVal:function( v )
+				{
+					$( '[id="'+this.name+'"] OPTION[vt="'+v+'"]' ).attr( 'SELECTED', true );
+				}	
 		}
 	);

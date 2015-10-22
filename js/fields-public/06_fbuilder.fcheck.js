@@ -122,6 +122,11 @@
 						} );
 					}
 					return v;	
+				},
+			setVal:function( v )
+				{
+					if( !$.isArray( v ) ) v = [v];
+					for( var i in v ) $( '[id="'+this.name+'"][vt="'+v[i]+'"]' ).attr( 'CHECKED', true );
 				}
 		}
 	);

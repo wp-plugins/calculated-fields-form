@@ -145,6 +145,13 @@
 				},
 			setDefaultTime : function()
 				{
+					function setValue( f, v, m )
+					{
+						v = Math.min( v*1, m*1 );
+						v = ( v < 10 ) ? 0+''+v : v; 
+						$( '#' + f + ' [value="' + v + '"]' ).attr( 'selected', true );
+					};
+			
 					if( this.showTimepicker )
 					{
 						var parts, time = {}, tmp = 0;
@@ -160,13 +167,13 @@
 							time[ 'minute' ] = d.getMinutes();
 						}
  
-						this.setValue( 
+						setValue( 
 							this.name+'_hours', 
 							( this.tformat == 12 ) ? ( ( time[ 'hour' ] > 12 ) ? time[ 'hour' ] - 12 : ( ( time[ 'hour' ] == 0 ) ? 12 : time[ 'hour' ] ) ) : time[ 'hour' ], 
 							( this.tformat == 12 ) ? 12 : this.maxHour 
 						);
 
-						this.setValue( this.name+'_minutes', time[ 'minute' ], this.maxMinute );					  						
+						setValue( this.name+'_minutes', time[ 'minute' ], this.maxMinute );					  						
 						$( '#'+this.name+'_ampm'+' [value="' + ( ( time[ 'hour' ] < 12 ) ? 'am' : 'pm' ) + '"]' ).attr( 'selected', true );
 					}
 				},
@@ -178,12 +185,6 @@
 					$( document ).on( 'change', '#'+this.name+'_minutes', function(){ me.set_date_time(); } );
 					$( document ).on( 'change', '#'+this.name+'_ampm', 	  function(){ me.set_date_time(); } );
 					$( '#cp_calculatedfieldsf_pform'+me.form_identifier ).bind( 'reset', function(){ setTimeout( function(){ me.setDefaultDate(); me.setDefaultTime(); me.set_date_time(); }, 500 ); } );
-				},
-			setValue : function( f, v, m )
-				{
-					v = Math.min( v*1, m*1 );
-					v = ( v < 10 ) ? 0+''+v : v; 
-					$( '#' + f + ' [value="' + v + '"]' ).attr( 'selected', true );
 				},
 			validateDate: function( d, w, i )
 				{
@@ -293,6 +294,24 @@
 						}	
 					}
 					return 0;
+				},
+			setVal:function( v )
+				{
+					try
+					{
+						$( '[name="'+this.name+'"]' ).val( v );
+						if( v.length )
+						{	
+							v = v.replace( /\s+/g, ' ' ).split( ' ' );
+							this.defaultDate = v[ 0 ];
+							this.setDefaultDate();
+							if( v.length == 2 )
+							{	
+								this.defaultTime = v[ 1 ];
+								this.setDefaultTime();
+							}	
+						}	
+					}catch( err ){}
 				}
 		}
 	);

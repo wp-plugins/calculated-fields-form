@@ -121,5 +121,22 @@
 					{
 						var e = $( '[id="' + this.name + '"]:not(.ignore)' );
 						return ( e.length ) ? e.val() : 0;
+					},
+				setVal:function( v )
+					{
+						try{
+							v = eval( v );
+							$( '[name="'+this.name+'"]' ).val( v );
+							if( $.isArray( v ) )
+							{
+								this.predefinedMin = v[ 0 ];
+								this.predefinedMax = v[ 1 ];
+							}
+							else
+							{	
+								this.predefined = v;
+							}
+							this.after_show();
+						}catch( err ){}
 					}
 		});
