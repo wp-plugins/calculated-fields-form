@@ -230,93 +230,21 @@ Here are some sample formulas that can be used as base:
 
 In addition to the JavaScript functions, the following functions can be used directly into the formulas:
 
-* **prec(A,B):** Return the A number with B decimal digits
-* **round(A):** Rounds A to the nearest integer. In most cases "prec(A, B)" is more useful for indicating the digits precision.
-* **cdate(A,format):** Returns the number A formatted like a Date, the second parameter defines the output date ('mm/dd/yyyy', 'dd/mm/yyyy'). The number represents the number of days from Jan 1, 1970. For example, if fieldname1 is a date field, and its value is 3/11/2013: cdate(fieldname1+10) would be 13/11/2013.
-* **min(x,y,z,...,n):** Returns the number with the lowest value (minimum from the list).
-* **max(x,y,z,...,n):** Returns the number with the highest value (maximum from the list).
-* **random():** Returns a random number between 0 and 1.
-* **Other mathematical operations:**  abs(x) , acos(x) , asin(x) , atan(x) , atan2(x,y) , ceil(x) , cos(x) , exp(x) , floor(x) , log(x) , pow(x,y) , sin(x) , sqrt(x) , tan(x)
+[Description of basic operations](http://wordpress.dwbooster.com/includes/calculated-field/mathematical_logical.module.html "Description of basic operations")
 
 In addition to the above, the following operations that are available in the **Developer** version of plugin:
 
 **Date Time module**
 
-* **DATEOBJ(x,y):** Get the date object from an string representation of date. DATEOBJ( date_string, format )
-* **YEAR(x,y):** Get the year from an string representation of date. YEAR( date_string, format )
-* **MONTH(x,y):** Get the month from an string representation of date. MONTH( date_string, format )
-* **DAY(x,y):**	Get the days from an string representation of date. DAY( date_string, format )
-* **WEEKDAY(x,y):** Get the week day from an string representation of date. WEEKDAY( date_string, format )
-* **WEEKNUM(x,y):** Get the week number from an string representation of date, a year has 53 weeks.WEEKNUM( date_string, format )
-* **HOURS(x,y):** Get hours from an string representation of datetime. HOURS( datetime_string, format )
-* **MINUTES(x,y):** Get minutes from an string representation of datetime. MINUTES( datetime_string, format )
-* **SECONDS(x,y):** Get seconds from an string representation of datetime. SECONDS( datetime_string, format )
-* **NOW():** Get a date object with the current day-time information. NOW()
-* **TODAY():**	Get a date object with the current day information, without the time part.TODAY()	
-* **DATEDIFF(date_one, date_two, date_format, return):** Get the difference between two dates strings representation
-
-The function return an object, whose value depends of argument 'return'
-
-Possible values of return argument:
-d - return the number of days between two dates
-m - return the number of months between two dates, and remaining days
-y - return the number of years between two dates, remaining months, and remaining days
-
-* **DATETIMESUM(date_string, format, number, to_increase):** Increases the date-time string representation in the number of seconds, minutes, hours, days, months, or years, passed as parameter.
-* **GETDATETIMESTRING(datetime_object, format): ** Returns the string representation of a date object
+[Description of operations in the module Date Time](http://wordpress.dwbooster.com/includes/calculated-field/datetime.module.html "Description of operations in the module Date Time")
 
 **Financial Module**
 
-* **CALCULATEPAYMENT(x,y,z):**	Calculate the Financed Payment Amount. Three parameters: amount, months, interest rate (percent)
-* **CALCULATEAMOUNT(x,y,z): ** Calculate the Financed Amount. Three parameters: months, interest rate (percent), payment
-* **CALCULATEMONTHS(x,y,z):** Calculate the Months Financed. Three parameters: amount, interest rate (percent), payment
-* **CALCULATEINTEREST(x,y,z):** Calculate the Financed Interest Rate. Three parameters: amount, months, payment
-* **CALCULATEACCRUEDINTEREST(x,y,z):** Calculate the Accrued Interest. If your money is in a bank account accruing interest, how much does it earn over x months? Three parameters: principle amount, months, interest rate (percent)
-* **CALCULATEAMORTIZATION(x,y,z,date):** Create Amortization Schedule. The result should be an array the length the number of months. Each entry is an object. Four parameters: principle amount, months, interest rate (percent), start date (optional Date object)
-* **PRESENTVALUE(x,y,z):** The present value is the total amount that a series of future payments is worth now. Three parameters:  The interest rate per period, the total number of payment periods in an annuity, the payment made each period and cannot change over the life of the annuity.
-* **FUTUREVALUE(v,w,x,y,z):** The future value of an investment based on an interest rate and a constant payment schedule. Five parameters:  The interest rate for the investment, the number of payments for the annuity, the  amount of the payment made each period, the present value of the payments (if this parameter is omitted, it assumes to be 0),  parameter that indicates when the payments are due (if this parameter is omitted, it assumes to be 0. The possible values are: 0 - Payments are due at the end of the period, 1 - Payments are due at the beginning of the period)
-
-* **Format a Number**
-
-One parameters: number
-Ex:NUMBERFORMAT(-2530023420269.123456)
-Result: -2,530,023,420,269
-
-Ex: NUMBERFORMAT(25000.123456, {precision:2})
-Result: 25,000.12
-
-* **Format Currency**
-
-Format a number to a certain currency. Two parameters: number, settings (optional). If settings option is a string it is treated as a currency name. If it is an object it is used as currency settings.
-Ex: NUMBERFORMAT(25000.123456, 'USD')
-Result: $25,000.12
-
-Settings can be format, and then override with options.
-Ex: NUMBERFORMAT(-25000.123456, 'GBP', { negative: '()', precision: 3, thousand: '' })
-Result: £(25000.123)
-
-* **Format a Percent**
-
-Format a number with a certain precision. Two parameters: number, settings ("percent" is a format)
-Ex: NUMBERFORMAT(25000.123456, 'percent')
-Result: 25,000%
-
-* **Create a Currency**
-
-You may create a currency. The library comes with "USD", "GBP", and "EUR" currency formats and "number" and "percent" numeric formats. Two parameters: key, settings
-Ex: ADDFORMAT('Dollars', { before: '', after: ' Dollars', precision: 0, thousand: ',', group: 3, decimal: '.', negative: '-' })
-Result: true
-
-Ex: NUMBERFORMAT(25000.123456, 'Dollars')
-Result: 25,000 Dollars
-
-* **REMOVEFORMAT(x):** Remove a Currency. To remove a currency. One parameter: key
-
-Into the plugin interface you will find additional help for these functions.
+[Description of operations in the financial module](http://wordpress.dwbooster.com/includes/calculated-field/financial.module.html "Description of operations in the financial module")
 
 **Distance Module**
 
-* **DISTANCE(address_a,address_b,unit_system,travel_mode):**	Get the distance between two address. <strong>DISTANCE( Address A, Address B, Unit System, Travel Mode )</strong></p><p>The allowed values for Unit System are: km for kilometters, or mi for miles, km is the value by default.</p><p>The allowed values for Travel Mode are: DRIVING, BICYCLING, TRANSIT, or WALKING, DRIVING is the value by default.
+[Description of operations in the distance module](http://wordpress.dwbooster.com/includes/calculated-field/distance.module.html "Description of operations in the distance module")
 
 = Fields available in the Calculated Fields Form's form builder = 
 
