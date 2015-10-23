@@ -114,9 +114,9 @@ Twitter: [https://twitter.com/netfactorsl](https://twitter.com/netfactorsl "Twit
 
 This section contains mainly notes about the form builder features that are too long to explain in the main description page.
 
-= Conditional Rules = 
+= Conditional Rules =
 
-The form fields can be shown or hidden depending of the selection made on checkboxes, radio-buttons and select/drop-down fields. 
+The form fields can be shown or hidden depending of the selection made on checkboxes, radio-buttons and select/drop-down fields.
 
 When editing checkboxes, radio-buttons or select/drop-down fields in the form builder (click a field to select it and edit it details) you will see a link labeled "Show Dependencies".  When clicked, a new option will appear below each field's option, labeled "If selected show: ...". The field selected into that settings option will be displayed only of that option is selected into the parent checkbox, radio-button or select/drop-down field.
 
@@ -124,7 +124,7 @@ Conditional rules are useful for showing information to the used based on the pr
 
 There are other conditional rules that are applied to the calculated fields and depend of the equation results, to display a field, or fields, if the result is equal to, greater than, less than,.... a number.
 
-= The "Equal to" validation rules = 
+= The "Equal to" validation rules =
 
 This rule can be used to make the user enter the same value in two or more fields, usually as a confirmation field.
 
@@ -145,7 +145,7 @@ The fields can have "predefined" or "prefilled" values. There are two possible u
 
 Each field has a settings value labeled "Instructions for User". Use that settings value to put instructions to the end user about filling that field. The instructions will appear in a smaller text immediately below the field in the public website.
 
-= Add Css Layout Keywords = 
+= Add Css Layout Keywords =
 
 This is also explained in the FAQ. The "Add Css Layout Keywords" is a way to apply CSS styles separately for each field. This settings field is available for each form builder field in the admin area. Into that field you can put the name of a CSS class that will be applied to the field.
 
@@ -162,12 +162,12 @@ For example if you want to put two fields into the same line then specify for bo
 The CSS classes/rules can be placed into the file "wp-content\plugins\calculated-fields-form\css\stylepublic.css" or into your theme CSS files.
 
 
-= Multi Page Forms = 
+= Multi Page Forms =
 
 For adding a new page to create multi-page forms just insert the field named "Page Break". Each form's page will be validated separately before going to the next form, however note that the calculations are applied to the whole form every time a field is modified, so a calculated field in other page may be modified even if that page isn't visible.
 
 
-= Calculated "hidden" Fields = 
+= Calculated "hidden" Fields =
 
 The calculated fields can be "hidden" fields. This way the calculated values of those "hidden" fields won't be displayed in the form. This is useful for using intermediate calculated values or for showing the calculated values only into the email (pro version).
 
@@ -335,7 +335,7 @@ The add-on allows associate the submitted information with the users on website.
 
 To install Calculated Fields Form, follow these steps:
 
-1.	Download and unzip the Calculated Fields Form plugin 
+1.	Download and unzip the Calculated Fields Form plugin
 2.	Upload the entire calculated-fields-form/ directory to the /wp-content/plugins/ directory
 3.	Activate the Calculated Fields Form plugin through the Plugins menu in WordPress
 4.	Configure the settings at the administration menu >> Settings >> Calculated Fields Form
@@ -345,7 +345,7 @@ To install Calculated Fields Form, follow these steps:
 
 = Q: Is the "Calculated Fields Form" plugin compatible with "Autoptimize"? =
 
-A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q214](http://wordpress.dwbooster.com/faq/calculated-fields-form#q214 "Yes, both plugins are compatible...")
+A: [Yes, both plugins are compatible...](http://wordpress.dwbooster.com/faq/calculated-fields-form#q214 "Yes, both plugins are compatible...")
 
 = Q: What means each field in the Calculated Fields Form settings area? =
 
@@ -359,7 +359,7 @@ A: You can publish the forms into pages and posts. The shortcode can be also pla
 
 = Q: Can I create global variables to be used in the equations? =
 
-A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q199](http://wordpress.dwbooster.com/faq/calculated-fields-form#q199 "Yes, it is possible create global variables in javascript through the shortcode of the plugin")
+A: [Yes, it is possible create global variables in javascript through the shortcode of the plugin](http://wordpress.dwbooster.com/faq/calculated-fields-form#q199 "FAQ Entry")
 
 = Q: Is the form processing an option, for example, to email the form data and calculated results? =
 
@@ -367,7 +367,7 @@ A: The form processing isn't available in the version listed on this directory. 
 
 = Q: Which calculation operations are included? =
 
-A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q216](http://wordpress.dwbooster.com/faq/calculated-fields-form#q216 "Mathematical operations, logical operands and more")
+A: [Mathematical operations, logical operands and more](http://wordpress.dwbooster.com/faq/calculated-fields-form#q216 "FAQ Entry")
 
 = Q: How can I round the calculated result to 2 decimal digits? =
 
@@ -379,31 +379,31 @@ The above sample rounds the result of fieldname4*fieldname5 to two decimal digit
 
 = Q: Which are the operations with date values that the plugin allows? =
 
-A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q217](http://wordpress.dwbooster.com/faq/calculated-fields-form#q217 "List and description of date/time operations")
-    
+A: [List and description of date/time operations](http://wordpress.dwbooster.com/faq/calculated-fields-form#q217 "FAQ Entry")
+
 = Q: Are there financial operations included in the plugin? =
 
-A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q218](http://wordpress.dwbooster.com/faq/calculated-fields-form#q218 "List and description of financial operations")
+A: [List and description of financial operations](http://wordpress.dwbooster.com/faq/calculated-fields-form#q218 "FAQ Entry")
 
 = Q: How calculate an amortization? =
 
 A: The CALCULATEAMORTIZATION  is the operation with most complexity in the "Calculated Fields Form" and requires its own section. Please, visit the following link to read a detailed description about the use of CALCULATEAMORTIZATION operation:
 
-[http://wordpress.dwbooster.com/faq/calculated-fields-form#q219](http://wordpress.dwbooster.com/faq/calculated-fields-form#q219 "How calculate an amortization?")
- 
+[How calculate an amortization?](http://wordpress.dwbooster.com/faq/calculated-fields-form#q219 "FAQ Entry")
+
 = Q: How to define an initial date in a date field? =
- 
-A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q220](http://wordpress.dwbooster.com/faq/calculated-fields-form#q220 "Initializing date/time fields")
 
-= Q: How to change the language on datepicker? = 
+A: [Initializing date/time fields](http://wordpress.dwbooster.com/faq/calculated-fields-form#q220 "FAQ Entry")
 
-A: To use a different language on datepickers will be needed create an additional file and touch some code. Please, visit the following link to read the instructions:  
+= Q: How to change the language on datepicker? =
 
-[http://wordpress.dwbooster.com/faq/calculated-fields-form#q221](http://wordpress.dwbooster.com/faq/calculated-fields-form#q221 "How to change the language on datepicker?")
+A: To use a different language on datepickers will be needed create an additional file and touch some code. Please, visit the following link to read the instructions:
+
+[How to change the language on datepicker?](http://wordpress.dwbooster.com/faq/calculated-fields-form#q221 "FAQ Entry")
         
 = Q: Is there a way to format the form in a table structure (various fields in the same line) ? =
 
-A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q66](http://wordpress.dwbooster.com/faq/calculated-fields-form#q66 "Formatting a form with table structure")
+A: [Formatting a form with table structure](http://wordpress.dwbooster.com/faq/calculated-fields-form#q66 "FAQ Entry")
 
 = Q: How to convert a common button in a submit button? =
 
@@ -415,7 +415,7 @@ A: To convert a common button in a submit button, simply assigns, as part of the
 
 = Q: How to display an image in a checkbox or radio button? =
 
-A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q222](http://wordpress.dwbooster.com/faq/calculated-fields-form#q222 "Displaying images in checkboxes and radio buttons")
+A: [Displaying images in checkboxes and radio buttons](http://wordpress.dwbooster.com/faq/calculated-fields-form#q222 "FAQ Entry")
 
 Additionally, to hide the checkboxes and radio buttons, and use only the images for choices selection, open the "/wp-content/plugins/calculated-fields-form/css/stylepublic.css" file in the text editor your choice, and paste the following styles definition at the end of file's content:
 
@@ -424,11 +424,11 @@ Additionally, to hide the checkboxes and radio buttons, and use only the images 
 
 = Q: How to insert an image in the notification emails? =
 
-A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q223](http://wordpress.dwbooster.com/faq/calculated-fields-form#q223 "Inserting images in the notification emails")
+A: [Inserting images in the notification emails](http://wordpress.dwbooster.com/faq/calculated-fields-form#q223 "FAQ Entry")
 
-= Q: How to replace the image displayed in a Media Field, in function of choice selected in a radio buttons field? = 
+= Q: How to replace the image displayed in a Media Field, in function of choice selected in a radio buttons field? =
 
-A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q266](http://wordpress.dwbooster.com/faq/calculated-fields-form#q266 "How to replace the image displayed in a Media Field, in function of choice selected in a radio buttons field?") 
+A: [How to replace the image displayed in a Media Field](http://wordpress.dwbooster.com/faq/calculated-fields-form#q266 "FAQ Entry") 
 
 = Q: How to insert changes of lines in the notification emails, when the HTML format is selected? =
 
@@ -438,18 +438,18 @@ A: If you are using the HTML format in the notification emails, you should inser
 
 = Q: In which order are "calculated" the fields? =
 
-A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q79](http://wordpress.dwbooster.com/faq/calculated-fields-form#q79 "Evaluating the equations")
+A: [Evaluating the equations](http://wordpress.dwbooster.com/faq/calculated-fields-form#q79 "FAQ Entry")
 
 = Q: Can I link the calculated amount to a PayPal payment form? =
 
 A: That feature is available in the pro version that can be acquired at this page http://wordpress.dwbooster.com/forms/calculated-fields-form
 
 Visit the following link to our technical blog with a detailed description about the integration of PayPal and the forms created with CFF:
-[http://blog.net-factor.com/calculated-fields-form-and-paypal/](http://blog.net-factor.com/calculated-fields-form-and-paypal/ "Calculated Fields Form and PayPal")
+[Calculated Fields Form and PayPal](http://blog.net-factor.com/calculated-fields-form-and-paypal/ "Blog Post")
 
 = Q: Non-latin characters aren't being displayed in the calculator form. There is a workaround? =
 
-A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q225](http://wordpress.dwbooster.com/faq/calculated-fields-form#q225 "utf-8")
+A: [Solution Here](http://wordpress.dwbooster.com/faq/calculated-fields-form#q225 "utf-8")
 
 = Q: The calculated form doesn't appear in the public website. Solution? =
 
@@ -461,7 +461,7 @@ A: Use the "Page Break" field on the form builder to indicate the new pages on t
 
 = Q: How to display the selected values in the slider control? =
 
-A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q228](http://wordpress.dwbooster.com/faq/calculated-fields-form#q228 "Displaying selected values in slider control")
+A: [Displaying selected values in slider control](http://wordpress.dwbooster.com/faq/calculated-fields-form#q228 "FAQ Entry")
 
 = Q: How to display a summary of entered data in the form? =
 
@@ -469,29 +469,29 @@ A: Insert a summary control and select the fields to be displayed on summary.
 
 = Q: How to highlight the fields in the summary control? =
 
-A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q229](http://wordpress.dwbooster.com/faq/calculated-fields-form#q229 "Highlighting fields in summary controls")
+A: [Highlighting fields](http://wordpress.dwbooster.com/faq/calculated-fields-form#q229 "FAQ Entry")
 
 = Q: Could be displayed a summary of submitted fields in the thank you page? =
 
-A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q230](http://wordpress.dwbooster.com/faq/calculated-fields-form#q230 "Displaying the submitted in formation in the thank you page")
+A: [Displaying a summary in the Thank you page](http://wordpress.dwbooster.com/faq/calculated-fields-form#q230 "FAQ Entry")
 
 = Q: How can I apply CSS styles to the form fields? =
 
-A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q234](http://wordpress.dwbooster.com/faq/calculated-fields-form#q234 "Applying CSS styles to the form fields")
+A: [Applying CSS styles to the form fields](http://wordpress.dwbooster.com/faq/calculated-fields-form#q234 "FAQ Entry")
 
-[http://blog.net-factor.com/tips-and-tricks-using-instruct-text-as-auxiliary-fields-to-modify-the-forms-appearance/](http://blog.net-factor.com/tips-and-tricks-using-instruct-text-as-auxiliary-fields-to-modify-the-forms-appearance/ "Tips and Tricks: Using “Instruct. Text” as auxiliary fields to modify the form’s appearance")
+[Tips and Tricks: Using auxiliary fields](http://blog.net-factor.com/tips-and-tricks-using-instruct-text-as-auxiliary-fields-to-modify-the-forms-appearance/ "Blog Post")
 
 = Q: Is possible modify any of predefined templates included with the plugin? =
 
-A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q231](http://wordpress.dwbooster.com/faq/calculated-fields-form#q231 "Modifying the predefined templates")
+A: [Modifying the predefined templates](http://wordpress.dwbooster.com/faq/calculated-fields-form#q231 "FAQ Entry")
 
 = Q: How to create a new template to use with my forms? = 
 
-A: [http://blog.net-factor.com/how-to-create-a-new-template-to-use-with-my-forms/](http://blog.net-factor.com/how-to-create-a-new-template-to-use-with-my-forms/ "How to create a new template to use with my forms?")
+A: [Creating new templates](http://blog.net-factor.com/how-to-create-a-new-template-to-use-with-my-forms/ "Blog Post")
 
 = Q: How to hide the fields on forms? =
 
-A: [http://wordpress.dwbooster.com/faq/calculated-fields-form#q232](http://wordpress.dwbooster.com/faq/calculated-fields-form#q232 "Hiding the fields in form")
+A: [Hiding the fields in form](http://wordpress.dwbooster.com/faq/calculated-fields-form#q232 "FAQ Entry")
 
 = Q: Why after assign some of class names: column2, column3, or column4, to a group of fields, the field that follow the group is displayed displaced at right? =
 
@@ -499,7 +499,7 @@ A: If that occur, I recommend to insert a DIV field, immediately after the group
 
 = Q: How to create a form with a table structure, when the fields are displayed dynamically using dependencies? =
 
-A: [http://blog.net-factor.com/tips-for-displaying-the-forms-created-with-the-calculated-fields-form-plugin-with-table-structure-in-dependent-fields/](http://blog.net-factor.com/tips-for-displaying-the-forms-created-with-the-calculated-fields-form-plugin-with-table-structure-in-dependent-fields/ "Table structure with dependent fields")
+A: [Table structure with dependent fields](http://blog.net-factor.com/tips-for-displaying-the-forms-created-with-the-calculated-fields-form-plugin-with-table-structure-in-dependent-fields/ "Blog Post")
 
 = Q: How assign multiple class names to a field? =
 
@@ -507,29 +507,11 @@ A: The class names are assigned to the fields through the attribute: "Add Css La
 
 = Q: What files can be uploaded through the form? =
 
-A: The File control includes an attribute for entering the file extensions that can be uploaded. But, Can be entered any file extension? The answer is NO. The last decision is taken by WordPress. WordPress for security reasons, accepts a specific list of files extensions, but with the file control it is possible restrict this list even more. Furthermore to the files extensions supported by WordPress, it is possible add new types of files. To get the complete list of files supported by default, and how to add new types of files, visit the following link:
-
-[http://wordpress.dwbooster.com/faq/calculated-fields-form#q235](http://wordpress.dwbooster.com/faq/calculated-fields-form#q235 "What files can be uploaded through the form?")
+A: [What files can be uploaded through the form?](http://wordpress.dwbooster.com/faq/calculated-fields-form#q235 "FAQ Entry")
 
 = Q: How can I include the link to the uploaded file into the email message? =
 
-A: The uploaded file is attached to the email and in addition to that you can include a link to it by adding a specific field tag into the email message.
-
-In the form builder select/click the upload field for that field, there is a read-only setting named "Field tag for the message (optional):" that shows the field tag for the "uploaded file name", for example: &lt;%fieldname7%&gt;. If that is the tag for your file field then copy and paste that tag into the email message, adding the postfix _url, example: &lt;%fieldname7_url%&gt;
-
-= Q: How can be displayed texts in the calculated fields? =
-
-A: The calculated fields have been implemented to display the result of mathematical equations, but if you want display texts in the calculated fields, you only should modify a little the plugin's code. 
-
-1. Open the "/wp-content/plugins/calculated-fields-form/js/modules/01_mathematical_logical/public/module_public.js" file, in the text editor your choice.
-
-2. Go to the snippet of code:
-
-        return isFinite( v ) || /\d{2}[\/\-\.]\d{2}[\/\-\.]\d{4}/.test( v );        
-
-and edit it like follow:
-
-        return (typeof v != 'undefined');  
+A: [Inserting the links to the uploaded files](http://wordpress.dwbooster.com/faq/calculated-fields-form#q160 "FAQ Entry")
 
 = Q: Why the form builder is displaying the error message: "The entered data includes invalid characters..."? =
 
@@ -539,28 +521,7 @@ A: Sometimes the users copy the text for the fields labels, and descriptions, fr
 
 A: There are three ways to use conditional statements in the equations:
 
-* Using the IF operation (don't confuse the operation "IF" with the reserved word "if" of javascript, the code in javascript  is case sensitive)
-
-        IF( condition, value if true, value if false)       
-        
-For example, if the result of the equation is 100 when the value of fieldname1 is less than 100 and 1000 in another case, the equation would be:
-        
-        IF(fieldname1<100,100,1000)     
-        
-* Using the ternary operator of javascript
-
-        (condition) ? value if true : value if false    
-
-Following the same example in the previous point:
-
-        (fieldname1<100) ? 100 : 1000       
-        
-* With a more powerful equation
-        
-        (function(){        
-            if( fieldname1 < 100) return 100;       
-            else return 1000;       
-        })()        
+[Visit the following link](http://wordpress.dwbooster.com/faq/calculated-fields-form#q239 "FAQ Entry")
 
 = Q: My company has different departments( the sales department, and the support group). Could you send a notification email to a representative of each departments when the form be submitted? =
 
@@ -568,11 +529,9 @@ A: Yes, that is possible, you only should enter all emails addresses separated b
 
 = Q: Why the users are not receiving the notification emails if was selected the option for send a copy to the user, and selected the email field, from the form's settings? =
 
-A: If the users are not receiving the notification emails with submission data, the probable reasons are:
+A: If the users are not receiving the notification emails with submission data, there are different reasons:
 
-1. The email should be sent through SMTP. In this case you should install in your WordPress one of the available plugins for SMTP integration, in the WordPress directory.
-
-2. The web server allows send emails directly, but the email address entered in the "from" attribute, does not belongs to the same domain of the website. In this case, the email services classify the notification email as a possible identity fishing; and the email is deleted by security. You should enter in this attribute an email address belonging to the website's domain.        
+[Visit the following link](http://wordpress.dwbooster.com/faq/calculated-fields-form#q241 "FAQ Entry")
 
 = Q: How could be printed the form only and not the complete page? =
 
@@ -580,7 +539,7 @@ A: To print only the form, but not the rest of page, you should insert a button 
 
         var w=window.open(null, 'Print_Page', 'scrollbars=yes');jQuery('#fbuilder input').each(function(){var e = jQuery(this);e.attr('value', e.val());});w.document.write(jQuery('#fbuilder').html());w.document.close();w.print();       
 
-= Q: How to disable the dynamic evaluation of the equations, when vary the fields values? =         
+= Q: How to disable the dynamic evaluation of the equations, when vary the fields values? =
 
 A: To disable the dynamic evaluation of the equations in the form, you only should uncheck the option: "Eval dynamically the equations associated to the calculated fields", from the "Form Settings" tab, of form builder. But, should be inserted a button with "calculate" type, to evaluate the equations with an direct action of users.
 
@@ -592,37 +551,25 @@ A: The plugin tries to optimize the equations to improves forms performance, and
 
 A: The  notification emails can include all fields submitted by the form (&lt;%INFO%&gt;) or specific files (&lt;%fieldname#%&gt;), furthermore, some other special tags. Please, visit the following link to get the complete list of tags to include in the email:
 
-[http://wordpress.dwbooster.com/faq/calculated-fields-form#q244](http://wordpress.dwbooster.com/faq/calculated-fields-form#q244 "How to send specific fields in the notification emails, and not all form fields?")
+[Visit the following link with all available options](http://wordpress.dwbooster.com/faq/calculated-fields-form#q244 "FAQ Entry")
 
 = Q: How to include my own javascript files to implement my own operations? =
 
-A: The "Calculated Fields Form" plugin, loads dynamically all javascript files included in the directories: "/wp-content/plugins/calculated-fields-form/js/fields-admin/", and  "/wp-content/plugins/calculated-fields-form/js/fields-public/", for the form builder, and the public forms respectively, the files are loaded ordered by its names. So, if you want implement your own operations to be used from the equations, you simply should create a new javascript file in the "/wp-content/plugins/calculated-fields-form/js/fields-public/" directory, with the implementation of your own operations, and then, use the new operations from the equations associated to the calculated fields.
+A: [Visit the following link](http://wordpress.dwbooster.com/faq/calculated-fields-form#q245 "FAQ Entry")
 
-= Q: How to calculate the number of words in a text? = 
+= Q: How to calculate the number of words in a text? =
 
-A: In my explanation I'll assume that the fieldname1 field is a textarea. The equation in this case would be:
+A: [Calculating the number of words in a text](http://wordpress.dwbooster.com/faq/calculated-fields-form#q246 "FAQ Entry")
 
-		(function(){	
-			var text = 'fieldname1';	
-			text = text.replace( /[^\w]/g, ' ' ).replace( /^\s+/, '' ).replace( /\s+$/, '').replace(/\s+/g, ' ');	
-			return (text.length) ? text.split(' ').length : 0;	
-		})()	
+= Q: How to calculate the number of characters in a text, excluding the blank characters? =
 
-= Q: How to calculate the number of characters in a text, excluding the blank characters? = 
-
-A: In my explanation I'll assume that the fieldname1 field is a textarea. The equation in this case would be:
-
-		(function(){	
-			var text = 'fieldname1';	
-			text = text.replace( /[\s\t\r\n]/g, '' );	
-			return text.length;	
-		})()
+A: [Calculating the number of characters in a text](http://wordpress.dwbooster.com/faq/calculated-fields-form#q247 "FAQ Entry")
 
 = Q: How to assign a value to a field that is not a calculated field from an equation? =
 
 A: To enter a value programmatically to a field, that is not a calculated field, will require to assign custom class names to the fields, and edit any of the equations in your form. Please, visit the following link:
 
-[http://wordpress.dwbooster.com/faq/calculated-fields-form#q248](http://wordpress.dwbooster.com/faq/calculated-fields-form#q248 "How to assign a value to a field that is not a calculated field from an equation?")
+[Assigning values to fields from equations](http://wordpress.dwbooster.com/faq/calculated-fields-form#q248 "FAQ Entry")
 
 = Q: How to insert a link in the form? =
 
@@ -634,30 +581,17 @@ A: The latest version of plugin includes the "HTML Content" field to insert HTML
 
 A: Visit the following link with a tutorial about the use of dependencies between fields in the form,
 
-[http://blog.net-factor.com/how-to-use-dependencies-between-fields-in-the-form/](http://blog.net-factor.com/how-to-use-dependencies-between-fields-in-the-form/ "How to use dependencies between fields in the form?")
+[Click Here](http://blog.net-factor.com/how-to-use-dependencies-between-fields-in-the-form/ "Blog Post")
 
 = Q: How can be created dependencies with  multiple fields? =
 
 A: To create dependencies that depend of values of multiple fields, will be needed validate the dependencies rules, and display or hide the fields through an equation. Please, visit the following link:
 
-[http://wordpress.dwbooster.com/faq/calculated-fields-form#q250](http://wordpress.dwbooster.com/faq/calculated-fields-form#q250 "How can be created dependencies with  multiple fields?")
+[Defining dependencies](http://wordpress.dwbooster.com/faq/calculated-fields-form#q250 "FAQ Entry")
 
 = Q: How to populate the form fields with URL parameters? =
 
-A: I will explain the implementation through an example. I will assume that the URL parameters are 'productid' and 'productname'. So, I will insert two single text fields in the form, for the product's id, and the product's name, respectively. I will assign a class name to each field for identify the fields in the equations: productidclss, and productnameclss respectively (the class names are assigned to the fields through the attribute: "Add Css Layout Keywords")
-
-Finally, insert a calculated field in the form with the following equation:
-
-	(function(){	
-		function urlParam(name){	
-			var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);	
-			return decodeURI(results[1]) || 0;	
-		}	
-		jQuery('.productidclss input').val(urlParam('productid'));	
-		jQuery('.productnameclss input').val(urlParam('productname'));	
-	})()	
-
-The calculated field in this case is an auxiliary field that is not relevant in the form's interface, so I will check the option "Hide Field From Public Page" for the calculated field.
+A: [Visit the following link for instructions](http://wordpress.dwbooster.com/faq/calculated-fields-form#q251 "FAQ Entry")
 
 = Q: How to prevent users vary the values of fields, for paying less than the calculated price? = 
 
@@ -670,64 +604,52 @@ A: Through the attribute: "Paypal product name" in the form's settings, is defin
 = Q: How to allow to the users decide the frequency of payments for recurring payments? =
 
 A: Please, read the instructions in the our technical blog.
-[http://blog.net-factor.com/published-the-calculated-fields-form-pro-v5-0-21-dev-v5-0-22/](http://blog.net-factor.com/published-the-calculated-fields-form-pro-v5-0-21-dev-v5-0-22/ "How to allow to the users decide the frequency of payments for recurring payments?")
+[Click Here](http://blog.net-factor.com/published-the-calculated-fields-form-pro-v5-0-21-dev-v5-0-22/ "Blog Post")
 
 = Q: How to select a choice in a DropDown field, or Radio Button, based on calculated value? =
 
 A: Please, read the answer in the our technical blog: 
-[http://blog.net-factor.com/how-to-select-a-choice-in-a-dropdown-field-or-radio-button-based-on-calculated-value/](http://blog.net-factor.com/how-to-select-a-choice-in-a-dropdown-field-or-radio-button-based-on-calculated-value/ "How to select a choice in a DropDown field, or Radio Button, based on calculated value?")
+[Click Here](http://blog.net-factor.com/how-to-select-a-choice-in-a-dropdown-field-or-radio-button-based-on-calculated-value/ "Blog Post")
 
 = Q: How to use a session variable in the equations? =
 
 A: Please, read the answer in the FAQ entry: 
-[http://wordpress.dwbooster.com/faq/calculated-fields-form#q268](http://wordpress.dwbooster.com/faq/calculated-fields-form#q268 "How to use a session variable in the equations?")
+[Click Here](http://wordpress.dwbooster.com/faq/calculated-fields-form#q268 "FAQ Entry")
 
 = Q: How to use cookie variables in the equations? =
 
 A: Please, read the answer in the FAQ entry: 
-[http://wordpress.dwbooster.com/faq/calculated-fields-form#q269](http://wordpress.dwbooster.com/faq/calculated-fields-form#q269 "How to use cookie variables in the equations?")
+[Click Here](http://wordpress.dwbooster.com/faq/calculated-fields-form#q269 "FAQ Entry")
 
 = Q: How to use a parameter passed by post in the equations? =
 
 A: Please, read the answer in the FAQ entry: 
-[http://wordpress.dwbooster.com/faq/calculated-fields-form#q270](http://wordpress.dwbooster.com/faq/calculated-fields-form#q270 "How to use a parameter passed by post in the equations?")
+[Click Here](http://wordpress.dwbooster.com/faq/calculated-fields-form#q270 "FAQ Entry")
 
 = Q: How to use a parameter passed by get in the equations? =
 
 A: Please, read the answer in the FAQ entry: 
-[http://wordpress.dwbooster.com/faq/calculated-fields-form#q271](http://wordpress.dwbooster.com/faq/calculated-fields-form#q271 "How to use a parameter passed by get in the equations?")
+[Click Here](http://wordpress.dwbooster.com/faq/calculated-fields-form#q271 "FAQ Entry")
 
 = Q: How to use the URL parameters for filtering the data on "DS" controls? =
 
 A: Please, visit the following article in our technical blog: 
-[http://blog.net-factor.com/filtering-the-information-in-the-ds-controls-with-urls-parameters/](http://blog.net-factor.com/filtering-the-information-in-the-ds-controls-with-urls-parameters/ "Filtering the information in the DS controls, with URL’s parameters")
+[Click Here](http://blog.net-factor.com/filtering-the-information-in-the-ds-controls-with-urls-parameters/ "Blog Post")
 
 
 = Q: How to use the data submitted by a form in another one? =
 
 A: Please, read the instructions in the our technical blog.
-
-[http://blog.net-factor.com/how-to-use-the-data-submitted-by-a-form-in-another-one/](http://blog.net-factor.com/how-to-use-the-data-submitted-by-a-form-in-another-one/ "How to use the data submitted by a form in another one?")
+[Click Here](http://blog.net-factor.com/how-to-use-the-data-submitted-by-a-form-in-another-one/ "Blog Post")
 
 = Q: How to store the data sent on a different database? = 
 
 A: Please, read the instructions in the our technical blog.
-
-[http://blog.net-factor.com/how-store-data-sent-different-database/](http://blog.net-factor.com/how-store-data-sent-different-database/ "How to store the data sent on a different database?")
+[Click Here](http://blog.net-factor.com/how-store-data-sent-different-database/ "Blog Post")
 
 = Q: How integrate the forms with the WooCommerce products? = 
 
-A: The forms should be created as usual, but if you want calculate the price of products through the form, you should select the calculated field in the "Request cost" attribute in the form settings. 
-
-Pay attention, each form has associated a number, that represent the form ID (the first column of forms list, in the settings page of the plugin).
-
-After create the form, is time to edit the product, the addon for WooCommerce includes a new section in the product's settings (the "Calculated Fields Form" section), that allows:
-
-1. Associate the form with the product, entering the form ID , through the "Enter the ID of the form" attribute.
-2. If you want calculate the final price of product through the form, check the option: "Calculate the product price through the form".
-3. Define a minimum price for products, to avoid selling the products to a lower price than allowed.
-
-The data submitted through the form are available from the Orders section of WooCommerce.
+[Integrating the forms with WooCommerce products](http://wordpress.dwbooster.com/faq/calculated-fields-form#q252 "FAQ Entry")
 
 = Q: Why the WooCommerce product is not displaying the "Add to Cart" button? =
 
@@ -735,39 +657,33 @@ A: If you have created the form correctly, and associated it to the product, eve
 
 = Q: What is SalesForce, and how to create new leads from my forms? =
 
-A: To get a complete guide about the integration of forms created with the plugin and the SalesForce service, please visit the following link
-
-[http://blog.net-factor.com/what-is-salesforce-and-how-to-create-new-leads-from-my-forms/](http://blog.net-factor.com/what-is-salesforce-and-how-to-create-new-leads-from-my-forms/ "What is SalesForce, and how to create new leads from my forms?")
+A: To get a complete guide about the integration of forms created with the plugin and the SalesForce service, please visit the following link:
+[Click Here](http://blog.net-factor.com/what-is-salesforce-and-how-to-create-new-leads-from-my-forms/ "Blog Post")
 
 = Q: How to export the submitted files to DropBox? =
 
-A: Please, visits the following link to get a tutorial to integrate the form with the Dropbox service.
-
-[http://wordpress.dwbooster.com/faq/calculated-fields-form#q272](http://wordpress.dwbooster.com/faq/calculated-fields-form#q272 "How to export the submitted files to DropBox?")
+A: Please, visits the following link to get a tutorial to integrate the form with the Dropbox service:
+[Click Here](http://wordpress.dwbooster.com/faq/calculated-fields-form#q272 "FAQ Entry")
 
 = Q: How to generate a PDF file with the submitted information, and send it as attachment to the user? =
 
 A: Please, visits the following link to get a tutorial:
-
-[http://wordpress.dwbooster.com/faq/calculated-fields-form#q273](http://wordpress.dwbooster.com/faq/calculated-fields-form#q273 "How to generate a PDF file with the submitted information, and send it as attachment to the user?")
+[Click Here](http://wordpress.dwbooster.com/faq/calculated-fields-form#q273 "FAQ Entry")
 
 = Q: How to use a file field with multiple selection from Zapier? =
 
 A: Please, visits the following link to get the answer to your question:
+[Click Here](http://wordpress.dwbooster.com/faq/calculated-fields-form#q274 "FAQ Entry")
 
-[http://wordpress.dwbooster.com/faq/calculated-fields-form#q274](http://wordpress.dwbooster.com/faq/calculated-fields-form#q274 "How to use a file field with multiple selection from Zapier?")
-
-= Q: How turn off the up/down arrows in the number fields? = 
+= Q: How turn off the up/down arrows in the number fields? =
 
 A: Please, visits the following link to get the answer to your question:
-
-[http://wordpress.dwbooster.com/faq/calculated-fields-form#q312](http://wordpress.dwbooster.com/faq/calculated-fields-form#q312 "How turn off the up/down arrows in the number fields?")
+[Click Here](http://wordpress.dwbooster.com/faq/calculated-fields-form#q312 "FAQ Entry")
 
 = Q: How to protect the form in front the attacks of the spam bots? =
 
 A: Please, visit the following entry in the FAQ page of the plugin with the instructions to protect the form:
-
-[http://wordpress.dwbooster.com/faq/calculated-fields-form#q313](http://wordpress.dwbooster.com/faq/calculated-fields-form#q313 "How to avoid the attacks of the spam bots?")
+[Click Here](http://wordpress.dwbooster.com/faq/calculated-fields-form#q313 "FAQ Entry")
 
 == Screenshots ==
 
