@@ -4,7 +4,7 @@ Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,recurring payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf,language
 Requires at least: 3.0.5
 Tested up to: 4.3
-Stable tag: 1.0.68
+Stable tag: 1.0.69
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -701,6 +701,9 @@ A: Please, visit the following entry in the FAQ page of the plugin with the inst
 
 == Changelog ==
 
+= 1.0.69 =
+* Modifies the labels on Radio and Checkboxes fields.
+
 = 1.0.68 =
 * Modifies the code of some controls to make the execution more consistent.
 * Defines some filters and actions to allow the integration with third party plugins.
@@ -947,9 +950,7 @@ A: Please, visit the following entry in the FAQ page of the plugin with the inst
 
 == Upgrade Notice ==
 
-= 1.0.68 =
-* Modifies the code of some controls to make the execution more consistent.
-* Defines some filters and actions to allow the integration with third party plugins.
-* Adds a new add-on in the developer version of the plugin.
+= 1.0.69 =
+* Modifies the labels on Radio and Checkboxes fields.
 
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
