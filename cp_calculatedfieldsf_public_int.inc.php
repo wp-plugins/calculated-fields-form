@@ -13,10 +13,6 @@ if( function_exists( 'w3_instance' ) )
 		
 	}
 }
-
-wp_enqueue_style( 'cpcff_stylepublic', plugins_url('css/stylepublic.css', __FILE__), array(), 'pro' );
-wp_enqueue_style( 'cpcff_jquery_ui'  , plugins_url('css/cupertino/jquery-ui-1.8.20.custom.css', __FILE__), array(), 'pro' );
-
 ?>
 <link href="<?php echo plugins_url('css/stylepublic.css', __FILE__).'?ver=pro'; ?>" type="text/css" rel="stylesheet" />
 <link href="<?php echo plugins_url('css/cupertino/jquery-ui-1.8.20.custom.css', __FILE__).'?ver=pro'; ?>" type="text/css" rel="stylesheet" />
