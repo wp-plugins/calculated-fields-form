@@ -101,6 +101,7 @@ The plugin has two additional (commercial) versions: **Premium** and **Developer
 * Includes an add-on to integrate the forms with the SalesForce service(Beta Version).
 * Includes an add-on to post the submitted information by the forms to WebHooks URLs, allowing integrate the forms with services like Zapier. The Zapier service connects services as important and popular as Zoho CRM, Dropbox, Mailchimp, Evernote, Google Drive, Facebook, Twitter, and more than 300 services(Beta Version).
 * Includes an add-on to associate the information submitted with the users on website.
+* Includes an add-on to integrate the forms with Google reCAPTCHA, instead the captcha distributed with the plugin.
 
 To know the last updates, and tips about the use of the plugin, please visit our blog, press like in our Facebook page, or follow our Twitter:
 
@@ -330,6 +331,12 @@ The add-on allows posting the submitted information by the forms to WebHooks URL
 The add-on allows associate the submitted information with the users on website. Furthermore, the plugin allows define rules to restrict the access to the forms to: only registered users, specific roles, or specific users. The add-on adds a new shortcode to the plugin for listing the information submitted by user (it is possible inserting the new shortcode in the user profile), and assign to the users, permissions for editing the submitted information, or delete an entry. With the add-on it is possible limit the number of submissions to only one by form and user.
 
 [CLICK HERE for additional information ](http://wordpress.dwbooster.com/forms/calculated-fields-form#users-addon "Users add-on")
+
+= reCAPTCHA add-on (Beta Version) - Only available in the Developer version of the plugin =
+
+The add-on allows to protect the forms using the Google reCAPTCHA instead of the captcha distributed with the plugin. reCAPTCHA is more visual and intuitive than the traditional captcha.
+
+[CLICK HERE for additional information ](http://wordpress.dwbooster.com/forms/calculated-fields-form#recaptcha-addon "reCAPTCHA add-on")
 
 == Installation ==
 
