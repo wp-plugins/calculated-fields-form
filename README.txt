@@ -4,7 +4,7 @@ Donate link: http://wordpress.dwbooster.com/forms/calculated-fields-form
 Tags: form,contact form,calculated,calculator,form builder,quote calculator,forms,form editor,advanced forms,payment calculator,payment,recurring payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf,language
 Requires at least: 3.0.5
 Tested up to: 4.3
-Stable tag: 1.0.71
+Stable tag: 1.0.72
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -708,6 +708,9 @@ A: Please, visit the following entry in the FAQ page of the plugin with the inst
 
 == Changelog ==
 
+= 1.0.72 =
+* Modifies the loading of CSS files to fix an issue with multiple forms in a same page but with different templates.
+
 = 1.0.71 =
 * Removes the duplicate LINK tags in the public forms.
 * The developer version includes improves the performance of DS fields, and includes a "Currency DS" control.
@@ -964,8 +967,7 @@ A: Please, visit the following entry in the FAQ page of the plugin with the inst
 
 == Upgrade Notice ==
 
-= 1.0.71 =
-* Removes the duplicate LINK tags in the public forms.
-* The developer version includes improves the performance of DS fields, and includes a "Currency DS" control.
+= 1.0.72 =
+* Modifies the loading of CSS files to fix an issue with multiple forms in a same page but with different templates.
 
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support

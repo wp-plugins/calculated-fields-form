@@ -13,10 +13,10 @@ if( function_exists( 'w3_instance' ) )
 		
 	}
 }
-?>
-<link href="<?php echo plugins_url('css/stylepublic.css', __FILE__).'?ver=pro'; ?>" type="text/css" rel="stylesheet" />
-<link href="<?php echo plugins_url('css/cupertino/jquery-ui-1.8.20.custom.css', __FILE__).'?ver=pro'; ?>" type="text/css" rel="stylesheet" />
-<?php
+
+wp_enqueue_style( 'cpcff_stylepublic', plugins_url('css/stylepublic.css', __FILE__), array(), 'pro' );
+wp_enqueue_style( 'cpcff_jquery_ui'  , plugins_url('css/cupertino/jquery-ui-1.8.20.custom.css', __FILE__), array(), 'pro' );
+
 $form_data = cp_calculatedfieldsf_get_option( 'form_structure', CP_CALCULATEDFIELDSF_DEFAULT_form_structure, $id );
 if( !empty( $form_data ) )	
 {
@@ -25,7 +25,7 @@ if( !empty( $form_data ) )
 		$templatelist = cp_calculatedfieldsf_available_templates();
 		if( isset( $templatelist[ $form_data[ 1 ][ 0 ]->formtemplate ] ) )
 		{
-			wp_enqueue_style( 'cpcff_template_css',  $templatelist[ $form_data[ 1 ][ 0 ]->formtemplate ][ 'file' ], array(), 'pro' );
+			wp_enqueue_style( 'cpcff_template_css'.$form_data[ 1 ][ 0 ]->formtemplate,  $templatelist[ $form_data[ 1 ][ 0 ]->formtemplate ][ 'file' ], array(), 'pro' );
 			print '<link href="'.esc_attr( esc_url( $templatelist[ $form_data[ 1 ][ 0 ]->formtemplate ][ 'file' ] ) ).'?ver=pro" type="text/css" rel="stylesheet" />';
 			if( isset( $templatelist[ $form_data[ 1 ][ 0 ]->formtemplate ][ 'js' ] ) )
 			{
